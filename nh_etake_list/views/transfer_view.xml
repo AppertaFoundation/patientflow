@@ -20,8 +20,8 @@
             <field name="arch" type="xml">
                 <form string="NH eTake List Transfer Form View" version="7.0" create="0">
                     <header>
-                        <button name="request" string="Bed Requested"  type="object" attrs="{'invisible':[['state','!=','scheduled']]}"/>
-                        <button name="complete" string="Complete"  type="object" attrs="{'invisible':[['state','in',['scheduled','completed','cancelled']]]}"/>
+                        <button name="request" string="Bed Requested"  type="object" attrs="{'invisible':[['state','!=','new']]}"/>
+                        <button name="complete" string="Complete"  type="object" attrs="{'invisible':[['state','in',['new','completed','cancelled']]]}"/>
                     </header>
                     <sheet>
                         <group>
