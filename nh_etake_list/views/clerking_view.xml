@@ -1,0 +1,62 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_nh_etake_list_clerking_tree">
+            <field name="name">NH eTake List Clerking Tree View</field>
+            <field name="model">nh.etake_list.clerking</field>
+            <field name="arch" type="xml">
+                <tree string="NH eTake List Clerking Tree View" version="7.0" create="0">
+                    <field name="location_id"/>
+                    <field name="patient_id"/>
+                    <field name="hospital_number"/>
+                    <field name="date_started"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_nh_etake_list_clerking_form">
+            <field name="name">NH eTake List Clerking Form View</field>
+            <field name="model">nh.etake_list.clerking</field>
+            <field name="arch" type="xml">
+                <form string="NH eTake List Clerking Form View" version="7.0" create="0" edit="0">
+                    <header>
+                        <button name="start" string="Start Clerking"  type="object" attrs="{'invisible':[['state','!=','scheduled']]}"/>
+                        <button name="complete" string="Complete Clerking"  type="object" attrs="{'invisible':[['state','in',['scheduled','completed','cancelled']]]}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="location_id" readonly="1"/>
+                            <field name="patient_id" readonly="1"/>
+                            <field name="hospital_number" readonly="1"/>
+                            <field name="state"/>
+                            <field name="date_started"/>
+                            <field name="date_terminated"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_tobeclerked" >
+            <field name="name">Patients to be Clerked</field>
+            <field name="res_model">nh.etake_list.clerking</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('user_ids','in',uid)]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_nh_etake_list_clerking_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_view_clerking_tree">
+            <field eval="0" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_nh_etake_list_clerking_tree"/>
+            <field name="act_window_id" ref="action_show_tobeclerked"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_view_clerking_form">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_nh_etake_list_clerking_form"/>
+            <field name="act_window_id" ref="action_show_tobeclerked"/>
+        </record>
+    </data>
+</openerp>
