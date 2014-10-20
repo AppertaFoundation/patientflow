@@ -12,6 +12,10 @@ class nh_clinical_patient_clerking(orm.Model):
     _inherit = ['nh.activity.data']
     _description = "Patient Clerking"
 
+    _columns = {
+        'patient_id': fields.related('activity_id', 'patient_id', string='Patient', type='many2one', relation='nh.clinical.patient')
+    }
+
     def complete(self, cr, uid, activity_id, context=None):
         activity_pool = self.pool['nh.activity']
         res = super(nh_clinical_patient_clerking, self).complete(cr, uid, activity_id, context)
@@ -30,6 +34,11 @@ class nh_clinical_patient_review(orm.Model):
     _inherit = ['nh.activity.data']
     _description = "Patient Review"
 
+    _columns = {
+        'patient_id': fields.related('activity_id', 'patient_id', string='Patient', type='many2one', relation='nh.clinical.patient'),
+        'location_id': fields.many2one('nh.clinical.location', 'Patient reviewed in this location')
+    }
+
 
 class nh_clinical_doctor_task(orm.Model):
     """
@@ -39,3 +48,21 @@ class nh_clinical_doctor_task(orm.Model):
     _name = 'nh.clinical.doctor.task'
     _inherit = ['nh.activity.data']
     _description = "Doctor Task"
+
+    _columns = {
+        'patient_id': fields.related('activity_id', 'patient_id', string='Patient', type='many2one', relation='nh.clinical.patient')
+    }
+
+
+class nh_clinical_ptwr(orm.Model):
+    """
+    Represents PTWR tasks done by doctors.
+    * Usually handled by consultants.
+    """
+    _name = 'nh.clinical.ptwr'
+    _inherit = ['nh.activity.data']
+    _description = "PTWR"
+
+    _columns = {
+        'patient_id': fields.related('activity_id', 'patient_id', string='Patient', type='many2one', relation='nh.clinical.patient')
+    }
