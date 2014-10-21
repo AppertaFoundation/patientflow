@@ -1,0 +1,22 @@
+# -*- encoding: utf-8 -*-
+{
+    'name': 'NH Clinical Patient Flow Operations',
+    'version': '0.1',
+    'category': 'Clinical',
+    'license': 'AGPL-3',
+    'summary': '',
+    'description': """    """,
+    'author': 'Neova Health',
+    'website': 'http://www.neovahealth.co.uk/',
+    'depends': ['nh_clinical'],
+    'data': ['security/ir.model.access.csv',
+             'views/operation_views.xml'],
+    'demo': [],
+    'css': [],
+    'js': [],
+    'qweb': [],
+    'images': [],
+    'application': True,
+    'installable': True,
+    'active': False,
+}
