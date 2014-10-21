@@ -1,5 +1,20 @@
 <openerp>
     <data>
+        <record model="ir.ui.view" id="view_nh_etake_list_referral_search">
+            <field name="name">NH eTake List Referral Search View</field>
+            <field name="model">nh.etake_list.referral</field>
+            <field name="arch" type="xml">
+                <search string="NH eTake List Referral Search View">
+                    <field name="location_id"/>
+                    <field name="patient_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter name="group_by_state" string="State" domain="[]" context="{'group_by':'state'}" help="Group by State"/>
+                        <filter name="group_by_ward" string="Ward" domain="[]" context="{'group_by':'location_id'}" help="Group by Ward"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="view_nh_etake_list_referral_tree">
             <field name="name">NH eTake List Referral Tree View</field>
             <field name="model">nh.etake_list.referral</field>
@@ -10,6 +25,7 @@
                     <field name="patient_id" />
                     <field name="hospital_number" />
                     <field name="pos_id" />
+                    <field name="state" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -18,15 +34,47 @@
             <field name="name">NH eTake List Referral Form View</field>
             <field name="model">nh.etake_list.referral</field>
             <field name="arch" type="xml">
-                <form string="NH eTake List Referral Form View" version="7.0">
+                <form string="NH eTake List Referral Form View" version="7.0" create="0" delete="0">
                     <sheet>
                         <group>
                             <field name="location_id" domain="[['usage', '=', 'ward'], ['user_ids', 'in', uid]]"/>
                             <field name="patient_id" />
                             <field name="hospital_number" />
+                            <field name="state"/>
                         </group>
                     </sheet>
                 </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_nh_etake_list_referral_kanban">
+            <field name="name">NH eTake List Referral Kanban View</field>
+            <field name="model">nh.etake_list.referral</field>
+            <field name="arch" type="xml">
+                <kanban edit="false" quick_create="false" create="false">
+                    <field name="location_id"/>
+                    <field name="patient_id"/>
+                    <field name="hospital_number"/>
+                    <field name="pos_id" />
+                    <field name="state"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div><field name="location_id"/>(<field name="pos_id"/>)</div>
+                                    <div><b><field name="patient_id"/></b>
+                                    </div>
+                                    <t t-if="record.hospital_number.raw_value != ''">
+                                        <div>Hospital Number: <field name="hospital_number"/></div>
+                                    </t>
+                                    <t t-if="record.nhs_number.raw_value != ''">
+                                        <div>NHS Number: <field name="nhs_number"/></div>
+                                    </t>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
             </field>
         </record>
 
@@ -34,9 +82,19 @@
             <field name="name">Patient Referrals</field>
             <field name="res_model">nh.etake_list.referral</field>
             <field name="view_type">form</field>
-            <field name="domain">[('user_ids','in',uid)]</field>
+            <field name="domain">[('user_ids','in',uid),('state','not in',['To be Clerked','Done'])]</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_nh_etake_list_referral_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_referrals_kanban" >
+            <field name="name">Referral Board</field>
+            <field name="res_model">nh.etake_list.referral</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('user_ids','in',uid),('state','!=','Done')]</field>
+            <field name="context">{'search_default_group_by_state':1}</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="view_id" ref="view_nh_etake_list_referral_kanban"/>
         </record>
 
         <record model="ir.actions.act_window.view" id="act_view_referral_tree">
@@ -50,6 +108,18 @@
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_nh_etake_list_referral_form"/>
             <field name="act_window_id" ref="action_show_referrals"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_view_referral_kanban">
+            <field eval="0" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_nh_etake_list_referral_kanban"/>
+            <field name="act_window_id" ref="action_show_referrals_kanban"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_view_referral_form2">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_nh_etake_list_referral_form"/>
+            <field name="act_window_id" ref="action_show_referrals_kanban"/>
         </record>
     </data>
 </openerp>
