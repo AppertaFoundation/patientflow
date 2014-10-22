@@ -15,6 +15,7 @@
              'views/clerking_view.xml',
              'views/review_view.xml',
              'views/transfer_view.xml',
+             'wizard/doctor_task_wizard_view.xml',
              'views/menuitem.xml'],
     'demo': [],
     'css': [],

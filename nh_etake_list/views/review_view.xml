@@ -1,5 +1,20 @@
 <openerp>
     <data>
+        <record model="ir.ui.view" id="view_nh_etake_list_review_search">
+            <field name="name">NH eTake List Review Search View</field>
+            <field name="model">nh.etake_list.review</field>
+            <field name="arch" type="xml">
+                <search string="NH eTake List Review Search View">
+                    <field name="location_id"/>
+                    <field name="patient_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter name="group_by_state" string="State" domain="[]" context="{'group_by':'state'}" help="Group by State"/>
+                        <filter name="group_by_ward" string="Ward" domain="[]" context="{'group_by':'location_id'}" help="Group by Ward"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
         <record model="ir.ui.view" id="view_nh_etake_list_review_tree">
             <field name="name">NH eTake List Review Tree View</field>
             <field name="model">nh.etake_list.review</field>
@@ -16,21 +31,76 @@
             <field name="name">NH eTake List Review Form View</field>
             <field name="model">nh.etake_list.review</field>
             <field name="arch" type="xml">
-                <form string="NH eTake List Review Form View" version="7.0" create="0" edit="0">
+                <form string="NH eTake List Review Form View" version="7.0" create="0">
                     <header>
-                        <button name="transfer" string="Complete: to be Transferred"  type="object" attrs="{'invisible':[['state','in',['completed','cancelled']]]}"/>
-                        <button name="discharge" string="Complete: to be Discharged"  type="object" attrs="{'invisible':[['state','in',['completed','cancelled']]]}"/>
+                        <button name="transfer" string="Complete: to be Transferred"  type="object" attrs="{'invisible':[['state','!=','To be Reviewed']]}"/>
+                        <button name="discharge" string="Complete: to be Discharged"  type="object" attrs="{'invisible':[['state','!=','To be Reviewed']]}"/>
+                        <button name="create_task" string="Create Task"  type="object" attrs="{'invisible':[['state','!=','To be Reviewed']]}"/>
+                        <button name="ptwr_complete" string="Complete"  type="object" attrs="{'invisible':[['state','!=','PTWR']]}"/>
                     </header>
                     <sheet>
                         <group>
                             <field name="location_id" readonly="1"/>
                             <field name="patient_id" readonly="1"/>
                             <field name="hospital_number" readonly="1"/>
-                            <field name="state"/>
-                            <field name="date_terminated"/>
+                            <field name="state" readonly="1"/>
+                            <field name="date_terminated" readonly="1"/>
                         </group>
+                        <label for="diagnosis" string="Diagnosis:"/>
+                        <field name="diagnosis" label="Diagnosis"/>
+                        <label for="plan" string="Plan:"/>
+                        <field name="plan" label="Plan"/>
+                        <notebook>
+                            <page string="Tasks">
+                                <field name="doctor_task_ids">
+                                    <tree edit="1" create="0" delete="0" editable="bottom">
+                                        <field name="summary"/>
+                                        <field name="state" readonly="1"/>
+                                        <field name="date_terminated" readonly="1"/>
+                                        <button name="complete" type="object" icon="gtk-cancel" string="Complete"/>
+                                    </tree>
+                                    <form>
+                                        <field name="summary"/>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_nh_etake_list_review_kanban">
+            <field name="name">NH eTake List Review Kanban View</field>
+            <field name="model">nh.etake_list.review</field>
+            <field name="arch" type="xml">
+                <kanban edit="false" quick_create="false" create="false">
+                    <field name="location_id"/>
+                    <field name="patient_id"/>
+                    <field name="hospital_number"/>
+                    <field name="diagnosis"/>
+                    <field name="state"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div><field name="location_id"/></div>
+                                    <div><b><field name="patient_id"/></b>
+                                    </div>
+                                    <t t-if="record.diagnosis.raw_value != ''">
+                                        <div><field name="diagnosis"/></div>
+                                    </t>
+                                    <t t-if="record.hospital_number.raw_value != ''">
+                                        <div>Hospital Number: <field name="hospital_number"/></div>
+                                    </t>
+                                    <t t-if="record.nhs_number.raw_value != ''">
+                                        <div>NHS Number: <field name="nhs_number"/></div>
+                                    </t>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
             </field>
         </record>
 
@@ -38,9 +108,28 @@
             <field name="name">Patients to be Reviewed</field>
             <field name="res_model">nh.etake_list.review</field>
             <field name="view_type">form</field>
-            <field name="domain">[('user_ids','in',uid)]</field>
+            <field name="domain">[('user_ids','in',uid),('state','=','To be Reviewed')]</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_nh_etake_list_review_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_ptwr" >
+            <field name="name">PTWR Patients</field>
+            <field name="res_model">nh.etake_list.review</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('user_ids','in',uid),('state','=','PTWR')]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_nh_etake_list_review_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_review_kanban" >
+            <field name="name">Review Board</field>
+            <field name="res_model">nh.etake_list.review</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('user_ids','in',uid),('state','!=','Other')]</field>
+            <field name="context">{'search_default_group_by_state':1}</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="view_id" ref="view_nh_etake_list_review_kanban"/>
         </record>
 
         <record model="ir.actions.act_window.view" id="act_view_review_tree">
@@ -54,6 +143,18 @@
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_nh_etake_list_review_form"/>
             <field name="act_window_id" ref="action_show_tobereviewed"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_view_review_kanban">
+            <field eval="0" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_nh_etake_list_review_kanban"/>
+            <field name="act_window_id" ref="action_show_review_kanban"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_view_review_form2">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_nh_etake_list_review_form"/>
+            <field name="act_window_id" ref="action_show_review_kanban"/>
         </record>
     </data>
 </openerp>
