@@ -105,7 +105,7 @@ class nh_etake_list_clerking(orm.Model):
     def start(self, cr, uid, ids, context=None):
         activity_pool = self.pool['nh.activity']
         for clerking in self.browse(cr, uid, ids, context=context):
-            if clerking.state != 'scheduled':
+            if clerking.state != 'To be Clerked':
                 raise osv.except_osv('Error!', 'This clerking has already started!')
             activity_pool.start(cr, uid, clerking.activity_id.id, context=context)
             activity_pool.write(cr, uid, clerking.activity_id.id, {'user_id': uid}, context=context)
@@ -128,9 +128,7 @@ class nh_etake_list_clerking(orm.Model):
     def complete(self, cr, uid, ids, context=None):
         activity_pool = self.pool['nh.activity']
         for clerking in self.browse(cr, uid, ids, context=context):
-            if clerking.state != 'started':
+            if clerking.state not in ['To be Clerked', 'Clerking']:
                 raise osv.except_osv('Error!', 'This clerking has already been completed!')
-            if clerking.user_id.id != uid:
-                raise osv.except_osv('Error!', 'You cannot complete this clerking, someone else started it!')
             activity_pool.complete(cr, uid, clerking.activity_id.id, context=context)
         return True
