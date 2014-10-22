@@ -36,6 +36,7 @@ class nh_etake_list_referral(orm.Model):
                         referral_activity.id as activity_id,
                         referral_activity.pos_id as pos_id,
                         case
+                            when spell_activity.state = 'completed' or spell_activity.state = 'cancelled' then 'Done'
                             when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'Done'
                             when clerking_activity.state is not null and clerking_activity.state != 'scheduled' then 'Done'
                             when referral_activity.state = 'scheduled' then 'Referral'
