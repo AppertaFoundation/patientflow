@@ -36,6 +36,7 @@ class nh_etake_list_referral(orm.Model):
                         referral_activity.id as activity_id,
                         referral_activity.pos_id as pos_id,
                         case
+                            when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'Done'
                             when clerking_activity.state is not null and clerking_activity.state != 'scheduled' then 'Done'
                             when referral_activity.state = 'scheduled' then 'Referral'
                             else 'To be Clerked'
@@ -47,7 +48,8 @@ class nh_etake_list_referral(orm.Model):
                     from nh_clinical_spell spell
                     inner join nh_activity spell_activity on spell_activity.id = spell.activity_id
                     inner join nh_clinical_patient patient on spell.patient_id = patient.id
-                    inner join nh_activity referral_activity on referral_activity.parent_id = spell_activity.id and referral_activity.data_model = 'nh.clinical.patient.referral'
+                    inner join nh_activity referral_activity on referral_activity.parent_id = spell_activity.id and referral_activity.data_model = 'nh.clinical.patient.referral' and referral_activity.state in ('scheduled','completed')
+                    left join nh_activity discharge_activity on discharge_activity.parent_id = spell_activity.id and discharge_activity.data_model = 'nh.clinical.adt.patient.discharge'
                     left join nh_activity clerking_activity on clerking_activity.parent_id = spell_activity.id and clerking_activity.data_model = 'nh.clinical.patient.clerking'
                     left join nh_clinical_location location on location.id = spell.location_id
                 )
