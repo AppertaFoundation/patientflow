@@ -123,7 +123,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="action_show_review_kanban" >
-            <field name="name">Review Board</field>
+            <field name="name">My Patients</field>
             <field name="res_model">nh.etake_list.review</field>
             <field name="view_type">form</field>
             <field name="domain">[('user_ids','in',uid),('state','!=','Other')]</field>

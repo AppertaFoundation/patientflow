@@ -116,7 +116,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="action_show_clerking_kanban" >
-            <field name="name">Clerking Board</field>
+            <field name="name">My Patients</field>
             <field name="res_model">nh.etake_list.clerking</field>
             <field name="view_type">form</field>
             <field name="domain">[('user_ids','in',uid),('state','!=','Other')]</field>

@@ -12,40 +12,47 @@
                   id="menu_nh_etake_list_left_referral_board"
                   sequence="0"
                   parent="menu_nh_take_list_left_patient"
+                  action="action_show_overview_kanban"
+                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_receptionist,nh_clinical.group_nhc_bed_manager,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+
+        <menuitem name="My Patients"
+                  id="menu_nh_etake_list_left_my_patients"
+                  sequence="1"
+                  parent="menu_nh_take_list_left_patient"
                   action="action_show_referrals_kanban"
                   groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_receptionist,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Patient Referrals"
                   id="menu_nh_etake_list_left_referrals"
-                  sequence="1"
+                  sequence="2"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_referrals"
                   groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_receptionist,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
 
-        <menuitem name="Clerking Board"
+        <menuitem name="My Patients"
                   id="menu_nh_etake_list_left_clerking_board"
-                  sequence="2"
+                  sequence="3"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_clerking_kanban"
                   groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="To be Clerked"
                   id="menu_nh_etake_list_left_tobeclerked"
-                  sequence="3"
+                  sequence="4"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_tobeclerked"
                   groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
 
-        <menuitem name="Review Board"
+        <menuitem name="My Patients"
                   id="menu_nh_etake_list_left_review_board"
-                  sequence="4"
+                  sequence="5"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_review_kanban"
                   groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="To be Reviewed"
                   id="menu_nh_etake_list_left_tobereviewed"
-                  sequence="5"
+                  sequence="6"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_tobereviewed"
                   groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
