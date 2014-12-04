@@ -14,13 +14,13 @@ class nh_etake_list_overview(orm.Model):
     _table = "nh_etake_list_overview"
 
     _state_selection = [['To be Clerked', 'To be Clerked'],
-                        ['To be Reviewed', 'To be Reviewed'],
-                        ['PTWR', 'PTWR'],
+                        ['Senior Review', 'Senior Review'],
+                        ['Consultant Review', 'Consultant Review'],
                         ['Discharged', 'Discharged'],
                         ['To be Discharged', 'To be Discharged'],
                         ['Other', 'Other'],
                         ['Referral', 'Referral'],
-                        ['Clerking', 'Clerking'],
+                        ['Clerking in Process', 'Clerking in Process'],
                         ['Done', 'Done']]
     _columns = {
         'activity_id': fields.many2one('nh.activity', 'Activity', required=1, ondelete='restrict'),
@@ -47,9 +47,9 @@ class nh_etake_list_overview(orm.Model):
                             when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'To be Discharged'
                             when referral_activity.state = 'scheduled' then 'Referral'
                             when clerking_activity.state = 'scheduled' then 'To be Clerked'
-                            when clerking_activity.state = 'started' then 'Clerking'
-                            when ptwr_activity.state is not null then 'PTWR'
-                            when review_activity.state = 'scheduled' then 'To be Reviewed'
+                            when clerking_activity.state = 'started' then 'Clerking in Process'
+                            when ptwr_activity.state is not null then 'Consultant Review'
+                            when review_activity.state = 'scheduled' then 'Senior Review'
                             else 'Other'
                         end as state,
                         spell.patient_id as patient_id,
@@ -75,9 +75,9 @@ class nh_etake_list_overview(orm.Model):
         res = [
             ['Referral', 'Referral'],
             ['To be Clerked', 'To be Clerked'],
-            ['Clerking', 'Clerking'],
-            ['To be Reviewed', 'To be Reviewed'],
-            ['PTWR', 'PTWR'],
+            ['Clerking in Process', 'Clerking in Process'],
+            ['Senior Review', 'Senior Review'],
+            ['Consultant Review', 'Consultant Review'],
             ['To be Discharged', 'To be Discharged'],
             ['Discharged', 'Discharged']
         ]
