@@ -1,0 +1,31 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_nhc_daily_shift_tree">
+            <field name="name">NHC Daily Shift Tree</field>
+            <field name="model">nh.clinical.daily.shift</field>
+            <field name="arch" type="xml">
+                <tree string="Daily Shifts" version="7.0" editable="inline">
+                    <field name="start_time_string"/>
+                    <field name="end_time_string"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_nhc_daily_shift_form">
+            <field name="name">NHC Daily Shift Form</field>
+            <field name="model">nh.clinical.daily.shift</field>
+            <field name="arch" type="xml">
+                <form string="Daily Shift" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="start_time_string"/>
+                            <field name="end_time_string"/>
+                            <field name="duration"/>
+                            <field name="location_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
