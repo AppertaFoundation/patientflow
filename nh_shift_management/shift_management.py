@@ -9,8 +9,8 @@ from openerp import SUPERUSER_ID
 _logger = logging.getLogger(__name__)
 
 
-class nh_clinical_daily_shift(orm.Model):
-    _name = 'nh.clinical.daily.shift'
+class nh_clinical_shift_pattern(orm.Model):
+    _name = 'nh.clinical.shift.pattern'
     _description = "Location daily shift"
 
     _columns = {
@@ -21,6 +21,52 @@ class nh_clinical_daily_shift(orm.Model):
         'duration': fields.integer('Duration (minutes)'),
         'location_id': fields.many2one('nh.clinical.location', 'Location', required=True)
     }
+
+    def distance(self, cr, uid, shift_id, datetime, context=None):
+        """Returns the 'distance' in minutes from the datetime since the last shift"""
+        if not isinstance(datetime, dt):
+            raise osv.except_osv('Error!', 'datetime expected, received %s' % type(datetime))
+        shift = self.browse(cr, uid, shift_id, context=context)
+        start = dt.strptime(shift.start_time, dtf)
+        end = dt.strptime(shift.end_time, dtf)
+        if start.hour == end.hour:
+            if start.minute == end.minute:
+                return 0
+            else:
+                if datetime.hour < end.hour:
+                    return 24*60 - (end.hour*60 + end.minute) + datetime.hour*60 + datetime.minute
+                elif datetime.hour > end.hour:
+                    return datetime.hour*60 + datetime.minute - (end.hour*60 + end.minute)
+                elif end.minute >= datetime.minute >= start.minute:
+                    return 0
+                elif datetime.minute < end.minute:
+                    return 24*60 - (end.hour*60 + end.minute) + datetime.hour*60 + datetime.minute
+                return datetime.minute - end.minute
+        elif end.hour > start.hour:
+            if end.hour >= datetime.hour >= start.hour:
+                if datetime.hour == start.hour:
+                    return 0 if datetime.minute >= start.minute else 24*60 - (end.hour*60 + end.minute) + datetime.hour*60 + datetime.minute
+                elif datetime.hour == end.hour:
+                    return 0 if datetime.minute <= end.minute else datetime.minute - end.minute
+                else:
+                    return 0
+            if datetime.hour < end.hour:
+                return 24*60 - (end.hour*60 + end.minute) + datetime.hour*60 + datetime.minute
+            else:
+                return datetime.hour*60 + datetime.minute - (end.hour*60 + end.minute)
+        else:
+            if datetime.hour >= start.hour or datetime.hour <= end.hour:
+                if datetime.hour == start.hour:
+                    return 0 if datetime.minute >= start.minute else 24*60 - (end.hour*60 + end.minute) + datetime.hour*60 + datetime.minute
+                elif datetime.hour == end.hour:
+                    return 0 if datetime.minute <= end.minute else datetime.minute - end.minute
+                else:
+                    return 0
+            if datetime.hour < end.hour:
+                return 24*60 - (end.hour*60 + end.minute) + datetime.hour*60 + datetime.minute
+            else:
+                return datetime.hour*60 + datetime.minute - (end.hour*60 + end.minute)
+
 
     def generate_shift(self, cr, uid, data, context=None):
         """ Creates a new shift and returns the new ID
@@ -67,12 +113,12 @@ class nh_clinical_daily_shift(orm.Model):
         start_date = dt.strptime(strdate, dtf)
         end_date = start_date + td(minutes=duration)
         location = self.pool['nh.clinical.location'].browse(cr, uid, data['location_id'], context=context)
-        for ds in location.daily_shift_ids:
+        for ds in location.shift_pattern_ids:
             if (start_date >= dt.strptime(ds.start_time, dtf) and start_date < dt.strptime(ds.end_time, dtf)) or (end_date > dt.strptime(ds.start_time, dtf) and end_date <= dt.strptime(ds.end_time, dtf)):
                 raise osv.except_osv('Error!', 'Cannot add overlapping shifts')
             if start_date <= dt.strptime(ds.start_time, dtf) and end_date >= dt.strptime(ds.end_time, dtf):
                 raise osv.except_osv('Error!', 'Cannot add overlapping shifts')
-        return super(nh_clinical_daily_shift, self).create(cr, uid, {
+        return super(nh_clinical_shift_pattern, self).create(cr, uid, {
             'start_time': start_date,
             'start_time_string': data['start_time_string'],
             'end_time': end_date, 
@@ -89,5 +135,15 @@ class nh_clinical_location(orm.Model):
     _inherit = 'nh.clinical.location'
 
     _columns = {
-        'daily_shift_ids': fields.one2many('nh.clinical.daily.shift', 'location_id', 'Daily Shifts')
+        'shift_pattern_ids': fields.one2many('nh.clinical.shift.pattern', 'location_id', 'Daily Shifts')
+    }
+
+
+class nh_clinical_shift(orm.Model):
+    _name = 'nh.clinical.shift'
+
+    _columns = {
+        'start_time': fields.datetime('Start Time'),
+        'end_time': fields.datetime('End Time'),
+        'location_id': fields.many2one('nh.clinical.location', 'Location')
     }
