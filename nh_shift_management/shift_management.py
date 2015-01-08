@@ -14,9 +14,9 @@ class nh_clinical_shift_pattern(orm.Model):
     _description = "Location daily shift"
 
     _columns = {
-        'start_time': fields.datetime('Start Time'),
+        'start_time': fields.datetime('Start Time'),  # date 2000-01-01 stored as arbitrary date (ignored)
         'start_time_string': fields.char('Start Time', size=5, required=True),
-        'end_time': fields.datetime('End Time'),
+        'end_time': fields.datetime('End Time'),  # date 2000-01-0x stored as arbitrary date (ignored)
         'end_time_string': fields.char('End Time', size=5, required=True),
         'duration': fields.integer('Duration (minutes)'),
         'location_id': fields.many2one('nh.clinical.location', 'Location', required=True),
@@ -28,7 +28,7 @@ class nh_clinical_shift_pattern(orm.Model):
     }
 
     def distance(self, cr, uid, shift_id, datetime, context=None):
-        """Returns the 'distance' in minutes from the datetime since the last shift"""
+        """Returns the 'distance' in minutes from the datetime since the shift"""
         if not isinstance(datetime, dt):
             raise osv.except_osv('Error!', 'datetime expected, received %s' % type(datetime))
         shift = self.browse(cr, uid, shift_id, context=context)
