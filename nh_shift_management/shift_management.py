@@ -297,6 +297,12 @@ class nh_clinical_shift(orm.Model):
         }, context=context)
         return res
 
+    def generate_all_shifts(self, cr, uid, context=None):
+        location_pool = self.pool['nh.clinical.location']
+        location_ids = location_pool.search(cr, uid, [['usage', '=', 'ward']], context=None)
+        [self.generate_shifts(cr, uid, lid, context=context) for lid in location_ids]
+        return True
+
 
 class nh_clinical_location(orm.Model):
     _inherit = 'nh.clinical.location'
