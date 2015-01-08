@@ -158,12 +158,19 @@ class nh_clinical_shift_pattern(orm.Model):
 
 class nh_clinical_shift(orm.Model):
     _name = 'nh.clinical.shift'
+    
+    _positions = [['0', 'Next'],
+                  ['1', 'Current'],
+                  ['2', 'Last'],
+                  ['3', 'Previous'],
+                  ['4', 'HistoricLog']]
 
     _columns = {
         'start': fields.datetime('Start Date Time', required=True),
         'end': fields.datetime('End Date Time', required=True),
         'pattern_id': fields.many2one('nh.clinical.shift.pattern', 'Shift Pattern', required=True),
-        'location_id': fields.related('pattern_id', 'location_id', type='many2one', obj='nh.clinical.location', string='Location')
+        'location_id': fields.related('pattern_id', 'location_id', type='many2one', obj='nh.clinical.location', string='Location'),
+        'position': fields.selection(_positions, 'Position')
     }
 
     def create(self, cr, uid, vals, context=None):
@@ -187,7 +194,10 @@ class nh_clinical_shift(orm.Model):
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
-        return True
+        if 'position' not in vals:
+            return True
+        else:
+            return super(nh_clinical_shift, self).write(cr, uid, ids, {'position': vals['position']}, context=context)
 
     def current_shift(self, cr, uid, location_id, context=None):
         shift_ids = self.search(cr, uid, [
@@ -258,7 +268,8 @@ class nh_clinical_shift(orm.Model):
             res['current'] = self.create(cr, uid, {
                 'start': date_start.strftime(dtf),
                 'end': date_end.strftime(dtf),
-                'pattern_id': pattern.id
+                'pattern_id': pattern.id,
+                'position': '1'
             }, context=context)
         next_shift = self.next_shift(cr, uid, location_id, context=context)
         if next_shift:
@@ -293,14 +304,40 @@ class nh_clinical_shift(orm.Model):
         res['next'] = self.create(cr, uid, {
             'start': date_start.strftime(dtf),
             'end': date_end.strftime(dtf),
-            'pattern_id': pattern.id
+            'pattern_id': pattern.id,
+            'position': '0'
         }, context=context)
         return res
+    
+    def update_shift_positions(self, cr, uid, location_id, context=None):
+        next_shift_ids = self.search(cr, uid, [['position', '=', '0'], ['location_id', '=', location_id]], context=context)
+        next_shift_id = self.next_shift(cr, uid, location_id, context=context)
+        if next_shift_id and next_shift_id not in next_shift_ids:
+            self.write(cr, uid, next_shift_id, {'position': '0'}, context=context)
+        current_shift_ids = self.search(cr, uid, [['position', '=', '1'], ['location_id', '=', location_id]], context=context)
+        current_shift_id = self.current_shift(cr, uid, location_id, context=context)
+        if current_shift_id and current_shift_id not in current_shift_ids:
+            self.write(cr, uid, current_shift_id, {'position': '1'}, context=context)
+        last_shift_ids = self.search(cr, uid, [['position', '=', '2'], ['location_id', '=', location_id]], context=context)
+        last_shift_id = self.last_shift(cr, uid, location_id, context=context)
+        if last_shift_id and last_shift_id not in last_shift_ids:
+            self.write(cr, uid, last_shift_id, {'position': '2'}, context=context)
+        previous_shift_ids = self.search(cr, uid, [['position', '=', '3'], ['location_id', '=', location_id]], context=context)
+        previous_shift_id = self.previous_shift(cr, uid, location_id, context=context)
+        if previous_shift_id and previous_shift_id not in previous_shift_ids:
+            self.write(cr, uid, previous_shift_id, {'position': '3'}, context=context)
+        shift_ids = self.search(cr, uid, [['location_id', '=', location_id]], context=context)
+        log_ids = self.search(cr, uid, [['position', '=', '4'], ['location_id', '=', location_id]], context=context)
+        remove_ids = [next_shift_id, current_shift_id, last_shift_id, previous_shift_id] + log_ids
+        [shift_ids.remove(rid) for rid in remove_ids if rid]
+        self.write(cr, uid, shift_ids, {'position': '4'}, context=context)
+        return True
 
     def generate_all_shifts(self, cr, uid, context=None):
         location_pool = self.pool['nh.clinical.location']
         location_ids = location_pool.search(cr, uid, [['usage', '=', 'ward']], context=None)
         [self.generate_shifts(cr, uid, lid, context=context) for lid in location_ids]
+        [self.update_shift_positions(cr, uid, lid, context=context) for lid in location_ids]
         return True
 
 
