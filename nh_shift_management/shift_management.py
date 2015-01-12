@@ -71,6 +71,40 @@ class nh_clinical_shift_pattern(orm.Model):
                 return 24*60 - (end.hour*60 + end.minute) + datetime.hour*60 + datetime.minute
             else:
                 return datetime.hour*60 + datetime.minute - (end.hour*60 + end.minute)
+
+    def closest_pattern(self, cr, uid, location_id, context=None):
+        diff = 1440
+        result = False
+        location = self.pool['nh.clinical.location'].browse(cr, uid, location_id, context=context)
+        if not location:
+            raise osv.except_osv("Error!", "Location not found")
+        for shift_pattern in location.shift_pattern_ids:
+            if not result:
+                result = shift_pattern.id
+                diff = self.distance(cr, uid, shift_pattern.id, dt.now(), context=context)
+                continue
+            distance = self.distance(cr, uid, shift_pattern.id, dt.now(), context=context)
+            if distance < diff:
+                diff = distance
+                result = shift_pattern.id
+        return result
+
+    def next_pattern(self, cr, uid, location_id, context=None):
+        diff = 0
+        result = False
+        location = self.pool['nh.clinical.location'].browse(cr, uid, location_id, context=context)
+        if not location:
+            raise osv.except_osv("Error!", "Location not found")
+        for shift_pattern in location.shift_pattern_ids:
+            if not result:
+                result = shift_pattern.id
+                diff = self.distance(cr, uid, shift_pattern.id, dt.now(), context=context)
+                continue
+            distance = self.distance(cr, uid, shift_pattern.id, dt.now(), context=context)
+            if distance > diff:
+                diff = distance
+                result = shift_pattern.id
+        return result
             
     def check_values(self, cr, uid, data, context=None):
         data_keys = ['start_time_string', 'end_time_string', 'location_id']
@@ -240,6 +274,29 @@ class nh_clinical_shift(orm.Model):
         else:
             return shift_ids[1]
 
+    def create_from_pattern(self, cr, uid, pattern_id, position, context=None):
+        pattern_pool = self.pool['nh.clinical.shift.pattern']
+        pattern = pattern_pool.browse(cr, uid, pattern_id, context=context)
+        if not pattern:
+            raise osv.except_osv('Error!', 'Shift pattern not found!')
+        now = dt.now()
+        pattern_start = dt.strptime(pattern.start_time, dtf)
+        pattern_end = dt.strptime(pattern.end_time, dtf)
+        date_start = dt(year=now.year, month=now.month, day=now.day, hour=pattern_start.hour, minute=pattern_start.minute)
+        date_end = dt(year=now.year, month=now.month, day=now.day, hour=pattern_end.hour, minute=pattern_end.minute)
+        if position == '0':
+            if now > date_start:
+                date_start = date_start + td(days=1)
+                date_end = date_end + td(days=1)
+        if date_end < date_start:
+            date_end = date_end + td(days=1)
+        return self.create(cr, uid, {
+            'start': date_start.strftime(dtf),
+            'end': date_end.strftime(dtf),
+            'pattern_id': pattern.id,
+            'position': position
+        }, context=context)
+
     def generate_shifts(self, cr, uid, location_id, context=None):
         res = {}
         shift_pattern_pool = self.pool['nh.clinical.shift.pattern']
@@ -247,89 +304,38 @@ class nh_clinical_shift(orm.Model):
         if not location.shift_pattern_ids:
             return False
         if not self.current_shift(cr, uid, location_id, context=context):
-            diff = 1440
-            pattern = False
-            for shift_pattern in location.shift_pattern_ids:
-                if not pattern:
-                    pattern = shift_pattern
-                    diff = shift_pattern_pool.distance(cr, uid, shift_pattern.id, dt.now(), context=context)
-                    continue
-                distance = shift_pattern_pool.distance(cr, uid, shift_pattern.id, dt.now(), context=context)
-                if distance < diff:
-                    diff = distance
-                    pattern = shift_pattern
-            now = dt.now()
-            pattern_start = dt.strptime(pattern.start_time, dtf)
-            pattern_end = dt.strptime(pattern.end_time, dtf)
-            date_start = dt(year=now.year, month=now.month, day=now.day, hour=pattern_start.hour, minute=pattern_start.minute)
-            date_end = dt(year=now.year, month=now.month, day=now.day, hour=pattern_end.hour, minute=pattern_end.minute)
-            if date_end < date_start:
-                date_end = date_end + td(days=1)
-            res['current'] = self.create(cr, uid, {
-                'start': date_start.strftime(dtf),
-                'end': date_end.strftime(dtf),
-                'pattern_id': pattern.id,
-                'position': '1'
-            }, context=context)
+            pattern_id = shift_pattern_pool.closest_pattern(cr, uid, location.id, context=context)
+            res['current'] = self.create_from_pattern(cr, uid, pattern_id, '1', context=context)
         next_shift = self.next_shift(cr, uid, location_id, context=context)
         if next_shift:
             next_shift_pattern_id = self.browse(cr, uid, next_shift, context=context).pattern_id.id
         else:
             next_shift_pattern_id = False
-        diff = 0
-        pattern = False
-        for shift_pattern in location.shift_pattern_ids:
-            if not pattern:
-                pattern = shift_pattern
-                diff = shift_pattern_pool.distance(cr, uid, shift_pattern.id, dt.now(), context=context)
-                continue
-            distance = shift_pattern_pool.distance(cr, uid, shift_pattern.id, dt.now(), context=context)
-            if distance > diff:
-                diff = distance
-                pattern = shift_pattern
-        if next_shift and next_shift_pattern_id != pattern.id:
+        pattern_id = shift_pattern_pool.next_pattern(cr, uid, location.id, context=context)
+        if next_shift and next_shift_pattern_id != pattern_id:
             self.unlink(cr, uid, next_shift, context=context)
-        elif next_shift and next_shift_pattern_id == pattern.id:
+        elif next_shift and next_shift_pattern_id == pattern_id:
             return res
-        now = dt.now()
-        pattern_start = dt.strptime(pattern.start_time, dtf)
-        pattern_end = dt.strptime(pattern.end_time, dtf)
-        date_start = dt(year=now.year, month=now.month, day=now.day, hour=pattern_start.hour, minute=pattern_start.minute)
-        date_end = dt(year=now.year, month=now.month, day=now.day, hour=pattern_end.hour, minute=pattern_end.minute)
-        if now > date_start:
-            date_start = date_start + td(days=1)
-            date_end = date_end + td(days=1)
-        if date_end < date_start:
-            date_end = date_end + td(days=1)
-        res['next'] = self.create(cr, uid, {
-            'start': date_start.strftime(dtf),
-            'end': date_end.strftime(dtf),
-            'pattern_id': pattern.id,
-            'position': '0'
-        }, context=context)
+        res['next'] = self.create_from_pattern(cr, uid, pattern_id, '0', context=context)
         return res
     
     def update_shift_positions(self, cr, uid, location_id, context=None):
-        next_shift_ids = self.search(cr, uid, [['position', '=', '0'], ['location_id', '=', location_id]], context=context)
-        next_shift_id = self.next_shift(cr, uid, location_id, context=context)
-        if next_shift_id and next_shift_id not in next_shift_ids:
-            self.write(cr, uid, next_shift_id, {'position': '0'}, context=context)
-        current_shift_ids = self.search(cr, uid, [['position', '=', '1'], ['location_id', '=', location_id]], context=context)
-        current_shift_id = self.current_shift(cr, uid, location_id, context=context)
-        if current_shift_id and current_shift_id not in current_shift_ids:
-            self.write(cr, uid, current_shift_id, {'position': '1'}, context=context)
-        last_shift_ids = self.search(cr, uid, [['position', '=', '2'], ['location_id', '=', location_id]], context=context)
-        last_shift_id = self.last_shift(cr, uid, location_id, context=context)
-        if last_shift_id and last_shift_id not in last_shift_ids:
-            self.write(cr, uid, last_shift_id, {'position': '2'}, context=context)
-        previous_shift_ids = self.search(cr, uid, [['position', '=', '3'], ['location_id', '=', location_id]], context=context)
-        previous_shift_id = self.previous_shift(cr, uid, location_id, context=context)
-        if previous_shift_id and previous_shift_id not in previous_shift_ids:
-            self.write(cr, uid, previous_shift_id, {'position': '3'}, context=context)
+        position_shift_dict = {
+            '0': self.next_shift,
+            '1': self.current_shift,
+            '2': self.next_shift,
+            '3': self.previous_shift,
+        }
+        remove_ids = []
+        for position in position_shift_dict.keys():
+            shift_ids = self.search(cr, uid, [['position', '=', position], ['location_id', '=', location_id]], context=context)
+            shift_id = position_shift_dict[position](cr, uid, location_id, context=context)
+            if shift_id and shift_id not in shift_ids:
+                self.write(cr, uid, shift_id, {'position': position}, context=context)
+                remove_ids.append(shift_id)
         shift_ids = self.search(cr, uid, [['location_id', '=', location_id]], context=context)
-        log_ids = self.search(cr, uid, [['position', '=', '4'], ['location_id', '=', location_id]], context=context)
-        remove_ids = [next_shift_id, current_shift_id, last_shift_id, previous_shift_id] + log_ids
-        [shift_ids.remove(rid) for rid in remove_ids if rid]
+        remove_ids += self.search(cr, uid, [['position', '=', '4'], ['location_id', '=', location_id]], context=context)
+        [shift_ids.remove(rid) for rid in remove_ids]
         self.write(cr, uid, shift_ids, {'position': '4'}, context=context)
         return True
 
