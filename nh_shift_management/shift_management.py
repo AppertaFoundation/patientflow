@@ -72,7 +72,8 @@ class nh_clinical_shift_pattern(orm.Model):
             else:
                 return datetime.hour*60 + datetime.minute - (end.hour*60 + end.minute)
 
-    def closest_pattern(self, cr, uid, location_id, context=None):
+    def closest_pattern(self, cr, uid, location_id, datetime=False,  context=None):
+        datetime = dt.now() if not datetime else datetime
         diff = 1440
         result = False
         location = self.pool['nh.clinical.location'].browse(cr, uid, location_id, context=context)
@@ -80,16 +81,21 @@ class nh_clinical_shift_pattern(orm.Model):
             raise osv.except_osv("Error!", "Location not found")
         for shift_pattern in location.shift_pattern_ids:
             if not result:
-                result = shift_pattern.id
-                diff = self.distance(cr, uid, shift_pattern.id, dt.now(), context=context)
+                result = shift_pattern
+                diff = self.distance(cr, uid, shift_pattern.id, datetime, context=context)
                 continue
-            distance = self.distance(cr, uid, shift_pattern.id, dt.now(), context=context)
+            distance = self.distance(cr, uid, shift_pattern.id, datetime, context=context)
             if distance < diff:
                 diff = distance
-                result = shift_pattern.id
-        return result
+                result = shift_pattern
+            elif distance == diff and diff == 0:
+                if dt.strptime(shift_pattern.start_time, dtf).hour == datetime.hour:
+                    diff = distance
+                    result = shift_pattern
+        return result.id if result else False
 
-    def next_pattern(self, cr, uid, location_id, context=None):
+    def next_pattern(self, cr, uid, location_id, datetime=False, context=None):
+        datetime = dt.now() if not datetime else datetime
         diff = 0
         result = False
         location = self.pool['nh.clinical.location'].browse(cr, uid, location_id, context=context)
@@ -97,14 +103,18 @@ class nh_clinical_shift_pattern(orm.Model):
             raise osv.except_osv("Error!", "Location not found")
         for shift_pattern in location.shift_pattern_ids:
             if not result:
-                result = shift_pattern.id
-                diff = self.distance(cr, uid, shift_pattern.id, dt.now(), context=context)
+                result = shift_pattern
+                diff = self.distance(cr, uid, shift_pattern.id, datetime, context=context)
                 continue
-            distance = self.distance(cr, uid, shift_pattern.id, dt.now(), context=context)
+            distance = self.distance(cr, uid, shift_pattern.id, datetime, context=context)
             if distance > diff:
                 diff = distance
-                result = shift_pattern.id
-        return result
+                result = shift_pattern
+            elif distance == diff and diff == 0:
+                if dt.strptime(shift_pattern.end_time, dtf).hour == datetime.hour:
+                    diff = distance
+                    result = shift_pattern
+        return result.id if result else False
             
     def check_values(self, cr, uid, data, context=None):
         data_keys = ['start_time_string', 'end_time_string', 'location_id']
@@ -147,6 +157,10 @@ class nh_clinical_shift_pattern(orm.Model):
             if (start_date >= dt.strptime(sp.start_time, dtf) and start_date < dt.strptime(sp.end_time, dtf)) or (end_date > dt.strptime(sp.start_time, dtf) and end_date <= dt.strptime(sp.end_time, dtf)):
                 raise osv.except_osv('Error!', 'Cannot add overlapping shifts')
             if start_date <= dt.strptime(sp.start_time, dtf) and end_date >= dt.strptime(sp.end_time, dtf):
+                raise osv.except_osv('Error!', 'Cannot add overlapping shifts')
+            if (start_date + td(days=1) >= dt.strptime(sp.start_time, dtf) and start_date + td(days=1) < dt.strptime(sp.end_time, dtf)) or (end_date + td(days=1) > dt.strptime(sp.start_time, dtf) and end_date + td(days=1) <= dt.strptime(sp.end_time, dtf)):
+                raise osv.except_osv('Error!', 'Cannot add overlapping shifts')
+            if start_date+ td(days=1) <= dt.strptime(sp.start_time, dtf) and end_date + td(days=1) >= dt.strptime(sp.end_time, dtf):
                 raise osv.except_osv('Error!', 'Cannot add overlapping shifts')
         return {
             'start_time': start_date,
