@@ -84,10 +84,17 @@ class test_shift_management(common.SingleTransactionCase):
 
         self.shift_pool.generate_all_shifts(cr, uid)
 
-        self.assertTrue(self.shift_pool.current_shift(cr, uid, self.wu_id), msg='Current shift not created')
-        self.assertTrue(self.shift_pool.next_shift(cr, uid, self.wu_id), msg='Next shift not created')
+        current_shift = self.shift_pool.current_shift(cr, uid, self.wu_id)
+        next_shift = self.shift_pool.next_shift(cr, uid, self.wu_id)
+        self.assertTrue(current_shift, msg='Current shift not created')
+        self.assertTrue(next_shift, msg='Next shift not created')
         self.assertFalse(self.shift_pool.last_shift(cr, uid, self.wu_id), msg='Last shift returned but should not exist')
         self.assertFalse(self.shift_pool.previous_shift(cr, uid, self.wu_id), msg='Previous shift returned but should not exist')
+
+        current_shift = self.shift_pool.browse(cr, uid, current_shift)
+        next_shift = self.shift_pool.browse(cr, uid, next_shift)
+        self.assertTrue(current_shift.position == '1', msg='Positions not updated correctly: %s' % current_shift.position)
+        self.assertTrue(next_shift.position == '0', msg='Positions not updated correctly: %s' % next_shift.position)
 
 
 

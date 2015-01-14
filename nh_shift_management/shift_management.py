@@ -337,7 +337,7 @@ class nh_clinical_shift(orm.Model):
         position_shift_dict = {
             '0': self.next_shift,
             '1': self.current_shift,
-            '2': self.next_shift,
+            '2': self.last_shift,
             '3': self.previous_shift,
         }
         remove_ids = []
