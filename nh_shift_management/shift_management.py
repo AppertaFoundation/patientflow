@@ -344,12 +344,13 @@ class nh_clinical_shift(orm.Model):
         for position in position_shift_dict.keys():
             shift_ids = self.search(cr, uid, [['position', '=', position], ['location_id', '=', location_id]], context=context)
             shift_id = position_shift_dict[position](cr, uid, location_id, context=context)
-            if shift_id and shift_id not in shift_ids:
-                self.write(cr, uid, shift_id, {'position': position}, context=context)
+            if shift_id:
                 remove_ids.append(shift_id)
+                if shift_id not in shift_ids:
+                    self.write(cr, uid, shift_id, {'position': position}, context=context)
         shift_ids = self.search(cr, uid, [['location_id', '=', location_id]], context=context)
         remove_ids += self.search(cr, uid, [['position', '=', '4'], ['location_id', '=', location_id]], context=context)
-        [shift_ids.remove(rid) for rid in remove_ids]
+        [shift_ids.remove(rid) for rid in remove_ids if rid in shift_ids]
         self.write(cr, uid, shift_ids, {'position': '4'}, context=context)
         return True
 
