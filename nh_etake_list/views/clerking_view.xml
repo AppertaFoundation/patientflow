@@ -59,7 +59,7 @@
                                         <field name="summary"/>
                                         <field name="state" readonly="1"/>
                                         <field name="date_terminated" readonly="1"/>
-                                        <button name="complete" type="object" icon="gtk-cancel" string="Complete"/>
+                                        <button name="complete" type="object" nh_icon="tick" string="Complete"/>
                                     </tree>
                                     <form>
                                         <field name="summary"/>
