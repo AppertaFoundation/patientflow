@@ -5,4 +5,5 @@
             <field name="models">['nh.clinical.location']</field>
         </record>
     </data>
+
 </openerp>
