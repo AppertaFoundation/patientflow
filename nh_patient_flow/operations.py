@@ -55,3 +55,67 @@ class nh_clinical_patient_referral(orm.Model):
         # trigger referral policy activities
         self.trigger_policy(cr, uid, activity_id, location_id=referral_activity.data_ref.location_id.id, context=context)
         return res
+
+
+class nh_clinical_patient_referral_form(orm.Model):
+    _name = 'nh.clinical.patient.referral.form'
+    _description = "Patient Referral Form"
+    _boolean = [['yes', 'Yes'], ['no', 'No']]
+    _boolean2 = [['yes', 'Yes'], ['no', 'No'], ['na', 'N/A']]
+    _referral_source = [['gp', 'GP'], ['ucc', 'UCC'], ['ae', 'A&E'], ['eau', 'EAU'], ['ecp', 'ECP'], ['wic', 'WIC'],
+                        ['ltxc', 'LTxC'], ['opd', 'OPD'], ['mac', 'MAC'], ['comm', 'COMM'], ['matron', 'MATRON'],
+                        ['hospice', 'HOSPICE'], ['cons', 'CONS']]
+    _gender = [['M', 'Male'], ['F', 'Female']]
+    _resides = [['home', 'HOME'], ['res', 'RES/HOME'], ['nursing', 'N/HOME']]
+    _advised_attendance = [['ae', 'A&E'], ['eau', 'EAU'], ['acc', 'ACC'], ['clinic', 'CLINIC']]
+    _poc = [['eau', 'EAU'], ['ae', 'A&E'], ['acc', 'ACC'], ['smdu', 'SMDU'], ['clinic', 'Clinic']]
+    _averted = [['com', 'Community'], ['clinic', 'Clinic'], ['ae', 'A&E'], ['eau', 'EAU'], ['acu', 'ACU'],
+                ['mobile', 'Mobile']]
+    _ethnicity = [['w_b', 'White British'], ['w_i', 'White Irish'], ['w_o', 'White Other'], ['o', 'Other']]
+
+    _columns = {
+        'source': fields.selection(_referral_source, 'Source of Referral'),
+
+        'patient_id': fields.many2one('nh.clinical.patient', 'Patient'),
+        'nhs_number': fields.char('First Name', size=50),
+        'first_name': fields.char('First Name', size=50),
+        'middle_names': fields.char('Middle Names', size=100),
+        'last_name': fields.char('Last Name', size=50),
+        'dob': fields.datetime('Date of Birth'),
+        'postcode': fields.char('Postcode', size=10),  # Patient or GP/Surgery?
+        'ref_doctor_id': fields.many2one('res.partner', 'Referring Doctor'),  # GP/Surgery
+        'ethnicity': fields.selection(_ethnicity, 'Ethnicity'),
+        'gender': fields.selection(_gender, 'Gender'),
+        'resides': fields.selection(_resides, 'Resides'),
+        'symptoms_notes': fields.text('Symptoms/Investigations Treatment'),
+        'infection_concerns': fields.char('Infection Concerns?', size=200),
+        'body_temperature': fields.float('Body Temperature', digits=(2, 1)),
+        'pulse_rate': fields.integer('Pulse Rate'),
+        'blood_presssure_systolic': fields.integer('Blood Pressure Systolic'),
+        'blood_presssure_diastolic': fields.integer('Blood Pressure Diastolic'),
+        'o2_saturation': fields.integer('O2 Saturation'),
+        'weight': fields.float('Weight', digits=(3, 1)),
+        'medical_history_notes': fields.text('Past Medical History'),
+        'allergies': fields.text('Allergies'),
+        'access_clinic_datetime': fields.datetime('Emergency GP Access Clinic Date & Time'),
+        'referral_reason': fields.char('Reason for referral', size=200),
+        'medication_list': fields.selection(_boolean, 'Medication List Requested'),
+        'diagnosis': fields.char('Possible diagnosis', size=200),
+        'speciality': fields.char('Speciality', size=200),
+        'advised_attendance': fields.selection(_advised_attendance, 'Advised Attendance At'),
+        'environmental_factors': fields.text('Environmental Factors, Social/Family'),
+        'elsewhere_treatment': fields.selection(_boolean, 'Can patient be treated elsewhere?'),
+        'letter_request': fields.boolean('Letter Requested'),
+        'ambulance': fields.boolean('Ambulance'),
+        'gp_options_discussed': fields.selection(_boolean2, 'If yes were options discussed with GP?'),
+        'gp_options_choice': fields.selection(_boolean, 'Did the GP choose any other option?'),
+        'eau_informed': fields.selection(_boolean, 'EAU Informed'),
+        'acc_informed': fields.selection(_boolean, 'ACC Informed'),
+        'team_informed': fields.selection(_boolean, 'Team Informed'),
+        'poc': fields.selection(_poc, 'First Point of Contact'),
+        'averted': fields.selection(_averted, 'Averted in'),
+    }
+
+    _defaults = {
+        'source': 'gp'
+    }
