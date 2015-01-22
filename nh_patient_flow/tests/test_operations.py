@@ -31,7 +31,7 @@ class TestOpsPatientFlow(common.SingleTransactionCase):
         cls.pos_pool = cls.registry('nh.clinical.pos')
         cls.spell_pool = cls.registry('nh.clinical.spell')
         # OPERATIONS DATA MODELS
-        cls.referral_pool = cls.registry('nh.clinical.patient.referral')
+        cls.tci_pool = cls.registry('nh.clinical.patient.tci')
 
         cls.apidemo = cls.registry('nh.clinical.api.demo')
 
@@ -63,27 +63,27 @@ class TestOpsPatientFlow(common.SingleTransactionCase):
         spell_activity_id = self.spell_pool.create_activity(cr, uid, {}, spell_data)
         self.activity_pool.start(cr, uid, spell_activity_id)
 
-        # Patient Referral
-        referral_data = {
+        # Patient To Come In
+        tci_data = {
             'location_id': self.wu_id,
             'patient_id': patient_id
         }
-        referral_activity_id = self.referral_pool.create_activity(cr, uid, {'pos_id': self.pos_id}, {})
-        self.activity_pool.submit(cr, self.ru_id, referral_activity_id, referral_data)
-        check_referral = self.activity_pool.browse(cr, uid, referral_activity_id)
+        tci_activity_id = self.tci_pool.create_activity(cr, uid, {'pos_id': self.pos_id}, {})
+        self.activity_pool.submit(cr, self.ru_id, tci_activity_id, tci_data)
+        check_tci = self.activity_pool.browse(cr, uid, tci_activity_id)
         
-        # test referral activity submitted data
-        self.assertTrue(check_referral.data_ref.patient_id.id == patient_id, msg="Patient Referral: Patient id was not submitted correctly")
-        self.assertTrue(check_referral.data_ref.location_id.id == self.wu_id, msg="Patient Referral: location id was not submitted correctly")
+        # test tci activity submitted data
+        self.assertTrue(check_tci.data_ref.patient_id.id == patient_id, msg="Patient To Come In: Patient id was not submitted correctly")
+        self.assertTrue(check_tci.data_ref.location_id.id == self.wu_id, msg="Patient To Come In: location id was not submitted correctly")
         
-        # Complete Patient Referral
-        self.activity_pool.complete(cr, self.ru_id, referral_activity_id)
-        check_referral = self.activity_pool.browse(cr, uid, referral_activity_id)
-        self.assertTrue(check_referral.state == 'completed', msg="Patient Referral not completed successfully")
-        self.assertTrue(check_referral.date_terminated, msg="Patient Referral Completed: Date terminated not registered")
+        # Complete Patient To Come In
+        self.activity_pool.complete(cr, self.ru_id, tci_activity_id)
+        check_tci = self.activity_pool.browse(cr, uid, tci_activity_id)
+        self.assertTrue(check_tci.state == 'completed', msg="Patient To Come In not completed successfully")
+        self.assertTrue(check_tci.date_terminated, msg="Patient To Come In Completed: Date terminated not registered")
         # test spell data
         check_spell = self.activity_pool.browse(cr, uid, spell_activity_id)
-        self.assertTrue(check_spell.data_ref.location_id.id == self.wu_id, msg= "Patient Referral Completed: Spell location not registered correctly")
+        self.assertTrue(check_spell.data_ref.location_id.id == self.wu_id, msg= "Patient To Come In Completed: Spell location not registered correctly")
         # test patient data
         check_patient = self.patient_pool.browse(cr, uid, patient_id)
-        self.assertTrue(check_patient.current_location_id.id == self.wu_id, msg= "Patient Referral Completed: Patient current location not registered correctly")
+        self.assertTrue(check_patient.current_location_id.id == self.wu_id, msg= "Patient To Come In Completed: Patient current location not registered correctly")

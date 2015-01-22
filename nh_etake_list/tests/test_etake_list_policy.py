@@ -31,7 +31,7 @@ class TestETakeListPolicy(common.SingleTransactionCase):
         cls.pos_pool = cls.registry('nh.clinical.pos')
         cls.spell_pool = cls.registry('nh.clinical.spell')
         # OPERATIONS DATA MODELS
-        cls.referral_pool = cls.registry('nh.clinical.patient.referral')
+        cls.tci_pool = cls.registry('nh.clinical.patient.tci')
 
         cls.apidemo = cls.registry('nh.clinical.api.demo')
 
@@ -63,20 +63,20 @@ class TestETakeListPolicy(common.SingleTransactionCase):
         else:
             user_ids = {'receptionist': self.rt_id, 'junior': self.jdt_id, 'consultant': self.ct_id}
 
-        # Patient Referral
-        referral_activity_ids = self.activity_pool.search(cr, uid, [['state', 'not in', ['completed', 'cancelled']], ['patient_id', '=', patient_id], ['data_model', '=', 'nh.clinical.patient.referral']])
-        self.assertTrue(referral_activity_ids, msg="Referral activity not triggered after admission")
-        self.assertTrue(len(referral_activity_ids) == 1, msg="There is more than one referral activity for the same patient!")
-        # Complete Referral
-        self.activity_pool.complete(cr, user_ids['receptionist'], referral_activity_ids[0])
-        referral_activity_data = self.activity_pool.read(cr, uid, referral_activity_ids[0], ['date_terminated', 'state', 'terminate_uid'])
-        self.assertTrue(referral_activity_data['state'] == 'completed', msg="Referral Completed: State not updated correctly.")
-        self.assertTrue(referral_activity_data['date_terminated'], msg="Referral Completed: Date terminated not registered.")
-        self.assertTrue(referral_activity_data['terminate_uid'][0] == user_ids['receptionist'], msg="Referral Completed: Completed by (user) not registered correctly.")
+        # Patient To Come In
+        tci_activity_ids = self.activity_pool.search(cr, uid, [['state', 'not in', ['completed', 'cancelled']], ['patient_id', '=', patient_id], ['data_model', '=', 'nh.clinical.patient.tci']])
+        self.assertTrue(tci_activity_ids, msg="To Come In activity not triggered after admission")
+        self.assertTrue(len(tci_activity_ids) == 1, msg="There is more than one tci activity for the same patient!")
+        # Complete To Come In
+        self.activity_pool.complete(cr, user_ids['receptionist'], tci_activity_ids[0])
+        tci_activity_data = self.activity_pool.read(cr, uid, tci_activity_ids[0], ['date_terminated', 'state', 'terminate_uid'])
+        self.assertTrue(tci_activity_data['state'] == 'completed', msg="To Come In Completed: State not updated correctly.")
+        self.assertTrue(tci_activity_data['date_terminated'], msg="To Come In Completed: Date terminated not registered.")
+        self.assertTrue(tci_activity_data['terminate_uid'][0] == user_ids['receptionist'], msg="To Come In Completed: Completed by (user) not registered correctly.")
 
         # Patient Clerking
         clerking_activity_ids = self.activity_pool.search(cr, uid, [['state', 'not in', ['completed', 'cancelled']], ['patient_id', '=', patient_id], ['data_model', '=', 'nh.clinical.patient.clerking']])
-        self.assertTrue(clerking_activity_ids, msg="Clerking activity not triggered after referral")
+        self.assertTrue(clerking_activity_ids, msg="Clerking activity not triggered after tci")
         self.assertTrue(len(clerking_activity_ids) == 1, msg="There is more than one clerking activity for the same patient!")
         # Complete Clerking
         self.activity_pool.complete(cr, user_ids['junior'], clerking_activity_ids[0])

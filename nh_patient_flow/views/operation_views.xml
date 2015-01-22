@@ -1,10 +1,10 @@
 <openerp>
     <data>
-        <record model="ir.ui.view" id="view_patient_referral_complete">
-            <field name="name">Patient Referral</field>
-            <field name="model">nh.clinical.patient.referral</field>
+        <record model="ir.ui.view" id="view_patient_tci_complete">
+            <field name="name">Patient To Come In</field>
+            <field name="model">nh.clinical.patient.tci</field>
             <field name="arch" type="xml">
-                <form string="Patient Referral" version="7.0">
+                <form string="Patient To Come In" version="7.0">
                    <label for="patient_id" string="Patient"/>
                    <field name="patient_id" readonly="1"/>
                    <button name="complete_ui" type="object" string="Confirm Patient On Site"/>

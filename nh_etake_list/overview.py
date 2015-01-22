@@ -20,6 +20,7 @@ class nh_etake_list_overview(orm.Model):
                         ['To be Discharged', 'To be Discharged'],
                         ['Other', 'Other'],
                         ['Referral', 'Referral'],
+                        ['TCI', 'To Come In'],
                         ['Clerking in Process', 'Clerking in Process'],
                         ['Done', 'Done']]
     _columns = {
@@ -39,13 +40,13 @@ class nh_etake_list_overview(orm.Model):
                 create or replace view %s as (
                     select
                         spell_activity.id as id,
-                        referral_activity.id as activity_id,
-                        referral_activity.pos_id as pos_id,
+                        tci_activity.id as activity_id,
+                        tci_activity.pos_id as pos_id,
                         case
                             when spell_activity.state = 'completed' or spell_activity.state = 'cancelled' then 'Done'
                             when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'Done'
                             when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'To be Discharged'
-                            when referral_activity.state = 'scheduled' then 'Referral'
+                            when tci_activity.state = 'scheduled' then 'TCI'
                             when clerking_activity.state = 'scheduled' then 'To be Clerked'
                             when clerking_activity.state = 'started' then 'Clerking in Process'
                             when ptwr_activity.state is not null then 'Consultant Review'
@@ -54,7 +55,7 @@ class nh_etake_list_overview(orm.Model):
                         end as state,
                         spell.patient_id as patient_id,
                         case
-                            when referral_activity.state = 'scheduled' then referral_activity.location_id
+                            when tci_activity.state = 'scheduled' then tci_activity.location_id
                             else location.id
                         end as location_id,
                         patient.other_identifier as hospital_number,
@@ -62,7 +63,7 @@ class nh_etake_list_overview(orm.Model):
                     from nh_clinical_spell spell
                     inner join nh_activity spell_activity on spell_activity.id = spell.activity_id
                     inner join nh_clinical_patient patient on spell.patient_id = patient.id
-                    inner join nh_activity referral_activity on referral_activity.parent_id = spell_activity.id and referral_activity.data_model = 'nh.clinical.patient.referral' and referral_activity.state in ('scheduled','completed')
+                    inner join nh_activity tci_activity on tci_activity.parent_id = spell_activity.id and tci_activity.data_model = 'nh.clinical.patient.tci' and tci_activity.state in ('scheduled','completed')
                     left join nh_activity discharge_activity on discharge_activity.parent_id = spell_activity.id and discharge_activity.data_model = 'nh.clinical.adt.patient.discharge'
                     left join nh_activity clerking_activity on clerking_activity.parent_id = spell_activity.id and clerking_activity.data_model = 'nh.clinical.patient.clerking'
                     left join nh_activity review_activity on review_activity.parent_id = spell_activity.id and review_activity.data_model = 'nh.clinical.patient.review'
@@ -73,7 +74,7 @@ class nh_etake_list_overview(orm.Model):
 
     def _get_overview_groups(self, cr, uid, ids, domain, read_group_order=None, access_rights_uid=None, context=None):
         res = [
-            ['Referral', 'Referral'],
+            ['TCI', 'To Come In'],
             ['To be Clerked', 'To be Clerked'],
             ['Clerking in Process', 'Clerking in Process'],
             ['Senior Review', 'Senior Review'],
