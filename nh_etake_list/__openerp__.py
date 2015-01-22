@@ -16,6 +16,7 @@
              'views/review_view.xml',
              'views/overview_view.xml',
              'views/transfer_view.xml',
+             'views/referral_form_view.xml',
              'wizard/doctor_task_wizard_view.xml',
              'views/menuitem.xml'],
     'demo': [],

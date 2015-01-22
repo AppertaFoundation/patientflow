@@ -74,16 +74,21 @@ class nh_clinical_patient_referral_form(orm.Model):
     _ethnicity = [['w_b', 'White British'], ['w_i', 'White Irish'], ['w_o', 'White Other'], ['o', 'Other']]
 
     _columns = {
-        'source': fields.selection(_referral_source, 'Source of Referral'),
+        # system data
+        'create_date': fields.datetime('Create Date', readonly=True),
+        'write_date': fields.datetime('Write Date', readonly=True),
+        'create_uid': fields.many2one('res.users', 'Created By', readonly=True),
+        'write_uid': fields.many2one('res.users', 'Updated By', readonly=True),
 
+        'source': fields.selection(_referral_source, 'Source of Referral'),
         'patient_id': fields.many2one('nh.clinical.patient', 'Patient'),
-        'nhs_number': fields.char('First Name', size=50),
+        'nhs_number': fields.char('NHS Number', size=50),
         'first_name': fields.char('First Name', size=50),
         'middle_names': fields.char('Middle Names', size=100),
         'last_name': fields.char('Last Name', size=50),
         'dob': fields.datetime('Date of Birth'),
         'postcode': fields.char('Postcode', size=10),  # Patient or GP/Surgery?
-        'ref_doctor_id': fields.many2one('res.partner', 'Referring Doctor'),  # GP/Surgery
+        'ref_doctor_id': fields.many2one('res.partner', 'Referring Doctor', domain=[['doctor', '=', True]]),  # GP/Surgery
         'ethnicity': fields.selection(_ethnicity, 'Ethnicity'),
         'gender': fields.selection(_gender, 'Gender'),
         'resides': fields.selection(_resides, 'Resides'),
@@ -91,8 +96,8 @@ class nh_clinical_patient_referral_form(orm.Model):
         'infection_concerns': fields.char('Infection Concerns?', size=200),
         'body_temperature': fields.float('Body Temperature', digits=(2, 1)),
         'pulse_rate': fields.integer('Pulse Rate'),
-        'blood_presssure_systolic': fields.integer('Blood Pressure Systolic'),
-        'blood_presssure_diastolic': fields.integer('Blood Pressure Diastolic'),
+        'blood_pressure_systolic': fields.integer('Blood Pressure Systolic'),
+        'blood_pressure_diastolic': fields.integer('Blood Pressure Diastolic'),
         'o2_saturation': fields.integer('O2 Saturation'),
         'weight': fields.float('Weight', digits=(3, 1)),
         'medical_history_notes': fields.text('Past Medical History'),
@@ -119,3 +124,20 @@ class nh_clinical_patient_referral_form(orm.Model):
     _defaults = {
         'source': 'gp'
     }
+
+    def onchange_patient_id(self, cr, uid, ids, patient_id, context=None):
+        patient_pool = self.pool['nh.clinical.patient']
+        if not patient_id:
+            return {}
+        patient = patient_pool.browse(cr, uid, patient_id, context=context)
+        return {
+            'value': {
+                'nhs_number': patient.patient_identifier,
+                'first_name': patient.given_name,
+                'middle_names': patient.middle_names,
+                'last_name': patient.family_name,
+                'dob': patient.dob,
+                'gender': patient.gender if patient.gender in [g[0] for g in self._gender] else False,
+                'ethnicity': patient.ethnicity if patient.ethnicity in [e[0] for e in self._ethnicity] else False,
+            }
+        }

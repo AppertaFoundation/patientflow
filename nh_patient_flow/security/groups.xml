@@ -1,0 +1,10 @@
+<openerp>
+    <data>
+        <!-- Groups -->
+        <record id="group_nhpf_referral_team" model="res.groups">
+            <field name="name">NH Patient Flow GP Referral Team Group</field>
+            <field name="category_id" ref="nh_clinical.module_category_nhc"/>
+            <field name="implied_ids" eval="[(6, False, [ref('nh_clinical.group_nhc_base')])]"/>
+        </record>
+    </data>
+</openerp>

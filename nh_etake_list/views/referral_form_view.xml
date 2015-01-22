@@ -1,0 +1,144 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_nh_etake_list_referral_form_search">
+            <field name="name">NH eTake List Referral Form Search View</field>
+            <field name="model">nh.clinical.patient.referral.form</field>
+            <field name="arch" type="xml">
+                <search string="NH eTake List Referral Form Search View">
+                    <field name="nhs_number"/>
+                    <field name="patient_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_nh_etake_list_referral_form_tree">
+            <field name="name">NH eTake List Referral Form Tree View</field>
+            <field name="model">nh.clinical.patient.referral.form</field>
+            <field name="arch" type="xml">
+                <tree string="NH eTake List Referral Form Tree View" version="7.0">
+                    <!--<button name="complete" type="object" string="Complete" class="oe_highlight" nh_icon="tick"/>-->
+                    <field name="patient_id" />
+                    <field name="nhs_number" />
+                    <field name="ref_doctor_id" />
+                    <field name="create_date" string="Created"/>
+                    <field name="create_uid" string="By"/>
+                    <field name="write_date" string="Modified"/>
+                    <field name="write_uid" string="By"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_nh_etake_list_referral_form_form">
+            <field name="name">NH eTake List Referral Form Form View</field>
+            <field name="model">nh.clinical.patient.referral.form</field>
+            <field name="arch" type="xml">
+                <form string="NH eTake List Referral Form Form View" version="7.0" delete="0">
+                    <sheet>
+                        <label for="source" string="Source of Referral"/>
+                        <field name="source" nolabel="1"/>
+                        <group string="Patient Details" col="4">
+                            <field name="patient_id" on_change="onchange_patient_id(patient_id)" widget="nh_many2one"/>
+                            <field name="nhs_number"/>
+                            <field name="first_name"/>
+                            <field name="middle_names"/>
+                            <field name="last_name"/>
+                            <field name="dob"/>
+                            <field name="postcode"/>
+                            <field name="gender"/>
+                            <field name="resides"/>
+                        </group>
+                        <group string="GP" col="4">
+                            <field name="ref_doctor_id" widget="nh_many2one"/>
+                        </group>
+                        <notebook>
+                            <page string="Medical">
+                                <group col="4">
+                                    <field name="body_temperature"/>
+                                    <field name="pulse_rate"/>
+                                    <field name="blood_pressure_systolic"/>
+                                    <field name="blood_pressure_diastolic"/>
+                                    <field name="o2_saturation"/>
+                                    <field name="weight"/>
+                                </group>
+                                <group col="2">
+                                    <div>
+                                        <label for="symptoms_notes" string="Symptoms/Investigations Treatment"/>
+                                        <field name="symptoms_notes" nolabel="1"/>
+                                    </div>
+                                    <div>
+                                        <label for="medical_history_notes" string="Past Medical History"/>
+                                        <field name="medical_history_notes" nolabel="1"/>
+                                    </div>
+                                </group>
+                                <!--<div>-->
+                                    <!--<label for="symptoms_notes" string="Symptoms/Investigations Treatment"/>-->
+                                    <!--<field name="symptoms_notes" nolabel="1"/>-->
+                                    <!--<label for="medical_history_notes" string="Past Medical History"/>-->
+                                    <!--<field name="medical_history_notes" nolabel="1"/>-->
+                                <!--</div>-->
+                                <group col="4">
+                                    <field name="infection_concerns"/>
+                                    <field name="diagnosis"/>
+                                </group>
+                                <label for="allergies" string="Allergies"/>
+                                <field name="allergies" nolabel="1"/>
+                            </page>
+                            <page string="Emergency GP Access Clinic">
+                                <group col="4">
+                                    <field name="access_clinic_datetime"/>
+                                    <field name="referral_reason"/>
+                                    <field name="medication_list"/>
+                                </group>
+                            </page>
+                            <page string="Speciality">
+                                <group col="4">
+                                    <field name="speciality"/>
+                                    <field name="advised_attendance"/>
+                                </group>
+                                <label for="environmental_factors" string="Environmental Factors, Social/Family"/>
+                                <field name="environmental_factors"/>
+                            </page>
+                            <page string="Additional Information">
+                                <group col="6">
+                                    <field name="elsewhere_treatment"/>
+                                    <field name="eau_informed"/>
+                                    <field name="letter_request"/>
+                                    <field name="gp_options_discussed"/>
+                                    <field name="acc_informed"/>
+                                    <field name="ambulance"/>
+                                    <field name="gp_options_choice"/>
+                                    <field name="team_informed"/>
+                                </group>
+                                <group col="4">
+                                    <field name="poc"/>
+                                    <field name="averted"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_referral_forms" >
+            <field name="name">Patient Referral Forms</field>
+            <field name="res_model">nh.clinical.patient.referral.form</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_nh_etake_list_referral_form_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_view_referral_form_tree">
+            <field eval="0" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_nh_etake_list_referral_form_tree"/>
+            <field name="act_window_id" ref="action_show_referral_forms"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_view_referral_form_form">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_nh_etake_list_referral_form_form"/>
+            <field name="act_window_id" ref="action_show_referral_forms"/>
+        </record>
+    </data>
+</openerp>
