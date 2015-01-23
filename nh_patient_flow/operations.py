@@ -1,6 +1,8 @@
 from openerp.osv import orm, fields
 from openerp.addons.nh_activity.activity import except_if
 from openerp import SUPERUSER_ID
+from datetime import datetime as dt
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as dtf
 
 
 class nh_clinical_patient_tci(orm.Model):
@@ -48,7 +50,7 @@ class nh_clinical_patient_tci(orm.Model):
                                                      'location_id': tci_activity.data_ref.location_id.id})
         activity_pool.complete(cr, SUPERUSER_ID, move_activity_id)
         activity_pool.submit(cr, SUPERUSER_ID, spell_activity_id, {'location_id': tci_activity.data_ref.location_id.id})
-        # trigger referral policy activities
+        # trigger tci policy activities
         self.trigger_policy(cr, uid, activity_id, location_id=tci_activity.data_ref.location_id.id, context=context)
         return res
 
@@ -68,6 +70,8 @@ class nh_clinical_patient_referral_form(orm.Model):
     _averted = [['com', 'Community'], ['clinic', 'Clinic'], ['ae', 'A&E'], ['eau', 'EAU'], ['acu', 'ACU'],
                 ['mobile', 'Mobile']]
     _ethnicity = [['w_b', 'White British'], ['w_i', 'White Irish'], ['w_o', 'White Other'], ['o', 'Other']]
+    _patient_values = ['patient_id', 'hospital_number', 'nhs_number', 'first_name', 'middle_names', 'last_name', 'dob',
+                       'ethnicity', 'gender']
 
     _columns = {
         # system data
@@ -79,6 +83,7 @@ class nh_clinical_patient_referral_form(orm.Model):
         'source': fields.selection(_referral_source, 'Source of Referral'),
         'patient_id': fields.many2one('nh.clinical.patient', 'Patient'),
         'nhs_number': fields.char('NHS Number', size=50),
+        'hospital_number': fields.char('Hospital Number', size=50),
         'first_name': fields.char('First Name', size=50),
         'middle_names': fields.char('Middle Names', size=100),
         'last_name': fields.char('Last Name', size=50),
@@ -116,10 +121,43 @@ class nh_clinical_patient_referral_form(orm.Model):
         'poc': fields.selection(_poc, 'First Point of Contact'),
         'averted': fields.selection(_averted, 'Averted in'),
     }
-
     _defaults = {
         'source': 'gp'
     }
+
+    def create(self, cr, uid, vals, context=None):
+        form_id = super(nh_clinical_patient_referral_form, self).create(cr, uid, vals, context=context)
+        patient_id = vals['patient_id'] if 'patient_id' in vals else False
+        if not patient_id:
+            patient_pool = self.pool['nh.clinical.patient']
+            patient_vals = {
+                'other_identifier': 'NH_'+str(form_id),
+                'patient_identifier': vals['nhs_number'] if 'nhs_number' in vals else False,
+                'given_name': vals['first_name'] if 'first_name' in vals else 'John',
+                'middle_names': vals['middle_names'] if 'middle_names' in vals else False,
+                'family_name': vals['last_name'] if 'last_name' in vals else 'Doe',
+                'dob': vals['dob'] if 'dob' in vals else False,
+                'gender': vals['gender'] if 'gender' in vals else False,
+                'ethnicity': vals['ethnicity'] if 'ethnicity' in vals else False
+            }
+            patient_id = patient_pool.create(cr, uid, patient_vals, context=context)
+            self.write(cr, uid, form_id, {'patient_id': patient_id}, context=context)
+        # create referral
+        self.pool['nh.clinical.patient.referral'].create_activity(cr, SUPERUSER_ID, {
+            'patient_id': patient_id,
+        }, {'form_id': form_id}, context=context)
+        return form_id
+
+    def write(self, cr, uid, ids, vals, context=None):
+        res = super(nh_clinical_patient_referral_form, self).write(cr, uid, ids, vals, context=context)
+        if any([k in self._patient_values for k in vals.keys()]):
+            update_vals = {}
+            for k in vals.keys():
+                if k in self._patient_values:
+                    update_vals[k] = vals[k]
+            for form in self.browse(cr, uid, ids, context=context):
+                self.pool['nh.clinical.patient'].write(cr, uid, form.patient_id.id, update_vals, context=context)
+        return res
 
     def onchange_patient_id(self, cr, uid, ids, patient_id, context=None):
         patient_pool = self.pool['nh.clinical.patient']
@@ -128,6 +166,7 @@ class nh_clinical_patient_referral_form(orm.Model):
         patient = patient_pool.browse(cr, uid, patient_id, context=context)
         return {
             'value': {
+                'hospital_number': patient.other_identifier,
                 'nhs_number': patient.patient_identifier,
                 'first_name': patient.given_name,
                 'middle_names': patient.middle_names,
@@ -137,3 +176,73 @@ class nh_clinical_patient_referral_form(orm.Model):
                 'ethnicity': patient.ethnicity if patient.ethnicity in [e[0] for e in self._ethnicity] else False,
             }
         }
+
+    def onchange_nhs_number(self, cr, uid, ids, nhs_number, context=None):
+        patient_pool = self.pool['nh.clinical.patient']
+        if not nhs_number:
+            return {}
+        patient_id = patient_pool.search(cr, uid, [['patient_identifier', '=', nhs_number]], context=context)
+        if not patient_id:
+            return {}
+        patient = patient_pool.browse(cr, uid, patient_id[0], context=context)
+        return {
+            'value': {
+                'patient_id': patient_id[0],
+                'hospital_number': patient.other_identifier,
+                'first_name': patient.given_name,
+                'middle_names': patient.middle_names,
+                'last_name': patient.family_name,
+                'dob': patient.dob,
+                'gender': patient.gender if patient.gender in [g[0] for g in self._gender] else False,
+                'ethnicity': patient.ethnicity if patient.ethnicity in [e[0] for e in self._ethnicity] else False,
+            }
+        }
+
+    def onchange_hospital_number(self, cr, uid, ids, hospital_number, context=None):
+        patient_pool = self.pool['nh.clinical.patient']
+        if not hospital_number:
+            return {}
+        patient_id = patient_pool.search(cr, uid, [['other_identifier', '=', hospital_number]], context=context)
+        if not patient_id:
+            return {}
+        patient = patient_pool.browse(cr, uid, patient_id[0], context=context)
+        return {
+            'value': {
+                'patient_id': patient_id[0],
+                'nhs_number': patient.patient_identifier,
+                'first_name': patient.given_name,
+                'middle_names': patient.middle_names,
+                'last_name': patient.family_name,
+                'dob': patient.dob,
+                'gender': patient.gender if patient.gender in [g[0] for g in self._gender] else False,
+                'ethnicity': patient.ethnicity if patient.ethnicity in [e[0] for e in self._ethnicity] else False,
+            }
+        }
+
+
+class nh_clinical_patient_referral(orm.Model):
+    _name = 'nh.clinical.patient.referral'
+    _inherit = ['nh.activity.data']
+    _description = "Patient Referral"
+
+    _columns = {
+        'form_id': fields.many2one('nh.clinical.patient.referral.form', 'Referral Form'),
+        'tci_location_id': fields.many2one('nh.clinical.location', 'To Come In Location'),
+    }
+
+    def complete(self, cr, uid, activity_id, context=None):
+        activity_pool = self.pool['nh.activity']
+        api_pool = self.pool['nh.clinical.api']
+        res = super(nh_clinical_patient_referral, self).complete(cr, uid, activity_id, context)
+        referral = activity_pool.browse(cr, uid, activity_id, context=context)
+        spell_activity_id = api_pool.get_patient_spell_activity_id(cr, SUPERUSER_ID, referral.patient_id.id, context=context)
+        if not spell_activity_id:
+            spell_pool = self.pool['nh.clinical.spell']
+            spell_pool.create_activity(cr, SUPERUSER_ID, {'creator_id': activity_id},
+                                       {'patient_id': referral.patient_id.id,
+                                        'location_id': referral.tci_location_id.id,
+                                        'pos_id': referral.tci_location_id.pos_id.id,
+                                        'start_date': dt.now().strftime(dtf)}, context=context)
+        # trigger referral policy activities
+        self.trigger_policy(cr, uid, activity_id, context=context)
+        return res

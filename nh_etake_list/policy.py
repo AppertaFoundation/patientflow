@@ -1,5 +1,18 @@
 from openerp.osv import orm
 
+
+class nh_clinical_patient_referral(orm.Model):
+    _name = 'nh.clinical.patient.referral'
+    _inherit = 'nh.clinical.patient.referral'
+
+    _POLICY = {'activities': [{'model': 'nh.clinical.patient.tci',
+                               'type': 'schedule',
+                               'context': 'etakelist',
+                               'create_data': {
+                                   'location_id': 'data_ref.tci_location_id.id'
+                               }}]}
+
+
 class nh_clinical_patient_tci(orm.Model):
     _name = 'nh.clinical.patient.tci'
     _inherit = 'nh.clinical.patient.tci'

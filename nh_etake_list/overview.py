@@ -46,7 +46,8 @@ class nh_etake_list_overview(orm.Model):
                             when spell_activity.state = 'completed' or spell_activity.state = 'cancelled' then 'Done'
                             when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'Done'
                             when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'To be Discharged'
-                            when tci_activity.state = 'scheduled' then 'TCI'
+                            when referral_activity.state is not null and referral_activity.state = 'scheduled' then 'Referral'
+                            when tci_activity.state is not null and tci_activity.state = 'scheduled' then 'TCI'
                             when clerking_activity.state = 'scheduled' then 'To be Clerked'
                             when clerking_activity.state = 'started' then 'Clerking in Process'
                             when ptwr_activity.state is not null then 'Consultant Review'
@@ -63,17 +64,20 @@ class nh_etake_list_overview(orm.Model):
                     from nh_clinical_spell spell
                     inner join nh_activity spell_activity on spell_activity.id = spell.activity_id
                     inner join nh_clinical_patient patient on spell.patient_id = patient.id
-                    inner join nh_activity tci_activity on tci_activity.parent_id = spell_activity.id and tci_activity.data_model = 'nh.clinical.patient.tci' and tci_activity.state in ('scheduled','completed')
+                    left join nh_activity referral_activity on referral_activity.parent_id = spell_activity.id and referral_activity.data_model = 'nh.clinical.patient.referral'
+                    left join nh_activity tci_activity on tci_activity.parent_id = spell_activity.id and tci_activity.data_model = 'nh.clinical.patient.tci'
                     left join nh_activity discharge_activity on discharge_activity.parent_id = spell_activity.id and discharge_activity.data_model = 'nh.clinical.adt.patient.discharge'
                     left join nh_activity clerking_activity on clerking_activity.parent_id = spell_activity.id and clerking_activity.data_model = 'nh.clinical.patient.clerking'
                     left join nh_activity review_activity on review_activity.parent_id = spell_activity.id and review_activity.data_model = 'nh.clinical.patient.review'
                     left join nh_activity ptwr_activity on ptwr_activity.parent_id = spell_activity.id and ptwr_activity.data_model = 'nh.clinical.ptwr' and ptwr_activity.state != 'completed'
                     left join nh_clinical_location location on location.id = spell.location_id
+                    where referral_activity.id is not null or tci_activity.id is not null
                 )
         """ % (self._table, self._table))
 
     def _get_overview_groups(self, cr, uid, ids, domain, read_group_order=None, access_rights_uid=None, context=None):
         res = [
+            ['Referral', 'Referral'],
             ['TCI', 'To Come In'],
             ['To be Clerked', 'To be Clerked'],
             ['Clerking in Process', 'Clerking in Process'],
@@ -88,22 +92,3 @@ class nh_etake_list_overview(orm.Model):
     _group_by_full = {
         'state': _get_overview_groups,
     }
-
-    # def complete(self, cr, uid, ids, context=None):
-    #     referral = self.browse(cr, uid, ids[0], context=context)
-    #
-    #     activity_pool = self.pool['nh.activity']
-    #     activity_pool.complete(cr, uid, referral.activity_id.id, context=context)
-    #
-    #     act_window_pool = self.pool['ir.actions.act_window']
-    #     action_id = act_window_pool.search(cr, SUPERUSER_ID, [['name', '=', 'Patient Referrals']], context=context)
-    #     action = act_window_pool.browse(cr, SUPERUSER_ID, action_id[0], context=context)
-    #
-    #     return {
-    #         'name': action.name,
-    #         'res_model': action.res_model,
-    #         'type': 'ir.actions.act_window',
-    #         'view_type': action.view_type,
-    #         'domain': action.domain,
-    #         'view_mode': 'tree,form'
-    #     }
