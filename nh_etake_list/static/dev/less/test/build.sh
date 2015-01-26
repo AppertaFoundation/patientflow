@@ -10,7 +10,7 @@ csslint css/etake_style.css
 python generate_styleguide.py
 
 # use UnCSS to ensure that all styles are used
-uncss styleguide.html > ../../../src/css/etake_style.css
+uncss styleguide.html > ../../../src/css/etake_style.css  --ignoreSheets css/oe_base.css
 diff --suppress-common-lines -i -E -b -B -w css/etake_style.css ../../../src/css/etake_style.css
 
 echo "## Minifying UnCSS'd file"
