@@ -145,7 +145,7 @@ class nh_clinical_patient_referral_form(orm.Model):
         # create referral
         self.pool['nh.clinical.patient.referral'].create_activity(cr, SUPERUSER_ID, {
             'patient_id': patient_id,
-        }, {'form_id': form_id}, context=context)
+        }, {'form_id': form_id, 'patient_id': patient_id}, context=context)
         return form_id
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -228,21 +228,28 @@ class nh_clinical_patient_referral(orm.Model):
     _columns = {
         'form_id': fields.many2one('nh.clinical.patient.referral.form', 'Referral Form'),
         'tci_location_id': fields.many2one('nh.clinical.location', 'To Come In Location'),
+        'patient_id': fields.many2one('nh.clinical.patient', 'Patient', required=True),
     }
+
+    def get_activity_location_id(self, cr, uid, activity_id, context=None):
+        activity_pool = self.pool['nh.activity']
+        activity = activity_pool.browse(cr, uid, activity_id, context)
+        return activity.data_ref.tci_location_id.id
 
     def complete(self, cr, uid, activity_id, context=None):
         activity_pool = self.pool['nh.activity']
         api_pool = self.pool['nh.clinical.api']
         res = super(nh_clinical_patient_referral, self).complete(cr, uid, activity_id, context)
-        referral = activity_pool.browse(cr, uid, activity_id, context=context)
+        referral = activity_pool.browse(cr, SUPERUSER_ID, activity_id, context=context)
         spell_activity_id = api_pool.get_patient_spell_activity_id(cr, SUPERUSER_ID, referral.patient_id.id, context=context)
         if not spell_activity_id:
             spell_pool = self.pool['nh.clinical.spell']
-            spell_pool.create_activity(cr, SUPERUSER_ID, {'creator_id': activity_id},
-                                       {'patient_id': referral.patient_id.id,
-                                        'location_id': referral.tci_location_id.id,
-                                        'pos_id': referral.tci_location_id.pos_id.id,
-                                        'start_date': dt.now().strftime(dtf)}, context=context)
+            spell_activity_id = spell_pool.create_activity(cr, SUPERUSER_ID, {'creator_id': activity_id},
+                                                           {'patient_id': referral.patient_id.id,
+                                                            'location_id': referral.data_ref.tci_location_id.id,
+                                                            'pos_id': referral.data_ref.tci_location_id.pos_id.id,
+                                                            'start_date': dt.now().strftime(dtf)}, context=context)
+            activity_pool.start(cr, SUPERUSER_ID, spell_activity_id, context=context)
         # trigger referral policy activities
         self.trigger_policy(cr, uid, activity_id, context=context)
         return res

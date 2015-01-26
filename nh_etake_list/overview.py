@@ -1,4 +1,4 @@
-from openerp.osv import orm, fields
+from openerp.osv import orm, fields, osv
 import logging
 from openerp import SUPERUSER_ID
 
@@ -7,7 +7,7 @@ _logger = logging.getLogger(__name__)
 
 class nh_etake_list_overview(orm.Model):
     _name = "nh.etake_list.overview"
-    # _inherits = {'nh.activity': 'activity_id'}
+    _inherits = {'nh.activity': 'activity_id'}
     _description = "eTake List Patient Overview"
     _rec_name = 'patient_id'
     _auto = False
@@ -26,7 +26,7 @@ class nh_etake_list_overview(orm.Model):
     _gender = [['M', 'Male'], ['F', 'Female']]
 
     _columns = {
-        # 'activity_id': fields.many2one('nh.activity', 'Activity', required=1, ondelete='restrict'),
+        'activity_id': fields.many2one('nh.activity', 'Activity', required=1, ondelete='restrict'),
         'location_id': fields.many2one('nh.clinical.location', 'Ward'),
         'pos_id': fields.many2one('nh.clinical.pos', 'POS'),
         'patient_id': fields.many2one('nh.clinical.patient', 'Patient'),
@@ -64,6 +64,10 @@ class nh_etake_list_overview(orm.Model):
                             when tci_activity.state = 'scheduled' then tci_activity.location_id
                             else location.id
                         end as location_id,
+                        case
+                            when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then referral_activity.id
+                            else spell_activity.id
+                        end as activity_id,
                         patient.other_identifier as hospital_number,
                         patient.patient_identifier as nhs_number
 
@@ -100,6 +104,19 @@ class nh_etake_list_overview(orm.Model):
     }
 
     def complete_referral(self, cr, uid, ids, context=None):
+        user_pool = self.pool['res.users']
+        doctor_groups = ['NH Clinical Senior Doctor Group', 'NH Clinical Consultant Group', 'NH Clinical Registrar Group']
+        user = user_pool.browse(cr, uid, uid, context=context)
+        if not any([g.name in doctor_groups for g in user.groups_id]):
+            raise osv.except_osv('Error!', 'Only senior doctors may accept referrals!')
+        location_ids = [l.id for l in user.location_ids if any([c.name == 'etakelist' for c in l.context_ids])]
+        if not location_ids:
+            raise osv.except_osv('Error!', 'You are not responsible for any eTake List Locations')
+        activity_pool = self.pool['nh.activity']
+        ov = self.browse(cr, uid, ids[0], context=context)
+        activity_pool.submit(cr, SUPERUSER_ID, ov.activity_id.id, {
+            'location_id': location_ids[0], 'tci_location_id': location_ids[0]}, context=context)
+        activity_pool.complete(cr, uid, ov.activity_id.id, context=context)
         return True
 
     def complete_tci(self, cr, uid, ids, context=None):
