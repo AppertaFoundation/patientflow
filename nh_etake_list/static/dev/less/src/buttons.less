@@ -1,0 +1,82 @@
+/*
+
+Buttons for clicking.
+
+.btn - A standard button
+
+.btn-nav - A Navigation button
+
+.btn-filter - A Filter button
+
+Example:
+  <a href="#" class="btn">I'm a normal button</a>
+
+  <a href="#" class="btn-nav">I'm a Nav Button</a>
+
+  <a href="#" class="btn-filter">I'm a Filter Button</a>
+
+Styleguide 1.0
+
+*/
+
+.btn {
+
+        .border-radius;
+
+    border: 1px solid rgb(124,124,124);
+    padding: 0.5em 5%;
+    background-color: red;
+
+    text-decoration:none;
+
+}
+
+.btn-nav{
+
+        .border-radius;
+
+    color: #455a64;
+
+    display:inline-block;
+
+    font-size:@nav-tab;
+    font-weight:900;
+    background: -webkit-linear-gradient( lighten(#84aec3, 20%), #84aec3 );
+
+    padding:10px;
+    border:1px solid #759bab;
+    box-shadow:0 1px 1px 0 lighten(black, 45%);
+
+    margin-right:5%;
+
+    text-align:center;
+    text-shadow: 0px 1px 1px white;
+    text-decoration:none;
+
+}
+
+
+.btn-filter {
+
+        .border-radius;
+
+    background-color:@mainBG;
+    color:#333;
+
+    padding: 0.5em 5%;
+
+    box-shadow: 0 1px 4px 0 lighten(black, 40%);
+
+    text-decoration:none;
+
+
+        &:hover, :active {
+
+
+        background-color: lighten(red, 30%);
+        color:#252525;
+
+        }
+
+
+}
