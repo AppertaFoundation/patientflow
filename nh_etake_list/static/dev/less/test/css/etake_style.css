@@ -34,16 +34,18 @@ Buttons for clicking.
 
 .btn - A standard button
 
-.btn-nav - A Navigation button
+.btn-nav - A Navigation button with Hover state as Active
 
-.btn-filter - A Filter button
+.btn-filter - A Filter button with Hover state as Active
 
 Example:
   <a href="#" class="btn">I'm a normal button</a>
 
-  <a href="#" class="btn-nav">I'm a Nav Button</a>
+  <a href="#" class="btn-nav">Nav Button</a>
 
-  <a href="#" class="btn-filter">I'm a Filter Button</a>
+  <a href="#" class="btn-filter">Filter Button</a>
+
+  <a href="#" class="btn-task">Task Button</a>
 
 Styleguide 1.0
 
@@ -72,22 +74,135 @@ Styleguide 1.0
   text-shadow: 0px 1px 1px white;
   text-decoration: none;
 }
+.btn-nav:hover,
+.btn-nav :active {
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 1.125em;
+  font-weight: 700;
+  background: -webkit-linear-gradient(#7195a6, #90acba);
+  padding: 10px;
+  border: 1px solid #2d5769;
+  box-shadow: 0 0 3px 1px #f4f8fc, 0 1px 4px 0 #666666 inset;
+  margin-right: 5%;
+  color: white;
+  text-shadow: 0px 1px 1px #666666;
+}
+.btn-nav:hover:after,
+.btn-nav :active:after {
+  position: absolute;
+  font-family: 'FontAwesome';
+  margin-top: 1em;
+  margin-left: -2.3%;
+  text-shadow: 0 1px 4px 0 black inset;
+  content: "\f0de";
+  font-size: 3em;
+  color: #dedede;
+}
 .btn-filter {
   -ms-border-radius: 10px;
   border-radius: 10px;
   background-color: #f0eeee;
+  font-size: 1.125em;
   color: #333;
-  padding: 0.5em 5%;
+  padding: 10px;
   box-shadow: 0 1px 4px 0 #666666;
   text-decoration: none;
+  text-align: center;
 }
 .btn-filter:hover,
 .btn-filter :active {
-  background-color: #ff9999;
+  background-color: #B4DEA6;
   color: #252525;
 }
+.btn-task {
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  color: white;
+  display: inline-block;
+  font-size: 1.125em;
+  background: -webkit-linear-gradient(#09b6ff, #0072a2);
+  padding: 10px;
+  border: 1px solid #0D5571;
+  box-shadow: 0 1px 2px 0 white inset;
+  margin-right: 5%;
+  text-align: center;
+  text-shadow: 0px 1px 1px #808080;
+  text-decoration: none;
+}
+.background {
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  background: #dedede;
+  box-shadow: 0 0 3px 1px white, 0 0px 1px 3px #b3b3b3 inset;
+  width: 100%;
+  height: 5em;
+}
+/*
+
+Navigational Stuff
+
+.navbar - Background for main tabs
+
+Example:
+
+<header>
+
+    <div class="navbar">
+        <ul>
+            <li><a href="#">Patient Dashboards</a></li>
+            <li><a href="#">Ward Dashboards</a></li>
+        </ul>
+
+            <div class="log-in">
+
+                <div class="name">
+
+                    <img src="#">
+
+                    <p>Robert Bond</p>
+
+                </div>
+
+
+                </div class="drop-down">
+
+                    <a class=""></a>
+
+                </div>
+
+            </div>
+
+    </div>
+
+</header>
+
+Styleguide 2.0
+
+*/
+header .navbar {
+  background: -webkit-linear-gradient(#424242, #282828);
+  width: 100%;
+}
+header .navbar a {
+  text-decoration: none;
+  color: white;
+}
+header .navbar ul li {
+  background: -webkit-linear-gradient(#4b4b4b, #181818);
+  border: 1px solid black;
+  display: inline-block;
+  margin-right: 5%;
+  padding: 2%;
+  list-style: none;
+  font-size: 1.125em;
+}
+header .navbar ul li:active,
+header .navbar ul li :hover {
+  background: -webkit-linear-gradient(#181818, #656565);
+}
 /* Typography */
-/* End Typography */
 /*
 
 fix to get the leftnav bar in Odoo to display as dictated in design. Very Hacky due to Odoo's use of direct child selectors

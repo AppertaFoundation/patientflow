@@ -1,0 +1,86 @@
+/*
+
+Navigational Stuff
+
+.navbar - Background for main tabs
+
+Example:
+
+<header>
+
+    <div class="navbar">
+        <ul>
+            <li><a href="#">Patient Dashboards</a></li>
+            <li><a href="#">Ward Dashboards</a></li>
+        </ul>
+
+            <div class="log-in">
+
+                <div class="name">
+
+                    <img src="#">
+
+                    <p>Robert Bond</p>
+
+                </div>
+
+
+                </div class="drop-down">
+
+                    <a class=""></a>
+
+                </div>
+
+            </div>
+
+    </div>
+
+</header>
+
+Styleguide 2.0
+
+*/
+
+header {
+
+    .navbar {
+
+         background: -webkit-linear-gradient(lighten(#282828, 10%), #282828 );
+         width:100%;
+
+
+        a {
+
+        text-decoration:none;
+        color:white;
+
+        }
+
+        ul {
+
+
+            li {
+
+                background: -webkit-linear-gradient(lighten(#181818, 20%), #181818 );
+                border:1px solid black;
+                display:inline-block;
+                margin-right:5%;
+                padding:2%;
+
+                list-style:none;
+                font-size:@nav-tab;
+
+                &:active,:hover {
+
+                    background: -webkit-linear-gradient( #181818, lighten(#181818, 30%) );
+
+                    }
+
+                  }
+
+              }
+
+        }
+
+
+    }
