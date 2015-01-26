@@ -135,7 +135,7 @@ Styleguide 1.0
   -ms-border-radius: 10px;
   border-radius: 10px;
   background: #dedede;
-  box-shadow: 0 0 3px 1px white, 0 0px 1px 3px #b3b3b3 inset;
+  box-shadow: 0 0 3px 1px #ffffff, 0 0px 1px 3px #b3b3b3 inset;
   width: 100%;
   height: 5em;
 }
@@ -147,36 +147,23 @@ Navigational Stuff
 
 Example:
 
-<header>
-
+  <header>
     <div class="navbar">
-        <ul>
-            <li><a href="#">Patient Dashboards</a></li>
-            <li><a href="#">Ward Dashboards</a></li>
-        </ul>
-
-            <div class="log-in">
-
-                <div class="name">
-
-                    <img src="#">
-
-                    <p>Robert Bond</p>
-
-                </div>
-
-
-                </div class="drop-down">
-
-                    <a class=""></a>
-
-                </div>
-
-            </div>
-
+      <ul>
+        <li><a href="#">Patient Dashboards</a></li>
+        <li><a href="#">Ward Dashboards</a></li>
+      </ul>
+      <div class="log-in">
+        <div class="name">
+          <img src="#"/>
+          <p>Robert Bond</p>
+        </div>
+        <div class="drop-down">
+         <a class=""></a>
+        </div>
+      </div>
     </div>
-
-</header>
+  </header>
 
 Styleguide 2.0
 
@@ -203,6 +190,7 @@ header .navbar ul li :hover {
   background: -webkit-linear-gradient(#181818, #656565);
 }
 /* Typography */
+/* End Typography */
 /*
 
 fix to get the leftnav bar in Odoo to display as dictated in design. Very Hacky due to Odoo's use of direct child selectors
