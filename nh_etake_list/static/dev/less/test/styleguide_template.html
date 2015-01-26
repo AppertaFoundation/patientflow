@@ -53,6 +53,9 @@
             width: 100%;
             text-align: right;
         }
+        .section{
+            margin-top: 3em;
+        }
     </style>
     <link rel="stylesheet" href="css/etake_style.css"/>
 </head>
@@ -70,6 +73,7 @@
             <h1>Open-eObs take list styleguide</h1>
         </div>
         {% for section_title, section in sections %}
+            <hr/>
             <div class="section" id="{{ section_title }}">
                 <h2>{{ section_title }}</h2>
                 <p>{{ section.description }}</p>
@@ -87,6 +91,7 @@
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
             </div>
+
         {% endfor %}
     </div>
 </body>
