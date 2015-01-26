@@ -98,6 +98,7 @@ fix to get the leftnav bar in Odoo to display as dictated in design. Very Hacky 
 .nh_kiosk_nav > div > div > div div.oe_secondary_menus_container - Contains the navigation lists, removes absolute positioning and overflow hiding
 .nh_kiosk_nav > div > div > div div.oe_secondary_menu_container .oe_secondary_menu_section - is the navigation list header, floated left to make inline
 .nh_kiosk_nav > div > div > div div.oe_secondary_menu_container .oe_secondary_submenu - is the navigation list, floated left to make inline
+.nav-stacked > li + li - Removes 2px margin top assigned to first button
 
 Example:
   <div class="openerp">
@@ -115,37 +116,37 @@ Example:
                   <div class="oe_secondary_menu_section">Patient Management</div>
                   <ul class="oe_secondary_submenu nav nav-pills nav-stacked">
                     <li class="active">
-                      <a href="/web#menu_id=165&amp;action=143" class="oe_menu_leaf" data-menu="165" data-action-model="ir.actions.act_window" data-action-id="143">
+                      <a href="#" class="oe_menu_leaf" data-menu="165" data-action-model="ir.actions.act_window" data-action-id="143">
                         <span class="oe_menu_text">Patients Board</span>
                       </a>
                     </li>
                     <li>
-                      <a href="/web#menu_id=168&amp;action=144" class="oe_menu_leaf" data-menu="168" data-action-model="ir.actions.act_window" data-action-id="144">
+                      <a href="#" class="oe_menu_leaf" data-menu="168" data-action-model="ir.actions.act_window" data-action-id="144">
                         <span class="oe_menu_text">Patients by Ward</span>
                       </a>
                     </li>
                     <li>
-                      <a href="/web#menu_id=169&amp;action=145" class="oe_menu_leaf" data-menu="169" data-action-model="ir.actions.act_window" data-action-id="145">
+                      <a href="#" class="oe_menu_leaf" data-menu="169" data-action-model="ir.actions.act_window" data-action-id="145">
                         <span class="oe_menu_text">Recently Discharged</span>
                       </a>
                     </li>
                     <li>
-                      <a href="/web#menu_id=170&amp;action=146" class="oe_menu_leaf" data-menu="170" data-action-model="ir.actions.act_window" data-action-id="146">
+                      <a href="#" class="oe_menu_leaf" data-menu="170" data-action-model="ir.actions.act_window" data-action-id="146">
                         <span class="oe_menu_text">Recently Transferred</span>
                       </a>
                     </li>
                     <li>
-                      <a href="/web#menu_id=147&amp;action=150" class="oe_menu_leaf" data-menu="147" data-action-model="ir.actions.act_window" data-action-id="150">
+                      <a href="#" class="oe_menu_leaf" data-menu="147" data-action-model="ir.actions.act_window" data-action-id="150">
                         <span class="oe_menu_text">Patients without bed</span>
                       </a>
                     </li>
                     <li>
-                      <a href="/web#menu_id=172&amp;action=166" class="oe_menu_leaf" data-menu="172" data-action-model="ir.actions.act_window" data-action-id="166">
+                      <a href="#" class="oe_menu_leaf" data-menu="172" data-action-model="ir.actions.act_window" data-action-id="166">
                         <span class="oe_menu_text">Doctor Tasks</span>
                       </a>
                     </li>
                     <li>
-                      <a href="/web#menu_id=173&amp;action=155" class="oe_menu_leaf" data-menu="173" data-action-model="ir.actions.act_window" data-action-id="155">
+                      <a href="#" class="oe_menu_leaf" data-menu="173" data-action-model="ir.actions.act_window" data-action-id="155">
                         <span class="oe_menu_text">Overdue Tasks</span>
                       </a>
                     </li>
@@ -153,32 +154,32 @@ Example:
                   <div class="oe_secondary_menu_section">Ward Management</div>
                   <ul class="oe_secondary_submenu nav nav-pills nav-stacked">
                     <li>
-                      <a href="/web#menu_id=149&amp;action=142" class="oe_menu_leaf" data-menu="149" data-action-model="ir.actions.act_window" data-action-id="142">
+                      <a href="#" class="oe_menu_leaf" data-menu="149" data-action-model="ir.actions.act_window" data-action-id="142">
                         <span class="oe_menu_text">Cancel Notifications</span>
                       </a>
                     </li>
                     <li>
-                      <a href="/web#menu_id=150&amp;action=156" class="oe_menu_leaf" data-menu="150" data-action-model="ir.actions.act_window" data-action-id="156">
+                      <a href="#" class="oe_menu_leaf" data-menu="150" data-action-model="ir.actions.act_window" data-action-id="156">
                         <span class="oe_menu_text">Active Points of Care</span>
                       </a>
                     </li>
                     <li>
-                      <a href="/web#menu_id=151&amp;action=157" class="oe_menu_leaf" data-menu="151" data-action-model="ir.actions.act_window" data-action-id="157">
+                      <a href="#" class="oe_menu_leaf" data-menu="151" data-action-model="ir.actions.act_window" data-action-id="157">
                         <span class="oe_menu_text">Inactive Points of Care</span>
                       </a>
                     </li>
                     <li>
-                      <a href="/web#menu_id=174&amp;action=148" class="oe_menu_leaf" data-menu="174" data-action-model="ir.actions.act_window" data-action-id="148">
+                      <a href="#" class="oe_menu_leaf" data-menu="174" data-action-model="ir.actions.act_window" data-action-id="148">
                         <span class="oe_menu_text">Activity Workload</span>
                       </a>
                     </li>
                     <li>
-                      <a href="/web#menu_id=153&amp;action=154" class="oe_menu_leaf" data-menu="153" data-action-model="ir.actions.act_window" data-action-id="154">
+                      <a href="#" class="oe_menu_leaf" data-menu="153" data-action-model="ir.actions.act_window" data-action-id="154">
                         <span class="oe_menu_text">Staff Management</span>
                       </a>
                     </li>
                     <li>
-                      <a href="/web#menu_id=152&amp;action=159" class="oe_menu_leaf" data-menu="152" data-action-model="ir.actions.act_window" data-action-id="159">
+                      <a href="#" class="oe_menu_leaf" data-menu="152" data-action-model="ir.actions.act_window" data-action-id="159">
                         <span class="oe_menu_text">Ward Dashboard</span>
                       </a>
                     </li>
@@ -210,6 +211,9 @@ Styleguide 5.0
   width: 10%;
   float: left;
 }
+.oe_leftbar.nh_kiosk_nav > div .oe_logo img {
+  width: 100%;
+}
 .oe_leftbar.nh_kiosk_nav > div .oe_footer {
   display: none;
 }
@@ -228,11 +232,11 @@ Styleguide 5.0
   overflow-y: visible;
 }
 .oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_menu_section {
-  width: inherit;
-  float: left;
+  display: none;
 }
 .oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu {
   float: left;
+  width: 100%;
 }
 .oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu:before {
   display: inline;
@@ -242,7 +246,45 @@ Styleguide 5.0
 }
 .oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li {
   float: left;
+  padding-right: 1%;
+  padding-bottom: 1em;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li a {
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  color: #455a64;
+  display: inline-block;
+  font-size: 1.125em;
+  font-weight: 900;
+  background: #84aec3;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #c9dbe4 0%, #84aec3 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #c9dbe4), color-stop(100%, #84aec3));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(#c9dbe4, #84aec3);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #c9dbe4 0%, #84aec3 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #c9dbe4 0%, #84aec3 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #c9dbe4 0%, #84aec3 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c9dbe4', endColorstr='#84aec3', GradientType=0);
+  /* IE6-9 */
+  padding: 10px;
+  border: 1px solid #759bab;
+  box-shadow: 0 1px 1px 0 #737373;
+  text-align: center;
+  text-shadow: 0 1px 1px white;
+  text-decoration: none;
 }
 .oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li a .oe_menu_text {
   max-width: inherit;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li:last-child {
+  padding-right: 0;
+}
+.oe_leftbar.nh_kiosk_nav .nav-stacked > li + li {
+  margin-top: 0;
 }
