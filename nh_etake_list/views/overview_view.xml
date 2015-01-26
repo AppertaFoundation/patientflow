@@ -57,12 +57,45 @@
                     <field name="hospital_number"/>
                     <field name="pos_id" />
                     <field name="state"/>
+                    <field name="gender"/>
+                    <field name="age"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div t-attf-class="oe_kanban_card oe_kanban_global_click">
                                 <div class="oe_kanban_content">
-                                    <div><field name="location_id"/>(<field name="pos_id"/>)</div>
-                                    <div><b><field name="patient_id"/></b>
+                                    <div><b><field name="patient_id"/></b></div>
+                                    <div>
+                                        <field name="age"/>
+                                        <t t-if="record.gender.raw_value == 'M'">
+                                            <img t-attf-src="/nh_etake_list/static/src/img/icons/male.png" t-att-alt="Male"/>
+                                        </t>
+                                        <t t-if="record.gender.raw_value == 'F'">
+                                            <img t-attf-src="/nh_etake_list/static/src/img/icons/female.png" t-att-alt="Female"/>
+                                        </t>
+                                        <field name="location_id"/>
+                                    </div>
+                                    <div>
+                                        <t t-if="record.state.raw_value == 'Referral'">
+                                            <button name="complete_referral" type="object" class="oe_highlight">Accept</button>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'TCI'">
+                                            <button name="complete_tci" type="object" class="oe_highlight">Arrived</button>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'To be Clerked'">
+                                            <button name="start_clerking" type="object" class="oe_highlight">Clerk</button>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'Clerking in Process'">
+                                            <button name="complete_clerking" type="object" class="oe_highlight">Complete</button>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'Senior Review'">
+                                            <button name="complete_review" type="object" class="oe_highlight">Complete</button>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'Consultant Review'">
+                                            <button name="complete_ptwr" type="object" class="oe_highlight">Complete</button>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'To be Discharged'">
+                                            <button name="discharge" type="object" class="oe_highlight">Discharge</button>
+                                        </t>
                                     </div>
                                     <t t-if="record.hospital_number.raw_value != ''">
                                         <div>Hospital Number: <field name="hospital_number"/></div>
@@ -82,7 +115,7 @@
             <field name="name">Referral Board</field>
             <field name="res_model">nh.etake_list.overview</field>
             <field name="view_type">form</field>
-            <field name="domain">[('user_ids','in',uid),('state','not in',['Done','Other'])]</field>
+            <field name="domain">[('state','not in',['Done','Other'])]</field>
             <field name="context">{'search_default_group_by_state':1}</field>
             <field name="view_mode">kanban,form</field>
             <field name="view_id" ref="view_nh_etake_list_overview_kanban"/>

@@ -7,7 +7,7 @@ _logger = logging.getLogger(__name__)
 
 class nh_etake_list_overview(orm.Model):
     _name = "nh.etake_list.overview"
-    _inherits = {'nh.activity': 'activity_id'}
+    # _inherits = {'nh.activity': 'activity_id'}
     _description = "eTake List Patient Overview"
     _rec_name = 'patient_id'
     _auto = False
@@ -23,14 +23,18 @@ class nh_etake_list_overview(orm.Model):
                         ['TCI', 'To Come In'],
                         ['Clerking in Process', 'Clerking in Process'],
                         ['Done', 'Done']]
+    _gender = [['M', 'Male'], ['F', 'Female']]
+
     _columns = {
-        'activity_id': fields.many2one('nh.activity', 'Activity', required=1, ondelete='restrict'),
+        # 'activity_id': fields.many2one('nh.activity', 'Activity', required=1, ondelete='restrict'),
         'location_id': fields.many2one('nh.clinical.location', 'Ward'),
         'pos_id': fields.many2one('nh.clinical.pos', 'POS'),
         'patient_id': fields.many2one('nh.clinical.patient', 'Patient'),
         'hospital_number': fields.text('Hospital Number'),
         'nhs_number': fields.text('NHS Number'),
         'state': fields.selection(_state_selection, 'State'),
+        'gender': fields.selection(_gender, 'Gender'),
+        'age': fields.integer('Age')
     }
 
     def init(self, cr):
@@ -39,14 +43,15 @@ class nh_etake_list_overview(orm.Model):
                 drop view if exists %s;
                 create or replace view %s as (
                     select
-                        spell_activity.id as id,
-                        tci_activity.id as activity_id,
+                        patient.id as id,
+                        patient.gender as gender,
+                        extract(year from age(now(), patient.dob)) as age,
                         tci_activity.pos_id as pos_id,
                         case
                             when spell_activity.state = 'completed' or spell_activity.state = 'cancelled' then 'Done'
                             when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'Done'
                             when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'To be Discharged'
-                            when referral_activity.state is not null and referral_activity.state = 'scheduled' then 'Referral'
+                            when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then 'Referral'
                             when tci_activity.state is not null and tci_activity.state = 'scheduled' then 'TCI'
                             when clerking_activity.state = 'scheduled' then 'To be Clerked'
                             when clerking_activity.state = 'started' then 'Clerking in Process'
@@ -54,17 +59,18 @@ class nh_etake_list_overview(orm.Model):
                             when review_activity.state = 'scheduled' then 'Senior Review'
                             else 'Other'
                         end as state,
-                        spell.patient_id as patient_id,
+                        patient.id as patient_id,
                         case
                             when tci_activity.state = 'scheduled' then tci_activity.location_id
                             else location.id
                         end as location_id,
                         patient.other_identifier as hospital_number,
                         patient.patient_identifier as nhs_number
-                    from nh_clinical_spell spell
-                    inner join nh_activity spell_activity on spell_activity.id = spell.activity_id
-                    inner join nh_clinical_patient patient on spell.patient_id = patient.id
-                    left join nh_activity referral_activity on referral_activity.parent_id = spell_activity.id and referral_activity.data_model = 'nh.clinical.patient.referral'
+
+                    from nh_clinical_patient patient
+                    left join nh_clinical_spell spell on spell.patient_id = patient.id
+                    left join nh_activity spell_activity on spell_activity.id = spell.activity_id
+                    left join nh_activity referral_activity on referral_activity.patient_id = patient.id and referral_activity.data_model = 'nh.clinical.patient.referral'
                     left join nh_activity tci_activity on tci_activity.parent_id = spell_activity.id and tci_activity.data_model = 'nh.clinical.patient.tci'
                     left join nh_activity discharge_activity on discharge_activity.parent_id = spell_activity.id and discharge_activity.data_model = 'nh.clinical.adt.patient.discharge'
                     left join nh_activity clerking_activity on clerking_activity.parent_id = spell_activity.id and clerking_activity.data_model = 'nh.clinical.patient.clerking'
@@ -92,3 +98,24 @@ class nh_etake_list_overview(orm.Model):
     _group_by_full = {
         'state': _get_overview_groups,
     }
+
+    def complete_referral(self, cr, uid, ids, context=None):
+        return True
+
+    def complete_tci(self, cr, uid, ids, context=None):
+        return True
+
+    def start_clerking(self, cr, uid, ids, context=None):
+        return True
+
+    def complete_clerking(self, cr, uid, ids, context=None):
+        return True
+
+    def complete_review(self, cr, uid, ids, context=None):
+        return True
+
+    def complete_ptwr(self, cr, uid, ids, context=None):
+        return True
+
+    def discharge(self, cr, uid, ids, context=None):
+        return True
