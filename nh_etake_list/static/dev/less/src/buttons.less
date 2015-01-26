@@ -56,44 +56,25 @@ Styleguide 1.0
     text-decoration:none;
 
 
-           &:hover, :active {
+   &:hover, :active {
+     font-weight:700;
+     background: -webkit-linear-gradient( #7195a6, lighten(#7195a6, 10%) );
+     border:1px solid #2d5769;
+     box-shadow:0 0 3px 1px lighten(@eobsBlue, 45%), 0 1px 4px 0 lighten(black, 40%) inset;
+     color: white;
+     text-shadow: 0px 1px 1px lighten(black, 40%);
 
-                .border-radius;
-
-                display:inline-block;
-
-                font-size:@nav-tab;
-                font-weight:700;
-                background: -webkit-linear-gradient( #7195a6, lighten(#7195a6, 10%) );
-
-
-                padding:10px;
-                border:1px solid #2d5769;
-                box-shadow:0 0 3px 1px lighten(@eobsBlue, 45%), 0 1px 4px 0 lighten(black, 40%) inset;
-
-                margin-right:5%;
-                color: white;
-                text-shadow: 0px 1px 1px lighten(black, 40%);
-
-
-                        &:after {
-
-                position:absolute;
-                font-family: 'FontAwesome';
-                margin-top:1em;
-                margin-left:-2.3%;
-
-                text-shadow: 0 1px 4px 0 black inset;
-
-                content:"\f0de";
-                font-size:3em;
-                color: @innerBG;
-
-                }
-
-
-        }
-
+     &:after {
+       position:absolute;
+       font-family: 'FontAwesome';
+       margin-top:1em;
+       margin-left:-2.3%;
+       text-shadow: 0 1px 4px 0 black inset;
+       content:"\f0de";
+       font-size:3em;
+       color: @innerBG;
+     }
+   }
 }
 
 

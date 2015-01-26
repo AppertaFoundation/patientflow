@@ -1,10 +1,3 @@
-@font-face {
-  font-family: 'FontAwesome';
-  src: url('font-awesome-4.2.0/fonts/fontawesome-webfont.eot?v=4.0.3');
-  src: url('font-awesome-4.2.0/fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font-awesome-4.2.0/fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font-awesome-4.2.0/fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font-awesome-4.2.0/fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
 i {
   font-family: 'fontAwesome';
   font-style: normal;
@@ -76,16 +69,10 @@ Styleguide 1.0
 }
 .btn-nav:hover,
 .btn-nav :active {
-  -ms-border-radius: 10px;
-  border-radius: 10px;
-  display: inline-block;
-  font-size: 1.125em;
   font-weight: 700;
   background: -webkit-linear-gradient(#7195a6, #90acba);
-  padding: 10px;
   border: 1px solid #2d5769;
   box-shadow: 0 0 3px 1px #f4f8fc, 0 1px 4px 0 #666666 inset;
-  margin-right: 5%;
   color: white;
   text-shadow: 0px 1px 1px #666666;
 }
@@ -248,44 +235,6 @@ Example:
                         <span class="oe_menu_text">Doctor Tasks</span>
                       </a>
                     </li>
-                    <li>
-                      <a href="#" class="oe_menu_leaf" data-menu="173" data-action-model="ir.actions.act_window" data-action-id="155">
-                        <span class="oe_menu_text">Overdue Tasks</span>
-                      </a>
-                    </li>
-                  </ul>
-                  <div class="oe_secondary_menu_section">Ward Management</div>
-                  <ul class="oe_secondary_submenu nav nav-pills nav-stacked">
-                    <li>
-                      <a href="#" class="oe_menu_leaf" data-menu="149" data-action-model="ir.actions.act_window" data-action-id="142">
-                        <span class="oe_menu_text">Cancel Notifications</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="oe_menu_leaf" data-menu="150" data-action-model="ir.actions.act_window" data-action-id="156">
-                        <span class="oe_menu_text">Active Points of Care</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="oe_menu_leaf" data-menu="151" data-action-model="ir.actions.act_window" data-action-id="157">
-                        <span class="oe_menu_text">Inactive Points of Care</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="oe_menu_leaf" data-menu="174" data-action-model="ir.actions.act_window" data-action-id="148">
-                        <span class="oe_menu_text">Activity Workload</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="oe_menu_leaf" data-menu="153" data-action-model="ir.actions.act_window" data-action-id="154">
-                        <span class="oe_menu_text">Staff Management</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="oe_menu_leaf" data-menu="152" data-action-model="ir.actions.act_window" data-action-id="159">
-                        <span class="oe_menu_text">Ward Dashboard</span>
-                      </a>
-                    </li>
                   </ul>
                 </div>
               </div>
@@ -388,6 +337,39 @@ Styleguide 5.0
 .oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li:last-child {
   padding-right: 0;
 }
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li.active a {
+  font-weight: 700;
+  background: -webkit-linear-gradient(#7195a6, #90acba);
+  border: 1px solid #2d5769;
+  box-shadow: 0 0 3px 1px #f4f8fc, 0 1px 4px 0 #666666 inset;
+  color: white;
+  text-shadow: 0 1px 1px #666666;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li.active:after {
+  position: absolute;
+  font-family: 'FontAwesome';
+  top: 1.4em;
+  left: 4.5%;
+  text-shadow: 0 3px 0px #dedede, 0 0 4px #000000, 0 2px 2px #dedede;
+  content: "\f0de";
+  font-size: 3em;
+  color: #dedede;
+}
 .oe_leftbar.nh_kiosk_nav .nav-stacked > li + li {
   margin-top: 0;
+}
+.example .oe_application {
+  height: 5em;
+  background-color: #dedede;
+  box-shadow: 0px 0px 4px black;
+}
+.example .oe_secondary_menu {
+  margin-top: 2em;
+}
+.example .oe_secondary_submenu li {
+  padding-bottom: 0 !important;
+}
+.example .oe_secondary_submenu {
+  margin: 0 !important;
+  padding: 0 !important;
 }
