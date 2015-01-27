@@ -1,0 +1,130 @@
+/*
+
+Search Box that is used for searching and creating filters.
+
+.search - Background for main tabs
+
+#search-box - ID of the Search Box itself.
+
+.clear-search - button used to clear any of the current filters being used.
+
+.drop-down - button used to dropdown and allow for advanced search.
+
+Example:
+
+    <div class="search-bar">
+         <form id="searchbox" action="">
+                <ul>
+                    <li><input type="submit"><i class="search-icon"></i></li>
+                    <li><input id="search-box" type="text" placeholder="Search or Create Filters"></li>
+                    <li class="clear-search"><input type="reset" value="Clear"> <i class="clear-icon"></i></li>
+                    <li class="drop-down"><a href="#"><i class="drop-icon"></i></a></li>
+                </ul>
+         </form>
+    </div>
+
+Styleguide 4.0
+
+*/
+
+.search-icon:before {
+
+content: "\f002";
+font-size: 1.5em;
+color: @innerBG;
+
+}
+
+.drop-icon:before {
+
+content: "\f078";
+font-size:1.5em;
+color: @innerBG;
+line-height:1.8em;
+
+}
+
+.clear-icon:after {  
+
+content: "\f00d"; 
+font-size: 1.5em;
+line-height:2em; 
+color: white;  
+
+}
+
+.search-bar {
+
+    .border-radius;
+
+    background-color: #ffffff;
+	box-shadow:0px 0px 4px 1px lighten(black, 60%) inset;
+	//padding: 1% 1% 0 0;
+
+            #search-box {
+
+                //box-shadow:0px 0px 4px 1px lighten(black, 60%) inset;
+
+                border:none;
+
+                color:#333;
+                font-size:1.2em;
+
+                //height:2.4em;
+
+                padding:0 0 0 1%;
+
+                resize:none;
+                font-size:1.1em;
+                width:100%;
+                min-height:2em;
+
+                    &:focus {
+                        //box-shadow:0 0 0 2px black;
+                        background-color: darken(white, 5%);
+                        outline: 0;
+
+                    }
+
+            }
+
+            ul {
+
+
+                li {
+
+                    text-decoration:none;
+                    list-style:none;
+                    display:inline-block;
+
+                        a {
+
+                        text-decoration:none;
+                        color:white;
+
+                        }
+
+                        &.clear-search {
+
+                                background: -webkit-linear-gradient(lighten(#263238, 10%), #263238 );
+                                height:3em;
+                                padding:0 2% 0 2%;
+                                line-height:3.1em;
+                                color:white;
+
+                                }
+
+                        &.drop-down {
+
+                            .border-right;
+
+                                background: -webkit-linear-gradient(lighten(#3c4e58, 10%), #3c4e58 );
+                                height:3em;
+                                padding:0 2% 0 2%;
+                                border: 0 0 0 1px solid #2b373d;
+
+                            }
+                }
+            }
+
+}

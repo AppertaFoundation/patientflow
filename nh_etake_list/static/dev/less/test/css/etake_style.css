@@ -122,7 +122,7 @@ Styleguide 1.0
   -ms-border-radius: 10px;
   border-radius: 10px;
   background: #dedede;
-  box-shadow: 0 0 3px 1px #ffffff, 0 0px 1px 3px #b3b3b3 inset;
+  box-shadow: 0 0 3px 1px white, 0 0px 1px 3px #b3b3b3 inset;
   width: 100%;
   height: 5em;
 }
@@ -177,7 +177,95 @@ header .navbar ul li :hover {
   background: -webkit-linear-gradient(#181818, #656565);
 }
 /* Typography */
-/* End Typography */
+/*
+
+Search Box that is used for searching and creating filters.
+
+.search - Background for main tabs
+
+#search-box - ID of the Search Box itself.
+
+.clear-search - button used to clear any of the current filters being used.
+
+.drop-down - button used to dropdown and allow for advanced search.
+
+Example:
+
+    <div class="search-bar">
+         <form id="searchbox" action="">
+                <ul>
+                    <li><input type="submit"><i class="search-icon"></i></li>
+                    <li><input id="search-box" type="text" placeholder="Search or Create Filters"></li>
+                    <li class="clear-search"><input type="reset" value="Clear"> <i class="clear-icon"></i></li>
+                    <li class="drop-down"><a href="#"><i class="drop-icon"></i></a></li>
+                </ul>
+         </form>
+    </div>
+
+Styleguide 4.0
+
+*/
+.search-icon:before {
+  content: "\f002";
+  font-size: 1.5em;
+  color: #dedede;
+}
+.drop-icon:before {
+  content: "\f078";
+  font-size: 1.5em;
+  color: #dedede;
+  line-height: 1.8em;
+}
+.clear-icon:after {
+  content: "\f00d";
+  font-size: 1.5em;
+  line-height: 2em;
+  color: white;
+}
+.search-bar {
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 4px 1px #999999 inset;
+}
+.search-bar #search-box {
+  border: none;
+  color: #333;
+  font-size: 1.2em;
+  padding: 0 0 0 1%;
+  resize: none;
+  font-size: 1.1em;
+  width: 100%;
+  min-height: 2em;
+}
+.search-bar #search-box:focus {
+  background-color: #f2f2f2;
+  outline: 0;
+}
+.search-bar ul li {
+  text-decoration: none;
+  list-style: none;
+  display: inline-block;
+}
+.search-bar ul li a {
+  text-decoration: none;
+  color: white;
+}
+.search-bar ul li.clear-search {
+  background: -webkit-linear-gradient(#3b4d56, #263238);
+  height: 3em;
+  padding: 0 2% 0 2%;
+  line-height: 3.1em;
+  color: white;
+}
+.search-bar ul li.drop-down {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: -webkit-linear-gradient(#516976, #3c4e58);
+  height: 3em;
+  padding: 0 2% 0 2%;
+  border: 0 0 0 1px solid #2b373d;
+}
 /*
 
 fix to get the leftnav bar in Odoo to display as dictated in design. Very Hacky due to Odoo's use of direct child selectors
@@ -223,16 +311,6 @@ Example:
                     <li>
                       <a href="#" class="oe_menu_leaf" data-menu="170" data-action-model="ir.actions.act_window" data-action-id="146">
                         <span class="oe_menu_text">Recently Transferred</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="oe_menu_leaf" data-menu="147" data-action-model="ir.actions.act_window" data-action-id="150">
-                        <span class="oe_menu_text">Patients without bed</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="oe_menu_leaf" data-menu="172" data-action-model="ir.actions.act_window" data-action-id="166">
-                        <span class="oe_menu_text">Doctor Tasks</span>
                       </a>
                     </li>
                   </ul>
@@ -347,7 +425,7 @@ Styleguide 5.0
   font-family: 'FontAwesome';
   top: 1.4em;
   left: 33%;
-  text-shadow: 0 3px 0px #dedede, 0 0 4px #000000, 0 2px 2px #dedede;
+  text-shadow: 0 3px 0px #dedede, 0 0 4px black, 0 2px 2px #dedede;
   content: "\f0de";
   font-size: 3em;
   color: #dedede;
@@ -372,4 +450,48 @@ Styleguide 5.0
 }
 .example .oe_secondary_submenu .active:after {
   left: 4.7% !important;
+}
+/*
+
+Lozenge styles of what a patient item looks like in the Take List.
+
+.col-title - Title of a Column
+
+Example:
+
+<div class="take-col">
+
+    <div class="col-title">
+
+        <a class="add-patient" href="#"><i class="addpatient-icon"></i></a>
+
+        <h3>Referrals</h3>
+
+        <div class="patient-no">5</div>
+
+    </div>
+
+</div>
+
+Styleguide 6.0
+
+*/
+.addpatient-icon:before {
+  content: "\f067";
+  font-size: 1.5em;
+  color: #37474f;
+  text-shadow: 0px 1px 1px #ffffff;
+}
+.col-title {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: -webkit-linear-gradient(#ffffff, #f8e9e0);
+}
+.col-title .add-patient {
+  background: -webkit-linear-gradient(#c0e1fc, #90caf9);
+}
+.col-title .patient-no {
+  font-weight: 900;
+  background: -webkit-linear-gradient(#eff0f0, #d4d6d8);
+  text-shadow: 0px 1px 1px #ffffff;
 }

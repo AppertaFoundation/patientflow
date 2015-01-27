@@ -75,7 +75,11 @@
             
                 <li><a href="#2.0">2.0</a></li>
             
+                <li><a href="#4.0">4.0</a></li>
+            
                 <li><a href="#5.0">5.0</a></li>
+            
+                <li><a href="#6.0">6.0</a></li>
             
         </ul>
     </div>
@@ -151,6 +155,42 @@
 
         
             <hr/>
+            <div class="section" id="4.0">
+                <h2>4.0</h2>
+                <p>Search Box that is used for searching and creating filters.
+
+
+#search-box - ID of the Search Box itself.</p>
+
+                <h3>Modifiers</h3>
+                <ul>
+                    
+                        <li><strong>.search</strong> - Background for main tabs</li>
+                    
+                        <li><strong>.clear-search</strong> - button used to clear any of the current filters being used.</li>
+                    
+                        <li><strong>.drop-down</strong> - button used to dropdown and allow for advanced search.</li>
+                    
+                </ul>
+
+                <h3>Examples</h3>
+                <div class="example">
+                    <div class="search-bar">
+         <form id="searchbox" action="">
+                <ul>
+                    <li><input type="submit"><i class="search-icon"></i></li>
+                    <li><input id="search-box" type="text" placeholder="Search or Create Filters"></li>
+                    <li class="clear-search"><input type="reset" value="Clear"> <i class="clear-icon"></i></li>
+                    <li class="drop-down"><a href="#"><i class="drop-icon"></i></a></li>
+                </ul>
+         </form>
+    </div>
+                </div>
+                <p class="top-link"><a href="#top">[ TOP ]</a></p>
+            </div>
+
+        
+            <hr/>
             <div class="section" id="5.0">
                 <h2>5.0</h2>
                 <p>fix to get the leftnav bar in Odoo to display as dictated in design. Very Hacky due to Odoo's use of direct child selectors</p>
@@ -210,16 +250,6 @@
                         <span class="oe_menu_text">Recently Transferred</span>
                       </a>
                     </li>
-                    <li>
-                      <a href="#" class="oe_menu_leaf" data-menu="147" data-action-model="ir.actions.act_window" data-action-id="150">
-                        <span class="oe_menu_text">Patients without bed</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="oe_menu_leaf" data-menu="172" data-action-model="ir.actions.act_window" data-action-id="166">
-                        <span class="oe_menu_text">Doctor Tasks</span>
-                      </a>
-                    </li>
                   </ul>
                 </div>
               </div>
@@ -231,6 +261,38 @@
       <div class="oe_application"></div>
     </div>
   </div>
+                </div>
+                <p class="top-link"><a href="#top">[ TOP ]</a></p>
+            </div>
+
+        
+            <hr/>
+            <div class="section" id="6.0">
+                <h2>6.0</h2>
+                <p>Lozenge styles of what a patient item looks like in the Take List.</p>
+
+                <h3>Modifiers</h3>
+                <ul>
+                    
+                        <li><strong>.col-title</strong> - Title of a Column</li>
+                    
+                </ul>
+
+                <h3>Examples</h3>
+                <div class="example">
+                    <div class="take-col">
+
+    <div class="col-title">
+
+        <a class="add-patient" href="#"><i class="addpatient-icon"></i></a>
+
+        <h3>Referrals</h3>
+
+        <div class="patient-no">5</div>
+
+    </div>
+
+</div>
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
             </div>
