@@ -349,7 +349,7 @@ Styleguide 5.0
   position: absolute;
   font-family: 'FontAwesome';
   top: 1.4em;
-  left: 4.5%;
+  left: 33%;
   text-shadow: 0 3px 0px #dedede, 0 0 4px #000000, 0 2px 2px #dedede;
   content: "\f0de";
   font-size: 3em;
@@ -372,4 +372,7 @@ Styleguide 5.0
 .example .oe_secondary_submenu {
   margin: 0 !important;
   padding: 0 !important;
+}
+.example .oe_secondary_submenu .active:after {
+  left: 4.7% !important;
 }
