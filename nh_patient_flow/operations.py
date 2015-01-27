@@ -58,6 +58,7 @@ class nh_clinical_patient_tci(orm.Model):
 class nh_clinical_patient_referral_form(orm.Model):
     _name = 'nh.clinical.patient.referral.form'
     _description = "Patient Referral Form"
+    _rec_name = 'patient_id'
     _boolean = [['yes', 'Yes'], ['no', 'No']]
     _boolean2 = [['yes', 'Yes'], ['no', 'No'], ['na', 'N/A']]
     _referral_source = [['gp', 'GP'], ['ucc', 'UCC'], ['ae', 'A&E'], ['eau', 'EAU'], ['ecp', 'ECP'], ['wic', 'WIC'],
@@ -69,7 +70,14 @@ class nh_clinical_patient_referral_form(orm.Model):
     _poc = [['eau', 'EAU'], ['ae', 'A&E'], ['acc', 'ACC'], ['smdu', 'SMDU'], ['clinic', 'Clinic']]
     _averted = [['com', 'Community'], ['clinic', 'Clinic'], ['ae', 'A&E'], ['eau', 'EAU'], ['acu', 'ACU'],
                 ['mobile', 'Mobile']]
-    _ethnicity = [['w_b', 'White British'], ['w_i', 'White Irish'], ['w_o', 'White Other'], ['o', 'Other']]
+    _ethnicity = [
+        ['A', 'White - British'], ['B', 'White - Irish'], ['C', 'White - Other background'],
+        ['D', 'Mixed - White and Black Caribbean'], ['E', 'Mixed - White and Black African'],
+        ['F', 'Mixed - White and Asian'], ['G', 'Mixed - Other background'], ['H', 'Asian - Indian'],
+        ['J', 'Asian - Pakistani'], ['K', 'Asian - Bangladeshi'], ['L', 'Asian - Other background'],
+        ['M', 'Black - Caribbean'], ['N', 'Black - African'], ['P', 'Black - Other background'], ['R', 'Chinese'],
+        ['S', 'Other ethnic group'], ['Z', 'Not stated']
+    ]
     _patient_values = ['patient_id', 'hospital_number', 'nhs_number', 'first_name', 'middle_names', 'last_name', 'dob',
                        'ethnicity', 'gender']
 
@@ -122,7 +130,8 @@ class nh_clinical_patient_referral_form(orm.Model):
         'averted': fields.selection(_averted, 'Averted in'),
     }
     _defaults = {
-        'source': 'gp'
+        'source': 'gp',
+        'ethnicity': 'Z'
     }
 
     def create(self, cr, uid, vals, context=None):
@@ -132,12 +141,12 @@ class nh_clinical_patient_referral_form(orm.Model):
             patient_pool = self.pool['nh.clinical.patient']
             patient_vals = {
                 'other_identifier': 'NH_'+str(form_id),
-                'patient_identifier': vals['nhs_number'] if 'nhs_number' in vals else False,
-                'given_name': vals['first_name'] if 'first_name' in vals else 'John',
-                'middle_names': vals['middle_names'] if 'middle_names' in vals else False,
-                'family_name': vals['last_name'] if 'last_name' in vals else 'Doe',
-                'dob': vals['dob'] if 'dob' in vals else False,
-                'gender': vals['gender'] if 'gender' in vals else False,
+                'patient_identifier': vals.get('nhs_number'),
+                'given_name': vals['first_name'] if vals.get('first_name') else 'John',
+                'middle_names': vals.get('middle_names'),
+                'family_name': vals['last_name'] if vals.get('last_name') else 'Doe',
+                'dob': vals.get('dob'),
+                'gender': vals.get('gender'),
                 'ethnicity': vals['ethnicity'] if 'ethnicity' in vals else False
             }
             patient_id = patient_pool.create(cr, uid, patient_vals, context=context)

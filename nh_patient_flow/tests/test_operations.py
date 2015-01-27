@@ -31,6 +31,8 @@ class TestOpsPatientFlow(common.SingleTransactionCase):
         cls.pos_pool = cls.registry('nh.clinical.pos')
         cls.spell_pool = cls.registry('nh.clinical.spell')
         # OPERATIONS DATA MODELS
+        cls.referral_form = cls.registry('nh.clinical.patient.referral')
+        cls.form_pool = cls.registry('nh.clinical.patient.referral.form')
         cls.tci_pool = cls.registry('nh.clinical.patient.tci')
 
         cls.apidemo = cls.registry('nh.clinical.api.demo')
@@ -50,7 +52,7 @@ class TestOpsPatientFlow(common.SingleTransactionCase):
         cls.ct_id = cls.users_pool.search(cr, uid, [('login', '=', 'CT')])[0] #Consultant on ward T
         cls.adt_id = cls.users_pool.search(cr, uid, [('groups_id.name', 'in', ['NH Clinical ADT Group']), ('pos_id', '=', cls.pos_id)])[0]
         
-    def test_Referral(self):
+    def test_referral(self):
         cr, uid = self.cr, self.uid
         patient_ids = self.patient_ids
         patient_id = fake.random_element(patient_ids)
