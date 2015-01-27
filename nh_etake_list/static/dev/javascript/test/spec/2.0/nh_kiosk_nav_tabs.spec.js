@@ -110,6 +110,7 @@ describe('NH Kiosk Navigation', function() {
             // show / hide the list based on if it is currently 'active' or not
 
             if($(this).next('ul').children('.active').length > 0){
+                $(this).addClass('active');
                 $(this).next('ul').show();
             }else{
                 $(this).next('ul').hide();
@@ -118,6 +119,8 @@ describe('NH Kiosk Navigation', function() {
             // set up events to 'switch tabs'
             $(this).on('click', function(){
                 var tabId = $(this).attr('data-tab-id');
+                sectionTitles.each(function(index) { $(this).removeClass('active'); });
+                $(this).addClass('active');
                sectionLists.each(function(index){
                   if($(this).attr('data-tab-id') == tabId){
                       $(this).show();
@@ -145,6 +148,7 @@ describe('NH Kiosk Navigation', function() {
 
     it('Shows only the active menu', function(){
         expect(sectionLists.first().css('display')).toBe('block');
+        expect(sectionTitles.first().hasClass('active')).toBe(true);
         expect(sectionLists.last().css('display')).toBe('none');
     });
 
@@ -170,6 +174,7 @@ describe('NH Kiosk Navigation', function() {
         $('.navbar [data-tab-id=1]').trigger('click');
         expect('click').toHaveBeenTriggeredOn('.navbar div[data-tab-id=1]');
         expect(spyEvent).toHaveBeenTriggered();
+        expect($('.navbar div[data-tab-id=1]').hasClass('active')).toBe(true);
         expect(sectionLists.first().css('display')).toBe('none');
         expect(sectionLists.last().css('display')).toBe('block');
     });
@@ -179,6 +184,7 @@ describe('NH Kiosk Navigation', function() {
         $('.navbar [data-tab-id=0]').trigger('click');
         expect('click').toHaveBeenTriggeredOn('.navbar div[data-tab-id=0]');
         expect(spyEvent).toHaveBeenTriggered();
+        expect($('.navbar div[data-tab-id=0]').hasClass('active')).toBe(true);
         expect(sectionLists.first().css('display')).toBe('block');
         expect(sectionLists.last().css('display')).toBe('none');
     });

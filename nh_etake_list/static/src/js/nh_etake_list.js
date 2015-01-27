@@ -61,6 +61,9 @@ openerp.nh_etake_list = function(instance){
             var navbarDiv = $('<div class="navbar"></div>');
             if(activeMenu.find('.navbar').length < 1){
                 activeMenu.prepend(navbarDiv);
+            }else{
+                activeMenu.find('.navbar').remove();
+                activeMenu.prepend(navbarDiv);
             }
             sectionTitles.each(function(index){
                 // set the tab id on the section header
@@ -72,6 +75,7 @@ openerp.nh_etake_list = function(instance){
                 // show / hide the list based on if it is currently 'active' or not
 
                 if($(this).next('ul').children('.active').length > 0){
+                    $(this).addClass('active');
                     $(this).next('ul').show();
                 }else{
                     $(this).next('ul').hide();
@@ -80,6 +84,8 @@ openerp.nh_etake_list = function(instance){
                 // set up events to 'switch tabs'
                 $(this).on('click', function(){
                     var tabId = $(this).attr('data-tab-id');
+                    sectionTitles.each(function(index) { $(this).removeClass('active'); });
+                    $(this).addClass('active');
                     sectionLists.each(function(index){
                         if($(this).attr('data-tab-id') == tabId){
                             $(this).show();
