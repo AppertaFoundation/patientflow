@@ -115,7 +115,7 @@ class nh_clinical_patient_referral_form(orm.Model):
         'referral_reason': fields.char('Reason for referral', size=200),
         'medication_list': fields.selection(_boolean, 'Medication List Requested'),
         'diagnosis': fields.char('Possible diagnosis', size=200),
-        'speciality': fields.char('Speciality', size=200),
+        'specialty': fields.many2one('nh.clinical.specialty', 'Specialty'),
         'advised_attendance': fields.selection(_advised_attendance, 'Advised Attendance At'),
         'environmental_factors': fields.text('Environmental Factors, Social/Family'),
         'elsewhere_treatment': fields.selection(_boolean, 'Can patient be treated elsewhere?'),
