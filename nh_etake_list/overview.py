@@ -1,6 +1,8 @@
 from openerp.osv import orm, fields, osv
 import logging
 from openerp import SUPERUSER_ID
+from datetime import datetime as dt
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as dtf
 
 _logger = logging.getLogger(__name__)
 
@@ -34,7 +36,12 @@ class nh_etake_list_overview(orm.Model):
         'nhs_number': fields.text('NHS Number'),
         'state': fields.selection(_state_selection, 'State'),
         'gender': fields.selection(_gender, 'Gender'),
-        'age': fields.integer('Age')
+        'age': fields.integer('Age'),
+        'form_id': fields.many2one('nh.clinical.patient.referral.form', 'Referral Form'),
+        'clerking_started': fields.datetime('Clerking Started'),
+        'clerking_terminated': fields.datetime('Clerking Finished'),
+        'diagnosis': fields.text('Diagnosis'),
+        'plan': fields.text('Plan')
     }
 
     def init(self, cr):
@@ -66,15 +73,23 @@ class nh_etake_list_overview(orm.Model):
                         end as location_id,
                         case
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then referral_activity.id
+                            when tci_activity.state is not null and tci_activity.state = 'scheduled' then tci_activity.id
+                            when clerking_activity.state = 'scheduled' or clerking_activity.state = 'started' then clerking_activity.id
                             else spell_activity.id
                         end as activity_id,
                         patient.other_identifier as hospital_number,
-                        patient.patient_identifier as nhs_number
+                        patient.patient_identifier as nhs_number,
+                        referral.form_id as form_id,
+                        clerking_activity.date_started as clerking_started,
+                        clerking_activity.date_terminated as clerking_terminated,
+                        spell.diagnosis as diagnosis,
+                        spell.doctor_plan as plan
 
                     from nh_clinical_patient patient
                     left join nh_clinical_spell spell on spell.patient_id = patient.id
                     left join nh_activity spell_activity on spell_activity.id = spell.activity_id
                     left join nh_activity referral_activity on referral_activity.patient_id = patient.id and referral_activity.data_model = 'nh.clinical.patient.referral'
+                    left join nh_clinical_patient_referral referral on referral.activity_id = referral_activity.id
                     left join nh_activity tci_activity on tci_activity.parent_id = spell_activity.id and tci_activity.data_model = 'nh.clinical.patient.tci'
                     left join nh_activity discharge_activity on discharge_activity.parent_id = spell_activity.id and discharge_activity.data_model = 'nh.clinical.adt.patient.discharge'
                     left join nh_activity clerking_activity on clerking_activity.parent_id = spell_activity.id and clerking_activity.data_model = 'nh.clinical.patient.clerking'
@@ -105,27 +120,63 @@ class nh_etake_list_overview(orm.Model):
 
     def complete_referral(self, cr, uid, ids, context=None):
         user_pool = self.pool['res.users']
-        doctor_groups = ['NH Clinical Senior Doctor Group', 'NH Clinical Consultant Group', 'NH Clinical Registrar Group']
         user = user_pool.browse(cr, uid, uid, context=context)
-        if not any([g.name in doctor_groups for g in user.groups_id]):
-            raise osv.except_osv('Error!', 'Only senior doctors may accept referrals!')
         location_ids = [l.id for l in user.location_ids if any([c.name == 'etakelist' for c in l.context_ids])]
         if not location_ids:
             raise osv.except_osv('Error!', 'You are not responsible for any eTake List Locations')
         activity_pool = self.pool['nh.activity']
         ov = self.browse(cr, uid, ids[0], context=context)
+        if ov.state != 'Referral':
+            raise osv.except_osv('Error!', 'Trying to complete referral out of Referral state')
         activity_pool.submit(cr, SUPERUSER_ID, ov.activity_id.id, {
             'location_id': location_ids[0], 'tci_location_id': location_ids[0]}, context=context)
         activity_pool.complete(cr, uid, ov.activity_id.id, context=context)
         return True
 
+    def cancel_referral(self, cr, uid, ids, context=None):
+        activity_pool = self.pool['nh.activity']
+        ov = self.browse(cr, uid, ids[0], context=context)
+        if ov.state != 'Referral':
+            raise osv.except_osv('Error!', 'Trying to cancel referral out of Referral state')
+        activity_pool.cancel(cr, uid, ov.activity_id.id, context=context)
+        return True
+
     def complete_tci(self, cr, uid, ids, context=None):
+        ov = self.browse(cr, uid, ids[0], context=context)
+        if not any([u.id == uid for u in ov.activity_id.user_ids]):
+            raise osv.except_osv('Error!', 'You cannot complete this task!')
+        activity_pool = self.pool['nh.activity']
+        activity_pool.complete(cr, uid, ov.activity_id.id, context=context)
+        return True
+
+    def cancel_tci(self, cr, uid, ids, context=None):
+        ov = self.browse(cr, uid, ids[0], context=context)
+        if not any([u.id == uid for u in ov.activity_id.user_ids]):
+            raise osv.except_osv('Error!', 'You cannot complete this task!')
+        activity_pool = self.pool['nh.activity']
+        activity_pool.cancel(cr, uid, ov.activity_id.id, context=context)
+        discharge_pool = self.pool['nh.clinical.patient.discharge']
+        discharge_activity_id = discharge_pool.create_activity(
+            cr, SUPERUSER_ID, {}, {
+                'patient_id': ov.patient_id.id,
+                'discharge_date': dt.now().strftime(dtf)}, context=context)
+        activity_pool.complete(cr, uid, discharge_activity_id, context=context)
         return True
 
     def start_clerking(self, cr, uid, ids, context=None):
+        ov = self.browse(cr, uid, ids[0], context=context)
+        if not any([u.id == uid for u in ov.activity_id.user_ids]):
+            raise osv.except_osv('Error!', 'You cannot complete this task!')
+        activity_pool = self.pool['nh.activity']
+        activity_pool.start(cr, uid, ov.activity_id.id, context=context)
         return True
 
     def complete_clerking(self, cr, uid, ids, context=None):
+        ov = self.browse(cr, uid, ids[0], context=context)
+        if not any([u.id == uid for u in ov.activity_id.user_ids]):
+            raise osv.except_osv('Error!', 'You cannot complete this task!')
+        activity_pool = self.pool['nh.activity']
+        activity_pool.complete(cr, uid, ov.activity_id.id, context=context)
         return True
 
     def complete_review(self, cr, uid, ids, context=None):
