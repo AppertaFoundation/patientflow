@@ -34,7 +34,7 @@ Example:
                         <div class="oe_searchview_input" contenteditable="true" tabindex="0"></div>
                         <div class="oe_tag oe_tag_dark oe_searchview_facet" tabindex="0">
                           <span class="oe_facet_remove">x</span>
-                          <span class="oe_facet_category oe_i">w</span>
+                          <span class="oe_facet_category oe_i"></span>
                           <span class="oe_facet_values">
                             <span class="oe_facet_value">
                              State
@@ -85,6 +85,16 @@ Styleguide 4.0
 
 */
 
+
+.filter-icon:after {
+
+content: "\f0b0";
+font-size: 1.5em;
+color: #37474f;
+text-shadow: 0px 1px 1px lighten(white,50%);
+
+}
+
 .openerp {
   .oe_searchview {
     .border-radius;
@@ -95,6 +105,18 @@ Styleguide 4.0
 
       min-height: 2.2em;
       margin: 0 0 0 8%;
+
+                  &:before {
+
+                font-family: 'FontAwesome';  
+                content:"\f002"; 
+                font-size:1.5em; 
+                color: @mainBG;
+                margin-right:10px;
+
+                text-shadow: 0px 1px 0 lighten(black,50%) ;
+
+            }
 
       .oe_searchview_input {
         border: none;
@@ -110,23 +132,99 @@ Styleguide 4.0
         }
       }
 
+
+      .oe_tag {
+
+      height:2em;
+      top:2.5px;
+
+      }
+
+      .oe_tag_dark {
+
+        background-color:#B0BEC5;
+
+
+      }
+
       .oe_searchview_facet{
+
+
+
         .oe_facet_remove{
+
+                .border-right(5px);
+
+                top:-1px;
+                right:0;
+                background-color:#455a64;
+                color:white;
+                padding:5%;
+                height:1em;
+
+                line-height:1em;
+                font-size:1.5em;
+
+
+            &:hover {
+
+            background-color:#455a64;
+
+                }
 
         }
         .oe_facet_category{
 
+                .oe_i {
+
+                    &:before {
+
+                        font-family: 'FontAwesome';  
+
+                        content: "\f0b0";
+                        font-size: 1.5em;
+                        color: #37474f;
+
+                    }
+
+                }
+
         }
-        .oe_facet_values{
+        .oe_facet_values {
+
+        height:2em;
+        border:0;
+        background-color:#78909c;
+
+            .oe_facet_value {
+
+            font-size:1.4em;
+            line-height:1.4em;
+            color:white;
+
+            }
 
         }
       }
     }
 
+
+    .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove {
+
+    height:3.5em;
+    width:3em;
+
+    }
+
+
     .oe_searchview_search{
       left: 7px;
+
+
       &:before{
         font: 28px "mnmliconsRegular";
+
+         background-color:#78909c;
       }
     }
 
