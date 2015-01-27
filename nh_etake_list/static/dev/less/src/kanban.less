@@ -8,7 +8,7 @@ Lozenge styles of what a patient item looks like in the Take List.
 
 Example:
 
-<div class="take-col">
+<!-- <div class="take-col">
 
     <div class="col-title">
 
@@ -67,7 +67,9 @@ Example:
         </div>
     </div>
 
-</div>
+</div> -->
+
+
   <div class="openerp">
     <div class="oe_webclient">
       <div class="oe_application">
@@ -362,36 +364,41 @@ Example:
                             <div class="oe_kanban_group_list_header"></div>
                             <div class="oe_kanban_column_cards ui-sortable">
                               <div class="oe_fold_column oe_kanban_record">
-                                <div class="tasks">
-                                  <div class="section-one">
-                                    <ul>
-                                      <li><i class="time-overdue"></i></li>
-                                    </ul>
-                                  </div>
-                                  <div class="section-two">
-                                    <ul>
-                                      <li>Ledner, Caprice </li>
-                                    </ul>
-                                    <ul>
-                                      <li class="p-info">56</li>
-                                      <li class="p-info"><img src="/nh_etake_list/static/src/img/icons/female.png"></li>
-                                      <li class="last">Ward EAU </li>
-                                    </ul>
-                                  </div>
-                                  <div class="section-three">
-                                    <ul>
-                                      <li>
-                                        <button class="oe_highlight oe_kanban_action oe_kanban_action_button" data-name="complete_tci" data-type="object" type="button">Arrived</button>
-                                      </li>
-                                    </ul>
-                                    <ul>
-                                      <li class="num-id">NHS</li>
-                                      <li>6609665858</li>
-                                    </ul>
-                                    <ul>
-                                      <li class="num-id">Hospital</li>
-                                      <li>5728367</li>
-                                    </ul>
+                                <div class="oe_kanban_card oe_kanban_global_click tasks">
+                                  <div class="oe_kanban_content">
+                                    <div class="time-till">
+                                      <ul>
+                                        <li><i class="time-overdue"></i></li>
+                                        <li>-12M</li>
+                                        <li class="sub-tasks-block">+3</li>
+                                      </ul>
+                                    </div>
+                                    <div class="patient-info">
+                                      <ul>
+                                        <li>Ledner, Caprice </li>
+                                      </ul>
+                                      <ul>
+                                        <li class="p-info">56</li>
+                                        <li class="p-info"><i class="male"></i></li>
+                                        <li class="p-info">6<i class="score-up"></i></li>
+                                        <li class="last">Ward EAU </li>
+                                      </ul>
+                                    </div>
+                                    <div class="task-numbers">
+                                      <ul class="task">
+                                        <li>
+                                          <button class="oe_highlight oe_kanban_action oe_kanban_action_button btn-task" data-name="complete_tci" data-type="object" type="button">Arrived</button>
+                                        </li>
+                                      </ul>
+                                      <ul>
+                                        <li class="num-id">NHS</li>
+                                        <li>6609665858</li>
+                                      </ul>
+                                      <ul>
+                                        <li class="num-id">Hospital</li>
+                                        <li>5728367</li>
+                                      </ul>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -465,7 +472,7 @@ Example:
   </div>
 
 
-<div class="take-col">
+ <!-- <div class="take-col">
 
     <div class="col-title">
 
@@ -519,7 +526,7 @@ Example:
         </div>
     </div>
 
-</div>
+</div>  -->
 
 
 Styleguide 6.0
@@ -535,218 +542,236 @@ text-shadow: 0px 1px 1px lighten(white,50%);
 
 }
 
-.take-col {
+.openerp{
+  .oe_webclient{
+    .oe_application{
+      .oe_kanban_view{
+        background: #e4d6d3;
+        .oe_kanban_groups{
+          -webkit-border-horizontal-spacing: 5px;
+          border-collapse: separate;
+          background: #e4d6d3;
+          border-left: 1px solid #aba8a7;
+          border-right: 1px solid #aba8a7;
 
-    background: #e4d6d3;
-    border-left: 1px solid #aba8a7;
-    border-right: 1px solid #aba8a7;
-    padding:1%;
+          &:last-child{
+            border-right-width: 0;
+          }
 
-    .col-title {
-
-        .border-top;
-
-        background: -webkit-linear-gradient(lighten(#f8e9e0, 10%), #f8e9e0 );
-        box-shadow:0 1px 3px 0 lighten(black, 45%);
-
-        text-align:center;
-
-
-        ul {
-
-                li {
-
-                text-decoration:none;
-                display:inline-block;
-                list-style-type: none;
+          .oe_kanban_groups_headers{
 
 
-                        &.add-patient {
+            .oe_kanban_group_header{
+              .border-top;
+              background: -webkit-linear-gradient(lighten(#f8e9e0, 10%), #f8e9e0 );
+              box-shadow:0 1px 3px 0 lighten(black, 45%);
+              text-align:center;
+              padding-right: 0;
+              padding-top: 0;
 
-                             background: -webkit-linear-gradient(lighten(#90caf9, 10%), #90caf9 );
+              .oe_kanban_header{
+                padding-right: 0;
+                padding-top: 0;
 
-                                }
+                .oe_dropdown_toggle{
+                  top: 7px;
+                  height: 2em;
+                }
 
-                        &.task-no {
+                .oe_fold_column{
 
-                            font-weight:900;
-                            background: -webkit-linear-gradient(lighten(#d4d6d8,10), #d4d6d8 );
-                            text-shadow: 0px 1px 1px lighten(white,50%);
-                            font-size:12em;
+                  .oe_kanban_group_title{
+                    text-align: center;
+                    position: relative;
+                    margin-right: 0;
 
-                                }
-
+                    .oe_kanban_group_length{
+                      margin-right: 0.85em;
+                      font-weight:900;
+                      background: -webkit-linear-gradient(lighten(#d4d6d8,10), #d4d6d8 );
+                      text-shadow: 0px 1px 1px lighten(white,50%);
+                      font-size:1.1em;
+                      border-top-right-radius: 10px;
+                      border-top-left-radius: 0;
+                      border-bottom-left-radius: 0;
+                      border-bottom-right-radius: 0;
+                      border: 0px solid black;
+                      text-align: center;
+                      min-width: 20%;
                     }
 
-            }
-
-
-         }
-
-    .tasks {
-
-        .border-radius;
-
-        border: 1px solid rgba(0, 0, 0, .3);
-        box-shadow:0 0 2px 1px lighten(black, 65%);
-        margin-top:1em;
-
-
-            ul {
-
-            //padding: 2% 3% 3%;
-            margin:0;
-            list-style-type: none;
-
-                li {
-
-                text-decoration:none;
-                display:inline-block;
-                list-style-type: none;
-
+                    .oe_kanban_group_title_text{
+                      float: left;
+                      width: 80%;
+                      text-align: center;
+                    }
+                  }
                 }
 
-
-            }
-
-
-    .time-till{
-
-        .border-top;
-
-        background: -webkit-linear-gradient( #DFEFFA, darken(#DFEFFA, 15%) );
-        border: 2px solid rgba(255, 255, 255, .1);
-        border-top: 2px solid rgba(255, 255, 255, .6);
-        border-bottom:1px solid rgba(0, 0, 0, .3);
-        font-size:1.2em;
-        font-weight: 900;
-
-
-        .sub-tasks {
-
-            background:-webkit-linear-gradient( white, darken(white, 15%) );
-
-            border: 2px solid rgba(255, 255, 255, .5);
-            border-top: 2px solid rgba(255, 255, 255, .8);
-            border-bottom:1px solid rgba(0, 0, 0, .5);
-            color:#5C5C5C;
-
-            border-top-right-radius:10px;
-            padding:2%;
-
-            }
-
-        .sub-tasks-block {
-
-            background:-webkit-linear-gradient( #ffcdd2, darken(#ffcdd2, 15%) );
-
-            border: 2px solid rgba(255, 255, 255, .5);
-            border-top: 2px solid rgba(255, 255, 255, .8);
-            border-bottom:1px solid rgba(0, 0, 0, .5);
-            color:#C71923;
-
-            border-top-right-radius:10px;
-            padding:2%;
-
-            &:before {
-
-                font-family: 'FontAwesome';  
-                content:"\f024"; 
-                font-size:1.5em; 
-                color: #C71923;
-                margin-right:10px;
-
-                text-shadow: 0px 1px 0 lighten(black,50%) ;
-
-            }
-
-        }
-    }
-
-    .patient-info {
-
-        background: #DCE1FC;
-
-       ul {
-
-       border-bottom: 1px solid rgba(0, 0, 0, .3);
-       line-height:2em;
-
-
-            li {
-
-            border:none;
-
-            &.p-info {
-
-                border-right:1px solid rgba(0, 0, 0, .3);
-                padding-left:3%;
-                padding-right:3%;
-                text-align:center;
-
-                font-weight: 800;
-
+                .oe_kanban_group_title_vertical{
+                  //display: none;
                 }
-
-            &.last {
-
-                border:none;
-                padding-left:4%;
-
-                font-weight: 600;
-
-                }
+              }
             }
-       }
-    }
-
-    .task-numbers {
-
-    background:#EFEFEF;
-
-        .border-bottom;
-
-         //background: -webkit-linear-gradient( @lowRisk, darken(@lowRisk, 15%) );
-
-         ul {
-
-         display: block;
-
-         //border-bottom: 1px solid #000 ;
-
-            &.task {
-
-            text-align:center;
-            border-bottom:1px solid rgba(0, 0, 0, .3);
-
-            line-height:1.5em;
-            color:white;
-
+            .oe_kanban_dummy_cell{
+              display: none;
             }
+          }
+          .oe_kanban_groups_records{
+            background: #e4d6d3;
+            border-left: 1px solid #aba8a7;
+            border-right: 1px solid #aba8a7;
+            padding:1%;
 
+            .oe_kanban_column{
+              .oe_kanban_column_cards{
+                .oe_kanban_record{
+                  .tasks {
+                    .border-radius;
+                    border: 1px solid rgba(0, 0, 0, .3);
+                    box-shadow:0 0 2px 1px lighten(black, 65%);
+                    margin-top:1em;
+                    padding: 0;
 
-            li {
+                    .oe_kanban_content{
+                      div:first-child{
+                        margin-right: 0;
+                      }
+                    }
 
-                &.num-id {
+                    ul {
+                      margin:0;
+                      list-style-type: none;
 
-                    color:#3D3D3D;
-                    font-weight:900;
-                    margin-right:10px;
+                      li {
+                        text-decoration:none;
+                        display:inline-block;
+                        list-style-type: none;
+                      }
+                    }
 
-                        &.num-hosp {
+                    .time-till{
+                      .border-top;
+                      background: -webkit-linear-gradient( #DFEFFA, darken(#DFEFFA, 15%) );
+                      border: 2px solid rgba(255, 255, 255, .1);
+                      border-top: 2px solid rgba(255, 255, 255, .6);
+                      border-bottom:1px solid rgba(0, 0, 0, .3);
+                      font-size:1.2em;
+                      font-weight: 900;
 
-                            border-left:1px solid rgba(0, 0, 0, .3);
+                      .sub-tasks {
+                        background:-webkit-linear-gradient( white, darken(white, 15%) );
+                        border: 2px solid rgba(255, 255, 255, .5);
+                        border-top: 2px solid rgba(255, 255, 255, .8);
+                        border-bottom:1px solid rgba(0, 0, 0, .5);
+                        color:#5C5C5C;
+                        border-top-right-radius:10px;
+                        padding:2%;
+                      }
 
-                            }
+                      .sub-tasks-block {
+                        background:-webkit-linear-gradient( #ffcdd2, darken(#ffcdd2, 15%) );
+                        border: 2px solid rgba(255, 255, 255, .5);
+                        border-top: 2px solid rgba(255, 255, 255, .8);
+                        border-bottom:1px solid rgba(0, 0, 0, .5);
+                        color:#C71923;
+                        border-top-right-radius:10px;
+                        padding:2%;
 
+                        &:before {
+                          font-family: 'FontAwesome';  
+                          content:"\f024"; 
+                          font-size:1.5em; 
+                          color: #C71923;
+                          margin-right:10px;
+                          text-shadow: 0px 1px 0 lighten(black,50%);
                         }
+                      }
+                    }
 
+                    .patient-info {
+                      background: #DCE1FC;
+
+                      ul {
+                        border-bottom: 1px solid rgba(0, 0, 0, .3);
+                        line-height:2em;
+
+                        li {
+                          border:none;
+
+                          &.p-info {
+                            border-right:1px solid rgba(0, 0, 0, .3);
+                            padding-left:3%;
+                            padding-right:3%;
+                            text-align:center;
+                            font-weight: 800;
+                          }
+
+                          &.last {
+                            border:none;
+                            padding-left:4%;
+                            font-weight: 600;
+                          }
+                        }
+                      }
+                    }
+
+                    .task-numbers {
+                      background:#EFEFEF;
+                      .border-bottom;
+
+                      .task {
+                        text-align:center;
+                        border-bottom:1px solid rgba(0, 0, 0, .3);
+                        line-height:1.5em;
+                        color:white;
+
+                        li{
+                          width: 90%;
+                          padding: 0.5em 5%;
+
+                          button{
+                            width: 100%;
+                          }
+                        }
+                      }
+
+                      ul {
+                        display: block;
+
+                        li {
+
+                          &.num-id {
+                            color:#3D3D3D;
+                            font-weight:900;
+                            margin-right:10px;
+
+                            &.num-hosp {
+                              border-left:1px solid rgba(0, 0, 0, .3);
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
+              }
+            }
 
-             }
-
+            .oe_kanban_dummy_cell{
+              display: none;
+            }
+          }
+        }
       }
-
     }
+  }
+}
 
+.example .oe_kanban_group_title_vertical{
+  display: none;
+}
+
+.example .oe_dropdown_toggle{
+  display: none;
 }

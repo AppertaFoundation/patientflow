@@ -73,81 +73,82 @@
                     <field name="age"/>
                     <templates>
                         <t t-name="kanban-box">
-                            <div class="tasks">
-                                <div class="section-one">
-                                    <!-- <ul>
-                                        <li>Review</li>
-                                    </ul> -->
-                                    <ul>
-                                        <li><i class="time-overdue"></i></li>
-                                        <!-- <li><field name="next_diff"/></li> -->
-                                    </ul>
-                                </div>
-                                <div class="section-two">
-                                    <ul>
-                                        <li><field name="patient_id"/></li>
-                                    </ul>
-                                    <ul>
-                                        <li class="p-info"><field name="age"/></li>
-                                        <li class="p-info">
-                                            <t t-if="record.gender.raw_value == 'M'">
-                                                <img t-attf-src="/nh_etake_list/static/src/img/icons/male.png" t-att-alt="Male"/>
-                                            </t>
-                                            <t t-if="record.gender.raw_value == 'F'">
-                                                <img t-attf-src="/nh_etake_list/static/src/img/icons/female.png" t-att-alt="Female"/>
-                                            </t>
-                                        </li>
-                                       <!-- <li class="p-info"><field name="ews_score_string"/>
-                                            <t t-if="record.ews_trend_string.raw_value === 'up'">
-                                                <i class="up"></i>
-                                            </t>
-                                            <t t-if="record.ews_trend_string.raw_value === 'down'">
-                                                <i class="down"></i>
-                                            </t>
-                                            <t t-if="record.ews_trend_string.raw_value === 'same'">
-                                                <i class="same"></i>
-                                            </t>
-                                            <t t-if="record.ews_trend_string.raw_value === 'one'"></t>
-                                            <t t-if="record.ews_trend_string.raw_value === 'none'"></t>
-                                        </li> -->
-                                        <li class="last"><field name="location_id"/> <!-- <i class="bed-move"></i> <field name="location_full_name"/> --></li>
-                                    </ul>
-                                </div>
-                                <div class="section-three">
-                                    <ul>
-                                        <li>
-                                            <t t-if="record.state.raw_value == 'TCI'">
-                                                <button name="complete_tci" type="object" class="oe_highlight">Arrived</button>
-                                            </t>
-                                            <t t-if="record.state.raw_value == 'To be Clerked'">
-                                                <button name="start_clerking" type="object" class="oe_highlight" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Clerk</button>
-                                            </t>
-                                            <t t-if="record.state.raw_value == 'Clerking in Process'">
-                                                <button name="complete_clerking" type="object" class="oe_highlight" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
-                                            </t>
-                                            <t t-if="record.state.raw_value == 'Senior Review'">
-                                                <button name="complete_review" type="object" class="oe_highlight" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
-                                            </t>
-                                            <t t-if="record.state.raw_value == 'Consultant Review'">
-                                                <button name="complete_ptwr" type="object" class="oe_highlight" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
-                                            </t>
-                                            <t t-if="record.state.raw_value == 'To be Discharged'">
-                                                <button name="discharge" type="object" class="oe_highlight">Discharge</button>
-                                            </t>
-                                        </li>
-                                    </ul>
-                                    <ul>
-                                        <li class="num-id">NHS</li>
-                                        <li>
-                                            <t t-if="record.nhs_number.raw_value != ''"><field name="nhs_number"/></t>
-                                        </li>
-                                    </ul>
-                                    <ul>
-                                        <li class="num-id">Hospital</li>
-                                        <li>
-                                            <t t-if="record.hospital_number.raw_value != ''"><field name="hospital_number"/></t>
-                                        </li>
-                                    </ul>
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click tasks">
+                                <div class="oe_kanban_content">
+                                    <div class="time-till">
+                                        <ul>
+                                            <li><i class="time-overdue"></i></li>
+                                            <li>-12M</li>
+                                            <li class="sub-task-block">+3</li>
+                                        </ul>
+                                    </div>
+                                    <div class="patient-info">
+                                        <ul>
+                                            <li><field name="patient_id"/></li>
+                                        </ul>
+                                        <ul>
+                                            <li class="p-info"><field name="age"/></li>
+                                            <li class="p-info">
+                                                <t t-if="record.gender.raw_value == 'M'">
+                                                    <i class="male"></i>
+                                                </t>
+                                                <t t-if="record.gender.raw_value == 'F'">
+                                                    <i class="female"></i>
+                                                </t>
+                                            </li>
+                                            <!-- <li class="p-info"><field name="ews_score_string"/>
+                                                 <t t-if="record.ews_trend_string.raw_value === 'up'">
+                                                     <i class="up"></i>
+                                                 </t>
+                                                 <t t-if="record.ews_trend_string.raw_value === 'down'">
+                                                     <i class="down"></i>
+                                                 </t>
+                                                 <t t-if="record.ews_trend_string.raw_value === 'same'">
+                                                     <i class="same"></i>
+                                                 </t>
+                                                 <t t-if="record.ews_trend_string.raw_value === 'one'"></t>
+                                                 <t t-if="record.ews_trend_string.raw_value === 'none'"></t>
+                                             </li> -->
+                                            <li class="p-info">6 <i class="score-up"></i></li>
+                                            <li class="last"><field name="location_id"/> <!-- <i class="bed-move"></i> <field name="location_full_name"/> --></li>
+                                        </ul>
+                                    </div>
+                                    <div class="task-numbers">
+                                        <ul class="task">
+                                            <li>
+                                                <t t-if="record.state.raw_value == 'TCI'">
+                                                    <button name="complete_tci" type="object" class="oe_highlight btn-task">Arrived</button>
+                                                </t>
+                                                <t t-if="record.state.raw_value == 'To be Clerked'">
+                                                    <button name="start_clerking" type="object" class="oe_highlight btn-task" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Clerk</button>
+                                                </t>
+                                                <t t-if="record.state.raw_value == 'Clerking in Process'">
+                                                    <button name="complete_clerking" type="object" class="oe_highlight btn-task" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
+                                                </t>
+                                                <t t-if="record.state.raw_value == 'Senior Review'">
+                                                    <button name="complete_review" type="object" class="oe_highlight btn-task" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
+                                                </t>
+                                                <t t-if="record.state.raw_value == 'Consultant Review'">
+                                                    <button name="complete_ptwr" type="object" class="oe_highlight btn-task" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
+                                                </t>
+                                                <t t-if="record.state.raw_value == 'To be Discharged'">
+                                                    <button name="discharge" type="object" class="oe_highlight btn-task">Discharge</button>
+                                                </t>
+                                            </li>
+                                        </ul>
+                                        <ul>
+                                            <li class="num-id">NHS</li>
+                                            <li>
+                                                <t t-if="record.nhs_number.raw_value != ''"><field name="nhs_number"/></t>
+                                            </li>
+                                        </ul>
+                                        <ul>
+                                            <li class="num-id">Hospital</li>
+                                            <li>
+                                                <t t-if="record.hospital_number.raw_value != ''"><field name="hospital_number"/></t>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
 
