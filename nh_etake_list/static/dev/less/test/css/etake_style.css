@@ -283,9 +283,6 @@ Styleguide 5.0
   overflow-x: visible;
   overflow-y: visible;
 }
-.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_menu_section {
-  display: none;
-}
 .oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu {
   float: left;
   width: 100%;
