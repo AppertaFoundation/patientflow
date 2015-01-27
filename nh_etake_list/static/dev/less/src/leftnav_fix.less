@@ -150,7 +150,14 @@ Styleguide 5.0
                   &.active{
                       a {
                         font-weight: 700;
-                        background: -webkit-linear-gradient(#7195a6, lighten(#7195a6, 10%));
+                        background: #7195a6; /* Old browsers */
+                        background: -moz-linear-gradient(top, #7195a6 0%, lighten(#7195a6, 10%) 100%); /* FF3.6+ */
+                        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7195a6), color-stop(100%,lighten(#7195a6, 10%))); /* Chrome,Safari4+ */
+                        background: -webkit-linear-gradient(#7195a6, lighten(#7195a6, 10%)); /* Chrome10+,Safari5.1+ */
+                        background: -o-linear-gradient(top, #7195a6 0%, lighten(#7195a6, 10%) 100%); /* Opera 11.10+ */
+                        background: -ms-linear-gradient(top, #7195a6 0%, lighten(#7195a6, 10%) 100%); /* IE10+ */
+                        background: linear-gradient(to bottom, #7195a6 0%, lighten(#7195a6, 10%) 100%); /* W3C */
+                        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7195a6', endColorstr='lighten(#7195a6, 10%)', GradientType=0); /* IE6-9 */
                         border: 1px solid #2d5769;
                         box-shadow: 0 0 3px 1px lighten(@eobsBlue, 45%), 0 1px 4px 0 lighten(black, 40%) inset;
                         color: white;
@@ -162,7 +169,7 @@ Styleguide 5.0
                         font-family: 'FontAwesome';
                         top:1.4em;
                         left:33%;
-                        text-shadow: 0 3px 0px @innerBG, 0 0 4px black, 0 2px 2px @innerBG;
+                        text-shadow: 0 3px 0 @innerBG, 0 0 4px black, 0 2px 2px @innerBG;
                         content:"\f0de";
                         font-size:3em;
                         color: @innerBG;
@@ -183,19 +190,19 @@ Styleguide 5.0
 .example .oe_application{
   height: 5em;
   background-color: @innerBG;
-  box-shadow: 0px 0px 4px black;
+  box-shadow: 0 0 4px black;
 }
 .example .oe_secondary_menu{
   margin-top: 2em;
 }
-.example .oe_secondary_submenu li{
-  padding-bottom: 0 !important;
+.example .oe_secondary_submenu > li{
+  padding-bottom: 0;
 }
 .example .oe_secondary_submenu{
-  margin: 0 !important;
-  padding: 0 !important;
+  margin: 0;
+  padding: 0;
 }
 
-.example .oe_secondary_submenu .active:after{
-  left: 4.7% !important;
+.example .oe_secondary_submenu > .active:after{
+  left: 4.7%;
 }
