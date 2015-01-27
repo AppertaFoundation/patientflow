@@ -281,17 +281,78 @@ Search Box that is used for searching and creating filters.
 .drop-down - button used to dropdown and allow for advanced search.
 
 Example:
-
-    <div class="search-bar">
-         <form id="searchbox" action="">
-                <ul>
-                    <li><input type="submit"><i class="search-icon"></i></li>
-                    <li><input id="search-box" type="text" placeholder="Search or Create Filters"></li>
-                    <li class="clear-search"><input type="reset" value="Clear"> <i class="clear-icon"></i></li>
-                    <li class="drop-down"><a href="#"><i class="drop-icon"></i></a></li>
-                </ul>
-         </form>
+    <div class="openerp">
+      <div class="oe_webclient">
+        <div class="oe_application">
+          <table class="oe_view_manager_header">
+            <colgroup>
+              <col width="20%">
+              <col width="35%">
+              <col width="15%">
+              <col width="30%">
+            </colgroup>
+            <tbody>
+              <tr class="oe_header_row oe_header_row_top">
+                <td colspan="2">
+                  <h2 class="oe_view_title">
+                    <span class="oe_view_title_text oe_breadcrumb_title">
+                      <span class="oe_breadcrumb_item">Referral Board</span>
+                    </span>
+                  </h2>
+                </td>
+                <td colspan="2">
+                  <div class="oe_view_manager_view_search">
+                    <div class="oe_searchview">
+                      <div class="oe_searchview_facets">
+                        <div class="oe_searchview_input" contenteditable="true" tabindex="0"></div>
+                        <div class="oe_tag oe_tag_dark oe_searchview_facet" tabindex="0">
+                          <span class="oe_facet_remove">x</span>
+                          <span class="oe_facet_category oe_i">w</span>
+                          <span class="oe_facet_values">
+                            <span class="oe_facet_value">
+                             State
+                            </span>
+                          </span>
+                        </div>
+                        <div class="oe_searchview_input" contenteditable="true" tabindex="0"></div>
+                      </div>
+                      <div class="oe_searchview_clear"></div>
+                      <div class="oe_searchview_unfold_drawer" title="Advanced Search..."></div>
+                      <button class="oe_searchview_search" title="Search Again" type="button">Search</button>
+                      <div class="oe-autocomplete" style="width: 400px; display: none;">
+                        <ul></ul>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="oe_header_row">
+                <td>
+                  <div class="oe_view_manager_buttons">
+                    <div class="oe_kanban_buttons"></div>
+                  </div>
+                </td>
+                <td colspan="2">
+                <div class="oe_view_manager_sidebar"></div>
+                </td>
+                <td>
+                  <ul class="oe_view_manager_switch oe_button_group oe_right">
+                    <li class="oe_e active">
+                      <a data-view-type="kanban" title="" class="oe_vm_switch_kanban" data-original-title="Kanban view"></a>
+                    </li>
+                    <li class="oe_e">
+                      <a data-view-type="form" title="" class="oe_vm_switch_form" data-original-title="Form view"></a>
+                    </li>
+                  </ul>
+                  <div class="oe_view_manager_pager oe_right"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+
 
 Styleguide 4.0
 
@@ -313,49 +374,77 @@ Styleguide 4.0
   line-height: 2em;
   color: white;
 }
-.search-bar {
+.openerp .oe_searchview {
   -ms-border-radius: 10px;
   border-radius: 10px;
   background-color: #ffffff;
-  box-shadow: 0px 0px 4px 1px #999999 inset;
+  box-shadow: 0 0 4px 1px #999999 inset;
 }
-.search-bar #search-box {
+.openerp .oe_searchview .oe_searchview_input {
   border: none;
   color: #333;
-  font-size: 1.2em;
   padding: 0 0 0 1%;
   resize: none;
   font-size: 1.1em;
-  width: 100%;
   min-height: 2em;
 }
-.search-bar #search-box:focus {
+.openerp .oe_searchview .oe_searchview_input:focus {
   background-color: #f2f2f2;
   outline: 0;
 }
-.search-bar ul li {
-  text-decoration: none;
-  list-style: none;
-  display: inline-block;
-}
-.search-bar ul li a {
-  text-decoration: none;
-  color: white;
-}
-.search-bar ul li.clear-search {
-  background: -webkit-linear-gradient(#3b4d56, #263238);
-  height: 3em;
-  padding: 0 2% 0 2%;
-  line-height: 3.1em;
-  color: white;
-}
-.search-bar ul li.drop-down {
+.openerp .oe_searchview .oe_searchview_unfold_drawer {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  background: #516976;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #516976 0%, #3c4e58 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #516976), color-stop(100%, #3c4e58));
+  /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(#516976, #3c4e58);
-  height: 3em;
-  padding: 0 2% 0 2%;
-  border: 0 0 0 1px solid #2b373d;
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #516976 0%, #3c4e58 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #516976 0%, #3c4e58 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #516976 0%, #3c4e58 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#3c4e58, 10%)', endColorstr='#3c4e58', GradientType=0);
+  /* IE6-9 */
+  padding: 0 3% 0 3%;
+  border-bottom: 1px solid #2b373d;
+}
+.openerp .oe_searchview .oe_searchview_unfold_drawer:before {
+  border-top-color: white;
+  font-size: 1.5em;
+}
+.openerp .oe_searchview .oe_searchview_clear {
+  background: #3b4d56;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #3b4d56 0%, #263238 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3b4d56), color-stop(100%, #263238));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(#3b4d56 #263238);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #3b4d56 0%, #263238 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #3b4d56 0%, #263238 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #3b4d56 0%, #263238 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#263238, 10%)', endColorstr='#263238', GradientType=0);
+  /* IE6-9 */
+  padding: 0 10% 0 2%;
+  color: white;
+}
+.openerp .oe_searchview .oe_searchview_clear:before {
+  content: 'Clear';
+}
+.openerp .oe_searchview .oe_searchview_clear:after {
+  content: 'X';
+  margin-left: 0.5em;
+  font-weight: 900;
 }
 /*
 
@@ -505,7 +594,22 @@ Styleguide 5.0
 }
 .oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li.active a {
   font-weight: 700;
+  background: #7195a6;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #7195a6 0%, #90acba 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7195a6), color-stop(100%, #90acba));
+  /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(#7195a6, #90acba);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #7195a6 0%, #90acba 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #7195a6 0%, #90acba 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #7195a6 0%, #90acba 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7195a6', endColorstr='lighten(#7195a6, 10%)', GradientType=0);
+  /* IE6-9 */
   border: 1px solid #2d5769;
   box-shadow: 0 0 3px 1px #f4f8fc, 0 1px 4px 0 #666666 inset;
   color: white;
@@ -516,7 +620,7 @@ Styleguide 5.0
   font-family: 'FontAwesome';
   top: 1.4em;
   left: 33%;
-  text-shadow: 0 3px 0px #dedede, 0 0 4px #000000, 0 2px 2px #dedede;
+  text-shadow: 0 3px 0 #dedede, 0 0 4px #000000, 0 2px 2px #dedede;
   content: "\f0de";
   font-size: 3em;
   color: #dedede;
@@ -527,20 +631,20 @@ Styleguide 5.0
 .example .oe_application {
   height: 5em;
   background-color: #dedede;
-  box-shadow: 0px 0px 4px black;
+  box-shadow: 0 0 4px black;
 }
 .example .oe_secondary_menu {
   margin-top: 2em;
 }
-.example .oe_secondary_submenu li {
-  padding-bottom: 0 !important;
+.example .oe_secondary_submenu > li {
+  padding-bottom: 0;
 }
 .example .oe_secondary_submenu {
-  margin: 0 !important;
-  padding: 0 !important;
+  margin: 0;
+  padding: 0;
 }
-.example .oe_secondary_submenu .active:after {
-  left: 4.7% !important;
+.example .oe_secondary_submenu > .active:after {
+  left: 4.7%;
 }
 /*
 
@@ -563,6 +667,402 @@ Example:
     </div>
 
 </div>
+  <div class="openerp">
+    <div class="oe_webclient">
+      <div class="oe_application">
+  <div class="oe_view_manager_wrapper">
+    <div>
+      <div class="oe_view_manager_body">
+        <div class="oe_searchview_drawer_container">
+          <div class="oe_searchview_drawer" style="display: none;">
+          <div class="col-md-7">
+            <div class="oe_searchview_custom oe_searchview_section" style="display: none;">
+              <dl class="dl-horizontal">
+                <dt><span class="oe_i">M</span> Favourites</dt>
+                <dd><ul class="oe_searchview_custom_list"></ul></dd>
+              </dl>
+            </div>
+            <div class="oe_searchview_filters oe_searchview_section">
+              <dl class="dl-horizontal">
+                <dt><span class="oe_i">w</span> Group By...</dt>
+                <dd>
+                  <ul>
+                    <li data-index="0" title="Group by State" class="badge">State</li>
+                    <li data-index="1" title="Group by Ward">Ward</li>
+                  </ul>
+                </dd>
+              </dl>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="oe_searchview_savefilter">
+              <h4>Save current filter</h4>
+                <form class="oe_form">
+                  <p class="oe_form_required">
+                    <input id="oe_searchview_custom_input" placeholder="Filter name">
+                  </p>
+                  <p>
+                    <input id="oe_searchview_custom_public" type="checkbox">
+                    <label for="oe_searchview_custom_public">Share with all users</label>
+                    <input id="oe_searchview_custom_default" type="checkbox">
+                    <label for="oe_searchview_custom_default">Use by default</label>
+                  </p>
+                  <button>Save</button>
+                </form>
+              </div>
+            <div class="oe_searchview_advanced">
+              <h4>Advanced Search</h4>
+                <form>
+                  <ul>
+                    <li>
+                      <span class="searchview_extended_prop_or">or</span>
+                      <select class="searchview_extended_prop_field">
+                        <option value="activity_id">Activity</option>
+                        <option value="age">Age</option>
+                        <option value="user_id">Assignee</option>
+                        <option value="cancel_reason_id">Cancellation Reason</option>
+                        <option value="child_ids">Child Activities</option>
+                        <option value="terminate_uid">Completed By</option>
+                        <option value="create_date">Create Date</option>
+                        <option value="created_ids">Created Activities</option>
+                        <option value="create_uid">Created By</option>
+                        <option value="creator_id">Creator activity</option>
+                        <option value="data_model">Data Model</option>
+                        <option value="data_ref">Data Reference</option>
+                        <option value="date_deadline">Deadline Time</option>
+                        <option value="date_expiry">Expiry Time</option>
+                        <option value="gender">Gender</option>
+                        <option value="hospital_number">Hospital Number</option>
+                        <option value="id">ID</option>
+                        <option value="location_name">Location Name</option>
+                        <option value="nhs_number">NHS Number</option>
+                        <option value="notes">Notes</option>
+                        <option value="pos_id">POS</option>
+                        <option value="parent_id">Parent activity</option>
+                        <option value="patient_id">Patient</option>
+                        <option value="date_planned">Planned Time</option>
+                        <option value="date_scheduled">Scheduled Time</option>
+                        <option value="spell_activity_id">Spell Activity</option>
+                        <option value="date_started">Started Time</option>
+                        <option value="state">State</option>
+                        <option value="sequence">State Switch Sequence</option>
+                        <option value="summary">Summary</option>
+                        <option value="date_terminated">Termination Time</option>
+                        <option value="write_uid">Updated By</option>
+                        <option value="user_ids">Users</option>
+                        <option value="location_id">Ward</option>
+                        <option value="write_date">Write Date</option>
+                      </select>
+                      <select class="searchview_extended_prop_op">
+                        <option value="ilike">contains</option>
+                        <option value="not ilike">does not contain</option>
+                        <option value="=">is equal to</option>
+                        <option value="!=">is not equal to</option>
+                        <option value="">is set</option>
+                        <option value="">is not set</option>
+                      </select>
+                      <span class="searchview_extended_prop_value"><input class="field_char"></span>
+                      <a class="searchview_extended_delete_prop button">x</a>
+                    </li>
+                  </ul>
+                  <button class="oe_add_condition button" type="button">Add a condition</button><br>
+                  <button class="oe_apply" type="submit">Apply</button>
+                </form>
+                    </div>
+                    <div class="oe_searchview_dashboard">
+                      <h4>Add to Dashboard</h4>
+                        <form>
+                          <p><input placeholder="Title of new dashboard item"></p>
+                          <button class="oe_apply" type="submit">Add</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="oe_view_manager_view_kanban">
+                  <div class="oe_kanban_view oe_view oe_cannot_create oe_cannot_edit oe_cannot_delete oe_kanban_grouped">
+                    <div class="oe_kanban_buttons"></div>
+                    <table class="oe_kanban_groups">
+                      <tbody>
+                        <tr class="oe_kanban_groups_headers">
+                          <td class="oe_kanban_group_header">
+                            <div class="oe_kanban_header oe_semantic_html_override">
+                              <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <div class="oe_kanban_group_length">
+                                  <span class="oe_tag">0</span>
+                                </div>
+                                <span class="oe_e">i</span>
+                                <ul class="oe_dropdown_menu oe_kanban_group_dropdown">
+                                  <li><a data-action="toggle_fold" href="#">Fold</a></li>
+                                </ul>
+                              </div>
+                              <div class="oe_fold_column">
+                                <div class="oe_kanban_group_title ">
+                                  <div class="oe_kanban_group_length oe_tag">0</div>
+                                  <div class="oe_kanban_group_title_text" title="Referral">Referral</div>
+                                </div>
+                              </div>
+                              <span class="oe_kanban_group_title_vertical">Referral</span>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_group_header">
+                            <div class="oe_kanban_header oe_semantic_html_override">
+                              <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <div class="oe_kanban_group_length">
+                                  <span class="oe_tag">12</span>
+                                </div>
+                                <span class="oe_e">i</span>
+                                <ul class="oe_dropdown_menu oe_kanban_group_dropdown">
+                                  <li><a data-action="toggle_fold" href="#">Fold</a></li>
+                                </ul>
+                              </div>
+                              <div class="oe_fold_column">
+                                <div class="oe_kanban_group_title ">
+                                  <div class="oe_kanban_group_length oe_tag">12</div>
+                                  <div class="oe_kanban_group_title_text" title="To Come In">To Come In</div>
+                                </div>
+                                <ul class="oe_kanban_aggregates"></ul>
+                              </div>
+                              <span class="oe_kanban_group_title_vertical">To Come In</span>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_group_header">
+                            <div class="oe_kanban_header oe_semantic_html_override">
+                              <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <div class="oe_kanban_group_length">
+                                  <span class="oe_tag">0</span>
+                                </div>
+                                <span class="oe_e">i</span>
+                                <ul class="oe_dropdown_menu oe_kanban_group_dropdown">
+                                  <li><a data-action="toggle_fold" href="#">Fold</a></li>
+                                </ul>
+                              </div>
+                              <div class="oe_fold_column">
+                                <div class="oe_kanban_group_title ">
+                                  <div class="oe_kanban_group_length oe_tag">0</div>
+                                  <div class="oe_kanban_group_title_text" title="To be Clerked">To be Clerked</div>
+                                </div>
+                              </div>
+                              <span class="oe_kanban_group_title_vertical">To be Clerked</span>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_group_header">
+                            <div class="oe_kanban_header oe_semantic_html_override">
+                              <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <div class="oe_kanban_group_length">
+                                  <span class="oe_tag">0</span>
+                                </div>
+                                <span class="oe_e">i</span>
+                                <ul class="oe_dropdown_menu oe_kanban_group_dropdown">
+                                  <li><a data-action="toggle_fold" href="#">Fold</a></li>
+                                </ul>
+                              </div>
+                              <div class="oe_fold_column">
+                                <div class="oe_kanban_group_title ">
+                                  <div class="oe_kanban_group_length oe_tag">0</div>
+                                  <div class="oe_kanban_group_title_text" title="Clerking in Process">Clerking in Process</div>
+                                </div>
+                              </div>
+                              <span class="oe_kanban_group_title_vertical">Clerking in Process</span>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_group_header">
+                            <div class="oe_kanban_header oe_semantic_html_override">
+                              <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <div class="oe_kanban_group_length">
+                                  <span class="oe_tag">0</span>
+                                </div>
+                                <span class="oe_e">i</span>
+                                <ul class="oe_dropdown_menu oe_kanban_group_dropdown">
+                                  <li><a data-action="toggle_fold" href="#">Fold</a></li>
+                                </ul>
+                              </div>
+                              <div class="oe_fold_column">
+                                <div class="oe_kanban_group_title ">
+                                    <div class="oe_kanban_group_length oe_tag">0</div>
+                                    <div class="oe_kanban_group_title_text" title="Senior Review">Senior Review</div>
+                                </div>
+                              </div>
+                              <span class="oe_kanban_group_title_vertical">Senior Review</span>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_group_header">
+                            <div class="oe_kanban_header oe_semantic_html_override">
+                              <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <div class="oe_kanban_group_length">
+                                  <span class="oe_tag">0</span>
+                                </div>
+                                <span class="oe_e">i</span>
+                                <ul class="oe_dropdown_menu oe_kanban_group_dropdown">
+                                  <li><a data-action="toggle_fold" href="#">Fold</a></li>
+                                </ul>
+                              </div>
+                              <div class="oe_fold_column">
+                                <div class="oe_kanban_group_title ">
+                                  <div class="oe_kanban_group_length oe_tag">0</div>
+                                  <div class="oe_kanban_group_title_text" title="Consultant Review">Consultant Review</div>
+                                </div>
+                              </div>
+                              <span class="oe_kanban_group_title_vertical">Consultant Review</span>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_group_header">
+                            <div class="oe_kanban_header oe_semantic_html_override">
+                              <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <div class="oe_kanban_group_length">
+                                  <span class="oe_tag">0</span>
+                                </div>
+                                <span class="oe_e">i</span>
+                                <ul class="oe_dropdown_menu oe_kanban_group_dropdown">
+                                  <li><a data-action="toggle_fold" href="#">Fold</a></li>
+                                </ul>
+                              </div>
+                              <div class="oe_fold_column">
+                                <div class="oe_kanban_group_title ">
+                                  <div class="oe_kanban_group_length oe_tag">0</div>
+                                  <div class="oe_kanban_group_title_text" title="To be Discharged">To be Discharged</div>
+                                </div>
+                              </div>
+                              <span class="oe_kanban_group_title_vertical">To be Discharged</span>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_group_header">
+                            <div class="oe_kanban_header oe_semantic_html_override">
+                              <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                <div class="oe_kanban_group_length">
+                                  <span class="oe_tag">0</span>
+                                </div>
+                                <span class="oe_e">i</span>
+                                <ul class="oe_dropdown_menu oe_kanban_group_dropdown">
+                                  <li><a data-action="toggle_fold" href="#">Fold</a></li>
+                                </ul>
+                              </div>
+                              <div class="oe_fold_column">
+                                <div class="oe_kanban_group_title ">
+                                  <div class="oe_kanban_group_length oe_tag">0</div>
+                                  <div class="oe_kanban_group_title_text" title="Discharged">Discharged</div>
+                                </div>
+                              </div>
+                              <span class="oe_kanban_group_title_vertical">Discharged</span>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_dummy_cell"><div></div></td>
+                        </tr>
+                        <tr class="oe_kanban_groups_records">
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                              <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable">
+                              <div class="oe_fold_column oe_kanban_record">
+                                <div class="tasks">
+                                  <div class="section-one">
+                                    <ul>
+                                      <li><i class="time-overdue"></i></li>
+                                    </ul>
+                                  </div>
+                                  <div class="section-two">
+                                    <ul>
+                                      <li>Ledner, Caprice </li>
+                                    </ul>
+                                    <ul>
+                                      <li class="p-info">56</li>
+                                      <li class="p-info"><img src="/nh_etake_list/static/src/img/icons/female.png"></li>
+                                      <li class="last">Ward EAU </li>
+                                    </ul>
+                                  </div>
+                                  <div class="section-three">
+                                    <ul>
+                                      <li>
+                                        <button class="oe_highlight oe_kanban_action oe_kanban_action_button" data-name="complete_tci" data-type="object" type="button">Arrived</button>
+                                      </li>
+                                    </ul>
+                                    <ul>
+                                      <li class="num-id">NHS</li>
+                                      <li>6609665858</li>
+                                    </ul>
+                                    <ul>
+                                      <li class="num-id">Hospital</li>
+                                      <li>5728367</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                              <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                              <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                                <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                                <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                                <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                                <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                                <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_dummy_cell"><div></div></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="oe_view_manager_view_form"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 Styleguide 6.0
 
