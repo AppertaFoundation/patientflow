@@ -272,13 +272,10 @@ header .navbar ul li :hover {
 
 Search Box that is used for searching and creating filters.
 
-.search - Background for main tabs
-
-#search-box - ID of the Search Box itself.
-
-.clear-search - button used to clear any of the current filters being used.
-
-.drop-down - button used to dropdown and allow for advanced search.
+.oe_searchview_facets - Contains the magnifying glass icon, the filter tags and the actual search inputs (which aren't form inputs)
+.oe_searchview_search - Is the magnifying glass icon
+.oe_searchview_clear - is the clear button, uses padding to peek out from under the dropdown list
+.oe_searchview_unfold_drawer - is the button that opens up the filter selection drawer
 
 Example:
     <div class="openerp">
@@ -357,40 +354,33 @@ Example:
 Styleguide 4.0
 
 */
-.search-icon:before {
-  content: "\f002";
-  font-size: 1.5em;
-  color: #dedede;
-}
-.drop-icon:before {
-  content: "\f078";
-  font-size: 1.5em;
-  color: #dedede;
-  line-height: 1.8em;
-}
-.clear-icon:after {
-  content: "\f00d";
-  font-size: 1.5em;
-  line-height: 2em;
-  color: white;
-}
 .openerp .oe_searchview {
   -ms-border-radius: 10px;
   border-radius: 10px;
   background-color: #ffffff;
   box-shadow: 0 0 4px 1px #999999 inset;
 }
-.openerp .oe_searchview .oe_searchview_input {
+.openerp .oe_searchview .oe_searchview_facets {
+  min-height: 2.2em;
+  margin: 0 0 0 8%;
+}
+.openerp .oe_searchview .oe_searchview_facets .oe_searchview_input {
   border: none;
   color: #333;
-  padding: 0 0 0 1%;
+  padding: 0.5em 1% 0.5em 1%;
   resize: none;
-  font-size: 1.1em;
-  min-height: 2em;
+  font-size: 1.2em;
+  margin-top: 0;
 }
-.openerp .oe_searchview .oe_searchview_input:focus {
+.openerp .oe_searchview .oe_searchview_facets .oe_searchview_input:focus {
   background-color: #f2f2f2;
   outline: 0;
+}
+.openerp .oe_searchview .oe_searchview_search {
+  left: 7px;
+}
+.openerp .oe_searchview .oe_searchview_search:before {
+  font: 28px "mnmliconsRegular";
 }
 .openerp .oe_searchview .oe_searchview_unfold_drawer {
   border-top-right-radius: 10px;
@@ -411,12 +401,18 @@ Styleguide 4.0
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#3c4e58, 10%)', endColorstr='#3c4e58', GradientType=0);
   /* IE6-9 */
-  padding: 0 3% 0 3%;
+  padding: 0.3em 4% 0.3em 4%;
   border-bottom: 1px solid #2b373d;
+  height: 2.4em;
 }
 .openerp .oe_searchview .oe_searchview_unfold_drawer:before {
   border-top-color: white;
   font-size: 1.5em;
+  top: 0.75em;
+  right: 30%;
+  border-top-width: 7px;
+  border-left-width: 7px;
+  border-right-width: 7px;
 }
 .openerp .oe_searchview .oe_searchview_clear {
   background: #3b4d56;
@@ -435,7 +431,8 @@ Styleguide 4.0
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#263238, 10%)', endColorstr='#263238', GradientType=0);
   /* IE6-9 */
-  padding: 0 10% 0 2%;
+  padding: 0.35em 18% 0.35em 3%;
+  height: 2.4em;
   color: white;
 }
 .openerp .oe_searchview .oe_searchview_clear:before {
@@ -445,6 +442,13 @@ Styleguide 4.0
   content: 'X';
   margin-left: 0.5em;
   font-weight: 900;
+}
+.example .oe_searchview > .oe_searchview_clear {
+  padding: 0.35em 14% 0.35em 3%;
+  height: 1.85em;
+}
+.example .oe_searchview > .oe_searchview_unfold_drawer {
+  height: 1.85em;
 }
 /*
 

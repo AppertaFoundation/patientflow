@@ -2,129 +2,191 @@
 
 Search Box that is used for searching and creating filters.
 
-.search - Background for main tabs
-
-#search-box - ID of the Search Box itself.
-
-.clear-search - button used to clear any of the current filters being used.
-
-.drop-down - button used to dropdown and allow for advanced search.
+.oe_searchview_facets - Contains the magnifying glass icon, the filter tags and the actual search inputs (which aren't form inputs)
+.oe_searchview_search - Is the magnifying glass icon
+.oe_searchview_clear - is the clear button, uses padding to peek out from under the dropdown list
+.oe_searchview_unfold_drawer - is the button that opens up the filter selection drawer
 
 Example:
-
-    <div class="search-bar">
-         <form id="searchbox" action="">
-                <ul>
-                    <li><input type="submit"><i class="search-icon"></i></li>
-                    <li><input id="search-box" type="text" placeholder="Search or Create Filters"></li>
-                    <li class="clear-search"><input type="reset" value="Clear"> <i class="clear-icon"></i></li>
-                    <li class="drop-down"><a href="#"><i class="drop-icon"></i></a></li>
-                </ul>
-         </form>
+    <div class="openerp">
+      <div class="oe_webclient">
+        <div class="oe_application">
+          <table class="oe_view_manager_header">
+            <colgroup>
+              <col width="20%">
+              <col width="35%">
+              <col width="15%">
+              <col width="30%">
+            </colgroup>
+            <tbody>
+              <tr class="oe_header_row oe_header_row_top">
+                <td colspan="2">
+                  <h2 class="oe_view_title">
+                    <span class="oe_view_title_text oe_breadcrumb_title">
+                      <span class="oe_breadcrumb_item">Referral Board</span>
+                    </span>
+                  </h2>
+                </td>
+                <td colspan="2">
+                  <div class="oe_view_manager_view_search">
+                    <div class="oe_searchview">
+                      <div class="oe_searchview_facets">
+                        <div class="oe_searchview_input" contenteditable="true" tabindex="0"></div>
+                        <div class="oe_tag oe_tag_dark oe_searchview_facet" tabindex="0">
+                          <span class="oe_facet_remove">x</span>
+                          <span class="oe_facet_category oe_i">w</span>
+                          <span class="oe_facet_values">
+                            <span class="oe_facet_value">
+                             State
+                            </span>
+                          </span>
+                        </div>
+                        <div class="oe_searchview_input" contenteditable="true" tabindex="0"></div>
+                      </div>
+                      <div class="oe_searchview_clear"></div>
+                      <div class="oe_searchview_unfold_drawer" title="Advanced Search..."></div>
+                      <button class="oe_searchview_search" title="Search Again" type="button">Search</button>
+                      <div class="oe-autocomplete" style="width: 400px; display: none;">
+                        <ul></ul>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="oe_header_row">
+                <td>
+                  <div class="oe_view_manager_buttons">
+                    <div class="oe_kanban_buttons"></div>
+                  </div>
+                </td>
+                <td colspan="2">
+                <div class="oe_view_manager_sidebar"></div>
+                </td>
+                <td>
+                  <ul class="oe_view_manager_switch oe_button_group oe_right">
+                    <li class="oe_e active">
+                      <a data-view-type="kanban" title="" class="oe_vm_switch_kanban" data-original-title="Kanban view"></a>
+                    </li>
+                    <li class="oe_e">
+                      <a data-view-type="form" title="" class="oe_vm_switch_form" data-original-title="Form view"></a>
+                    </li>
+                  </ul>
+                  <div class="oe_view_manager_pager oe_right"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+
 
 Styleguide 4.0
 
 */
 
-.search-icon:before {
-
-content: "\f002";
-font-size: 1.5em;
-color: @innerBG;
-
-}
-
-.drop-icon:before {
-
-content: "\f078";
-font-size:1.5em;
-color: @innerBG;
-line-height:1.8em;
-
-}
-
-.clear-icon:after {  
-
-content: "\f00d"; 
-font-size: 1.5em;
-line-height:2em; 
-color: white;  
-
-}
-
-.search-bar {
-
+.openerp {
+  .oe_searchview {
     .border-radius;
-
     background-color: #ffffff;
-	box-shadow:0px 0px 4px 1px lighten(black, 60%) inset;
-	//padding: 1% 1% 0 0;
+    box-shadow: 0 0 4px 1px lighten(black, 60%) inset;
 
-            #search-box {
+    .oe_searchview_facets{
 
-                //box-shadow:0px 0px 4px 1px lighten(black, 60%) inset;
+      min-height: 2.2em;
+      margin: 0 0 0 8%;
 
-                border:none;
+      .oe_searchview_input {
+        border: none;
+        color: #333;
+        padding: 0.5em 1% 0.5em 1%;
+        resize: none;
+        font-size: 1.2em;
+        margin-top: 0;
 
-                color:#333;
-                font-size:1.2em;
+        &:focus {
+          background-color: darken(white, 5%);
+          outline: 0;
+        }
+      }
 
-                //height:2.4em;
+      .oe_searchview_facet{
+        .oe_facet_remove{
 
-                padding:0 0 0 1%;
+        }
+        .oe_facet_category{
 
-                resize:none;
-                font-size:1.1em;
-                width:100%;
-                min-height:2em;
+        }
+        .oe_facet_values{
 
-                    &:focus {
-                        //box-shadow:0 0 0 2px black;
-                        background-color: darken(white, 5%);
-                        outline: 0;
+        }
+      }
+    }
 
-                    }
+    .oe_searchview_search{
+      left: 7px;
+      &:before{
+        font: 28px "mnmliconsRegular";
+      }
+    }
 
-            }
+    .oe_searchview_unfold_drawer {
+      .border-right;
+      background: lighten(#3c4e58, 10%); /* Old browsers */
+      background: -moz-linear-gradient(top, lighten(#3c4e58, 10%) 0%, #3c4e58 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, lighten(#3c4e58, 10%)), color-stop(100%,#3c4e58)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(lighten(#3c4e58, 10%), #3c4e58); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top, lighten(#3c4e58, 10%) 0%, #3c4e58 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top, lighten(#3c4e58, 10%) 0%, #3c4e58 100%); /* IE10+ */
+      background: linear-gradient(to bottom, lighten(#3c4e58, 10%) 0%, #3c4e58 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#3c4e58, 10%)', endColorstr='#3c4e58', GradientType=0); /* IE6-9 */
+      padding: 0.3em 4% 0.3em 4%;
+      border-bottom: 1px solid #2b373d;
 
-            ul {
+      height: 2.4em;
 
+      &:before{
+        border-top-color: white;
+        font-size: 1.5em;
+        top: 0.75em;
+        right: 30%;
+        border-top-width: 7px;
+        border-left-width: 7px;
+        border-right-width: 7px;
+      }
+    }
 
-                li {
+    .oe_searchview_clear {
+      background: lighten(#263238, 10%); /* Old browsers */
+      background: -moz-linear-gradient(top, lighten(#263238, 10%) 0%, #263238 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, lighten(#263238, 10%)), color-stop(100%,#263238)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(lighten(#263238, 10%) #263238); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top, lighten(#263238, 10%) 0%, #263238 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top, lighten(#263238, 10%) 0%, #263238 100%); /* IE10+ */
+      background: linear-gradient(to bottom, lighten(#263238, 10%) 0%, #263238 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#263238, 10%)', endColorstr='#263238', GradientType=0); /* IE6-9 */
 
-                    text-decoration:none;
-                    list-style:none;
-                    display:inline-block;
+      padding: 0.35em 18% 0.35em 3%;
+      height: 2.4em;
+      color: white;
 
-                        a {
+      &:before{
+        content: 'Clear';
+      }
 
-                        text-decoration:none;
-                        color:white;
+      &:after{
+        content: 'X';
+        margin-left: 0.5em;
+        font-weight: 900;
+      }
+    }
+  }
+}
 
-                        }
-
-                        &.clear-search {
-
-                                background: -webkit-linear-gradient(lighten(#263238, 10%), #263238 );
-                                height:3em;
-                                padding:0 2% 0 2%;
-                                line-height:3.1em;
-                                color:white;
-
-                                }
-
-                        &.drop-down {
-
-                            .border-right;
-
-                                background: -webkit-linear-gradient(lighten(#3c4e58, 10%), #3c4e58 );
-                                height:3em;
-                                padding:0 2% 0 2%;
-                                border: 0 0 0 1px solid #2b373d;
-
-                            }
-                }
-            }
-
+.example .oe_searchview > .oe_searchview_clear{
+  padding: 0.35em 14% 0.35em 3%;
+  height: 1.85em;
+}
+.example .oe_searchview > .oe_searchview_unfold_drawer{
+  height: 1.85em;
 }
