@@ -59,7 +59,9 @@ openerp.nh_etake_list = function(instance){
             var sectionTitles = activeMenu.find('.oe_secondary_menu_section');
             var sectionLists = activeMenu.find('.oe_secondary_submenu');
             var navbarDiv = $('<div class="navbar"></div>');
-            activeMenu.prepend(navbarDiv);
+            if(activeMenu.find('.navbar').length < 1){
+                activeMenu.prepend(navbarDiv);
+            }
             sectionTitles.each(function(index){
                 // set the tab id on the section header
                 $(this).attr('data-tab-id', index);
