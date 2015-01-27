@@ -167,7 +167,7 @@ Styleguide 1.0
   -ms-border-radius: 10px;
   border-radius: 10px;
   background: #dedede;
-  box-shadow: 0 0 3px 1px #ffffff, 0 0 1px 3px #b3b3b3 inset;
+  box-shadow: 0 0 3px 1px white, 0 0 1px 3px #b3b3b3 inset;
   width: 100%;
   height: 5em;
 }
@@ -267,7 +267,6 @@ header .navbar ul li :hover {
   /* IE6-9 */
 }
 /* Typography */
-/* End Typography */
 /*
 
 Search Box that is used for searching and creating filters.
@@ -624,7 +623,7 @@ Styleguide 5.0
   font-family: 'FontAwesome';
   top: 1.4em;
   left: 33%;
-  text-shadow: 0 3px 0 #dedede, 0 0 4px #000000, 0 2px 2px #dedede;
+  text-shadow: 0 3px 0 #dedede, 0 0 4px black, 0 2px 2px #dedede;
   content: "\f0de";
   font-size: 3em;
   color: #dedede;
@@ -655,6 +654,8 @@ Styleguide 5.0
 Lozenge styles of what a patient item looks like in the Take List.
 
 .col-title - Title of a Column
+.add-patient - 'Add Patient' Button
+.patient-no - Number of Patients in a column.
 
 Example:
 
@@ -662,12 +663,59 @@ Example:
 
     <div class="col-title">
 
-        <a class="add-patient" href="#"><i class="addpatient-icon"></i></a>
+        <ul>
 
-        <h3>Referrals</h3>
+           <li><a class="add-patient" href="#"><i class="addpatient-icon"></i></a></li>
 
-        <div class="patient-no">5</div>
+           <li><h3>To Be Clerked</h3></li>
 
+           <li><div class="task-no">5</div></li>
+
+        </ul>
+
+    </div>
+
+    <div class="tasks">
+
+      <div class="time-till">
+
+          <ul>
+              <li><i class="time"></i>
+              <li>-12M</li>
+              <li class="sub-tasks">+3</li>
+          </ul>
+
+      </div>
+
+      <div class="patient-info">
+
+         <ul>
+        <li>WOODGROVE, Francis James Patrick John</li>
+         </ul>
+
+
+        <ul>
+            <li class="p-info">67</li>
+            <li class="p-info"><i class="male"></i></li>
+            <li class="p-info">6<i class="score-up"></i></li>
+            <li class="last">5G <i class="bed-move"></i> 3L</li>
+        </ul>
+      </div>
+
+        <div class="task-numbers">
+
+             <ul class="task">
+                <li class="btn-task"> Clerk </li>
+            </ul>
+
+           <ul>
+               <li class="num-id">NHS<li>
+               <li>801 340 3902</li>
+
+               <li class="num-hosp">Hospital<li>
+               <li>3094938 </li>
+           </ul>
+        </div>
     </div>
 
 </div>
@@ -1068,6 +1116,63 @@ Example:
   </div>
 
 
+<div class="take-col">
+
+    <div class="col-title">
+
+       <ul>
+            <li><a class="add-patient" href="#"><i class="addpatient-icon"></i></a></li>
+            <li><h3>For Senior Review</h3></li>
+            <li><div class="task-no">5</div></li>
+       </ul>
+
+    </div>
+
+    <div class="tasks">
+
+      <div class="time-till">
+          <ul>
+              <li><i class="time-overdue"></i>
+              <li>-12M</li>
+              <li class="sub-tasks-block">+3</li>
+          </ul>
+
+      </div>
+
+      <div class="patient-info">
+
+         <ul>
+        <li>WOODGROVE, Francis James Patrick John</li>
+         </ul>
+
+
+        <ul>
+            <li class="p-info">67</li>
+            <li class="p-info"><i class="male"></i></li>
+            <li class="p-info">6<i class="score-up"></i></li>
+            <li class="last">5G <i class="bed-move"></i> 3L</li>
+        </ul>
+      </div>
+
+        <div class="task-numbers">
+
+            <ul class="task">
+                <li class="btn-task"> Start Review </li>
+            </ul>
+
+           <ul>
+               <li class="num-id">NHS<li>
+               <li>801 340 3902</li>
+
+               <li class="num-hosp">Hospital<li>
+               <li>3094938</li>
+           </ul>
+        </div>
+    </div>
+
+</div>
+
+
 Styleguide 6.0
 
 */
@@ -1077,16 +1182,172 @@ Styleguide 6.0
   color: #37474f;
   text-shadow: 0px 1px 1px #ffffff;
 }
-.col-title {
+.take-col {
+  background: #e4d6d3;
+  border-left: 1px solid #aba8a7;
+  border-right: 1px solid #aba8a7;
+  padding: 1%;
+}
+.take-col .col-title {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background: -webkit-linear-gradient(#ffffff, #f8e9e0);
+  box-shadow: 0 1px 3px 0 #737373;
+  text-align: center;
 }
-.col-title .add-patient {
+.take-col .col-title ul li {
+  text-decoration: none;
+  display: inline-block;
+  list-style-type: none;
+}
+.take-col .col-title ul li.add-patient {
   background: -webkit-linear-gradient(#c0e1fc, #90caf9);
 }
-.col-title .patient-no {
+.take-col .col-title ul li.task-no {
   font-weight: 900;
   background: -webkit-linear-gradient(#eff0f0, #d4d6d8);
   text-shadow: 0px 1px 1px #ffffff;
+  font-size: 12em;
+}
+.take-col .tasks {
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 2px 1px #a6a6a6;
+  margin-top: 1em;
+}
+.take-col .tasks ul {
+  margin: 0;
+  list-style-type: none;
+}
+.take-col .tasks ul li {
+  text-decoration: none;
+  display: inline-block;
+  list-style-type: none;
+}
+.take-col .tasks .time-till {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: -webkit-linear-gradient(#dfeffa, #9dcef0);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-top: 2px solid rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  font-size: 1.2em;
+  font-weight: 900;
+}
+.take-col .tasks .time-till .sub-tasks {
+  background: -webkit-linear-gradient(white, #d9d9d9);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-top: 2px solid rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  color: #5C5C5C;
+  border-top-right-radius: 10px;
+  padding: 2%;
+}
+.take-col .tasks .time-till .sub-tasks-block {
+  background: -webkit-linear-gradient(#ffcdd2, #ff818d);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-top: 2px solid rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  color: #C71923;
+  border-top-right-radius: 10px;
+  padding: 2%;
+}
+.take-col .tasks .time-till .sub-tasks-block:before {
+  font-family: 'FontAwesome';
+  content: "\f024";
+  font-size: 1.5em;
+  color: #C71923;
+  margin-right: 10px;
+  text-shadow: 0px 1px 0 #808080;
+}
+.take-col .tasks .patient-info {
+  background: #DCE1FC;
+}
+.take-col .tasks .patient-info ul {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  line-height: 2em;
+}
+.take-col .tasks .patient-info ul li {
+  border: none;
+}
+.take-col .tasks .patient-info ul li.p-info {
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  padding-left: 3%;
+  padding-right: 3%;
+  text-align: center;
+  font-weight: 800;
+}
+.take-col .tasks .patient-info ul li.last {
+  border: none;
+  padding-left: 4%;
+  font-weight: 600;
+}
+.take-col .tasks .task-numbers {
+  background: #EFEFEF;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.take-col .tasks .task-numbers ul {
+  display: block;
+}
+.take-col .tasks .task-numbers ul.task {
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  line-height: 1.5em;
+  color: white;
+}
+.take-col .tasks .task-numbers ul li.num-id {
+  color: #3D3D3D;
+  font-weight: 900;
+  margin-right: 10px;
+}
+.take-col .tasks .task-numbers ul li.num-id.num-hosp {
+  border-left: 1px solid rgba(0, 0, 0, 0.3);
+}
+/* All Font Awesome icons used */
+.time:before {
+  content: "\f017";
+  color: #1565BF;
+  font-size: 2em;
+  margin-right: 10px;
+}
+.time-overdue:before {
+  content: "\f017";
+  color: #C71923;
+  font-size: 2em;
+  margin-right: 10px;
+}
+.male:before,
+.female:before {
+  content: "\f183";
+  color: #1CA7E9;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 1.7em;
+  text-shadow: 0 1px 1px #4d4d4d;
+}
+.female:before {
+  content: "\f182";
+  color: #EA2774;
+}
+.score-up:before,
+.score-down:before {
+  content: "\f102";
+  color: #333;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 2em;
+  font-weight: 600;
+}
+.score-down:before {
+  content: "\f103";
+}
+.bed-move:before {
+  content: "\f178";
+  color: #EA2774;
+  font-size: 2.5em;
+  background: -webkit-linear-gradient(left, #aaaaaa, #282828);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
