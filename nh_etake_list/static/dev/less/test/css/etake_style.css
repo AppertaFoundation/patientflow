@@ -423,6 +423,10 @@ Styleguide 4.0
 .openerp .oe_searchview .oe_searchview_facets .oe_tag_dark {
   background-color: #B0BEC5;
 }
+.openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet:focus {
+  border-width: 0px;
+  box-shadow: 0 0 1px #303f46;
+}
 .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -430,8 +434,7 @@ Styleguide 4.0
   right: 0;
   background-color: #455a64;
   color: white;
-  padding: 5%;
-  height: 1em;
+  height: 1.3em;
   line-height: 1em;
   font-size: 1.5em;
 }
@@ -439,14 +442,16 @@ Styleguide 4.0
   background-color: #455a64;
 }
 .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_values {
-  height: 2em;
   border: 0;
   background-color: #78909c;
 }
 .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_values .oe_facet_value {
-  font-size: 1.4em;
-  line-height: 1.4em;
+  font-size: 1.2em;
+  line-height: 1.6em;
   color: white;
+  padding-right: 6px;
+}
+.openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_values .oe_facet_value:last-child {
   padding-right: 26px;
 }
 .openerp .oe_searchview .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove {
