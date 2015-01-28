@@ -40,6 +40,12 @@ Example:
 
   <a href="#" class="btn-task">Task Button</a>
 
+  <div class="background">
+
+  <p>Something in the background</p>
+
+  </div>
+
 Styleguide 1.0
 
 */
@@ -1280,12 +1286,12 @@ Styleguide 6.0
   text-shadow: 0px 1px 1px #ffffff;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view {
-  background: #e4d6d3;
+  background: none;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups {
   -webkit-border-horizontal-spacing: 5px;
   border-collapse: separate;
-  background: #e4d6d3;
+  background: none;
   border-left: 1px solid #aba8a7;
   border-right: 1px solid #aba8a7;
 }
@@ -1341,6 +1347,9 @@ Styleguide 6.0
   border-left: 1px solid #aba8a7;
   border-right: 1px solid #aba8a7;
   padding: 1%;
+}
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column {
+  background-color: #e4d6d3;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks {
   -ms-border-radius: 10px;
@@ -1553,11 +1562,14 @@ Example:
 Styleguide 8.0
 */
 .openerp .oe_application {
-  padding: 6px 6px 0 6px;
+  margin: -1px 6px 0 6px;
   background-color: #dedede;
-  box-shadow: 0 0 4px black;
+  box-shadow: 0 0 4px black inset;
+  width: ~'calc(100% - 12px)';
+  border-radius: 10px;
 }
 .openerp .oe_application .oe_view_manager_header {
   background: none;
   box-shadow: none;
+  border-bottom: 0px solid black;
 }
