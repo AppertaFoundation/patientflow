@@ -64,7 +64,6 @@ class nh_clinical_patient_referral_form(orm.Model):
     _referral_source = [['gp', 'GP'], ['ucc', 'UCC'], ['ae', 'A&E'], ['eau', 'EAU'], ['ecp', 'ECP'], ['wic', 'WIC'],
                         ['ltxc', 'LTxC'], ['opd', 'OPD'], ['mac', 'MAC'], ['comm', 'COMM'], ['matron', 'MATRON'],
                         ['hospice', 'HOSPICE'], ['cons', 'CONS']]
-    _gender = [['M', 'Male'], ['F', 'Female']]
     _resides = [['home', 'HOME'], ['res', 'RES/HOME'], ['nursing', 'N/HOME']]
     _advised_attendance = [['ae', 'A&E'], ['eau', 'EAU'], ['acc', 'ACC'], ['clinic', 'CLINIC']]
     _poc = [['eau', 'EAU'], ['ae', 'A&E'], ['acc', 'ACC'], ['smdu', 'SMDU'], ['clinic', 'Clinic']]
@@ -78,6 +77,8 @@ class nh_clinical_patient_referral_form(orm.Model):
         ['M', 'Black - Caribbean'], ['N', 'Black - African'], ['P', 'Black - Other background'], ['R', 'Chinese'],
         ['S', 'Other ethnic group'], ['Z', 'Not stated']
     ]
+    _gender = [['BOTH', 'Both'], ['F', 'Female'], ['I', 'Intermediate'],
+               ['M', 'Male'], ['NSP', 'Not Specified'], ['U', 'Unknown']]
     _patient_values = ['patient_id', 'hospital_number', 'nhs_number', 'first_name', 'middle_names', 'last_name', 'dob',
                        'ethnicity', 'gender']
 
@@ -131,7 +132,8 @@ class nh_clinical_patient_referral_form(orm.Model):
     }
     _defaults = {
         'source': 'gp',
-        'ethnicity': 'Z'
+        'ethnicity': 'Z',
+        'gender': 'NSP'
     }
 
     def create(self, cr, uid, vals, context=None):
