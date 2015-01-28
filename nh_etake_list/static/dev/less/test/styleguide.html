@@ -352,7 +352,12 @@
             <hr/>
             <div class="section" id="6.0">
                 <h2>6.0</h2>
-                <p>Lozenge styles of what a patient item looks like in the Take List.</p>
+                <p>Lozenge styles of what a patient item looks like in the Take List.
+
+
+----
+
+td.oe_kanban_group_header - Odoo Column Header</p>
 
                 <h3>Modifiers</h3>
                 <ul>
@@ -362,6 +367,8 @@
                         <li><strong>.add-patient</strong> - 'Add Patient' Button</li>
                     
                         <li><strong>.patient-no</strong> - Number of Patients in a column.</li>
+                    
+                        <li><strong>.oe_kanban_group_length oe_tag</strong> - Number of Patients</li>
                     
                 </ul>
 
@@ -727,20 +734,22 @@
                                   <div class="oe_kanban_content">
                                     <div class="time-till">
                                       <ul>
-                                        <li><i class="time-overdue"></i></li>
-                                        <li>-12M</li>
+                                        <li class="clock"><i class="time-overdue"></i></li>
+                                        <li class="due">-12M</li>
                                         <li class="sub-tasks-block">+3</li>
                                       </ul>
                                     </div>
                                     <div class="patient-info">
                                       <ul>
-                                        <li>Ledner, Caprice </li>
+                                        <li class="name">Ledner, Caprice </li>
                                       </ul>
                                       <ul>
                                         <li class="p-info">56</li>
                                         <li class="p-info"><i class="male"></i></li>
-                                        <li class="p-info">6<i class="score-up"></i></li>
-                                        <li class="last">Ward EAU </li>
+                                        <li class="last">6<i class="score-up"></i></li>
+                                      </ul>
+                                      <ul>
+                                        <li class="bed">Ward EAU</li>
                                       </ul>
                                     </div>
                                     <div class="task-numbers">

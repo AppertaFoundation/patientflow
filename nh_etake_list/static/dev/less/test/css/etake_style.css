@@ -157,8 +157,8 @@ Styleguide 1.0
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#0072A2, 20%))', endColorstr='#0072A2', GradientType=0);
   /* IE6-9 */
   padding: 0.3em 10%;
-  border: 0px solid #0D5571;
-  box-shadow: 0 1px 2px 0 #ffffff inset, 0 2px 0px rgba(0, 0, 0, 0.6);
+  border: 1px solid #0D5571;
+  box-shadow: 0 1px 2px 0 white inset, 0 2px 0px rgba(0, 0, 0, 0.6);
   margin-right: 5%;
   text-align: center;
   text-shadow: 0 1px 1px #808080;
@@ -170,7 +170,7 @@ Styleguide 1.0
   -ms-border-radius: 10px;
   border-radius: 10px;
   background: #dedede;
-  box-shadow: 0 0 3px 1px #ffffff, 0 0 1px 3px #b3b3b3 inset;
+  box-shadow: 0 0 3px 1px white, 0 0 1px 3px #b3b3b3 inset;
   width: 100%;
   height: 5em;
 }
@@ -301,7 +301,6 @@ Styleguide 2.0
   /* IE6-9 */
 }
 /* Typography */
-/* End Typography */
 /*
 
 Search Box that is used for searching and creating filters.
@@ -707,7 +706,7 @@ Styleguide 5.0
   font-family: 'FontAwesome';
   top: 1.4em;
   left: 33%;
-  text-shadow: 0 3px 0 #dedede, 0 0 4px #000000, 0 2px 2px #dedede;
+  text-shadow: 0 3px 0 #dedede, 0 0 4px black, 0 2px 2px #dedede;
   content: "\f0de";
   font-size: 3em;
   color: #dedede;
@@ -737,6 +736,13 @@ Lozenge styles of what a patient item looks like in the Take List.
 .col-title - Title of a Column
 .add-patient - 'Add Patient' Button
 .patient-no - Number of Patients in a column.
+
+----
+
+td.oe_kanban_group_header - Odoo Column Header
+.oe_kanban_group_length oe_tag - Number of Patients
+
+
 
 Example:
 
@@ -1100,20 +1106,22 @@ Example:
                                   <div class="oe_kanban_content">
                                     <div class="time-till">
                                       <ul>
-                                        <li><i class="time-overdue"></i></li>
-                                        <li>-12M</li>
+                                        <li class="clock"><i class="time-overdue"></i></li>
+                                        <li class="due">-12M</li>
                                         <li class="sub-tasks-block">+3</li>
                                       </ul>
                                     </div>
                                     <div class="patient-info">
                                       <ul>
-                                        <li>Ledner, Caprice </li>
+                                        <li class="name">Ledner, Caprice </li>
                                       </ul>
                                       <ul>
                                         <li class="p-info">56</li>
                                         <li class="p-info"><i class="male"></i></li>
-                                        <li class="p-info">6<i class="score-up"></i></li>
-                                        <li class="last">Ward EAU </li>
+                                        <li class="last">6<i class="score-up"></i></li>
+                                      </ul>
+                                      <ul>
+                                        <li class="bed">Ward EAU</li>
                                       </ul>
                                     </div>
                                     <div class="task-numbers">
@@ -1306,7 +1314,6 @@ Styleguide 6.0
   margin-right: 0;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header .oe_fold_column .oe_kanban_group_title .oe_kanban_group_length {
-  margin-right: 0.85em;
   font-weight: 900;
   background: -webkit-linear-gradient(#eff0f0, #d4d6d8);
   text-shadow: 0px 1px 1px #ffffff;
@@ -1315,9 +1322,10 @@ Styleguide 6.0
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border: 0px solid black;
+  border: 1px solid #AFB1B4;
+  box-shadow: 0 1px 2px 0 white inset;
   text-align: center;
-  min-width: 20%;
+  float: right;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header .oe_fold_column .oe_kanban_group_title .oe_kanban_group_title_text {
   float: left;
@@ -1337,9 +1345,10 @@ Styleguide 6.0
   -ms-border-radius: 10px;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 2px 1px #a6a6a6;
+  box-shadow: 0 0 0 1px #bfbfbf;
   margin-top: 1em;
   padding: 0;
+  width: 100%;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .oe_kanban_content div:first-child {
   margin-right: 0;
@@ -1362,15 +1371,25 @@ Styleguide 6.0
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   font-size: 1.2em;
   font-weight: 900;
+  width: 97.6%;
+}
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till .clock {
+  width: 25%;
+  text-align: center;
+}
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till .due {
+  width: 30%;
+  line-height: 1.5em;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till .sub-tasks {
-  background: -webkit-linear-gradient(#ffffff, #d9d9d9);
+  background: -webkit-linear-gradient(white, #d9d9d9);
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-top: 2px solid rgba(255, 255, 255, 0.8);
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   color: #5C5C5C;
   border-top-right-radius: 10px;
   padding: 2%;
+  text-align: center;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till .sub-tasks-block {
   background: -webkit-linear-gradient(#ffcdd2, #ff818d);
@@ -1384,9 +1403,9 @@ Styleguide 6.0
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till .sub-tasks-block:before {
   font-family: 'FontAwesome';
   content: "\f024";
-  font-size: 1.5em;
+  font-size: 1em;
   color: #C71923;
-  margin-right: 10px;
+  margin-right: 5px;
   text-shadow: 0px 1px 0 #808080;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info {
@@ -1399,17 +1418,30 @@ Styleguide 6.0
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info ul li {
   border: none;
 }
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info ul li.name {
+  width: 93%;
+  padding: 3%;
+  font-size: 1.1em;
+  text-align: center;
+}
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info ul li.p-info {
   border-right: 1px solid rgba(0, 0, 0, 0.3);
   padding-left: 3%;
   padding-right: 3%;
   text-align: center;
   font-weight: 800;
+  width: 25%;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info ul li.last {
   border: none;
   padding-left: 4%;
   font-weight: 600;
+  width: 25%;
+}
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info ul li.bed {
+  width: 90%;
+  padding: 3%;
+  font-size: 1em;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .task-numbers {
   background: #EFEFEF;
@@ -1431,6 +1463,7 @@ Styleguide 6.0
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .task-numbers ul {
   display: block;
+  padding: 3%;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .task-numbers ul li.num-id {
   color: #3D3D3D;
@@ -1453,26 +1486,27 @@ Styleguide 6.0
 .time:before {
   content: "\f017";
   color: #1565BF;
-  font-size: 2em;
-  margin-right: 10px;
+  font-size: 1.8em;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 .time-overdue:before {
   content: "\f017";
   color: #C71923;
-  font-size: 2em;
+  font-size: 1.8em;
   margin-right: 10px;
 }
 .male:before,
 .female:before {
-  content: "\f183";
+  content: "\f222";
   color: #1CA7E9;
   margin-left: 5px;
   margin-right: 5px;
-  font-size: 1.7em;
+  font-size: 1.6em;
   text-shadow: 0 1px 1px #4d4d4d;
 }
 .female:before {
-  content: "\f182";
+  content: "\f221";
   color: #EA2774;
 }
 .score-up:before,
