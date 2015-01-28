@@ -29,6 +29,7 @@ class nh_etake_list_overview(orm.Model):
 
     _columns = {
         'activity_id': fields.many2one('nh.activity', 'Activity', required=1, ondelete='restrict'),
+        'spell_activity_id': fields.many2one('nh.activity', 'Spell Activity'),
         'location_id': fields.many2one('nh.clinical.location', 'Ward'),
         'pos_id': fields.many2one('nh.clinical.pos', 'POS'),
         'patient_id': fields.many2one('nh.clinical.patient', 'Patient'),
@@ -40,8 +41,14 @@ class nh_etake_list_overview(orm.Model):
         'form_id': fields.many2one('nh.clinical.patient.referral.form', 'Referral Form'),
         'clerking_started': fields.datetime('Clerking Started'),
         'clerking_terminated': fields.datetime('Clerking Finished'),
+        'review_terminated': fields.datetime('Reviewed'),
+        'discharge_terminated': fields.datetime('Discharged'),
         'diagnosis': fields.text('Diagnosis'),
-        'plan': fields.text('Plan')
+        'plan': fields.text('Plan'),
+        'clerking_user_id': fields.many2one('res.users', 'Clerking by'),
+        'review_user_id': fields.many2one('res.users', 'Senior Review by'),
+        'discharge_user_id': fields.many2one('res.users', 'Discharged by'),
+        'doctor_task_ids': fields.one2many('nh.activity', 'parent_id', string='Doctor Tasks', domain="[['data_model','=','nh.clinical.doctor.task']]"),
     }
 
     def init(self, cr):
@@ -55,8 +62,10 @@ class nh_etake_list_overview(orm.Model):
                         extract(year from age(now(), patient.dob)) as age,
                         tci_activity.pos_id as pos_id,
                         case
-                            when spell_activity.state = 'completed' or spell_activity.state = 'cancelled' then 'Done'
-                            when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'Done'
+                            when referral_activity.state is null and tci_activity.state is null then 'Done'
+                            when spell_activity.state = 'cancelled' then 'Done'
+                            when ptwr_activity.state is not null and ptwr_activity.state = 'completed' then 'Done'
+                            when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'Discharged'
                             when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'To be Discharged'
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then 'Referral'
                             when tci_activity.state is not null and tci_activity.state = 'scheduled' then 'TCI'
@@ -75,15 +84,24 @@ class nh_etake_list_overview(orm.Model):
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then referral_activity.id
                             when tci_activity.state is not null and tci_activity.state = 'scheduled' then tci_activity.id
                             when clerking_activity.state = 'scheduled' or clerking_activity.state = 'started' then clerking_activity.id
+                            when review_activity.state = 'scheduled' then review_activity.id
+                            when ptwr_activity.state = 'new' or ptwr_activity.state = 'scheduled' then ptwr_activity.id
+                            when discharge_activity.state = 'new' or discharge_activity.state = 'scheduled' then discharge_activity.id
                             else spell_activity.id
                         end as activity_id,
+                        spell_activity.id as spell_activity_id,
                         patient.other_identifier as hospital_number,
                         patient.patient_identifier as nhs_number,
                         referral.form_id as form_id,
                         clerking_activity.date_started as clerking_started,
                         clerking_activity.date_terminated as clerking_terminated,
+                        clerking_activity.user_id as clerking_user_id,
+                        review_activity.date_terminated as review_terminated,
+                        review_activity.terminate_uid as review_user_id,
                         spell.diagnosis as diagnosis,
-                        spell.doctor_plan as plan
+                        spell.doctor_plan as plan,
+                        discharge_activity.date_terminated as discharge_terminated,
+                        discharge_activity.terminate_uid as discharge_user_id
 
                     from nh_clinical_patient patient
                     left join nh_clinical_spell spell on spell.patient_id = patient.id
@@ -117,6 +135,34 @@ class nh_etake_list_overview(orm.Model):
     _group_by_full = {
         'state': _get_overview_groups,
     }
+    
+    def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
+        if 'doctor_task_ids' in fields:
+            activity_pool = self.pool['nh.activity']
+            fields.remove('doctor_task_ids')
+            read_values = super(nh_etake_list_overview, self).read(cr, uid, ids, fields, context, load)
+            for rv in read_values:
+                rv['doctor_task_ids'] = activity_pool.search(cr, uid, [['patient_id', '=', rv['id']], ['data_model', '=', 'nh.clinical.doctor.task']], context=context)
+            return read_values
+        return super(nh_etake_list_overview, self).read(cr, uid, ids, fields, context, load)
+
+    def write(self, cr, uid, ids, vals, context=None):
+        activity_pool = self.pool['nh.activity']
+        for ov in self.browse(cr, uid, ids, context=context):
+            if 'diagnosis' in vals:
+                if ov.state not in ['To be Clerked', 'Clerking in Process']:
+                    raise osv.except_osv('Error!', 'The patient has already been clerked!')
+                activity_pool.submit(cr, uid, ov.activity_id.id, {'diagnosis': vals['diagnosis']}, context=context)
+                activity_pool.submit(cr, uid, ov.spell_activity_id.id, {'diagnosis': vals['diagnosis']}, context=context)
+            if 'plan' in vals:
+                if ov.state not in ['To be Clerked', 'Clerking in Process']:
+                    raise osv.except_osv('Error!', 'The patient has already been clerked!')
+                activity_pool.submit(cr, uid, ov.activity_id.id, {'plan': vals['plan']}, context=context)
+                activity_pool.submit(cr, uid, ov.spell_activity_id.id, {'doctor_plan': vals['plan']}, context=context)
+            if 'doctor_task_ids' in vals:
+                for dt in vals['doctor_task_ids']:
+                    activity_pool.write(cr, uid, dt[1], dt[2], context=context)
+        return True
 
     def complete_referral(self, cr, uid, ids, context=None):
         user_pool = self.pool['res.users']
@@ -141,10 +187,8 @@ class nh_etake_list_overview(orm.Model):
         activity_pool.cancel(cr, uid, ov.activity_id.id, context=context)
         return True
 
-    def complete_tci(self, cr, uid, ids, context=None):
+    def complete_current_stage(self, cr, uid, ids, context=None):
         ov = self.browse(cr, uid, ids[0], context=context)
-        if not any([u.id == uid for u in ov.activity_id.user_ids]):
-            raise osv.except_osv('Error!', 'You cannot complete this task!')
         activity_pool = self.pool['nh.activity']
         activity_pool.complete(cr, uid, ov.activity_id.id, context=context)
         return True
@@ -169,21 +213,45 @@ class nh_etake_list_overview(orm.Model):
             raise osv.except_osv('Error!', 'You cannot complete this task!')
         activity_pool = self.pool['nh.activity']
         activity_pool.start(cr, uid, ov.activity_id.id, context=context)
+        activity_pool.assign(cr, uid, ov.activity_id.id, uid, context=context)
         return True
 
-    def complete_clerking(self, cr, uid, ids, context=None):
+    def complete_review(self, cr, uid, ids, context=None):
         ov = self.browse(cr, uid, ids[0], context=context)
         if not any([u.id == uid for u in ov.activity_id.user_ids]):
             raise osv.except_osv('Error!', 'You cannot complete this task!')
         activity_pool = self.pool['nh.activity']
         activity_pool.complete(cr, uid, ov.activity_id.id, context=context)
+        ptwr_pool = self.pool['nh.clinical.ptwr']
+        ptwr_pool.create_activity(cr, uid, {
+            'parent_id': ov.spell_activity_id.id,
+            'creator_id': ov.activity_id.id
+        }, {}, context=context)
         return True
 
-    def complete_review(self, cr, uid, ids, context=None):
+    def to_be_discharged(self, cr, uid, ids, context=None):
+        ov = self.browse(cr, uid, ids[0], context=context)
+        if not any([u.id == uid for u in ov.activity_id.user_ids]):
+            raise osv.except_osv('Error!', 'You cannot complete this task!')
+        activity_pool = self.pool['nh.activity']
+        activity_pool.complete(cr, uid, ov.activity_id.id, context=context)
+        discharge_pool = self.pool['nh.clinical.adt.patient.discharge']
+        discharge_pool.create_activity(cr, uid, {
+            'parent_id': ov.spell_activity_id.id,
+            'creator_id': ov.activity_id.id
+        }, {'other_identifier': ov.hospital_number}, context=context)
         return True
 
-    def complete_ptwr(self, cr, uid, ids, context=None):
-        return True
+    def create_task(self, cr, uid, ids, context=None):
+        ov = self.browse(cr, uid, ids[0], context=context)
 
-    def discharge(self, cr, uid, ids, context=None):
-        return True
+        context.update({'default_patient_id': ov.patient_id.id, 'default_spell_id': ov.spell_activity_id.id})
+        return {
+            'name': 'Add Task',
+            'type': 'ir.actions.act_window',
+            'res_model': 'nh.clinical.doctor_task_wizard',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'target': 'new',
+            'context': context
+        }
