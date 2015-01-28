@@ -712,9 +712,9 @@ Styleguide 5.0
 .oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li.active:after {
   position: absolute;
   font-family: 'FontAwesome';
-  top: 1.45em;
+  top: 1.57em;
   left: 33%;
-  text-shadow: 0 3px 0 #dedede, 0 0 4px #000000, 0 2px 2px #dedede;
+  text-shadow: 0 3px 0 #dedede, 0 2px 1px #dedede, 0px -2px 2px rgba(0, 0, 0, 0.5);
   content: "\f0de";
   font-size: 3em;
   color: #dedede;
