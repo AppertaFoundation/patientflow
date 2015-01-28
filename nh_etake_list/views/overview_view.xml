@@ -121,7 +121,7 @@
                                             <li class="name"><field name="patient_id"/></li>
                                         </ul>
                                         <ul>
-                                            <li class="p-info"><field name="age"/></li>
+                                            <li class="p-info "><field name="age"/></li>
                                             <li class="p-info">
                                                 <t t-if="record.gender.raw_value == 'M'">
                                                     <i class="male"></i>
@@ -143,35 +143,55 @@
                                                  <t t-if="record.ews_trend_string.raw_value === 'one'"></t>
                                                  <t t-if="record.ews_trend_string.raw_value === 'none'"></t>
                                              </li> -->
-                                            <li class="p-info">6 <i class="score-up"></i></li>
+                                            <li class="p-info score">6 <i class="score-up"></i></li>
                                         </ul>
                                         <ul>
                                             <li class="last"><field name="location_id"/> <!-- <i class="bed-move"></i> <field name="location_full_name"/> --></li>
                                         </ul>
                                     </div>
                                     <div class="task-numbers">
-                                        <ul class="task">
-                                            <li>
-                                                <t t-if="record.state.raw_value == 'TCI'">
+                                        <t t-if="record.state.raw_value == 'TCI'">
+                                            <ul class="task">
+                                                <li>
                                                     <button name="complete_current_stage" type="object" class="oe_highlight btn-task">Arrived</button>
-                                                </t>
-                                                <t t-if="record.state.raw_value == 'To be Clerked'">
-                                                    <button name="start_clerking" type="object" class="oe_highlight btn-task" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Clerk</button>
-                                                </t>
-                                                <t t-if="record.state.raw_value == 'Clerking in Process'">
-                                                    <button name="complete_current_stage" type="object" class="oe_highlight btn-task" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
-                                                </t>
-                                                <t t-if="record.state.raw_value == 'Senior Review'">
-                                                    <button name="complete_review" type="object" class="oe_highlight btn-task" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
-                                                </t>
-                                                <t t-if="record.state.raw_value == 'Consultant Review'">
-                                                    <button name="complete_current_stage" type="object" class="oe_highlight btn-task" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
-                                                </t>
-                                                <t t-if="record.state.raw_value == 'To be Discharged'">
-                                                    <button name="complete_current_stage" type="object" class="oe_highlight btn-task" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Discharge</button>
-                                                </t>
-                                            </li>
-                                        </ul>
+                                                </li>
+                                            </ul>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'To be Clerked'">
+                                            <ul class="task" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
+                                                <li>
+                                                    <button name="start_clerking" type="object" class="oe_highlight btn-task">Clerk</button>
+                                                </li>
+                                            </ul>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'Clerking in Process'">
+                                            <ul class="task" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
+                                                <li>
+                                                    <button name="complete_current_stage" type="object" class="oe_highlight btn-task">Complete</button>
+                                                </li>
+                                            </ul>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'Senior Review'">
+                                            <ul class="task" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
+                                                <li>
+                                                    <button name="complete_review" type="object" class="oe_highlight btn-task">Complete</button>
+                                                </li>
+                                            </ul>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'Consultant Review'">
+                                            <ul class="task" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
+                                                <li>
+                                                    <button name="complete_current_stage" type="object" class="oe_highlight btn-task">Complete</button>
+                                                </li>
+                                            </ul>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'To be Discharged'">
+                                            <ul class="task" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
+                                                <li>
+                                                    <button name="complete_current_stage" type="object" class="oe_highlight btn-task">Discharge</button>
+                                                </li>
+                                            </ul>
+                                        </t>
                                         <ul>
                                             <li class="num-id">NHS</li>
                                             <li>

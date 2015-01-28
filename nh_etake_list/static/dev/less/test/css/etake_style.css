@@ -1380,6 +1380,7 @@ Styleguide 6.0
   background: none;
   border-left: 1px solid #aba8a7;
   border-right: 1px solid #aba8a7;
+  width: 100%;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups:last-child {
   border-right-width: 0;
@@ -1438,6 +1439,7 @@ Styleguide 6.0
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column {
   background-color: #e4d6d3;
+  box-shadow: 0 1px 3px 0 #737373;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks {
   -ms-border-radius: 10px;
@@ -1469,22 +1471,34 @@ Styleguide 6.0
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   font-size: 1.2em;
   font-weight: 900;
-  width: 97%;
+  width: 100%;
+}
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till ul {
+  border-collapse: collapse;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till .clock {
   width: 30%;
   text-align: center;
   line-height: 2em;
+  display: table-cell;
+  vertical-align: middle;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till .sub-tasks {
   color: #5C5C5C;
   margin-left: 5%;
+  width: 60%;
+  border-top-right-radius: 10px;
   text-align: center;
+  display: table-cell;
+  vertical-align: middle;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till .sub-tasks-block {
   color: #C71923;
-  margin-left: 5%;
+  border-top-right-radius: 10px;
+  width: 30%;
   text-align: center;
+  display: table-cell;
+  vertical-align: middle;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till .sub-tasks-block:before {
   font-family: 'FontAwesome';
@@ -1495,10 +1509,12 @@ Styleguide 6.0
   text-shadow: 0px 1px 0 #808080;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till .due {
-  width: 100%;
+  width: 50%;
   text-align: center;
   line-height: 2em;
   color: #403838;
+  display: table-cell;
+  vertical-align: middle;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info {
   background: #DCE1FC;
@@ -1522,7 +1538,9 @@ Styleguide 6.0
   padding-right: 3%;
   text-align: center;
   font-weight: 800;
-  width: 20%;
+  width: 36%;
+  display: table-cell;
+  vertical-align: middle;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info ul li.score {
   border: none;

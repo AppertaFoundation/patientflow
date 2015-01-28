@@ -20,6 +20,7 @@ openerp.nh_etake_list = function(instance){
                     clearInterval(initKanban);
                 }
             }, 1000);
+
         }
     });
     instance.web.views.add('kanban', 'instance.nh_etake_list.KanbanView');
