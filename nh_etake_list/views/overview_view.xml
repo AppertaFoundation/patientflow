@@ -111,14 +111,14 @@
                                 <div class="oe_kanban_content">
                                     <div class="time-till">
                                         <ul>
-                                            <li><i class="time-overdue"></i></li>
-                                            <li>-12M</li>
-                                            <li class="sub-task-block">+3</li>
+                                            <li class="clock"><i class="time-overdue"></i></li>
+                                            <li class="due">-12M</li>
+                                            <li class="sub-tasks-block">+3</li>
                                         </ul>
                                     </div>
                                     <div class="patient-info">
                                         <ul>
-                                            <li><field name="patient_id"/></li>
+                                            <li class="name"><field name="patient_id"/></li>
                                         </ul>
                                         <ul>
                                             <li class="p-info"><field name="age"/></li>
@@ -144,6 +144,8 @@
                                                  <t t-if="record.ews_trend_string.raw_value === 'none'"></t>
                                              </li> -->
                                             <li class="p-info">6 <i class="score-up"></i></li>
+                                        </ul>
+                                        <ul>
                                             <li class="last"><field name="location_id"/> <!-- <i class="bed-move"></i> <field name="location_full_name"/> --></li>
                                         </ul>
                                     </div>
