@@ -7,6 +7,22 @@ openerp.nh_etake_list = function(instance){
         _lt = instance.web._lt;
     var QWeb = instance.web.qweb;
     var kiosk_mode = false;
+    var initKanban = false;
+
+    instance.nh_etake_list.KanbanView = instance.web_kanban.KanbanView.extend({
+        load_view: function(context) {
+            this._super(context);
+            initKanban = window.setInterval(function(){
+                $('.task .btn-task').on('click', function(){
+                    $('.oe_secondary_submenu .active .oe_menu_leaf').trigger('click');
+                })
+                if ($('.task .btn-task') != []){
+                    clearInterval(initKanban);
+                }
+            }, 1000);
+        }
+    });
+    instance.web.views.add('kanban', 'instance.nh_etake_list.KanbanView');
 
     instance.web.Menu.include({
         open_menu: function(id){
