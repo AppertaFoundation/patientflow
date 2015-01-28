@@ -202,6 +202,23 @@ Example:
               <div class="navbar">
                 <div class="oe_secondary_menu_section active" data-tab-id="0">Patient Management</div>
                 <div class="oe_secondary_menu_section" data-tab-id="1">Other button</div>
+                <ul class="nav navbar-nav navbar-right oe_user_menu_placeholder" style="">
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                      <img class="oe_topbar_avatar" data-default-src="http://localhost:8169/web/static/src/img/user_menu_avatar.png" src="http://localhost:8169/web/binary/image?model=res.users&amp;field=image_small&amp;id=44">
+                      <span class="oe_topbar_name">Rachel Andrews</span> <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a data-menu="settings" href="#">Preferences</a></li>
+                      <li><a data-menu="about" href="#">About Odoo</a></li>
+                      <li><a data-menu="help" href="#">Help</a></li>
+                      <li><a data-menu="logout" href="#">Log out</a></li>
+                      <li class="odoo_support_contact">
+                        <a data-menu="odoo_support" href="#">Odoo Support</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
               </div>
               <ul class="oe_secondary_submenu nav nav-pills nav-stacked" data-tab-id="0">
                 <li class="active">
@@ -305,6 +322,58 @@ Styleguide 2.0
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#181818', endColorstr='lighten(#181818, 30%)', GradientType=0);
   /* IE6-9 */
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder {
+  position: absolute;
+  right: 1.5em;
+  top: 0.2em;
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle {
+  display: inline-block;
+  padding: 0.5em;
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle:hover,
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle:active {
+  background: #181818;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #181818 0%, #656565 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #181818), color-stop(100%, #656565));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(#181818, #656565);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #181818 0%, #656565 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #181818 0%, #656565 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #181818 0%, #656565 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#181818', endColorstr='lighten(#181818, 30%)', GradientType=0);
+  /* IE6-9 */
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle .oe_topbar_avatar {
+  height: 1.125em;
+  width: 1.125em;
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle .oe_topbar_name {
+  color: white;
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle .caret {
+  float: right;
+  border-top-width: 0px;
+  margin-right: 8px;
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle .caret:before {
+  font-family: 'FontAwesome';
+  content: '\f0dd';
+  font-size: 1em;
+  top: 0.75em;
+  left: 0;
+  color: white;
+  margin-left: 6px;
+}
+.example .dropdown-menu {
+  display: none;
 }
 @font-face {
   font-family: 'FontAwesome';

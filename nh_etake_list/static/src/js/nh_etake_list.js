@@ -97,6 +97,13 @@ openerp.nh_etake_list = function(instance){
 
                 navbarDiv.append($(this));
             });
+
+
+            // move the menu placeholder into nav if don't need top menu
+            if($('.oe_application_menu_placeholder .active').css('display') == 'none'){
+                $('.oe_user_menu_placeholder').appendTo(navbarDiv);
+                $('#oe_main_menu_navbar').hide();
+            }
         }
     });
 
