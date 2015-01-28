@@ -59,6 +59,7 @@ openerp.nh_etake_list = function(instance){
             var sectionTitles = activeMenu.find('.oe_secondary_menu_section');
             var sectionLists = activeMenu.find('.oe_secondary_submenu');
             var navbarDiv = $('<div class="navbar"></div>');
+            var userMenu = $('.oe_user_menu_placeholder');
             if(activeMenu.find('.navbar').length < 1){
                 activeMenu.prepend(navbarDiv);
             }else{
@@ -81,6 +82,8 @@ openerp.nh_etake_list = function(instance){
                     $(this).next('ul').hide();
                 }
 
+                userMenu.show();
+
                 // set up events to 'switch tabs'
                 $(this).on('click', function(){
                     var tabId = $(this).attr('data-tab-id');
@@ -101,10 +104,14 @@ openerp.nh_etake_list = function(instance){
 
             // move the menu placeholder into nav if don't need top menu
             if($('.oe_application_menu_placeholder .active').css('display') == 'none'){
-                $('.oe_user_menu_placeholder').appendTo(navbarDiv);
+                userMenu.appendTo(navbarDiv);
                 $('#oe_main_menu_navbar').hide();
             }
         }
     });
+
+
+
+
 
 }
