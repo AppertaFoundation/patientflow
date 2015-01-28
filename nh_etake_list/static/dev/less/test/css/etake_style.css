@@ -158,7 +158,7 @@ Styleguide 1.0
   /* IE6-9 */
   padding: 0.3em 10%;
   border: 1px solid #0D5571;
-  box-shadow: 0 1px 2px 0 white inset, 0 2px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 1px 2px 0 #ffffff inset, 0 2px 0px rgba(0, 0, 0, 0.6);
   margin-right: 5%;
   text-align: center;
   text-shadow: 0 1px 1px #808080;
@@ -170,7 +170,7 @@ Styleguide 1.0
   -ms-border-radius: 10px;
   border-radius: 10px;
   background: #dedede;
-  box-shadow: 0 0 3px 1px white, 0 0 1px 3px #b3b3b3 inset;
+  box-shadow: 0 0 3px 1px #ffffff, 0 0 1px 3px #b3b3b3 inset;
   width: 100%;
   height: 5em;
 }
@@ -301,6 +301,7 @@ Styleguide 2.0
   /* IE6-9 */
 }
 /* Typography */
+/* End Typography */
 /*
 
 Search Box that is used for searching and creating filters.
@@ -596,6 +597,7 @@ Styleguide 5.0
 /*csslint adjoining-classes: false */
 .oe_leftbar.nh_kiosk_nav {
   width: 100%;
+  background-color: white;
 }
 .oe_leftbar.nh_kiosk_nav > div {
   height: inherit;
@@ -704,9 +706,9 @@ Styleguide 5.0
 .oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li.active:after {
   position: absolute;
   font-family: 'FontAwesome';
-  top: 1.4em;
+  top: 1.45em;
   left: 33%;
-  text-shadow: 0 3px 0 #dedede, 0 0 4px black, 0 2px 2px #dedede;
+  text-shadow: 0 3px 0 #dedede, 0 0 4px #000000, 0 2px 2px #dedede;
   content: "\f0de";
   font-size: 3em;
   color: #dedede;
@@ -1209,7 +1211,6 @@ Example:
         </div>
       </div>
     </div>
-  </div>
 
 
  <!-- <div class="take-col">
@@ -1382,7 +1383,7 @@ Styleguide 6.0
   line-height: 1.5em;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till .sub-tasks {
-  background: -webkit-linear-gradient(white, #d9d9d9);
+  background: -webkit-linear-gradient(#ffffff, #d9d9d9);
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-top: 2px solid rgba(255, 255, 255, 0.8);
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
@@ -1482,6 +1483,9 @@ Styleguide 6.0
 .example .oe_dropdown_toggle {
   display: none;
 }
+.example .oe_application {
+  display: inline-table;
+}
 /* All Font Awesome icons used */
 .time:before {
   content: "\f017";
@@ -1528,4 +1532,32 @@ Styleguide 6.0
   background: -webkit-linear-gradient(left, #aaaaaa, #282828);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+/*
+
+Fixes. For making little things change.
+
+.openerp - The main class used by Odoo
+.openerp .oe_webclient .oe_leftbar - The side navigation
+.openerp .oe_webclient .oe_application - This is the main application (not the navigation)
+
+Example:
+  <div class="openerp openerp_webclient_container">
+    <div class="oe_webclient">
+      <div class="oe_leftbar" style="display: none;"></div>
+      <div class="oe_application"></div>
+    </div>
+  </div>
+
+
+Styleguide 8.0
+*/
+.openerp .oe_application {
+  padding: 6px 6px 0 6px;
+  background-color: #dedede;
+  box-shadow: 0 0 4px black;
+}
+.openerp .oe_application .oe_view_manager_header {
+  background: none;
+  box-shadow: none;
 }

@@ -1,0 +1,32 @@
+/*
+
+Fixes. For making little things change.
+
+.openerp - The main class used by Odoo
+.openerp .oe_webclient .oe_leftbar - The side navigation
+.openerp .oe_webclient .oe_application - This is the main application (not the navigation)
+
+Example:
+  <div class="openerp openerp_webclient_container">
+    <div class="oe_webclient">
+      <div class="oe_leftbar" style="display: none;"></div>
+      <div class="oe_application"></div>
+    </div>
+  </div>
+
+
+Styleguide 8.0
+*/
+
+.openerp {
+  .oe_application{
+    padding: 6px 6px 0 6px;
+    background-color: #dedede;
+    box-shadow: 0 0 4px black;
+
+    .oe_view_manager_header{
+      background: none;
+      box-shadow: none;
+    }
+  }
+}
