@@ -376,9 +376,13 @@ Example:
                                     <div class="time-till">
                                       <ul>
                                         <li class="clock"><i class="time-overdue"></i></li>
-                                        <li class="due">-12M</li>
-                                        <li class="sub-tasks-block">+3</li>
+                                        <li class="sub-tasks-block">+13</li>
                                       </ul>
+
+                                      <ul>
+                                        <li class="due">- 2D 5H 12M</li>
+                                      <ul>
+
                                     </div>
                                     <div class="patient-info">
                                       <ul>
@@ -390,7 +394,7 @@ Example:
                                         <li class="score">6<i class="score-up"></i></li>
                                       </ul>
                                       <ul>
-                                        <li class="bed">Ward EAU</li>
+                                        <li class="bed">Ward 57, Bed 12, Pillow 9</li>
                                       </ul>
                                     </div>
                                     <div class="task-numbers">
@@ -400,12 +404,12 @@ Example:
                                         </li>
                                       </ul>
                                       <ul>
-                                        <li class="num-id">NHS</li>
-                                        <li>6609665858</li>
+                                        <li>NHS</li>
+                                        <li class="num-id">660 966 5858</li>
                                       </ul>
                                       <ul>
-                                        <li class="num-id">Hospital</li>
-                                        <li>5728367</li>
+                                        <li>Hospital</li>
+                                        <li class="num-id">5728367</li>
                                       </ul>
                                     </div>
                                   </div>
@@ -528,7 +532,7 @@ Example:
                <li class="num-id">NHS<li>
                <li>801 340 3902</li>
 
-               <li class="num-hosp">Hospital<li>
+               <li class="num-id">Hospital<li>
                <li>3094938</li>
            </ul>
         </div>
@@ -673,45 +677,40 @@ text-shadow: 0px 1px 1px lighten(white,50%);
                       border-bottom:1px solid rgba(0, 0, 0, .3);
                       font-size:1.2em;
                       font-weight: 900;
-                      width:97.6%;
+                      width:97%;
 
 
                       .clock {
 
-                          width:25%;
+                          width:30%;
                           text-align:center;
-
-                      }
-
-                      .due {
-
-                            width:30%;
-                            //text-align:center;
-                            line-height:1.5em;
+                          line-height:2em;
 
                       }
 
                       .sub-tasks {
-                        background:-webkit-linear-gradient( white, darken(white, 15%) );
-                        border: 2px solid rgba(255, 255, 255, .5);
-                        border-top: 2px solid rgba(255, 255, 255, .8);
-                        border-bottom:1px solid rgba(0, 0, 0, .5);
+                        //background:-webkit-linear-gradient( white, darken(white, 15%) );
+                        //border: 2px solid rgba(255, 255, 255, .5);
+                        //border-top: 2px solid rgba(255, 255, 255, .8);
+                        //border-bottom:1px solid rgba(0, 0, 0, .5);
                         color:#5C5C5C;
-                        border-top-right-radius:10px;
-                        padding:2%;
-                        //width:23%;
+                        margin-left:5%;
+                        //border-top-right-radius:10px;
+                        //padding:2%;
+
                         text-align:center;
                       }
 
                       .sub-tasks-block {
-                        background:-webkit-linear-gradient( #ffcdd2, darken(#ffcdd2, 15%) );
-                        border: 2px solid rgba(255, 255, 255, .5);
-                        border-top: 2px solid rgba(255, 255, 255, .8);
-                        border-bottom:1px solid rgba(0, 0, 0, .5);
+                        //background:-webkit-linear-gradient( #ffcdd2, darken(#ffcdd2, 15%) );
+                        //border: 2px solid rgba(255, 255, 255, .5);
+                       //border-top: 2px solid rgba(255, 255, 255, .8);
+                       // border-bottom:1px solid rgba(0, 0, 0, .5);
                         color:#C71923;
-                        border-top-right-radius:10px;
-                        padding:2%;
-                        //width:23%;
+                        //border-top-right-radius:10px;
+                        //height:inherit;
+                        margin-left:5%;
+                        text-align:center;
 
                         &:before {
                           font-family: 'FontAwesome';  
@@ -722,7 +721,19 @@ text-shadow: 0px 1px 1px lighten(white,50%);
                           text-shadow: 0px 1px 0 lighten(black,50%);
 
                         }
+
                       }
+
+                       .due {
+
+                          width:100%;
+                          text-align:center;
+                          line-height:2em;
+                          color:#403838;
+                          //border-top:1px solid black;
+
+                      }
+
                     }
 
                     .patient-info {
@@ -757,13 +768,14 @@ text-shadow: 0px 1px 1px lighten(white,50%);
                             border:none;
                             padding-left:4%;
                             font-weight: 600;
-                            width:25%;
+                            width:33%;
                           }
 
                           &.bed {
                             width:90%;
-                            padding:3%;
+                            padding:2%;
                             font-size:1em;
+                            text-align:center;
 
                           }
 
@@ -800,12 +812,10 @@ text-shadow: 0px 1px 1px lighten(white,50%);
                           &.num-id {
                             color:#3D3D3D;
                             font-weight:900;
-                            margin-right:10px;
+                            margin-left:15px;
 
-                            &.num-hosp {
-                              border-left:1px solid rgba(0, 0, 0, .3);
-                            }
                           }
+
                         }
                       }
                     }
