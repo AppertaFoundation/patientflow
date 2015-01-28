@@ -182,28 +182,52 @@ Navigational Stuff
 
 Example:
 
-  <header>
-    <div class="navbar">
-      <ul>
-        <li><a href="#">Patient Dashboards</a></li>
-        <li><a href="#">Ward Dashboards</a></li>
-      </ul>
-      <div class="log-in">
-        <div class="name">
-          <img src="#"/>
-          <p>Robert Bond</p>
-        </div>
-        <div class="drop-down">
-         <a class=""></a>
+
+  <div class="oe_leftbar nh_kiosk_nav nh_eobs_show" style="display: block;">
+    <div groups="base.group_user,base.group_portal">
+      <a class="oe_logo" href="/web">
+        <img src="img/company_logo.png">
+      </a>
+      <div>
+        <div>
+          <div class="oe_secondary_menus_container">
+            <div style="" class="oe_secondary_menu" data-menu-parent="145">
+              <div class="navbar">
+                <div class="oe_secondary_menu_section active" data-tab-id="0">Patient Management</div>
+                <div class="oe_secondary_menu_section" data-tab-id="1">Other button</div>
+              </div>
+              <ul class="oe_secondary_submenu nav nav-pills nav-stacked" data-tab-id="0">
+                <li class="active">
+                  <a href="/web#menu_id=147&amp;action=148" class="oe_menu_leaf" data-menu="147" data-action-model="ir.actions.act_window" data-action-id="148">
+                    <span class="oe_menu_text">Referral Board</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/web#menu_id=149&amp;action=142" class="oe_menu_leaf" data-menu="149" data-action-model="ir.actions.act_window" data-action-id="142">
+                    <span class="oe_menu_text">My Patients</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/web#menu_id=150&amp;action=141" class="oe_menu_leaf" data-menu="150" data-action-model="ir.actions.act_window" data-action-id="141">
+                    <span class="oe_menu_text">Patient Referrals</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="oe_footer">Powered by <a href="http://www.neovahealth.co.uk" target="_blank"><span>NHClinical / Odoo</span></a></div>
     </div>
-  </header>
+  </div>
+
+
+
 
 Styleguide 2.0
 
 */
-header .navbar {
+.nh_kiosk_nav .navbar {
   background: #424242;
   /* Old browsers */
   background: -moz-linear-gradient(top, #424242 0%, #282828 100%);
@@ -221,12 +245,15 @@ header .navbar {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#282828, 10%)', endColorstr='#282828', GradientType=0);
   /* IE6-9 */
   width: 100%;
+  display: inline-flex;
+  border-radius: 0;
+  min-height: inherit;
+  border-width: 0;
 }
-header .navbar a {
-  text-decoration: none;
-  color: white;
+.nh_kiosk_nav .navbar:before {
+  display: none;
 }
-header .navbar ul li {
+.nh_kiosk_nav .navbar .oe_secondary_menu_section {
   background: #4b4b4b;
   /* Old browsers */
   background: -moz-linear-gradient(top, #4b4b4b 0%, #181818 100%);
@@ -244,29 +271,32 @@ header .navbar ul li {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#181818, 20%)', endColorstr='#181818', GradientType=0);
   /* IE6-9 */
   border: 1px solid black;
+  border-right-width: 0;
   display: inline-block;
-  margin-right: 5%;
-  padding: 2%;
-  list-style: none;
+  margin: 0;
+  padding: 0.5em 2%;
+  color: white;
   font-size: 1.125em;
 }
-header .navbar ul li:active,
-header .navbar ul li :hover {
-  background: #181818, 20%;
+.nh_kiosk_nav .navbar .oe_secondary_menu_section:last-child {
+  border-right-width: 1px;
+}
+.nh_kiosk_nav .navbar .oe_secondary_menu_section.active {
+  background: #181818;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #181818, 20% 0%, #656565 100%);
+  background: -moz-linear-gradient(top, #181818 0%, #656565 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #181818, 20%), color-stop(100%, #656565));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #181818), color-stop(100%, #656565));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(#181818, 20%, #656565);
+  background: -webkit-linear-gradient(#181818, #656565);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #181818, 20% 0%, #656565 100%);
+  background: -o-linear-gradient(top, #181818 0%, #656565 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #181818, 20% 0%, #656565 100%);
+  background: -ms-linear-gradient(top, #181818 0%, #656565 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #181818, 20% 0%, #656565 100%);
+  background: linear-gradient(to bottom, #181818 0%, #656565 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#181818, 20%', endColorstr='lighten(#181818, 30%)', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#181818', endColorstr='lighten(#181818, 30%)', GradientType=0);
   /* IE6-9 */
 }
 /* Typography */
@@ -564,7 +594,7 @@ Styleguide 5.0
 }
 .oe_leftbar.nh_kiosk_nav > div {
   height: inherit;
-  display: inline-block;
+  display: inline;
   width: 100%;
 }
 .oe_leftbar.nh_kiosk_nav > div .oe_logo {
@@ -579,8 +609,9 @@ Styleguide 5.0
 }
 .oe_leftbar.nh_kiosk_nav > div > div {
   display: inline-block;
-  width: 90%;
+  width: 88%;
   height: inherit;
+  margin-left: 2%;
 }
 .oe_leftbar.nh_kiosk_nav > div > div > div {
   height: inherit;
@@ -682,9 +713,6 @@ Styleguide 5.0
   height: 5em;
   background-color: #dedede;
   box-shadow: 0 0 4px black;
-}
-.example .oe_secondary_menu {
-  margin-top: 2em;
 }
 .example .oe_secondary_submenu > li {
   padding-bottom: 0;
