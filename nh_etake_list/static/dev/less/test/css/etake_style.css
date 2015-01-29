@@ -375,6 +375,19 @@ Styleguide 2.0
 .example .dropdown-menu {
   display: none;
 }
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('font-awesome-4.2.0/fonts/fontawesome-webfont.eot?v=4.0.3');
+  src: url('font-awesome-4.2.0/fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font-awesome-4.2.0/fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font-awesome-4.2.0/fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font-awesome-4.2.0/fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+i {
+  font-family: 'fontAwesome';
+  font-style: normal;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+}
 /* Typography */
 /* End Typography */
 /*
@@ -571,15 +584,6 @@ Styleguide 4.0
   border-left-width: 7px;
   border-right-width: 7px;
 }
-.openerp .oe_searchview .oe_searchview_unfold_drawer:focus {
-  box-shadow: 0 0 0 2px gray;
-  background-color: #b3b3b3;
-  outline: 0;
-}
-.openerp .oe_searchview .oe_searchview_unfold_drawer::selection,
-.openerp .oe_searchview .oe_searchview_unfold_drawer ::-moz-selection {
-  background: #dec9dd;
-}
 .openerp .oe_searchview .oe_searchview_clear {
   background: #3b4d56;
   /* Old browsers */
@@ -689,8 +693,6 @@ Styleguide 5.0
   width: 100%;
 }
 .oe_leftbar.nh_kiosk_nav > div .oe_logo {
-  margin-left: 0.5%;
-  margin-right: 0.5%;
   width: 10%;
   float: left;
 }
@@ -704,6 +706,7 @@ Styleguide 5.0
   display: inline-block;
   width: 88%;
   height: inherit;
+  margin-left: 2%;
 }
 .oe_leftbar.nh_kiosk_nav > div > div > div {
   height: inherit;
@@ -1233,51 +1236,6 @@ Example:
                                   </div>
                                 </div>
                               </div>
-                              <div class="oe_fold_column oe_kanban_record">
-                                <div class="oe_kanban_card oe_kanban_global_click tasks">
-                                  <div class="oe_kanban_content">
-                                    <div class="time-till">
-                                      <ul>
-                                        <li class="clock"><i class="time-overdue"></i></li>
-                                        <li class="sub-tasks-block">+13</li>
-                                      </ul>
-
-                                      <ul>
-                                        <li class="due">- 2D 5H 12M</li>
-                                      <ul>
-
-                                    </div>
-                                    <div class="patient-info">
-                                      <ul>
-                                        <li class="name">Ledner, Caprice </li>
-                                      </ul>
-                                      <ul>
-                                        <li class="p-info">56</li>
-                                        <li class="p-info"><i class="female"></i></li>
-                                        <li class="score">6<i class="score-up"></i></li>
-                                      </ul>
-                                      <ul>
-                                        <li class="bed">Ward 57, Bed 12, Pillow 9</li>
-                                      </ul>
-                                    </div>
-                                    <div class="task-numbers">
-                                      <ul class="task">
-                                        <li>
-                                          <button class="oe_highlight oe_kanban_action oe_kanban_action_button btn-task" data-name="complete_tci" data-type="object" type="button">Arrived</button>
-                                        </li>
-                                      </ul>
-                                      <ul>
-                                        <li>NHS</li>
-                                        <li class="num-id">660 966 5858</li>
-                                      </ul>
-                                      <ul>
-                                        <li>Hospital</li>
-                                        <li class="num-id">5728367</li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
                             </div>
                             <div class="oe_kanban_folded_column_cards ui-sortable"></div>
                             <div class="oe_kanban_show_more" style="display: none;">
@@ -1427,6 +1385,9 @@ Styleguide 6.0
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups:last-child {
   border-right-width: 0;
 }
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers {
+  display: static;
+}
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -1434,7 +1395,7 @@ Styleguide 6.0
   box-shadow: 0 1px 3px 0 #737373;
   text-align: center;
   padding-right: 0;
-  padding-top: 0;
+  padding-top: 0.4em;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header {
   padding-right: 0;
@@ -1466,7 +1427,6 @@ Styleguide 6.0
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header .oe_fold_column .oe_kanban_group_title .oe_kanban_group_title_text {
   float: left;
-  width: 80%;
   text-align: center;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_dummy_cell {
@@ -1480,7 +1440,7 @@ Styleguide 6.0
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column {
   background-color: #e4d6d3;
-  box-shadow: 0 1px 3px 0 #737373;
+  box-shadow: 0 1px 3px 0 #737373 inset;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks {
   -ms-border-radius: 10px;
@@ -1526,8 +1486,7 @@ Styleguide 6.0
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till .sub-tasks {
   color: #5C5C5C;
-  margin-left: 5%;
-  width: 60%;
+  width: 30%;
   border-top-right-radius: 10px;
   text-align: center;
   display: table-cell;
@@ -1555,6 +1514,7 @@ Styleguide 6.0
   color: #403838;
   display: table-cell;
   vertical-align: middle;
+  padding-right: 1%;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info {
   background: #DCE1FC;
@@ -1587,13 +1547,9 @@ Styleguide 6.0
   padding-left: 4%;
   font-weight: 600;
   width: 33%;
-  text-align: left;
-}
-.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info ul li.score i:before {
-  float: right;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info ul li.bed {
-  width: 100%;
+  width: 90%;
   padding: 2%;
   font-size: 1em;
   text-align: center;
@@ -1619,12 +1575,11 @@ Styleguide 6.0
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .task-numbers ul {
   display: block;
   padding: 3%;
-  text-align: center;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .task-numbers ul li.num-id {
   color: #3D3D3D;
   font-weight: 900;
-  margin-right: 40%;
+  margin-left: 15px;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_dummy_cell {
   display: none;
@@ -1638,19 +1593,6 @@ Styleguide 6.0
 .example .oe_application {
   display: inline-table;
 }
-@font-face {
-  font-family: 'FontAwesome';
-  src: url('font-awesome-4.2.0/fonts/fontawesome-webfont.eot?v=4.0.3');
-  src: url('font-awesome-4.2.0/fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font-awesome-4.2.0/fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font-awesome-4.2.0/fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font-awesome-4.2.0/fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-i {
-  font-family: 'fontAwesome';
-  font-style: normal;
-  display: inline-block;
-  -webkit-font-smoothing: antialiased;
-}
 /* All Font Awesome icons used */
 .time:before,
 .time-overdue:before {
@@ -1662,8 +1604,9 @@ i {
 .time-overdue:before {
   color: #C71923;
 }
-.male:before {
-  content: "\f183";
+.male:before,
+.female:before {
+  content: "\f222";
   color: #1CA7E9;
   margin-left: 5px;
   margin-right: 5px;
@@ -1671,7 +1614,7 @@ i {
   text-shadow: 0 1px 1px #4d4d4d;
 }
 .female:before {
-  content: "\f182";
+  content: "\f221";
   color: #EA2774;
   margin-left: 5px;
   margin-right: 5px;
@@ -1679,20 +1622,33 @@ i {
   text-shadow: 0 1px 1px #4d4d4d;
 }
 .score-up:before,
-.score-down:before {
+.score-down:before,
+.score-same:before {
   content: "\f102";
   color: #333;
   margin-left: 10px;
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: 600;
 }
 .score-down:before {
   content: "\f103";
 }
+.score-same:before {
+  content: "\f141";
+  font-weight: 500;
+}
+.bed-pat:before {
+  content: "\f236";
+  color: #333;
+  font-size: 1.8em;
+  margin-left: 5px;
+  margin-right: 5px;
+}
 .bed-move:before {
   content: "\f178";
-  color: #EA2774;
   font-size: 2.5em;
+  margin-left: 5px;
+  margin-right: 5px;
   background: -webkit-linear-gradient(left, #aaaaaa, #282828);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

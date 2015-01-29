@@ -1,3 +1,44 @@
+/*
+
+Iconography - a list of the icons used and how to call them
+
+.time, .time-overdue - Clock icons
+
+.male, .female - Gender Icons
+
+.score-up, .score-down, score-same - Score Icons
+
+.bed-pat, .bed-move - Bed Icons
+
+Example:
+
+        <p> Time Till <i class="time"></i> </br>
+        Time Overdue <i class="time-overdue"></i></p>
+
+<hr width="1" size="100">
+
+        <p>Male <i class="male"></i> </br>
+       Female <i class="female"></i></p>
+
+<hr width="1" size="100">
+
+        <p> Trend Up <i class="score-up"></i></br>
+        Trend Down <i class="score-down"></i></br>
+        Trend Same <i class="score-same"></i></p>
+
+<hr width="1" size="100">
+
+
+        <p>Patient in Bed <i class="bed-pat"></i></br>
+        Bed Movement <i class="bed-move"></i></p>
+
+
+Styleguide 10.0
+
+*/
+
+/* All Font Awesome icons used */
+
 
 @font-face {
   font-family: 'FontAwesome';
@@ -12,8 +53,6 @@ i {
   display: inline-block;
   -webkit-font-smoothing: antialiased;
 }
-
-/* All Font Awesome icons used */
 
 
 //Clocks
@@ -37,7 +76,7 @@ color:#C71923;
 
 .male:before {
 
-content: "\f183";
+content: "\f222";
 color:#1CA7E9;
 margin-left:5px;
 margin-right:5px;
@@ -48,7 +87,7 @@ text-shadow: 0 1px 1px lighten(black, 30%);
 
 .female:before {
 
-content: "\f182";
+content: "\f221";
 color:#EA2774;
   margin-left:5px;
   margin-right:5px;
@@ -58,12 +97,12 @@ color:#EA2774;
 
 //Arrows - Score
 
-.score-up:before, .score-down:before {
+.score-up:before, .score-down:before, .score-same:before {
 
 content: "\f102";
 color:#333;
 margin-left:10px;
-font-size:2em;
+font-size:1.5em;
 font-weight:600;
 
 }
@@ -74,14 +113,32 @@ content: "\f103";
 
 }
 
+.score-same:before {
+
+content: "\f141";
+font-weight:500;
+
+}
+
 
 //Arrows - Misc
+
+.bed-pat:before {
+
+content: "\f236";
+color:#333;
+font-size:1.8em;
+margin-left:5px;
+margin-right:5px;
+
+}
 
 .bed-move:before {
 
 content: "\f178";
-color:#EA2774;
 font-size:2.5em;
+margin-left:5px;
+margin-right:5px;
 
 background: -webkit-linear-gradient(left, #AAAAAA, #282828);
 -webkit-background-clip: text;
