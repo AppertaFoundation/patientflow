@@ -9,21 +9,31 @@ openerp.nh_etake_list = function(instance){
     var kiosk_mode = false;
     var initKanban = false;
 
-    instance.nh_etake_list.KanbanView = instance.web_kanban.KanbanView.extend({
-        load_view: function(context) {
-            this._super(context);
-            initKanban = window.setInterval(function(){
-                $('.task .btn-task').on('click', function(){
+    instance.web.Model.include({
+        call_button: function (method, args) {
+            instance.web.pyeval.ensure_evaluated(args, {});
+            if ($('.active .oe_vm_switch_kanban').length > 0 && this.name == 'nh.etake_list.overview'){
+                return this.session().rpc('/web/dataset/call_button', {
+                    model: this.name,
+                    method: method,
+                    // Should not be necessary anymore. Integrate remote in this?
+                    domain_id: null,
+                    context_id: args.length - 1,
+                    args: args || []
+                }).then(function(){
                     $('.oe_secondary_submenu .active .oe_menu_leaf').trigger('click');
-                })
-                if ($('.task .btn-task') != []){
-                    clearInterval(initKanban);
-                }
-            }, 1000);
-
+                });
+            }
+            return this.session().rpc('/web/dataset/call_button', {
+                model: this.name,
+                method: method,
+                // Should not be necessary anymore. Integrate remote in this?
+                domain_id: null,
+                context_id: args.length - 1,
+                args: args || []
+            });
         }
     });
-    instance.web.views.add('kanban', 'instance.nh_etake_list.KanbanView');
 
     instance.web.Menu.include({
         open_menu: function(id){

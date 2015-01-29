@@ -38,15 +38,15 @@
                     <header>
                         <button name="complete_referral" string="Accept"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible': [('state','!=','Referral')]}"/>
                         <button name="cancel_referral" string="Reject"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible': [('state','!=','Referral')]}"/>
-                        <button name="start_clerking" string="Clerk"  type="object" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','To be Clerked']]}"/>
+                        <button name="start_clerking" string="Clerk"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','To be Clerked']]}"/>
                         <button name="complete_current_stage" string="Patient Arrived"  type="object" attrs="{'invisible':[['state','!=','TCI']]}"/>
                         <button name="cancel_tci" string="Remove from List"  type="object" attrs="{'invisible':[['state','!=','TCI']]}"/>
-                        <button name="complete_current_stage" string="Complete Clerking"  type="object" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Clerking in Process']]}"/>
+                        <button name="complete_current_stage" string="Complete Clerking"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Clerking in Process']]}"/>
                         <button name="complete_review" string="Complete Review"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Senior Review']]}"/>
                         <button name="to_be_discharged" string="To Be Discharged"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Senior Review']]}"/>
                         <button name="complete_current_stage" string="Complete Review"  type="object" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Consultant Review']]}"/>
                         <button name="create_task" string="Create Task"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','not in',['Clerking in Process','Senior Review']]]}"/>
-                        <button name="complete_current_stage" string="Discharge"  type="object" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','To be Discharged']]}"/>
+                        <button name="complete_current_stage" string="Discharge"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','To be Discharged']]}"/>
                     </header>
                     <sheet>
                         <group col="4">
@@ -119,6 +119,7 @@
                                     <div class="patient-info">
                                         <ul>
                                             <li class="name"><field name="patient_id"/></li>
+                                            <li class="name"><field name="state"/></li>
                                         </ul>
                                         <ul>
                                             <li class="p-info "><field name="age"/></li>
@@ -158,14 +159,14 @@
                                             </ul>
                                         </t>
                                         <t t-if="record.state.raw_value == 'To be Clerked'">
-                                            <ul class="task" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
+                                            <ul class="task" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
                                                 <li>
                                                     <button name="start_clerking" type="object" class="oe_highlight btn-task">Clerk</button>
                                                 </li>
                                             </ul>
                                         </t>
                                         <t t-if="record.state.raw_value == 'Clerking in Process'">
-                                            <ul class="task" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
+                                            <ul class="task" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
                                                 <li>
                                                     <button name="complete_current_stage" type="object" class="oe_highlight btn-task">Complete</button>
                                                 </li>
@@ -186,7 +187,7 @@
                                             </ul>
                                         </t>
                                         <t t-if="record.state.raw_value == 'To be Discharged'">
-                                            <ul class="task" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
+                                            <ul class="task" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
                                                 <li>
                                                     <button name="complete_current_stage" type="object" class="oe_highlight btn-task">Discharge</button>
                                                 </li>
