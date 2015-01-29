@@ -146,7 +146,7 @@
                                             <li class="p-info score">6 <i class="score-up"></i></li>
                                         </ul>
                                         <ul>
-                                            <li class="last"><field name="location_id"/> <!-- <i class="bed-move"></i> <field name="location_full_name"/> --></li>
+                                            <li class="bed"><field name="location_id"/> <!-- <i class="bed-move"></i> <field name="location_full_name"/> --></li>
                                         </ul>
                                     </div>
                                     <div class="task-numbers">
@@ -263,6 +263,7 @@
             <field name="domain">[('state','not in',['Done','Other'])]</field>
             <field name="context">{'search_default_group_by_state':1}</field>
             <field name="view_mode">kanban,form</field>
+            <field name="needaction_enabled">1</field>
             <field name="view_id" ref="view_nh_etake_list_overview_kanban"/>
         </record>
 
@@ -279,7 +280,7 @@
             <field name="act_window_id" ref="action_show_overview_kanban"/>
         </record>
 
-        <template inherit_id="web.webclient_bootstrap" name="Test Index" id="test_index">
+       <template inherit_id="web.webclient_bootstrap" name="Test Index" id="test_index">
             <xpath expr="t/div[@class='openerp openerp_webclient_container']" position="replace">
                 <div class='openerp openerp_webclient_container'>
                     <div class='oe_webclient'>
@@ -296,7 +297,7 @@
 
         <template id="assets_backend" name="etake list assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
-                <link rel="stylesheet" href="/nh_etake_list/static/src/css/etake_style.css"/>
+                 <link rel="stylesheet" href="/nh_etake_list/static/src/css/etake_style.css"/>
                 <script type="text/javascript" src="/nh_etake_list/static/src/js/nh_etake_list.js"/>
             </xpath>
         </template>
