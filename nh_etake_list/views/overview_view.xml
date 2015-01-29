@@ -119,7 +119,6 @@
                                     <div class="patient-info">
                                         <ul>
                                             <li class="name"><field name="patient_id"/></li>
-                                            <li class="name"><field name="state"/></li>
                                         </ul>
                                         <ul>
                                             <li class="p-info "><field name="age"/></li>
