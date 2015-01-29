@@ -234,6 +234,21 @@ text-shadow: 0px 1px 1px lighten(white,50%);
         border-left-width: 7px;
         border-right-width: 7px;
       }
+
+      	&:focus {
+
+            box-shadow:0 0 0 2px gray;
+            background-color: lighten(gray, 20%);
+            outline: 0;
+
+	}
+
+        &::selection, ::-moz-selection {
+
+        background:#dec9dd;
+
+    }
+
     }
 
     .oe_searchview_clear {
