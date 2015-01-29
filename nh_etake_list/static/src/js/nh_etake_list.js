@@ -46,14 +46,23 @@ openerp.nh_etake_list = function(instance){
             if (this.$secondary_menus.has($clicked_menu).length) {
                 $sub_menu = $clicked_menu.parents('.oe_secondary_menu');
                 $main_menu = this.$el.find('a[data-menu=' + $sub_menu.data('menu-parent') + ']');
+                $('.oe_secondary_menu_section').removeClass('active');
+                if(typeof($sub_menu.children('ul').attr('data-tab-id')) !== 'undefined'){
+                    $('.oe_secondary_menu_section[data-tab-id='+$sub_menu.children('ul').attr('data-tab-id')+']').addClass('active');
+                }
             } else {
                 $sub_menu = this.$secondary_menus.find('.oe_secondary_menu[data-menu-parent=' + $clicked_menu.attr('data-menu') + ']');
                 $main_menu = $clicked_menu;
+                $('.oe_secondary_menu_section').removeClass('active');
+                $('.oe_secondary_menu_section[data-tab-id='+$sub_menu.attr('data-tab-id')+']').addClass('active');
             }
+
+
 
             // Activate current main menu
             this.$el.find('.active').removeClass('active');
             $main_menu.parent().addClass('active');
+
 
             // Show current sub menu
             this.$secondary_menus.find('.oe_secondary_menu').hide();
@@ -65,7 +74,10 @@ openerp.nh_etake_list = function(instance){
             }
 
             // Activate current menu item and show parents
-            this.$secondary_menus.find('.active').removeClass('active');
+            if($clicked_menu.parents('.oe_user_menu_placeholder').length < 1){
+                this.$secondary_menus.find('.active').not('.oe_secondary_menu_section').removeClass('active');
+            }
+
 
             if ($main_menu !== $clicked_menu) {
                 if (! kiosk_mode){
@@ -82,16 +94,21 @@ openerp.nh_etake_list = function(instance){
                 $(this).tooltip(this.scrollWidth > this.clientWidth ? {title: $(this).text().trim(), placement: 'right'} :'destroy');
             });
 
-            var activeMenu = $('.oe_secondary_menu').not(':hidden');
-            var sectionTitles = activeMenu.find('.oe_secondary_menu_section');
-            var sectionLists = activeMenu.find('.oe_secondary_submenu');
+            //var activeMenu = $('.oe_secondary_menu').not(':hidden');
+            var sectionTitles = $sub_menu.find('.oe_secondary_menu_section');
+            var sectionLists = $sub_menu.find('.oe_secondary_submenu');
             var navbarDiv = $('<div class="navbar"></div>');
             var userMenu = $('.oe_user_menu_placeholder');
-            if(activeMenu.find('.navbar').length < 1){
-                activeMenu.prepend(navbarDiv);
+            if($main_menu.parent().css('display') == "none"){
+               userMenu.appendTo(navbarDiv);
+               $('#oe_main_menu_navbar').hide();
+            }
+            if($sub_menu.find('.navbar').length < 1){
+                $sub_menu.prepend(navbarDiv);
             }else{
-                activeMenu.find('.navbar').remove();
-                activeMenu.prepend(navbarDiv);
+                $sub_menu.find('.navbar').remove();
+                $sub_menu.prepend(navbarDiv);
+
             }
             sectionTitles.each(function(index){
                 // set the tab id on the section header
@@ -114,7 +131,6 @@ openerp.nh_etake_list = function(instance){
                 // set up events to 'switch tabs'
                 $(this).on('click', function(){
                     var tabId = $(this).attr('data-tab-id');
-                    sectionTitles.each(function(index) { $(this).removeClass('active'); });
                     $(this).addClass('active');
                     sectionLists.each(function(index){
                         if($(this).attr('data-tab-id') == tabId){
@@ -127,13 +143,6 @@ openerp.nh_etake_list = function(instance){
 
                 navbarDiv.append($(this));
             });
-
-
-            // move the menu placeholder into nav if don't need top menu
-            if($('.oe_application_menu_placeholder .active').css('display') == 'none'){
-                userMenu.appendTo(navbarDiv);
-                $('#oe_main_menu_navbar').hide();
-            }
         }
     });
 
