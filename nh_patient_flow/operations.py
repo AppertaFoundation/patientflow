@@ -1,4 +1,4 @@
-from openerp.osv import orm, fields
+from openerp.osv import orm, fields, osv
 from openerp.addons.nh_activity.activity import except_if
 from openerp import SUPERUSER_ID
 from datetime import datetime as dt
@@ -136,20 +136,58 @@ class nh_clinical_patient_referral_form(orm.Model):
         'gender': 'NSP'
     }
 
+    def _check_patient_values(self, cr, uid, vals, context=None):
+        patient_pool = self.pool['nh.clinical.patient']
+        patient_vals = {
+            'other_identifier': vals.get('hospital_number'),
+            'patient_identifier': vals.get('nhs_number'),
+            'given_name': vals.get('first_name'),
+            'middle_names': vals.get('middle_names'),
+            'family_name': vals.get('last_name'),
+            'dob': vals.get('dob'),
+            'gender': vals.get('gender'),
+            'ethnicity': vals.get('ethnicity')
+        }
+        if vals.get('patient_id'):
+            match = patient_pool._check_match(cr, uid, vals.get('patient_id'), patient_vals, context=context)
+            if not match:
+                raise osv.except_osv('Error!', "Cannot submit form. The values in the form do not match the selected patient data")
+            else:
+                return vals.get('patient_id')
+        if vals.get('hospital_number'):
+            patient_id = patient_pool.search(cr, uid, [['other_identifier', '=', vals.get('hospital_number')]], context=context)
+            if patient_id:
+                match = patient_pool._check_match(cr, uid, patient_id[0], patient_vals, context=context)
+                if not match:
+                    raise osv.except_osv('Error!', "Cannot submit form. There is already a patient in the system with that hospital number and the data does not match.")
+                else:
+                    return patient_id[0]
+        if vals.get('nhs_number'):
+            patient_id = patient_pool.search(cr, uid, ['|',
+                                                   ['patient_identifier', '=', vals.get('nhs_number')],
+                                                   ['unverified_nhs', '=', vals.get('nhs_number')]], context=context)
+            if patient_id:
+                match = patient_pool._check_match(cr, uid, patient_id[0], patient_vals, context=context)
+                if not match:
+                    raise osv.except_osv('Error!', "Cannot submit form. There is already a patient in the system with that NHS number and the data does not match.")
+                else:
+                    return patient_id[0]
+        return False
+
     def create(self, cr, uid, vals, context=None):
         form_id = super(nh_clinical_patient_referral_form, self).create(cr, uid, vals, context=context)
-        patient_id = vals['patient_id'] if 'patient_id' in vals else False
+        patient_id = self._check_patient_values(cr, uid, vals, context=context)
         if not patient_id:
             patient_pool = self.pool['nh.clinical.patient']
             patient_vals = {
-                'other_identifier': 'NH_'+str(form_id),
-                'patient_identifier': vals.get('nhs_number'),
-                'given_name': vals['first_name'] if vals.get('first_name') else 'John',
+                'other_identifier': 'NH_'+str(form_id) if not vals.get('hospital_number') else vals.get('hospital_number'),
+                'unverified_nhs': vals.get('nhs_number'),
+                'given_name': vals.get('first_name'),
                 'middle_names': vals.get('middle_names'),
-                'family_name': vals['last_name'] if vals.get('last_name') else 'Doe',
+                'family_name': vals.get('last_name'),
                 'dob': vals.get('dob'),
-                'gender': vals.get('gender'),
-                'ethnicity': vals['ethnicity'] if 'ethnicity' in vals else False
+                'gender': vals.get('gender') if vals.get('gender') else 'NSP',
+                'ethnicity': vals.get('ethnicity') if vals.get('ethnicity') else 'Z'
             }
             patient_id = patient_pool.create(cr, uid, patient_vals, context=context)
             self.write(cr, uid, form_id, {'patient_id': patient_id}, context=context)
@@ -161,13 +199,13 @@ class nh_clinical_patient_referral_form(orm.Model):
 
     def write(self, cr, uid, ids, vals, context=None):
         res = super(nh_clinical_patient_referral_form, self).write(cr, uid, ids, vals, context=context)
-        if any([k in self._patient_values for k in vals.keys()]):
-            update_vals = {}
-            for k in vals.keys():
-                if k in self._patient_values:
-                    update_vals[k] = vals[k]
-            for form in self.browse(cr, uid, ids, context=context):
-                self.pool['nh.clinical.patient'].write(cr, uid, form.patient_id.id, update_vals, context=context)
+        # if any([k in self._patient_values for k in vals.keys()]):
+        #     update_vals = {}
+        #     for k in vals.keys():
+        #         if k in self._patient_values:
+        #             update_vals[k] = vals[k]
+        #     for form in self.browse(cr, uid, ids, context=context):
+        #         self.pool['nh.clinical.patient'].write(cr, uid, form.patient_id.id, update_vals, context=context)
         return res
 
     def onchange_patient_id(self, cr, uid, ids, patient_id, context=None):
@@ -178,7 +216,7 @@ class nh_clinical_patient_referral_form(orm.Model):
         return {
             'value': {
                 'hospital_number': patient.other_identifier,
-                'nhs_number': patient.patient_identifier,
+                'nhs_number': patient.patient_identifier if patient.patient_identifier else patient.unverified_nhs,
                 'first_name': patient.given_name,
                 'middle_names': patient.middle_names,
                 'last_name': patient.family_name,
@@ -190,11 +228,18 @@ class nh_clinical_patient_referral_form(orm.Model):
 
     def onchange_nhs_number(self, cr, uid, ids, nhs_number, context=None):
         patient_pool = self.pool['nh.clinical.patient']
+        clear_patient_id = {
+            'value': {
+                'patient_id': False,
+            }
+        }
         if not nhs_number:
-            return {}
-        patient_id = patient_pool.search(cr, uid, [['patient_identifier', '=', nhs_number]], context=context)
+            return clear_patient_id
+        patient_id = patient_pool.search(cr, uid, ['|',
+                                                   ['patient_identifier', '=', nhs_number],
+                                                   ['unverified_nhs', '=', nhs_number]], context=context)
         if not patient_id:
-            return {}
+            return clear_patient_id
         patient = patient_pool.browse(cr, uid, patient_id[0], context=context)
         return {
             'value': {
@@ -211,16 +256,21 @@ class nh_clinical_patient_referral_form(orm.Model):
 
     def onchange_hospital_number(self, cr, uid, ids, hospital_number, context=None):
         patient_pool = self.pool['nh.clinical.patient']
+        clear_patient_id = {
+            'value': {
+                'patient_id': False,
+            }
+        }
         if not hospital_number:
-            return {}
+            return clear_patient_id
         patient_id = patient_pool.search(cr, uid, [['other_identifier', '=', hospital_number]], context=context)
         if not patient_id:
-            return {}
+            return clear_patient_id
         patient = patient_pool.browse(cr, uid, patient_id[0], context=context)
         return {
             'value': {
                 'patient_id': patient_id[0],
-                'nhs_number': patient.patient_identifier,
+                'nhs_number': patient.patient_identifier if patient.patient_identifier else patient.unverified_nhs,
                 'first_name': patient.given_name,
                 'middle_names': patient.middle_names,
                 'last_name': patient.family_name,
