@@ -394,7 +394,7 @@ Example:
                                         <li class="score">6<i class="score-up"></i></li>
                                       </ul>
                                       <ul>
-                                        <li class="bed">Ward 57, Bed 12, Pillow 9</li>
+                                        <li class="bed">Ward 49, Bed 04, Pillow 8</li>
                                       </ul>
                                     </div>
                                     <div class="task-numbers">
@@ -403,13 +403,9 @@ Example:
                                           <button class="oe_highlight oe_kanban_action oe_kanban_action_button btn-task" data-name="complete_tci" data-type="object" type="button">Arrived</button>
                                         </li>
                                       </ul>
-                                      <ul>
-                                        <li>NHS</li>
-                                        <li class="num-id">660 966 5858</li>
-                                      </ul>
-                                      <ul>
-                                        <li>Hospital</li>
-                                        <li class="num-id">5728367</li>
+                                      <ul class="numbers">
+                                        <li class="num-id">123-555-9780</li>
+                                        <li>5728367</li>
                                       </ul>
                                     </div>
                                   </div>
@@ -439,7 +435,7 @@ Example:
                                         <li class="score">6<i class="score-up"></i></li>
                                       </ul>
                                       <ul>
-                                        <li class="bed">Ward 57, Bed 12, Pillow 9</li>
+                                        <li class="bed">Ward 12, Bed 88, Pillow 2</li>
                                       </ul>
                                     </div>
                                     <div class="task-numbers">
@@ -448,13 +444,9 @@ Example:
                                           <button class="oe_highlight oe_kanban_action oe_kanban_action_button btn-task" data-name="complete_tci" data-type="object" type="button">Arrived</button>
                                         </li>
                                       </ul>
-                                      <ul>
-                                        <li>NHS</li>
-                                        <li class="num-id">660 966 5858</li>
-                                      </ul>
-                                      <ul>
-                                        <li>Hospital</li>
-                                        <li class="num-id">5728367</li>
+                                      <ul class="numbers">
+                                        <li class="num-id">666-555-4444</li>
+                                        <li>5728367</li>
                                       </ul>
                                     </div>
                                   </div>
@@ -573,11 +565,8 @@ Example:
                 <li class="btn-task"> Start Review </li>
             </ul>
 
-           <ul>
-               <li class="num-id">NHS<li>
+           <ul class="numbers">
                <li>801 340 3902</li>
-
-               <li class="num-id">Hospital<li>
                <li>3094938</li>
            </ul>
         </div>
@@ -875,23 +864,27 @@ text-shadow: 0px 1px 1px lighten(white,50%);
                         }
                       }
 
-                      ul {
-                        display: block;
-                        padding:3%;
-                        text-align:center;
 
-                        li {
+                       .numbers {
+
+
+
+                            li {
+
+                            display:inline-block;
 
                           &.num-id {
                             color:#3D3D3D;
-                            font-weight:900;
-                            margin-right:40%;
+                            //font-weight:900;
+                            //margin-right:40%;
+                            border-right:1px solid rgba(0, 0, 0, .3);
+                            padding:0.3em 4% 0.3em 4%;
 
-                          }
+                                }
 
+                            }
                         }
-                      }
-                    }
+
                   }
                 }
               }
@@ -905,6 +898,7 @@ text-shadow: 0px 1px 1px lighten(white,50%);
       }
     }
   }
+}
 }
 
 .example .oe_kanban_group_title_vertical{
