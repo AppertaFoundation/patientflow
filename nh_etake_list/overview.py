@@ -43,6 +43,7 @@ class nh_etake_list_overview(orm.Model):
         'clerking_terminated': fields.datetime('Clerking Finished'),
         'review_terminated': fields.datetime('Reviewed'),
         'discharge_terminated': fields.datetime('Discharged'),
+        'hours_from_discharge': fields.integer('Hours since Discharge'),
         'diagnosis': fields.text('Diagnosis'),
         'plan': fields.text('Plan'),
         'clerking_user_id': fields.many2one('res.users', 'Clerking by'),
@@ -101,6 +102,10 @@ class nh_etake_list_overview(orm.Model):
                         spell.diagnosis as diagnosis,
                         spell.doctor_plan as plan,
                         discharge_activity.date_terminated as discharge_terminated,
+                        case
+                            when discharge_activity.date_terminated is null then 0
+                            else extract(epoch from now() at time zone 'UTC' - discharge_activity.date_terminated) / 3600
+                        end as hours_from_discharge,
                         discharge_activity.terminate_uid as discharge_user_id
 
                     from nh_clinical_patient patient
