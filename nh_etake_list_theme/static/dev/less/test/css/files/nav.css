@@ -1,0 +1,219 @@
+/*
+
+Navigational Stuff
+
+.nh_kiosk_nav .navbar - Contains the navigation items created by the JS function
+.nh_kiosk_nav .navbar .oe_secondary_menu_section - Is the nagivation item, is technically a div tag but acts like a button
+
+Example:
+
+
+  <div class="oe_leftbar nh_kiosk_nav nh_eobs_show" style="display: block;">
+    <div groups="base.group_user,base.group_portal">
+      <a class="oe_logo" href="/web">
+        <img src="img/company_logo.png">
+      </a>
+      <div>
+        <div>
+          <div class="oe_secondary_menus_container">
+            <div style="" class="oe_secondary_menu" data-menu-parent="145">
+              <div class="navbar">
+                <div class="oe_secondary_menu_section active" data-tab-id="0">Patient Management</div>
+                <div class="oe_secondary_menu_section" data-tab-id="1">Other button</div>
+                <ul class="nav navbar-nav navbar-right oe_user_menu_placeholder" style="">
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                      <img class="oe_topbar_avatar" data-default-src="http://localhost:8169/web/static/src/img/user_menu_avatar.png" src="http://localhost:8169/web/binary/image?model=res.users&amp;field=image_small&amp;id=44">
+                      <span class="oe_topbar_name">Rachel Andrews</span> <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a data-menu="settings" href="#">Preferences</a></li>
+                      <li><a data-menu="about" href="#">About Odoo</a></li>
+                      <li><a data-menu="help" href="#">Help</a></li>
+                      <li><a data-menu="logout" href="#">Log out</a></li>
+                      <li class="odoo_support_contact">
+                        <a data-menu="odoo_support" href="#">Odoo Support</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <ul class="oe_secondary_submenu nav nav-pills nav-stacked" data-tab-id="0">
+                <li class="active">
+                  <a href="/web#menu_id=147&amp;action=148" class="oe_menu_leaf" data-menu="147" data-action-model="ir.actions.act_window" data-action-id="148">
+                    <span class="oe_menu_text">Referral Board</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/web#menu_id=149&amp;action=142" class="oe_menu_leaf" data-menu="149" data-action-model="ir.actions.act_window" data-action-id="142">
+                    <span class="oe_menu_text">My Patients</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/web#menu_id=150&amp;action=141" class="oe_menu_leaf" data-menu="150" data-action-model="ir.actions.act_window" data-action-id="141">
+                    <span class="oe_menu_text">Patient Referrals</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="oe_footer">Powered by <a href="http://www.neovahealth.co.uk" target="_blank"><span>NHClinical / Odoo</span></a></div>
+    </div>
+  </div>
+
+
+
+
+Styleguide 2.0
+
+*/
+i {
+  font-family: 'fontAwesome';
+  font-style: normal;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+}
+.logo-icon:before {
+  content: "\f1cc";
+  font-size: 2em;
+  color: red;
+}
+/* 			    */
+/* Border Stuff */
+/*			    */
+/*                 */
+/*      Colours    */
+/*                 */
+/*   Colours End  */
+html {
+  color: #333;
+  background-color: #f0eeee;
+  font-family: 'Open Sans', sans-serif;
+}
+/* Typography */
+.nh_kiosk_nav .navbar {
+  background: #424242;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #424242 0%, #282828 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #424242), color-stop(100%, #282828));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(#424242, #282828);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #424242 0%, #282828 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #424242 0%, #282828 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #424242 0%, #282828 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#282828, 10%)', endColorstr='#282828', GradientType=0);
+  /* IE6-9 */
+  width: 100%;
+  display: inline-flex;
+  border-radius: 0;
+  min-height: inherit;
+  border-width: 0;
+}
+.nh_kiosk_nav .navbar:before {
+  display: none;
+}
+.nh_kiosk_nav .navbar .oe_secondary_menu_section {
+  background: #4b4b4b;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #4b4b4b 0%, #181818 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4b4b4b), color-stop(100%, #181818));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(#4b4b4b, #181818);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #4b4b4b 0%, #181818 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #4b4b4b 0%, #181818 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #4b4b4b 0%, #181818 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#181818, 20%)', endColorstr='#181818', GradientType=0);
+  /* IE6-9 */
+  border: 1px solid black;
+  border-right-width: 0;
+  display: inline-block;
+  margin: 0;
+  padding: 0.5em 2%;
+  color: white;
+  font-size: 1.125em;
+}
+.nh_kiosk_nav .navbar .oe_secondary_menu_section:last-child {
+  border-right-width: 1px;
+}
+.nh_kiosk_nav .navbar .oe_secondary_menu_section.active {
+  background: #181818;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #181818 0%, #656565 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #181818), color-stop(100%, #656565));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(#181818, #656565);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #181818 0%, #656565 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #181818 0%, #656565 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #181818 0%, #656565 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#181818', endColorstr='lighten(#181818, 30%)', GradientType=0);
+  /* IE6-9 */
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder {
+  position: absolute;
+  right: 1.5em;
+  top: 0.2em;
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle {
+  display: inline-block;
+  padding: 0.5em;
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle:hover,
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle:active {
+  background: #181818;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #181818 0%, #656565 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #181818), color-stop(100%, #656565));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(#181818, #656565);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #181818 0%, #656565 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #181818 0%, #656565 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #181818 0%, #656565 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#181818', endColorstr='lighten(#181818, 30%)', GradientType=0);
+  /* IE6-9 */
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle .oe_topbar_avatar {
+  height: 1.125em;
+  width: 1.125em;
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle .oe_topbar_name {
+  color: white;
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle .caret {
+  float: right;
+  border-top-width: 0px;
+  margin-right: 8px;
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle .caret:before {
+  font-family: 'FontAwesome';
+  content: '\f0dd';
+  font-size: 1em;
+  top: 0.75em;
+  left: 0;
+  color: white;
+  margin-left: 6px;
+}
+.example .dropdown-menu {
+  display: none;
+}

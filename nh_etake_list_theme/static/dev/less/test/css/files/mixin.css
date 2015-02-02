@@ -1,0 +1,23 @@
+i {
+  font-family: 'fontAwesome';
+  font-style: normal;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+}
+.logo-icon:before {
+  content: "\f1cc";
+  font-size: 2em;
+  color: red;
+}
+/* 			    */
+/* Border Stuff */
+/*			    */
+/*                 */
+/*      Colours    */
+/*                 */
+/*   Colours End  */
+html {
+  color: #333;
+  background-color: #f0eeee;
+  font-family: 'Open Sans', sans-serif;
+}
