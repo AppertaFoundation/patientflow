@@ -11,7 +11,6 @@
     'depends': ['nh_patient_flow', 'nh_doctor_activities'],
     'data': ['security/ir.model.access.csv',
              'etake_list_data.xml',
-             'views/referral_view.xml',
              'views/clerking_view.xml',
              'views/review_view.xml',
              'views/overview_view.xml',
