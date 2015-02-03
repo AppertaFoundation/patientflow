@@ -81,14 +81,9 @@
                                             </li>
                                         </ul>
                                     </t>
-                                    <ul>
-                                        <li class="num-id">NHS</li>
-                                        <li>
-                                            <t t-if="record.nhs_number.raw_value != ''"><field name="nhs_number"/></t>
-                                        </li>
-                                    </ul>
-                                    <ul>
-                                        <li class="num-id">Hospital</li>
+                                    <ul class="numbers">
+                                        <li class="num-id"><t t-if="record.nhs_number.raw_value != ''"><field name="nhs_number"/></t></li>
+
                                         <li>
                                             <t t-if="record.hospital_number.raw_value != ''"><field name="hospital_number"/></t>
                                         </li>
