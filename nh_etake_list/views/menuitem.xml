@@ -27,27 +27,49 @@
                   sequence="3"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_referrals"
-                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_receptionist,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
 
-        <menuitem name="To be Clerked"
-                  id="menu_nh_etake_list_left_tobeclerked"
+        <menuitem name="Patients to Come In"
+                  id="menu_nh_etake_list_left_tci"
+                  sequence="4"
+                  parent="menu_nh_take_list_left_patient"
+                  action="action_show_tci"
+                  groups="nh_clinical.group_nhc_receptionist,nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+
+        <menuitem name="Patients to be Clerked"
+                  id="menu_nh_etake_list_left_tbc"
                   sequence="5"
                   parent="menu_nh_take_list_left_patient"
-                  action="action_show_tobeclerked"
+                  action="action_show_tbc"
                   groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
 
-        <menuitem name="To be Reviewed"
-                  id="menu_nh_etake_list_left_tobereviewed"
+        <menuitem name="Clerkings in Process"
+                  id="menu_nh_etake_list_left_clerking"
+                  sequence="6"
+                  parent="menu_nh_take_list_left_patient"
+                  action="action_show_clerkings"
+                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+
+        <menuitem name="Senior Reviews"
+                  id="menu_nh_etake_list_left_senior_review"
                   sequence="7"
                   parent="menu_nh_take_list_left_patient"
-                  action="action_show_tobereviewed"
+                  action="action_show_senior_reviews"
                   groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
 
-        <menuitem name="To be Transferred"
-                  id="menu_nh_etake_list_left_tobetransferred"
-                  sequence="10"
+        <menuitem name="Consultant Reviews"
+                  id="menu_nh_etake_list_left_consultant_review"
+                  sequence="8"
                   parent="menu_nh_take_list_left_patient"
-                  action="action_show_tobetransferred"
-                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_bed_manager,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  action="action_show_consultant_reviews"
+                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+
+        <menuitem name="Patients to be Discharged"
+                  id="menu_nh_etake_list_left_tbd"
+                  sequence="9"
+                  parent="menu_nh_take_list_left_patient"
+                  action="action_show_tbd"
+                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+
     </data>
 </openerp>
