@@ -40,7 +40,9 @@ class nh_etake_list_overview(orm.Model):
                         ['Referral', 'Referral'],
                         ['TCI', 'To Come In'],
                         ['Clerking in Process', 'Clerking in Process'],
-                        ['Done', 'Done']]
+                        ['Done', 'Done'],
+                        ['to_dna', 'DNA'],
+                        ['dna', 'DNA']]
     _gender = [['M', 'Male'], ['F', 'Female']]
 
     def _get_dt_ids(self, cr, uid, ids, field_names, arg, context=None):
@@ -78,19 +80,6 @@ class nh_etake_list_overview(orm.Model):
     def init(self, cr):
 
         cr.execute("""
-                drop view if exists ov_activity_data;
-                create or replace view ov_activity_data as(
-                        select
-                            spell.id as spell_id,
-                            spell.patient_id,
-                            activity.data_model,
-                            activity.state,
-                            array_agg(split_part(activity.data_ref, ',', 2)::int order by split_part(activity.data_ref, ',', 2)::int desc) as ids
-                        from nh_clinical_spell spell
-                        inner join nh_activity activity on activity.patient_id = spell.patient_id
-                        group by spell_id, spell.patient_id, activity.data_model, activity.state
-                );
-
                 drop view if exists %s;
                 create or replace view %s as (
                     select
@@ -105,6 +94,8 @@ class nh_etake_list_overview(orm.Model):
                             when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'Discharged'
                             when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'To be Discharged'
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then 'Referral'
+                            when tci_activity.state is not null and tci_activity.state = 'cancelled' then 'dna'
+                            when tci_activity.state is not null and tci_activity.state = 'scheduled' and (extract(epoch from now() at time zone 'UTC' - tci_activity.date_scheduled) / 3600) >= 96 then 'to_dna'
                             when tci_activity.state is not null and tci_activity.state = 'scheduled' then 'TCI'
                             when clerking_activity.state = 'scheduled' then 'To be Clerked'
                             when clerking_activity.state = 'started' then 'Clerking in Process'
@@ -236,8 +227,6 @@ class nh_etake_list_overview(orm.Model):
 
     def cancel_tci(self, cr, uid, ids, context=None):
         ov = self.browse(cr, uid, ids[0], context=context)
-        if not any([u.id == uid for u in ov.activity_id.user_ids]):
-            raise osv.except_osv('Error!', 'You cannot complete this task!')
         activity_pool = self.pool['nh.activity']
         activity_pool.cancel(cr, uid, ov.activity_id.id, context=context)
         discharge_pool = self.pool['nh.clinical.patient.discharge']
@@ -304,3 +293,7 @@ class nh_etake_list_overview(orm.Model):
             'target': 'new',
             'context': context
         }
+
+    def remove_dna_patients(self, cr, uid, context=None):
+        dna_patient_ids = self.search(cr, uid, [['state', '=', 'to_dna']], context=context)
+        return all([self.cancel_tci(cr, SUPERUSER_ID, p_id, context=context) for p_id in dna_patient_ids])

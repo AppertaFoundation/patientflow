@@ -19,7 +19,7 @@ class nh_clinical_patient_tci(orm.Model):
     _columns = {
         'location_id': fields.many2one('nh.clinical.location', 'Destination Location'),
         'patient_id': fields.many2one('nh.clinical.patient', 'Patient', required=True),
-        'pos_id': fields.related('activity_id', 'pos_id', type='many2one', relation='nh.clinical.pos', string='POS'),
+        'pos_id': fields.related('activity_id', 'pos_id', type='many2one', relation='nh.clinical.pos', string='POS')
     }
 
     def get_activity_location_id(self, cr, uid, activity_id, context=None):
