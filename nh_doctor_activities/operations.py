@@ -63,7 +63,11 @@ class nh_clinical_doctor_task(orm.Model):
     _description = "Doctor Task"
 
     _columns = {
-        'patient_id': fields.related('activity_id', 'patient_id', string='Patient', type='many2one', relation='nh.clinical.patient')
+        'patient_id': fields.related('activity_id', 'patient_id', string='Patient', type='many2one', relation='nh.clinical.patient'),
+        'blocking': fields.boolean('Blocking')
+    }
+    _defaults = {
+        'blocking': False
     }
 
 

@@ -77,7 +77,7 @@
                                     <t t-if="record.state.raw_value == 'To be Discharged'">
                                         <ul class="task" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
                                             <li>
-                                                <button name="complete_current_stage" type="object" class="oe_highlight btn-task">Discharge</button>
+                                                <button name="discharge" type="object" class="oe_highlight btn-task">Discharge</button>
                                             </li>
                                         </ul>
                                     </t>

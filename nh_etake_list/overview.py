@@ -6,6 +6,22 @@ from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as dtf
 
 _logger = logging.getLogger(__name__)
 
+class nh_clinical_doctor_task(orm.Model):
+    _name = 'nh.clinical.doctor.task'
+    _inherit = 'nh.clinical.doctor.task'
+
+    _columns = {
+        'summary': fields.related('activity_id', 'summary', string='Summary', type='char'),
+        'state': fields.related('activity_id', 'state', string='State', type='char'),
+        'date_terminated': fields.related('activity_id', 'date_terminated', string='Date Terminated', type='datetime')
+    }
+
+    def ov_complete(self, cr, uid, ids, context=None):
+        activity_pool = self.pool['nh.activity']
+        for doctor_task in self.browse(cr, uid, ids, context=context):
+            activity_pool.complete(cr, uid, doctor_task.activity_id.id, context=context)
+        return True
+
 
 class nh_etake_list_overview(orm.Model):
     _name = "nh.etake_list.overview"
@@ -26,6 +42,13 @@ class nh_etake_list_overview(orm.Model):
                         ['Clerking in Process', 'Clerking in Process'],
                         ['Done', 'Done']]
     _gender = [['M', 'Male'], ['F', 'Female']]
+
+    def _get_dt_ids(self, cr, uid, ids, field_names, arg, context=None):
+        res = {}
+        doctor_task_pool = self.pool['nh.clinical.doctor.task']
+        for ov in self.browse(cr, uid, ids, context=context):
+            res[ov.id] = doctor_task_pool.search(cr, uid, [['activity_id.parent_id', '=', ov.spell_activity_id.id]])
+        return res
 
     _columns = {
         'activity_id': fields.many2one('nh.activity', 'Activity', required=1, ondelete='restrict'),
@@ -49,12 +72,25 @@ class nh_etake_list_overview(orm.Model):
         'clerking_user_id': fields.many2one('res.users', 'Clerking by'),
         'review_user_id': fields.many2one('res.users', 'Senior Review by'),
         'discharge_user_id': fields.many2one('res.users', 'Discharged by'),
-        'doctor_task_ids': fields.one2many('nh.activity', 'parent_id', string='Doctor Tasks', domain="[['data_model','=','nh.clinical.doctor.task']]"),
+        'doctor_task_ids': fields.function(_get_dt_ids, type='many2many', relation='nh.clinical.doctor.task', string='Doctor Tasks'),
     }
 
     def init(self, cr):
 
         cr.execute("""
+                drop view if exists ov_activity_data;
+                create or replace view ov_activity_data as(
+                        select
+                            spell.id as spell_id,
+                            spell.patient_id,
+                            activity.data_model,
+                            activity.state,
+                            array_agg(split_part(activity.data_ref, ',', 2)::int order by split_part(activity.data_ref, ',', 2)::int desc) as ids
+                        from nh_clinical_spell spell
+                        inner join nh_activity activity on activity.patient_id = spell.patient_id
+                        group by spell_id, spell.patient_id, activity.data_model, activity.state
+                );
+
                 drop view if exists %s;
                 create or replace view %s as (
                     select
@@ -141,15 +177,15 @@ class nh_etake_list_overview(orm.Model):
         'state': _get_overview_groups,
     }
     
-    def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
-        if 'doctor_task_ids' in fields:
-            activity_pool = self.pool['nh.activity']
-            fields.remove('doctor_task_ids')
-            read_values = super(nh_etake_list_overview, self).read(cr, uid, ids, fields, context, load)
-            for rv in read_values:
-                rv['doctor_task_ids'] = activity_pool.search(cr, uid, [['patient_id', '=', rv['id']], ['data_model', '=', 'nh.clinical.doctor.task']], context=context)
-            return read_values
-        return super(nh_etake_list_overview, self).read(cr, uid, ids, fields, context, load)
+    # def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
+    #     if 'doctor_task_ids' in fields:
+    #         activity_pool = self.pool['nh.activity']
+    #         fields.remove('doctor_task_ids')
+    #         read_values = super(nh_etake_list_overview, self).read(cr, uid, ids, fields, context, load)
+    #         for rv in read_values:
+    #             rv['doctor_task_ids'] = activity_pool.search(cr, uid, [['patient_id', '=', rv['id']], ['data_model', '=', 'nh.clinical.doctor.task']], context=context)
+    #         return read_values
+    #     return super(nh_etake_list_overview, self).read(cr, uid, ids, fields, context, load)
 
     def write(self, cr, uid, ids, vals, context=None):
         activity_pool = self.pool['nh.activity']
@@ -164,9 +200,9 @@ class nh_etake_list_overview(orm.Model):
                     raise osv.except_osv('Error!', 'The patient has already been clerked!')
                 activity_pool.submit(cr, uid, ov.activity_id.id, {'plan': vals['plan']}, context=context)
                 activity_pool.submit(cr, uid, ov.spell_activity_id.id, {'doctor_plan': vals['plan']}, context=context)
-            if 'doctor_task_ids' in vals:
-                for dt in vals['doctor_task_ids']:
-                    activity_pool.write(cr, uid, dt[1], dt[2], context=context)
+            # if 'doctor_task_ids' in vals:
+            #     for dt in vals['doctor_task_ids']:
+            #         activity_pool.write(cr, uid, dt[1], dt[2], context=context)
         return True
 
     def complete_referral(self, cr, uid, ids, context=None):
@@ -245,6 +281,14 @@ class nh_etake_list_overview(orm.Model):
             'parent_id': ov.spell_activity_id.id,
             'creator_id': ov.activity_id.id
         }, {'other_identifier': ov.hospital_number}, context=context)
+        return True
+
+    def discharge(self, cr, uid, ids, context=None):
+        ov = self.browse(cr, uid, ids[0], context=context)
+        if any([dtask.blocking for dtask in ov.doctor_task_ids if dtask.state != 'completed']):
+            raise osv.except_osv('Error!', 'Patient cannot be discharged before the blocking tasks are completed!')
+        activity_pool = self.pool['nh.activity']
+        activity_pool.complete(cr, uid, ov.activity_id.id, context=context)
         return True
 
     def create_task(self, cr, uid, ids, context=None):
