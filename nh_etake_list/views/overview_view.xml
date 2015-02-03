@@ -40,7 +40,7 @@
                         <button name="cancel_referral" string="Reject"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible': [('state','!=','Referral')]}"/>
                         <button name="start_clerking" string="Clerk"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','To be Clerked']]}"/>
                         <button name="complete_current_stage" string="Patient Arrived"  type="object" attrs="{'invisible':[['state','!=','TCI']]}"/>
-                        <button name="cancel_tci" string="Remove from List"  type="object" attrs="{'invisible':[['state','!=','TCI']]}"/>
+                        <button name="cancel_tci" string="Remove from List"  type="object" attrs="{'invisible':['|',['state','!=','TCI'],['dna_able','=',False]]}"/>
                         <button name="complete_current_stage" string="Complete Clerking"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Clerking in Process']]}"/>
                         <button name="complete_review" string="Complete Review"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Senior Review']]}"/>
                         <button name="to_be_discharged" string="To Be Discharged"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Senior Review']]}"/>
@@ -62,6 +62,7 @@
                             <field name="review_terminated" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked','Clerking in Process','Senior Review'])]}"/>
                             <field name="discharge_user_id" readonly="1" attrs="{'invisible': [('state','!=','Discharged')]}"/>
                             <field name="discharge_terminated" readonly="1" attrs="{'invisible': [('state','!=','Discharged')]}"/>
+                            <field name="dna_able" readonly="1" invisible="1"/>
                         </group>
                         <group col="2">
                             <div>

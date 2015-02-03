@@ -75,6 +75,7 @@ class nh_etake_list_overview(orm.Model):
         'review_user_id': fields.many2one('res.users', 'Senior Review by'),
         'discharge_user_id': fields.many2one('res.users', 'Discharged by'),
         'doctor_task_ids': fields.function(_get_dt_ids, type='many2many', relation='nh.clinical.doctor.task', string='Doctor Tasks'),
+        'dna_able': fields.boolean('Can be marked as DNA')
     }
 
     def init(self, cr):
@@ -103,6 +104,12 @@ class nh_etake_list_overview(orm.Model):
                             when review_activity.state = 'scheduled' then 'Senior Review'
                             else 'Other'
                         end as state,
+                        case
+                            when tci_activity.state is null then FALSE
+                            when tci_activity.state is not null and tci_activity.state != 'scheduled' then FALSE
+                            when now() at time zone 'UTC' >= ((extract(YEAR FROM tci_activity.date_scheduled) || '-' ||  extract(MONTH FROM tci_activity.date_scheduled) || '-' || extract(DAY FROM tci_activity.date_scheduled) || ' 08:00:00')::timestamp + '1 day') then TRUE
+                            else FALSE
+                        end as dna_able,
                         patient.id as patient_id,
                         case
                             when tci_activity.state = 'scheduled' then tci_activity.location_id
@@ -167,16 +174,6 @@ class nh_etake_list_overview(orm.Model):
     _group_by_full = {
         'state': _get_overview_groups,
     }
-    
-    # def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
-    #     if 'doctor_task_ids' in fields:
-    #         activity_pool = self.pool['nh.activity']
-    #         fields.remove('doctor_task_ids')
-    #         read_values = super(nh_etake_list_overview, self).read(cr, uid, ids, fields, context, load)
-    #         for rv in read_values:
-    #             rv['doctor_task_ids'] = activity_pool.search(cr, uid, [['patient_id', '=', rv['id']], ['data_model', '=', 'nh.clinical.doctor.task']], context=context)
-    #         return read_values
-    #     return super(nh_etake_list_overview, self).read(cr, uid, ids, fields, context, load)
 
     def write(self, cr, uid, ids, vals, context=None):
         activity_pool = self.pool['nh.activity']
@@ -191,9 +188,6 @@ class nh_etake_list_overview(orm.Model):
                     raise osv.except_osv('Error!', 'The patient has already been clerked!')
                 activity_pool.submit(cr, uid, ov.activity_id.id, {'plan': vals['plan']}, context=context)
                 activity_pool.submit(cr, uid, ov.spell_activity_id.id, {'doctor_plan': vals['plan']}, context=context)
-            # if 'doctor_task_ids' in vals:
-            #     for dt in vals['doctor_task_ids']:
-            #         activity_pool.write(cr, uid, dt[1], dt[2], context=context)
         return True
 
     def complete_referral(self, cr, uid, ids, context=None):
