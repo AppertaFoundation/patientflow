@@ -44,7 +44,7 @@
                         <button name="complete_current_stage" string="Complete Clerking"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Clerking in Process']]}"/>
                         <button name="complete_review" string="Complete Review"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Senior Review']]}"/>
                         <button name="to_be_discharged" string="To Be Discharged"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Senior Review']]}"/>
-                        <button name="complete_current_stage" string="Complete Review"  type="object" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Consultant Review']]}"/>
+                        <button name="complete_current_stage" string="Admit Patient"  type="object" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Consultant Review']]}"/>
                         <button name="create_task" string="Create Task"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','not in',['Clerking in Process','Senior Review']]]}"/>
                         <button name="discharge" string="Discharge"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','To be Discharged']]}"/>
                     </header>
@@ -136,7 +136,7 @@
                                             <button name="complete_review" type="object" class="oe_highlight" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
                                         </t>
                                         <t t-if="record.state.raw_value == 'Consultant Review'">
-                                            <button name="complete_current_stage" type="object" class="oe_highlight" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
+                                            <button name="complete_current_stage" type="object" class="oe_highlight" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Admit</button>
                                         </t>
                                         <t t-if="record.state.raw_value == 'To be Discharged'">
                                             <button name="discharge" type="object" class="oe_highlight">Discharge</button>
