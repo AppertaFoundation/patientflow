@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+
+        <template id="assets_backend" name="etake list assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/nh_etake_list/static/src/js/nh_etake_list.js"></script>
+            </xpath>
+        </template>
+
         <menuitem name="eTake List" id="menu_nh_etake_list_top_root" groups="nh_clinical.group_nhc_base,base.user_root"/>
         <menuitem name="Patient Management"
                   sequence="0"
