@@ -7,16 +7,16 @@
                 <search string="NH eTake List Overview Search View">
                     <field name="location_id"/>
                     <field name="patient_id"/>
-                    <group expand="1" string="Filters">
-                        <filter name="referral" string="Referrals" domain="[('state','=','Referral')]"/>
-                        <filter name="tci" string="To Come In" domain="[('state','=','TCI')]"/>
-                        <filter name="tbc" string="To be Clerked" domain="[('state','=','To be Clerked')]"/>
-                        <filter name="clerking" string="Clerking in Process" domain="[('state','=','Clerking in Process')]"/>
-                        <filter name="senior" string="Senior Review" domain="[('state','=','Senior Review')]"/>
-                        <filter name="consultant" string="Consultant Review" domain="[('state','=','Consultant Review')]"/>
-                        <filter name="tbd" string="To be Discharged" domain="[('state','=','To be Discharged')]"/>
-                        <filter name="discharged" string="Discharged" domain="[('state','=','Discharged')]"/>
-                    </group>
+                    <!--<group expand="1" string="Filters">-->
+                        <!--<filter name="referral" string="Referrals" domain="[('state','=','Referral')]"/>-->
+                        <!--<filter name="tci" string="To Come In" domain="[('state','=','TCI')]"/>-->
+                        <!--<filter name="tbc" string="To be Clerked" domain="[('state','=','To be Clerked')]"/>-->
+                        <!--<filter name="clerking" string="Clerking in Process" domain="[('state','=','Clerking in Process')]"/>-->
+                        <!--<filter name="senior" string="Senior Review" domain="[('state','=','Senior Review')]"/>-->
+                        <!--<filter name="consultant" string="Consultant Review" domain="[('state','=','Consultant Review')]"/>-->
+                        <!--<filter name="tbd" string="To be Discharged" domain="[('state','=','To be Discharged')]"/>-->
+                        <!--<filter name="discharged" string="Discharged" domain="[('state','=','Discharged')]"/>-->
+                    <!--</group>-->
                     <group expand="1" string="Group By...">
                         <filter name="group_by_state" string="State" domain="[]" context="{'group_by':'state'}" help="Group by State"/>
                         <filter name="group_by_ward" string="Ward" domain="[]" context="{'group_by':'location_id'}" help="Group by Ward"/>
@@ -202,8 +202,8 @@
             <field name="name">Referrals</field>
             <field name="res_model">nh.etake_list.overview</field>
             <field name="view_type">form</field>
-            <field name="domain">[('state','not in',['Done','Other','dna','to_dna']),('hours_from_discharge','&lt;',12)]</field>
-            <field name="context">{'search_default_referral':1}</field>
+            <field name="domain">[('state','=','Referral')]</field>
+            <!--<field name="context">{'search_default_referral':1}</field>-->
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
         </record>
@@ -212,8 +212,8 @@
             <field name="name">Arrivals</field>
             <field name="res_model">nh.etake_list.overview</field>
             <field name="view_type">form</field>
-            <field name="domain">[('state','not in',['Done','Other','dna','to_dna']),('hours_from_discharge','&lt;',12)]</field>
-            <field name="context">{'search_default_tci':1}</field>
+            <field name="domain">[('state','=','TCI')]</field>
+            <!--<field name="context">{'search_default_tci':1}</field>-->
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
         </record>
@@ -222,8 +222,8 @@
             <field name="name">To be Clerked</field>
             <field name="res_model">nh.etake_list.overview</field>
             <field name="view_type">form</field>
-            <field name="domain">[('state','not in',['Done','Other','dna','to_dna']),('hours_from_discharge','&lt;',12)]</field>
-            <field name="context">{'search_default_tbc':1}</field>
+            <field name="domain">[('state','=','To be Clerked')]</field>
+            <!--<field name="context">{'search_default_tbc':1}</field>-->
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
         </record>
@@ -232,8 +232,8 @@
             <field name="name">Clerkings in Process</field>
             <field name="res_model">nh.etake_list.overview</field>
             <field name="view_type">form</field>
-            <field name="domain">[('state','not in',['Done','Other','dna','to_dna']),('hours_from_discharge','&lt;',12)]</field>
-            <field name="context">{'search_default_clerking':1}</field>
+            <field name="domain">[('state','=','Clerking in Process')]</field>
+            <!--<field name="context">{'search_default_clerking':1}</field>-->
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
         </record>
@@ -242,8 +242,8 @@
             <field name="name">Senior Reviews</field>
             <field name="res_model">nh.etake_list.overview</field>
             <field name="view_type">form</field>
-            <field name="domain">[('state','not in',['Done','Other','dna','to_dna']),('hours_from_discharge','&lt;',12)]</field>
-            <field name="context">{'search_default_senior':1}</field>
+            <field name="domain">[('state','=','Senior Review')]</field>
+            <!--<field name="context">{'search_default_senior':1}</field>-->
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
         </record>
@@ -252,8 +252,8 @@
             <field name="name">Consultant Reviews</field>
             <field name="res_model">nh.etake_list.overview</field>
             <field name="view_type">form</field>
-            <field name="domain">[('state','not in',['Done','Other','dna','to_dna']),('hours_from_discharge','&lt;',12)]</field>
-            <field name="context">{'search_default_consultant':1}</field>
+            <field name="domain">[('state','=','Consultant Review')]</field>
+            <!--<field name="context">{'search_default_consultant':1}</field>-->
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
         </record>
@@ -262,8 +262,8 @@
             <field name="name">To be Discharged</field>
             <field name="res_model">nh.etake_list.overview</field>
             <field name="view_type">form</field>
-            <field name="domain">[('state','not in',['Done','Other','dna','to_dna']),('hours_from_discharge','&lt;',12)]</field>
-            <field name="context">{'search_default_tbd':1}</field>
+            <field name="domain">[('state','=','To be Discharged')]</field>
+            <!--<field name="context">{'search_default_tbd':1}</field>-->
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
         </record>
@@ -272,8 +272,8 @@
             <field name="name">Discharged Patients</field>
             <field name="res_model">nh.etake_list.overview</field>
             <field name="view_type">form</field>
-            <field name="domain">[('state','not in',['Done','Other','dna','to_dna']),('hours_from_discharge','&lt;',12)]</field>
-            <field name="context">{'search_default_discharged':1}</field>
+            <field name="domain">[('state','=','Discharged'),('hours_from_discharge','&lt;',12)]</field>
+            <!--<field name="context">{'search_default_discharged':1}</field>-->
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
         </record>
