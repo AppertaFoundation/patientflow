@@ -27,7 +27,14 @@
                   sequence="1"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_referral_forms"
-                  groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+
+        <menuitem name="Rejected Referrals"
+                  id="menu_nh_etake_list_left_rejected_referrals"
+                  sequence="2"
+                  parent="menu_nh_take_list_left_patient"
+                  action="action_show_rejected_referrals"
+                  groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Patient Referrals"
                   id="menu_nh_etake_list_left_referrals"

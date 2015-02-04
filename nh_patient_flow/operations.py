@@ -129,6 +129,7 @@ class nh_clinical_patient_referral_form(orm.Model):
         'team_informed': fields.selection(_boolean, 'Team Informed'),
         'poc': fields.selection(_poc, 'First Point of Contact'),
         'averted': fields.selection(_averted, 'Averted in'),
+        'referral_activity_id': fields.many2one('nh.activity', 'Referral', domain=[['data_model', '=', 'nh.clinical.referral']])
     }
     _defaults = {
         'source': 'gp',
@@ -192,9 +193,10 @@ class nh_clinical_patient_referral_form(orm.Model):
             patient_id = patient_pool.create(cr, uid, patient_vals, context=context)
             self.write(cr, uid, form_id, {'patient_id': patient_id}, context=context)
         # create referral
-        self.pool['nh.clinical.patient.referral'].create_activity(cr, SUPERUSER_ID, {
+        referral_activity_id = self.pool['nh.clinical.patient.referral'].create_activity(cr, SUPERUSER_ID, {
             'patient_id': patient_id,
         }, {'form_id': form_id, 'patient_id': patient_id}, context=context)
+        self.write(cr, uid, form_id, {'referral_activity_id': referral_activity_id}, context=context)
         return form_id
 
     def write(self, cr, uid, ids, vals, context=None):
