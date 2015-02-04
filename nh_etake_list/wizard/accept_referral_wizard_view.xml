@@ -1,0 +1,27 @@
+<openerp>
+    <data>
+        <record id="view_nh_etake_list_accept_referral_wizard" model="ir.ui.view">
+            <field name="name">Accept Referral Wizard Form</field>
+            <field name="model">nh.etake_list.accept_referral_wizard</field>
+            <field name="arch" type="xml">
+                <form string="Accept Referral Wizard" class= "oe_form_configuration" version="7.0">
+                    <group>
+                        <field name="tci_location_id" widget="nh_many2one"/>
+                        <field name="referral_activity_id" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button string="Submit" type="object" name="submit" class="oe_highlight"/>
+                        <button string="Close" special="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_nh_etake_list_accept_referral_wizard" model="ir.actions.act_window">
+            <field name="name">Accept Referral</field>
+            <field name="res_model">nh.etake_list.accept_referral_wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

@@ -1,7 +1,4 @@
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
-from datetime import datetime as dt, timedelta as td
 from openerp.osv import osv, fields
-from openerp import SUPERUSER_ID
 
 
 class doctor_task_wizard(osv.TransientModel):

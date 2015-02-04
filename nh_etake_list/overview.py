@@ -201,19 +201,23 @@ class nh_etake_list_overview(orm.Model):
         return True
 
     def complete_referral(self, cr, uid, ids, context=None):
-        user_pool = self.pool['res.users']
-        user = user_pool.browse(cr, uid, uid, context=context)
-        location_ids = [l.id for l in user.location_ids if any([c.name == 'etakelist' for c in l.context_ids])]
-        if not location_ids:
-            raise osv.except_osv('Error!', 'You are not responsible for any eTake List Locations')
-        activity_pool = self.pool['nh.activity']
         ov = self.browse(cr, uid, ids[0], context=context)
         if ov.state != 'Referral':
             raise osv.except_osv('Error!', 'Trying to complete referral out of Referral state')
-        activity_pool.submit(cr, SUPERUSER_ID, ov.activity_id.id, {
-            'location_id': location_ids[0], 'tci_location_id': location_ids[0]}, context=context)
-        activity_pool.complete(cr, uid, ov.activity_id.id, context=context)
-        return True
+        user_pool = self.pool['res.users']
+        user = user_pool.browse(cr, uid, uid, context=context)
+        location_ids = [l.id for l in user.location_ids if any([c.name == 'etakelist' for c in l.context_ids])]
+        tci_location_id = location_ids[0] if location_ids else False
+        context.update({'default_referral_activity_id': ov.activity_id.id, 'default_tci_location_id': tci_location_id})
+        return {
+            'name': 'Accept Referral',
+            'type': 'ir.actions.act_window',
+            'res_model': 'nh.etake_list.accept_referral_wizard',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'target': 'new',
+            'context': context
+        }
 
     def cancel_referral(self, cr, uid, ids, context=None):
         activity_pool = self.pool['nh.activity']

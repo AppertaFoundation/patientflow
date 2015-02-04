@@ -17,6 +17,7 @@
              'views/transfer_view.xml',
              'views/referral_form_view.xml',
              'wizard/doctor_task_wizard_view.xml',
+             'wizard/accept_referral_wizard_view.xml',
              'views/menuitem.xml'],
     'demo': [],
     'css': [],
