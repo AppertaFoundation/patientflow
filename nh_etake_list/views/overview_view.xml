@@ -34,13 +34,13 @@
                     <field name="patient_id"/>
                     <field name="hospital_number"/>
                     <field name="nhs_number"/>
-                    <field name="clerking_user_id" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}"/>
-                    <field name="clerking_started" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}"/>
-                    <field name="clerking_terminated" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked','Clerking in Process'])]}"/>
-                    <field name="review_user_id" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked','Clerking in Process','Senior Review'])]}"/>
-                    <field name="review_terminated" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked','Clerking in Process','Senior Review'])]}"/>
-                    <field name="discharge_user_id" readonly="1" attrs="{'invisible': [('state','!=','Discharged')]}"/>
-                    <field name="discharge_terminated" readonly="1" attrs="{'invisible': [('state','!=','Discharged')]}"/>
+                    <field name="clerking_user_id" readonly="1"/>
+                    <field name="clerking_started" readonly="1"/>
+                    <field name="clerking_terminated" readonly="1"/>
+                    <field name="review_user_id" readonly="1"/>
+                    <field name="review_terminated" readonly="1"/>
+                    <field name="discharge_user_id" readonly="1"/>
+                    <field name="discharge_terminated" readonly="1"/>
                     <field name="state" invisible="1"/>
                 </tree>
             </field>
@@ -78,6 +78,8 @@
                             <field name="review_terminated" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked','Clerking in Process','Senior Review'])]}"/>
                             <field name="discharge_user_id" readonly="1" attrs="{'invisible': [('state','!=','Discharged')]}" options="{'no_open': True}"/>
                             <field name="discharge_terminated" readonly="1" attrs="{'invisible': [('state','!=','Discharged')]}"/>
+                            <field name="ptwr_user_id" readonly="1" attrs="{'invisible': [('state','not in',['Discharged','admitted'])]}" options="{'no_open': True}"/>
+                            <field name="ptwr_terminated" readonly="1" attrs="{'invisible': [('state','not in',['Discharged','admitted'])]}"/>
                             <field name="dna_able" readonly="1" invisible="1"/>
                         </group>
                         <group col="2">
@@ -176,7 +178,7 @@
             <field name="name">Referral Board</field>
             <field name="res_model">nh.etake_list.overview</field>
             <field name="view_type">form</field>
-            <field name="domain">[('state','not in',['Done','Other','dna','to_dna']),('hours_from_discharge','&lt;',12)]</field>
+            <field name="domain">[('state','not in',['Done','Other','dna','to_dna','admitted']),('hours_from_discharge','&lt;',12)]</field>
             <field name="context">{'search_default_group_by_state':1}</field>
             <field name="view_mode">kanban,form</field>
             <field name="needaction_enabled">1</field>
@@ -274,6 +276,15 @@
             <field name="view_type">form</field>
             <field name="domain">[('state','=','Discharged'),('hours_from_discharge','&lt;',12)]</field>
             <!--<field name="context">{'search_default_discharged':1}</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_admitted" >
+            <field name="name">Recently Admitted Patients</field>
+            <field name="res_model">nh.etake_list.overview</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','admitted'),('hours_from_ptwr','&lt;',12)]</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
         </record>

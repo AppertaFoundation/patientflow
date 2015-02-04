@@ -42,7 +42,8 @@ class nh_etake_list_overview(orm.Model):
                         ['Clerking in Process', 'Clerking in Process'],
                         ['Done', 'Done'],
                         ['to_dna', 'DNA'],
-                        ['dna', 'DNA']]
+                        ['dna', 'DNA'],
+                        ['admitted', 'Admitted']]
     _gender = [['M', 'Male'], ['F', 'Female']]
 
     def _get_dt_ids(self, cr, uid, ids, field_names, arg, context=None):
@@ -68,12 +69,15 @@ class nh_etake_list_overview(orm.Model):
         'clerking_terminated': fields.datetime('Clerking Finished'),
         'review_terminated': fields.datetime('Reviewed'),
         'discharge_terminated': fields.datetime('Discharged'),
+        'ptwr_terminated': fields.datetime('PTWR Done'),
         'hours_from_discharge': fields.integer('Hours since Discharge'),
+        'hours_from_ptwr': fields.integer('Hours since PTWR'),
         'diagnosis': fields.text('Diagnosis'),
         'plan': fields.text('Plan'),
         'clerking_user_id': fields.many2one('res.users', 'Clerking by'),
         'review_user_id': fields.many2one('res.users', 'Senior Review by'),
         'discharge_user_id': fields.many2one('res.users', 'Discharged by'),
+        'ptwr_user_id': fields.many2one('res.users', 'Consultant Review by'),
         'doctor_task_ids': fields.function(_get_dt_ids, type='many2many', relation='nh.clinical.doctor.task', string='Doctor Tasks'),
         'dna_able': fields.boolean('Can be marked as DNA')
     }
@@ -91,7 +95,7 @@ class nh_etake_list_overview(orm.Model):
                         case
                             when referral_activity.state is null and tci_activity.state is null then 'Done'
                             when spell_activity.state = 'cancelled' then 'Done'
-                            when ptwr_activity.state is not null and ptwr_activity.state = 'completed' then 'Done'
+                            when ptwr_activity.state is not null and ptwr_activity.state = 'completed' then 'admitted'
                             when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'Discharged'
                             when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'To be Discharged'
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then 'Referral'
@@ -133,6 +137,12 @@ class nh_etake_list_overview(orm.Model):
                         clerking_activity.user_id as clerking_user_id,
                         review_activity.date_terminated as review_terminated,
                         review_activity.terminate_uid as review_user_id,
+                        ptwr_activity.date_terminated as ptwr_terminated,
+                        ptwr_activity.user_id as ptwr_user_id,
+                        case
+                            when ptwr_activity.date_terminated is null then 0
+                            else extract(epoch from now() at time zone 'UTC' - ptwr_activity.date_terminated) / 3600
+                        end as hours_from_ptwr,
                         spell.diagnosis as diagnosis,
                         spell.doctor_plan as plan,
                         discharge_activity.date_terminated as discharge_terminated,
