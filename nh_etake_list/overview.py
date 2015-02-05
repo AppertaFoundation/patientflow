@@ -252,7 +252,16 @@ class nh_etake_list_overview(orm.Model):
         activity_pool = self.pool['nh.activity']
         activity_pool.start(cr, uid, ov.activity_id.id, context=context)
         activity_pool.assign(cr, uid, ov.activity_id.id, uid, context=context)
-        return True
+        return {
+            'name': 'Clerking',
+            'type': 'ir.actions.act_window',
+            'res_model': 'nh.etake_list.overview',
+            'res_id': ov.id,
+            'view_mode': 'form',
+            'view_type': 'form',
+            'target': 'current_edit',
+            'context': context
+        }
 
     def complete_review(self, cr, uid, ids, context=None):
         ov = self.browse(cr, uid, ids[0], context=context)
