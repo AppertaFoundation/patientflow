@@ -39,7 +39,7 @@ class nh_etake_list_overview(orm.Model):
                         ['Other', 'Other'],
                         ['Referral', 'Referral'],
                         ['TCI', 'To Come In'],
-                        ['Clerking in Process', 'Clerking in Process'],
+                        ['Clerking in Process', 'Clerking in Progress'],
                         ['Done', 'Done'],
                         ['to_dna', 'DNA'],
                         ['dna', 'DNA'],
@@ -72,6 +72,8 @@ class nh_etake_list_overview(orm.Model):
         'ptwr_terminated': fields.datetime('PTWR Done'),
         'hours_from_discharge': fields.integer('Hours since Discharge'),
         'hours_from_ptwr': fields.integer('Hours since PTWR'),
+        'review_deadline_polarity': fields.char('Review Deadline Polarity', size=1),
+        'review_deadline': fields.char('Review Deadline', size=15),
         'diagnosis': fields.text('Diagnosis'),
         'plan': fields.text('Plan'),
         'clerking_user_id': fields.many2one('res.users', 'Clerking by'),
@@ -150,7 +152,17 @@ class nh_etake_list_overview(orm.Model):
                             when discharge_activity.date_terminated is null then 0
                             else extract(epoch from now() at time zone 'UTC' - discharge_activity.date_terminated) / 3600
                         end as hours_from_discharge,
-                        discharge_activity.terminate_uid as discharge_user_id
+                        discharge_activity.terminate_uid as discharge_user_id,
+                        case
+                            when tci_activity.date_terminated is null then ''
+                            when (tci_activity.date_terminated + interval '14 hours') >= now() at time zone 'UTC' then ''
+                            else '-'
+                        end as review_deadline_polarity,
+                        case
+                            when tci_activity.date_terminated is null then '14H 00M'
+                            when @ extract(days from (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC') > 0 then @ extract(days from (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC') || 'D ' || (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC'
+                            else @ extract(hours from (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC') || 'H ' || @ extract(minutes from (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC') || 'M'
+                        end as review_deadline
 
                     from nh_clinical_patient patient
                     left join nh_clinical_spell spell on spell.patient_id = patient.id
@@ -172,7 +184,7 @@ class nh_etake_list_overview(orm.Model):
             ['Referral', 'Referral'],
             ['TCI', 'To Come In'],
             ['To be Clerked', 'To be Clerked'],
-            ['Clerking in Process', 'Clerking in Process'],
+            ['Clerking in Process', 'Clerking in Progress'],
             ['Senior Review', 'Senior Review'],
             ['Consultant Review', 'Consultant Review'],
             ['To be Discharged', 'To be Discharged'],
