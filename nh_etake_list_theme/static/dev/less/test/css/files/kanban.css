@@ -499,6 +499,7 @@ Example:
                                         <li>
                                           <button class="oe_highlight oe_kanban_action oe_kanban_action_button btn-task" data-name="complete_tci" data-type="object" type="button">Arrived</button>
                                         </li>
+                                        <li>Rachel McAddams</li>
                                       </ul>
                                       <ul class="numbers">
                                         <li class="num-id">565-555-9780</li>
@@ -955,6 +956,7 @@ html {
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .task-numbers .task li {
   width: 90%;
   padding: 0.5em 5%;
+  color: #333;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .task-numbers .task li button {
   width: 100%;
