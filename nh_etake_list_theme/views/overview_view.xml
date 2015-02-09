@@ -70,7 +70,7 @@
                                     <t t-if="record.state.raw_value == 'Consultant Review'">
                                         <ul class="task" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
                                             <li>
-                                                <button name="complete_current_stage" type="object" class="oe_highlight btn-task">Admit</button>
+                                                <button name="complete_current_stage" type="object" class="oe_highlight btn-task">Complete</button>
                                             </li>
                                         </ul>
                                     </t>
