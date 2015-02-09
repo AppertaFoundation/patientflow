@@ -57,7 +57,7 @@
                   action="action_show_tbc"
                   groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
 
-        <menuitem name="Clerkings in Process"
+        <menuitem name="Clerkings in Progress"
                   id="menu_nh_etake_list_left_clerking"
                   sequence="6"
                   parent="menu_nh_take_list_left_patient"

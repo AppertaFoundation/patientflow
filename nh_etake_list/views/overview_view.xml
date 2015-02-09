@@ -235,7 +235,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="action_show_clerkings" >
-            <field name="name">Clerkings in Process</field>
+            <field name="name">Clerkings in Progress</field>
             <field name="res_model">nh.etake_list.overview</field>
             <field name="view_type">form</field>
             <field name="domain">[('state','=','Clerking in Process')]</field>
