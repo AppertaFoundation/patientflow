@@ -404,14 +404,21 @@ Example:
                                         </li>
                                       </ul>
                                       <ul class="numbers">
-                                        <li class="num-id">123-555-9780</li>
+                                        <li class="num-id">565-555-9780</li>
                                         <li>5728367</li>
                                       </ul>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                              <div class="oe_fold_column oe_kanban_record">
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                              <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable"> <div class="oe_fold_column oe_kanban_record">
                                 <div class="oe_kanban_card oe_kanban_global_click tasks">
                                   <div class="oe_kanban_content">
                                     <div class="time-till">
@@ -425,7 +432,157 @@ Example:
                                       <ul>
 
                                     </div>
-                                    <div class="patient-info">
+                                    <div class="patient-info no">
+                                      <ul>
+                                        <li class="name">Ledner, Caprice </li>
+                                      </ul>
+                                      <ul>
+                                        <li class="p-info">56</li>
+                                        <li class="p-info"><i class="male"></i></li>
+                                        <li class="score">6<i class="score-up"></i></li>
+                                      </ul>
+                                      <ul>
+                                        <li class="bed">Ward 49, Bed 04, Pillow 8</li>
+                                      </ul>
+                                    </div>
+                                    <div class="task-numbers">
+                                      <ul class="task">
+                                        <li>
+                                          <button class="oe_highlight oe_kanban_action oe_kanban_action_button btn-task" data-name="complete_tci" data-type="object" type="button">Arrived</button>
+                                        </li>
+                                      </ul>
+                                      <ul class="numbers">
+                                        <li class="num-id">565-555-9780</li>
+                                        <li>5728367</li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div></div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                              <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable">
+                             <div class="oe_fold_column oe_kanban_record">
+                                <div class="oe_kanban_card oe_kanban_global_click tasks">
+                                  <div class="oe_kanban_content">
+                                    <div class="time-till">
+                                      <ul>
+                                        <li class="clock"><i class="time-overdue"></i></li>
+                                        <li class="sub-tasks-block">+13</li>
+                                      </ul>
+
+                                      <ul>
+                                        <li class="due">- 2D 5H 12M</li>
+                                      <ul>
+
+                                    </div>
+                                    <div class="patient-info low">
+                                      <ul>
+                                        <li class="name">Ledner, Caprice </li>
+                                      </ul>
+                                      <ul>
+                                        <li class="p-info">56</li>
+                                        <li class="p-info"><i class="male"></i></li>
+                                        <li class="score">6<i class="score-up"></i></li>
+                                      </ul>
+                                      <ul>
+                                        <li class="bed">Ward 49, Bed 04, Pillow 8</li>
+                                      </ul>
+                                    </div>
+                                    <div class="task-numbers">
+                                      <ul class="task">
+                                        <li>
+                                          <button class="oe_highlight oe_kanban_action oe_kanban_action_button btn-task" data-name="complete_tci" data-type="object" type="button">Arrived</button>
+                                        </li>
+                                      </ul>
+                                      <ul class="numbers">
+                                        <li class="num-id">565-555-9780</li>
+                                        <li>5728367</li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                                <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable">
+                             <div class="oe_fold_column oe_kanban_record">
+                                <div class="oe_kanban_card oe_kanban_global_click tasks">
+                                  <div class="oe_kanban_content">
+                                    <div class="time-till">
+                                      <ul>
+                                        <li class="clock"><i class="time-overdue"></i></li>
+                                        <li class="sub-tasks-block">+13</li>
+                                      </ul>
+
+                                      <ul>
+                                        <li class="due">- 2D 5H 12M</li>
+                                      <ul>
+
+                                    </div>
+                                    <div class="patient-info mid">
+                                      <ul>
+                                        <li class="name">Ledner, Caprice </li>
+                                      </ul>
+                                      <ul>
+                                        <li class="p-info">56</li>
+                                        <li class="p-info"><i class="male"></i></li>
+                                        <li class="score">6<i class="score-up"></i></li>
+                                      </ul>
+                                      <ul>
+                                        <li class="bed">Ward 49, Bed 04, Pillow 8</li>
+                                      </ul>
+                                    </div>
+                                    <div class="task-numbers">
+                                      <ul class="task">
+                                        <li>
+                                          <button class="oe_highlight oe_kanban_action oe_kanban_action_button btn-task" data-name="complete_tci" data-type="object" type="button">Arrived</button>
+                                        </li>
+                                      </ul>
+                                      <ul class="numbers">
+                                        <li class="num-id">565-555-9780</li>
+                                        <li>5728367</li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable">
+                            </div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                                <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable">
+                             <div class="oe_fold_column oe_kanban_record">
+                                <div class="oe_kanban_card oe_kanban_global_click tasks">
+                                  <div class="oe_kanban_content">
+                                    <div class="time-till">
+                                      <ul>
+                                        <li class="clock"><i class="time-overdue"></i></li>
+                                        <li class="sub-tasks-block">+13</li>
+                                      </ul>
+
+                                      <ul>
+                                        <li class="due">- 2D 5H 12M</li>
+                                      <ul>
+
+                                    </div>
+                                    <div class="patient-info high">
                                       <ul>
                                         <li class="name">Ledner, Caprice </li>
                                       </ul>
@@ -435,7 +592,7 @@ Example:
                                         <li class="score">6<i class="score-up"></i></li>
                                       </ul>
                                       <ul>
-                                        <li class="bed">Ward 12, Bed 88, Pillow 2</li>
+                                        <li class="bed">Ward 12, Bed 88, Pillow 12</li>
                                       </ul>
                                     </div>
                                     <div class="task-numbers">
@@ -453,38 +610,7 @@ Example:
                                 </div>
                               </div>
                             </div>
-                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_show_more" style="display: none;">
-                              <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
                             </div>
-                          </td>
-                          <td class="oe_kanban_column">
-                            <div class="oe_kanban_group_list_header"></div>
-                            <div class="oe_kanban_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_show_more" style="display: none;">
-                              <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
-                            </div>
-                          </td>
-                          <td class="oe_kanban_column">
-                            <div class="oe_kanban_group_list_header"></div>
-                            <div class="oe_kanban_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_show_more" style="display: none;">
-                                <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
-                            </div>
-                          </td>
-                          <td class="oe_kanban_column">
-                            <div class="oe_kanban_group_list_header"></div>
-                            <div class="oe_kanban_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_show_more" style="display: none;">
-                                <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
-                            </div>
-                          </td>
-                          <td class="oe_kanban_column">
-                            <div class="oe_kanban_group_list_header"></div>
-                            <div class="oe_kanban_column_cards ui-sortable"></div>
                             <div class="oe_kanban_folded_column_cards ui-sortable"></div>
                             <div class="oe_kanban_show_more" style="display: none;">
                                 <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
@@ -578,6 +704,7 @@ Example:
 Styleguide 6.0
 
 */
+/*csslint box-classes: false */
 i {
   font-family: 'fontAwesome';
   font-style: normal;
@@ -628,8 +755,7 @@ html {
   background: -webkit-linear-gradient(#ffffff, #f8e9e0);
   box-shadow: 0 1px 3px 0 #737373;
   text-align: center;
-  padding-right: 0;
-  padding-top: 0.4em;
+  padding: 0;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header {
   padding-right: 0;
@@ -639,14 +765,15 @@ html {
   top: 7px;
   height: 2em;
 }
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header .oe_dropdown_toggle .oe_e {
+  display: none;
+}
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header .oe_fold_column .oe_kanban_group_title {
   text-align: center;
   position: relative;
   margin-right: 0;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header .oe_fold_column .oe_kanban_group_title .oe_kanban_group_length {
-  margin-right: -12px;
-  margin-top: -4px;
   line-height: 1.7em;
   font-weight: 900;
   background: -webkit-linear-gradient(#eff0f0, #d4d6d8);
@@ -660,6 +787,14 @@ html {
   box-shadow: 0 1px 2px 0 white inset;
   text-align: center;
   min-width: 20%;
+  position: relative;
+  float: right;
+  right: -5px;
+  top: 0;
+  margin: 0;
+}
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header .oe_fold_column .oe_kanban_group_title .oe_kanban_group_length .oe_tag {
+  margin: 0;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header .oe_fold_column .oe_kanban_group_title .oe_kanban_group_title_text {
   text-align: center;
@@ -755,9 +890,26 @@ html {
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info {
   background: #DCE1FC;
 }
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info.no {
+  background: #fff;
+}
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info.low {
+  background: #72d4ad;
+  color: #222222;
+}
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info.mid {
+  background: #FCDC77;
+  color: #222222;
+}
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info.high {
+  background: #FBB27F;
+  color: #222222;
+}
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info ul {
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  line-height: 2em;
+  line-height: 2.2em;
+  display: table;
+  width: 100%;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info ul li {
   border: none;
@@ -774,7 +926,7 @@ html {
   padding-right: 3%;
   text-align: center;
   font-weight: 800;
-  width: 36%;
+  width: 33%;
   display: table-cell;
   vertical-align: middle;
 }
@@ -782,7 +934,6 @@ html {
   border: none;
   padding-left: 4%;
   font-weight: 600;
-  width: 33%;
 }
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .patient-info ul li.bed {
   width: 100%;

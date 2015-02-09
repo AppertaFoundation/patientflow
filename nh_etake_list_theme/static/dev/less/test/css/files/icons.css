@@ -32,6 +32,11 @@ Example:
         <p>Patient in Bed <i class="bed-pat"></i></br>
         Bed Movement <i class="bed-move"></i></p>
 
+<hr width="1" size="100">
+
+
+        <p>Alert <i class="red-alert"></i></br>
+
 
 Styleguide 10.0
 
@@ -131,4 +136,16 @@ i {
   background: -webkit-linear-gradient(left, #aaaaaa, #282828);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.red-alert:before {
+  content: "\f071";
+  font-size: 3em;
+  color: #990000;
+  text-shadow: 0 1px 1px #4d4d4d;
+}
+.close-pop:before {
+  content: "\f00d";
+  font-size: 1em;
+  color: #d9d9d9;
+  text-shadow: 0 1px 1px #b3b3b3;
 }

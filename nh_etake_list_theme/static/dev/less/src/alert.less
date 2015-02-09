@@ -1,0 +1,148 @@
+/*
+
+Alert pop-ups
+
+.oe_dialog_icon - where the Alert Icon is placed.
+.add-patient - 'Add Patient' Button
+.patient-no - Number of Patients in a column.
+
+----
+
+
+Example:
+
+        <div class="oe_notification ui-notify"></div><div aria-hidden="false" class="modal in" data-backdrop="static" role="dialog" tabindex="-1" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content openerp">
+                <div class="modal-header">
+                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button"><i class="close-pop"></i></button>
+                    <h3 class="modal-title">open eObs Warning</h3>
+                </div>
+                <div class="modal-body">
+                <div class="in" aria-hidden="false">
+    <table border="0" cellpadding="0" cellspacing="0" class="oe_dialog_warning">
+    <tbody><tr>
+        <td class="oe_dialog_icon"><i class="red-alert"></i></td>
+        <td>
+            <p>
+
+                Exception!<br><br>activity of type 'nh.clinical.doctor.task' can not be completed from state 'completed'
+            </p>
+        </td>
+    </tr>
+    </tbody></table>
+</div></div><div class="modal-footer"><span class="oe_dialog_custom_buttons"><button type="button" class="oe_button oe_form_button ">
+
+
+        <span>Ok</span>
+
+    </button></span></div>
+            </div>
+        </div>
+    </div><div class="modal-backdrop  in"></div>
+
+
+Styleguide 32.0
+
+*/
+
+@import (once) "mixin.less";
+@import (once) "typography.less";
+@import (once) "icons.less";
+
+.modal-open {
+
+    .modal-dialog {
+
+        .border-radius;
+
+        background:red;
+
+
+        .modal-content .openerp {
+
+            background:red;
+
+            .modal-header {
+
+                padding:5%;
+
+                    .close {
+
+                    float:right;
+
+                    }
+
+                    .modal-title {
+
+                    float:left;
+
+                    }
+
+            }
+
+            .modal-body {
+
+
+
+                .in {
+
+
+                    .oe_dialog_warning {
+
+
+                            .oe_dialog_icon {
+
+                                padding:0;
+                                width:0;
+
+
+                            }
+
+                    }
+
+                }
+
+            }
+
+           .modal-footer {
+
+                .oe_dialog_custom_buttons {
+
+
+                    .oe_button .oe_form_button {
+
+                                .border-radius;
+
+                                  color: white;
+                                  display: inline-block;
+                                  font-size: @nav-tab;
+                                  background: lighten(#0072A2, 20%); /* Old browsers */
+                                  background: -moz-linear-gradient(top,  lighten(#0072A2, 20%) 0%, #0072A2 100%); /* FF3.6+ */
+                                  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,lighten(#0072A2, 20%)), color-stop(100%,#0072A2)); /* Chrome,Safari4+ */
+                                  background: -webkit-linear-gradient(lighten(#0072A2, 20%),#0072A2); /* Chrome10+,Safari5.1+ */
+                                  background: -o-linear-gradient(top,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* Opera 11.10+ */
+                                  background: -ms-linear-gradient(top, lighten(#0072A2, 20%) 0%,#0072A2 100%); /* IE10+ */
+                                  background: linear-gradient(to bottom,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* W3C */
+                                  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='lighten(#0072A2, 20%))', endColorstr='#0072A2',GradientType=0 ); /* IE6-9 */
+                                  padding: 0.3em 10%;
+                                  border: 1px solid #0D5571;
+                                  box-shadow: 0 1px 2px 0 white inset, 0 2px 0px rgba(0,0,0,0.6);
+                                  margin-right: 5%;
+                                  text-align: center;
+                                  text-shadow: 0 1px 1px lighten(black, 50%);
+                                  text-decoration: none;
+                                  height: inherit;
+                                  font-weight: 900;
+
+
+                    }
+
+
+                }
+
+           }
+
+        }
+    }
+}

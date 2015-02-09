@@ -15,3 +15,6 @@
 @import "icons";
 
 @import "odoo_fixes";
+
+@import "alert.less";
+

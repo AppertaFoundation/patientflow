@@ -72,6 +72,8 @@
     
         <link rel="stylesheet" href="css/files/nav.css"/>
     
+        <link rel="stylesheet" href="css/files/alert.css"/>
+    
         <link rel="stylesheet" href="css/files/search.css"/>
     
         <link rel="stylesheet" href="css/files/leftnav_fix.css"/>
@@ -91,6 +93,8 @@
                 <li><a href="#icons">icons</a></li>
             
                 <li><a href="#nav">nav</a></li>
+            
+                <li><a href="#alert">alert</a></li>
             
                 <li><a href="#search">search</a></li>
             
@@ -182,6 +186,11 @@
 
         <p>Patient in Bed <i class="bed-pat"></i></br>
         Bed Movement <i class="bed-move"></i></p>
+
+<hr width="1" size="100">
+
+
+        <p>Alert <i class="red-alert"></i></br>
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
             </div>
@@ -257,6 +266,61 @@
       <div class="oe_footer">Powered by <a href="http://www.neovahealth.co.uk" target="_blank"><span>NHClinical / Odoo</span></a></div>
     </div>
   </div>
+                </div>
+                <p class="top-link"><a href="#top">[ TOP ]</a></p>
+            </div>
+
+        
+            <hr/>
+            <div class="section" id="alert">
+                <h2>alert</h2>
+                <p>Alert pop-ups
+
+
+----</p>
+
+                <h3>Modifiers</h3>
+                <ul>
+                    
+                        <li><strong>.oe_dialog_icon</strong> - where the Alert Icon is placed.</li>
+                    
+                        <li><strong>.add-patient</strong> - 'Add Patient' Button</li>
+                    
+                        <li><strong>.patient-no</strong> - Number of Patients in a column.</li>
+                    
+                </ul>
+
+                <h3>Examples</h3>
+                <div class="example">
+                    <div class="oe_notification ui-notify"></div><div aria-hidden="false" class="modal in" data-backdrop="static" role="dialog" tabindex="-1" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content openerp">
+                <div class="modal-header">
+                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button"><i class="close-pop"></i></button>
+                    <h3 class="modal-title">open eObs Warning</h3>
+                </div>
+                <div class="modal-body">
+                <div class="in" aria-hidden="false">
+    <table border="0" cellpadding="0" cellspacing="0" class="oe_dialog_warning">
+    <tbody><tr>
+        <td class="oe_dialog_icon"><i class="red-alert"></i></td>
+        <td>
+            <p>
+
+                Exception!<br><br>activity of type 'nh.clinical.doctor.task' can not be completed from state 'completed'
+            </p>
+        </td>
+    </tr>
+    </tbody></table>
+</div></div><div class="modal-footer"><span class="oe_dialog_custom_buttons"><button type="button" class="oe_button oe_form_button ">
+
+
+        <span>Ok</span>
+
+    </button></span></div>
+            </div>
+        </div>
+    </div><div class="modal-backdrop  in"></div>
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
             </div>
@@ -848,14 +912,21 @@ td.oe_kanban_group_header - Odoo Column Header</p>
                                         </li>
                                       </ul>
                                       <ul class="numbers">
-                                        <li class="num-id">123-555-9780</li>
+                                        <li class="num-id">565-555-9780</li>
                                         <li>5728367</li>
                                       </ul>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                              <div class="oe_fold_column oe_kanban_record">
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                              <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable"> <div class="oe_fold_column oe_kanban_record">
                                 <div class="oe_kanban_card oe_kanban_global_click tasks">
                                   <div class="oe_kanban_content">
                                     <div class="time-till">
@@ -869,7 +940,157 @@ td.oe_kanban_group_header - Odoo Column Header</p>
                                       <ul>
 
                                     </div>
-                                    <div class="patient-info">
+                                    <div class="patient-info no">
+                                      <ul>
+                                        <li class="name">Ledner, Caprice </li>
+                                      </ul>
+                                      <ul>
+                                        <li class="p-info">56</li>
+                                        <li class="p-info"><i class="male"></i></li>
+                                        <li class="score">6<i class="score-up"></i></li>
+                                      </ul>
+                                      <ul>
+                                        <li class="bed">Ward 49, Bed 04, Pillow 8</li>
+                                      </ul>
+                                    </div>
+                                    <div class="task-numbers">
+                                      <ul class="task">
+                                        <li>
+                                          <button class="oe_highlight oe_kanban_action oe_kanban_action_button btn-task" data-name="complete_tci" data-type="object" type="button">Arrived</button>
+                                        </li>
+                                      </ul>
+                                      <ul class="numbers">
+                                        <li class="num-id">565-555-9780</li>
+                                        <li>5728367</li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div></div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                              <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable">
+                             <div class="oe_fold_column oe_kanban_record">
+                                <div class="oe_kanban_card oe_kanban_global_click tasks">
+                                  <div class="oe_kanban_content">
+                                    <div class="time-till">
+                                      <ul>
+                                        <li class="clock"><i class="time-overdue"></i></li>
+                                        <li class="sub-tasks-block">+13</li>
+                                      </ul>
+
+                                      <ul>
+                                        <li class="due">- 2D 5H 12M</li>
+                                      <ul>
+
+                                    </div>
+                                    <div class="patient-info low">
+                                      <ul>
+                                        <li class="name">Ledner, Caprice </li>
+                                      </ul>
+                                      <ul>
+                                        <li class="p-info">56</li>
+                                        <li class="p-info"><i class="male"></i></li>
+                                        <li class="score">6<i class="score-up"></i></li>
+                                      </ul>
+                                      <ul>
+                                        <li class="bed">Ward 49, Bed 04, Pillow 8</li>
+                                      </ul>
+                                    </div>
+                                    <div class="task-numbers">
+                                      <ul class="task">
+                                        <li>
+                                          <button class="oe_highlight oe_kanban_action oe_kanban_action_button btn-task" data-name="complete_tci" data-type="object" type="button">Arrived</button>
+                                        </li>
+                                      </ul>
+                                      <ul class="numbers">
+                                        <li class="num-id">565-555-9780</li>
+                                        <li>5728367</li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                                <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable">
+                             <div class="oe_fold_column oe_kanban_record">
+                                <div class="oe_kanban_card oe_kanban_global_click tasks">
+                                  <div class="oe_kanban_content">
+                                    <div class="time-till">
+                                      <ul>
+                                        <li class="clock"><i class="time-overdue"></i></li>
+                                        <li class="sub-tasks-block">+13</li>
+                                      </ul>
+
+                                      <ul>
+                                        <li class="due">- 2D 5H 12M</li>
+                                      <ul>
+
+                                    </div>
+                                    <div class="patient-info mid">
+                                      <ul>
+                                        <li class="name">Ledner, Caprice </li>
+                                      </ul>
+                                      <ul>
+                                        <li class="p-info">56</li>
+                                        <li class="p-info"><i class="male"></i></li>
+                                        <li class="score">6<i class="score-up"></i></li>
+                                      </ul>
+                                      <ul>
+                                        <li class="bed">Ward 49, Bed 04, Pillow 8</li>
+                                      </ul>
+                                    </div>
+                                    <div class="task-numbers">
+                                      <ul class="task">
+                                        <li>
+                                          <button class="oe_highlight oe_kanban_action oe_kanban_action_button btn-task" data-name="complete_tci" data-type="object" type="button">Arrived</button>
+                                        </li>
+                                      </ul>
+                                      <ul class="numbers">
+                                        <li class="num-id">565-555-9780</li>
+                                        <li>5728367</li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="oe_kanban_folded_column_cards ui-sortable">
+                            </div>
+                            <div class="oe_kanban_show_more" style="display: none;">
+                                <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
+                            </div>
+                          </td>
+                          <td class="oe_kanban_column">
+                            <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable">
+                             <div class="oe_fold_column oe_kanban_record">
+                                <div class="oe_kanban_card oe_kanban_global_click tasks">
+                                  <div class="oe_kanban_content">
+                                    <div class="time-till">
+                                      <ul>
+                                        <li class="clock"><i class="time-overdue"></i></li>
+                                        <li class="sub-tasks-block">+13</li>
+                                      </ul>
+
+                                      <ul>
+                                        <li class="due">- 2D 5H 12M</li>
+                                      <ul>
+
+                                    </div>
+                                    <div class="patient-info high">
                                       <ul>
                                         <li class="name">Ledner, Caprice </li>
                                       </ul>
@@ -879,7 +1100,7 @@ td.oe_kanban_group_header - Odoo Column Header</p>
                                         <li class="score">6<i class="score-up"></i></li>
                                       </ul>
                                       <ul>
-                                        <li class="bed">Ward 12, Bed 88, Pillow 2</li>
+                                        <li class="bed">Ward 12, Bed 88, Pillow 12</li>
                                       </ul>
                                     </div>
                                     <div class="task-numbers">
@@ -897,38 +1118,7 @@ td.oe_kanban_group_header - Odoo Column Header</p>
                                 </div>
                               </div>
                             </div>
-                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_show_more" style="display: none;">
-                              <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
                             </div>
-                          </td>
-                          <td class="oe_kanban_column">
-                            <div class="oe_kanban_group_list_header"></div>
-                            <div class="oe_kanban_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_show_more" style="display: none;">
-                              <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
-                            </div>
-                          </td>
-                          <td class="oe_kanban_column">
-                            <div class="oe_kanban_group_list_header"></div>
-                            <div class="oe_kanban_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_show_more" style="display: none;">
-                                <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
-                            </div>
-                          </td>
-                          <td class="oe_kanban_column">
-                            <div class="oe_kanban_group_list_header"></div>
-                            <div class="oe_kanban_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_folded_column_cards ui-sortable"></div>
-                            <div class="oe_kanban_show_more" style="display: none;">
-                                <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
-                            </div>
-                          </td>
-                          <td class="oe_kanban_column">
-                            <div class="oe_kanban_group_list_header"></div>
-                            <div class="oe_kanban_column_cards ui-sortable"></div>
                             <div class="oe_kanban_folded_column_cards ui-sortable"></div>
                             <div class="oe_kanban_show_more" style="display: none;">
                                 <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
