@@ -131,6 +131,8 @@
                     <field name="clerking_user_id"/>
                     <field name="review_deadline_polarity"/>
                     <field name="review_deadline"/>
+                    <field name="doctor_tasks"/>
+                    <field name="blocking_tasks"/>
                     <templates>
                         <t t-name="kanban-box">
                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">

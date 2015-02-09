@@ -46,12 +46,24 @@ class nh_etake_list_overview(orm.Model):
                             from wb_activity_ranked activity
                             inner join nh_clinical_patient_observation_ews ews on activity.data_id = ews.id
                                 and activity.data_model = 'nh.clinical.patient.observation.ews'
+                    ),
+                    dt as (
+                        select
+                            activity.id as id,
+                            activity.state as state,
+                            activity.parent_id as parent_id,
+                            data.blocking as blocking
+                        from nh_activity activity
+                        inner join nh_clinical_doctor_task data on data.activity_id = activity.id and activity.data_model = 'nh.clinical.doctor.task'
+                        where state != 'completed' and state != 'cancelled'
                     )
                     select
                         patient.id as id,
                         patient.gender as gender,
                         extract(year from age(now(), patient.dob)) as age,
                         tci_activity.pos_id as pos_id,
+                        (select count(*) from dt where dt.parent_id = spell_activity.id) as doctor_tasks,
+                        (select count(*) from dt where dt.parent_id = spell_activity.id and dt.blocking) as blocking_tasks,
                         case
                             when referral_activity.state is null and tci_activity.state is null then 'Done'
                             when spell_activity.state = 'cancelled' then 'Done'

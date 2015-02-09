@@ -81,7 +81,9 @@ class nh_etake_list_overview(orm.Model):
         'discharge_user_id': fields.many2one('res.users', 'Discharged by'),
         'ptwr_user_id': fields.many2one('res.users', 'Consultant Review by'),
         'doctor_task_ids': fields.function(_get_dt_ids, type='many2many', relation='nh.clinical.doctor.task', string='Doctor Tasks'),
-        'dna_able': fields.boolean('Can be marked as DNA')
+        'dna_able': fields.boolean('Can be marked as DNA'),
+        'doctor_tasks': fields.integer('Doctor Tasks'),
+        'blocking_tasks': fields.integer('Blocking Tasks')
     }
 
     def init(self, cr):
@@ -89,11 +91,23 @@ class nh_etake_list_overview(orm.Model):
         cr.execute("""
                 drop view if exists %s;
                 create or replace view %s as (
+                    with dt as (
+                        select
+                            activity.id as id,
+                            activity.state as state,
+                            activity.parent_id as parent_id,
+                            data.blocking as blocking
+                        from nh_activity activity
+                        inner join nh_clinical_doctor_task data on data.activity_id = activity.id and activity.data_model = 'nh.clinical.doctor.task'
+                        where state != 'completed' and state != 'cancelled'
+                    )
                     select
                         patient.id as id,
                         patient.gender as gender,
                         extract(year from age(now(), patient.dob)) as age,
                         tci_activity.pos_id as pos_id,
+                        (select count(*) from dt where dt.parent_id = spell_activity.id) as doctor_tasks,
+                        (select count(*) from dt where dt.parent_id = spell_activity.id and dt.blocking) as blocking_tasks,
                         case
                             when referral_activity.state is null and tci_activity.state is null then 'Done'
                             when spell_activity.state = 'cancelled' then 'Done'
