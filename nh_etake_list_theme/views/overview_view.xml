@@ -4,7 +4,7 @@
         <record model="ir.ui.view" id="view_nh_etake_list_overview_kanban_theme">
             <field name="name">NH eTake List Overview Kanban View Theme</field>
             <field name="model">nh.etake_list.overview</field>
-            <field name="inherit_id" ref="nh_etake_list.view_nh_etake_list_overview_kanban"/>
+            <field name="inherit_id" ref="nh_etake_list_eobs.view_nh_etake_list_overview_kanban_eobs"/>
             <field name="arch" type="xml">
                 <xpath expr="/kanban/templates/t" position="replace">
                     <t t-name="kanban-box">
@@ -23,7 +23,7 @@
                                         <li class="name"><field name="patient_id"/></li>
                                     </ul>
                                     <ul>
-                                        <li class="p-info "><field name="age"/></li>
+                                        <li class="p-info "><t t-if="record.age.raw_value != 0"><field name="age"/></t></li>
                                         <li class="p-info">
                                             <t t-if="record.gender.raw_value == 'M'">
                                                 <i class="male"></i>
@@ -33,11 +33,26 @@
                                             </t>
                                         </li>
 
-                                        <li class="p-info score">6 <i class="score-up"></i></li>
+                                        <li class="p-info score">
+                                            <t t-if="record.ews_score_string.raw_value != 'none'">
+                                                <field name="ews_score_string"/>
+                                                <t t-if="record.ews_trend.raw_value &gt; 0">
+                                                    <i class="score-up"></i>
+                                                </t>
+                                                <t t-if="record.ews_trend.raw_value &lt; 0">
+                                                    <i class="score-down"></i>
+                                                </t>
+                                                <t t-if="record.ews_trend.raw_value == 0">
+                                                    <i class="score-same"></i>
+                                                </t>
+                                            </t>
+                                        </li>
                                     </ul>
-                                    <ul>
-                                        <li class="bed"><field name="location_id"/></li>
-                                    </ul>
+                                    <t t-if="record.location_id.raw_value != ''">
+                                        <ul>
+                                            <li class="bed"><field name="location_id"/></li>
+                                        </ul>
+                                    </t>
                                 </div>
                                 <div class="task-numbers">
                                     <t t-if="record.state.raw_value == 'TCI'">

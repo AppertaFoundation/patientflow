@@ -1,0 +1,20 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_nh_etake_list_overview_kanban_eobs">
+            <field name="name">NH eTake List Overview Kanban View with eObs</field>
+            <field name="model">nh.etake_list.overview</field>
+            <field name="inherit_id" ref="nh_etake_list.view_nh_etake_list_overview_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="/kanban/field[@name='location_id']" position="before">
+                    <field name="ews_score_string"/>
+                    <field name="ews_score"/>
+                    <field name="ews_trend_string"/>
+                    <field name="ews_trend"/>
+                    <field name="clinical_risk"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
