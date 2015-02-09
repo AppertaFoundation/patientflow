@@ -9,32 +9,6 @@ openerp.nh_etake_list_theme = function(instance){
     var kiosk_mode = false;
     var initKanban = false;
 
-    instance.web.Model.include({
-        call_button: function (method, args) {
-            instance.web.pyeval.ensure_evaluated(args, {});
-            if ($('.active .oe_vm_switch_kanban').length > 0 && this.name == 'nh.etake_list.overview'){
-                return this.session().rpc('/web/dataset/call_button', {
-                    model: this.name,
-                    method: method,
-                    // Should not be necessary anymore. Integrate remote in this?
-                    domain_id: null,
-                    context_id: args.length - 1,
-                    args: args || []
-                }).then(function(){
-                    $('.oe_secondary_submenu .active .oe_menu_leaf').trigger('click');
-                });
-            }
-            return this.session().rpc('/web/dataset/call_button', {
-                model: this.name,
-                method: method,
-                // Should not be necessary anymore. Integrate remote in this?
-                domain_id: null,
-                context_id: args.length - 1,
-                args: args || []
-            });
-        }
-    });
-
     instance.web.Menu.include({
         open_menu: function(id){
             this.current_menu = id;

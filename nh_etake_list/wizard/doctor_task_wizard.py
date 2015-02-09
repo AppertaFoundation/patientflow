@@ -1,7 +1,4 @@
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
-from datetime import datetime as dt, timedelta as td
 from openerp.osv import osv, fields
-from openerp import SUPERUSER_ID
 
 
 class doctor_task_wizard(osv.TransientModel):
@@ -9,6 +6,7 @@ class doctor_task_wizard(osv.TransientModel):
     _name = 'nh.clinical.doctor_task_wizard'
     _columns = {
         'name': fields.char('Task Name', size=300, required=True),
+        'blocking': fields.boolean('Blocking'),
         'patient_id': fields.many2one('nh.clinical.patient', 'Patient'),
         'spell_id': fields.many2one('nh.activity', 'Spell')
     }
@@ -23,7 +21,7 @@ class doctor_task_wizard(osv.TransientModel):
             'summary': data.name,
             'parent_id': data.spell_id.id,
             'patient_id': data.patient_id.id
-        }, {}, context=context)
+        }, {'blocking': data.blocking}, context=context)
 
         activity_pool.submit(cr, uid, activity_id, {}, context=context)
 
