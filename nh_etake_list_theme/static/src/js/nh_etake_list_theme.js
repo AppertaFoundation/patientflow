@@ -78,6 +78,9 @@ openerp.nh_etake_list_theme = function(instance){
                     userMenu.clone(true).appendTo(navbarDiv);
                 }
                $('#oe_main_menu_navbar').hide();
+                if($("#oe_main_menu_navbar").css('display') == "none"){
+                    $(".openerp.openerp_webclient_container").css('height', '100%');
+                }
             }
             if($sub_menu.find('.navbar').length < 1){
                 $sub_menu.prepend(navbarDiv);
