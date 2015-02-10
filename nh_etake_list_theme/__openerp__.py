@@ -13,7 +13,7 @@
     'demo': [],
     'css': [],
     'js': [],
-    'qweb': [],
+    'qweb': ['static/src/xml/base.xml'],
     'images': [],
     'application': True,
     'installable': True,
