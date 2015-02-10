@@ -122,6 +122,8 @@
             <field name="arch" type="xml">
                 <kanban edit="false" quick_create="false" create="false">
                     <field name="location_id"/>
+                    <field name="location_type"/>
+                    <field name="ward_id"/>
                     <field name="patient_id"/>
                     <field name="hospital_number"/>
                     <field name="pos_id" />
@@ -146,7 +148,7 @@
                                         <t t-if="record.gender.raw_value == 'F'">
                                             <img t-attf-src="/nh_etake_list/static/src/img/icons/female.png" t-att-alt="Female"/>
                                         </t>
-                                        <field name="location_id"/>
+                                        <field name="location_id"/> <t t-if="record.location_type.raw_value != 'ward'">(<field name="ward_id"/>)</t>
                                     </div>
                                     <div>
                                         <t t-if="record.state.raw_value == 'TCI'">

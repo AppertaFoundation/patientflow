@@ -51,7 +51,7 @@
                                     </ul>
                                     <t t-if="record.location_id.raw_value != ''">
                                         <ul>
-                                            <li class="bed"><field name="location_id"/></li>
+                                            <li class="bed"><field name="location_id"/>  <t t-if="record.location_type.raw_value != 'ward'">(<field name="ward_id"/>)</t></li>
                                         </ul>
                                     </t>
                                 </div>

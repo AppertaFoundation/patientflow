@@ -53,10 +53,19 @@ class nh_etake_list_overview(orm.Model):
             res[ov.id] = doctor_task_pool.search(cr, uid, [['activity_id.parent_id', '=', ov.spell_activity_id.id]])
         return res
 
+    def _get_ward_id(self, cr, uid, ids, field_names, arg, context=None):
+        res = {}
+        location_pool = self.pool['nh.clinical.location']
+        for ov in self.browse(cr, uid, ids, context=context):
+            res[ov.id] = location_pool.find_nearest_location_id(cr, uid, ov.location_id.id, context=context)
+        return res
+
     _columns = {
         'activity_id': fields.many2one('nh.activity', 'Activity', required=1, ondelete='restrict'),
         'spell_activity_id': fields.many2one('nh.activity', 'Spell Activity'),
-        'location_id': fields.many2one('nh.clinical.location', 'Ward'),
+        'location_id': fields.many2one('nh.clinical.location', 'Location'),
+        'location_type': fields.char('Location Type', size=10),
+        'ward_id': fields.function(_get_ward_id, type='many2one', relation='nh.clinical.location', string='Ward'),
         'pos_id': fields.many2one('nh.clinical.pos', 'POS'),
         'patient_id': fields.many2one('nh.clinical.patient', 'Patient'),
         'hospital_number': fields.text('Hospital Number'),
@@ -136,6 +145,10 @@ class nh_etake_list_overview(orm.Model):
                             else location.id
                         end as location_id,
                         case
+                            when tci_activity.state = 'scheduled' then 'ward'
+                            else location.usage
+                        end as location_type,
+                        case
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then referral_activity.id
                             when tci_activity.state is not null and tci_activity.state = 'scheduled' then tci_activity.id
                             when clerking_activity.state = 'scheduled' or clerking_activity.state = 'started' then clerking_activity.id
@@ -188,7 +201,7 @@ class nh_etake_list_overview(orm.Model):
                     left join nh_activity clerking_activity on clerking_activity.parent_id = spell_activity.id and clerking_activity.data_model = 'nh.clinical.patient.clerking'
                     left join nh_activity review_activity on review_activity.parent_id = spell_activity.id and review_activity.data_model = 'nh.clinical.patient.review'
                     left join nh_activity ptwr_activity on ptwr_activity.parent_id = spell_activity.id and ptwr_activity.data_model = 'nh.clinical.ptwr' and ptwr_activity.state != 'completed'
-                    left join nh_clinical_location location on location.id = spell.location_id
+                    left join nh_clinical_location location on location.id = spell_activity.location_id
                     where referral_activity.id is not null or tci_activity.id is not null
                 )
         """ % (self._table, self._table))
