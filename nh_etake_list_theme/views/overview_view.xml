@@ -75,6 +75,7 @@
                                             <li>
                                                 <button name="complete_current_stage" type="object" class="oe_highlight btn-task">Complete</button>
                                             </li>
+                                            <li> <field name="clerking_user_id"/></li>
                                         </ul>
                                     </t>
                                     <t t-if="record.state.raw_value == 'Senior Review'">
