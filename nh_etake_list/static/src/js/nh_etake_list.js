@@ -24,7 +24,7 @@ openerp.nh_etake_list = function (instance) {
     instance.web.Model.include({
         call_button: function (method, args) {
             instance.web.pyeval.ensure_evaluated(args, {});
-            if ($('.active .oe_vm_switch_kanban').length > 0 && this.name == 'nh.etake_list.overview' && method != 'start_clerking'){
+            if (window.location.hash.indexOf("view_type=kanban") > -1 && this.name == 'nh.etake_list.overview' && method != 'start_clerking'){
                 return this.session().rpc('/web/dataset/call_button', {
                     model: this.name,
                     method: method,

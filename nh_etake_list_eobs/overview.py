@@ -99,8 +99,8 @@ class nh_etake_list_overview(orm.Model):
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then referral_activity.id
                             when tci_activity.state is not null and tci_activity.state = 'scheduled' then tci_activity.id
                             when clerking_activity.state = 'scheduled' or clerking_activity.state = 'started' then clerking_activity.id
-                            when ptwr_activity.state = 'new' or ptwr_activity.state = 'scheduled' then ptwr_activity.id
                             when review_activity.state = 'scheduled' then review_activity.id
+                            when ptwr_activity.state = 'new' or ptwr_activity.state = 'scheduled' or ptwr_activity.state = 'completed' then ptwr_activity.id
                             when discharge_activity.state = 'new' or discharge_activity.state = 'scheduled' or discharge_activity.state = 'completed' then discharge_activity.id
                             else spell_activity.id
                         end as activity_id,
@@ -159,7 +159,7 @@ class nh_etake_list_overview(orm.Model):
                     left join nh_activity discharge_activity on discharge_activity.parent_id = spell_activity.id and discharge_activity.data_model = 'nh.clinical.adt.patient.discharge'
                     left join nh_activity clerking_activity on clerking_activity.parent_id = spell_activity.id and clerking_activity.data_model = 'nh.clinical.patient.clerking'
                     left join nh_activity review_activity on review_activity.parent_id = spell_activity.id and review_activity.data_model = 'nh.clinical.patient.review'
-                    left join nh_activity ptwr_activity on ptwr_activity.parent_id = spell_activity.id and ptwr_activity.data_model = 'nh.clinical.ptwr' and ptwr_activity.state != 'completed'
+                    left join nh_activity ptwr_activity on ptwr_activity.parent_id = spell_activity.id and ptwr_activity.data_model = 'nh.clinical.ptwr'
                     left join nh_clinical_location location on location.id = spell_activity.location_id
                     left join ews ews1 on spell.id = ews1.spell_id and ews1.rank = 1 and ews1.state = 'completed'
                     left join ews ews2 on spell.id = ews2.spell_id and ews2.rank = 2 and ews2.state = 'completed'
