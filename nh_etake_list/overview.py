@@ -152,8 +152,8 @@ class nh_etake_list_overview(orm.Model):
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then referral_activity.id
                             when tci_activity.state is not null and tci_activity.state = 'scheduled' then tci_activity.id
                             when clerking_activity.state = 'scheduled' or clerking_activity.state = 'started' then clerking_activity.id
-                            when ptwr_activity.state = 'new' or ptwr_activity.state = 'scheduled' then ptwr_activity.id
                             when review_activity.state = 'scheduled' then review_activity.id
+                            when ptwr_activity.state = 'new' or ptwr_activity.state = 'scheduled' or ptwr_activity.state = 'completed' then ptwr_activity.id
                             when discharge_activity.state = 'new' or discharge_activity.state = 'scheduled' or discharge_activity.state = 'completed' then discharge_activity.id
                             else spell_activity.id
                         end as activity_id,
@@ -200,7 +200,7 @@ class nh_etake_list_overview(orm.Model):
                     left join nh_activity discharge_activity on discharge_activity.parent_id = spell_activity.id and discharge_activity.data_model = 'nh.clinical.adt.patient.discharge'
                     left join nh_activity clerking_activity on clerking_activity.parent_id = spell_activity.id and clerking_activity.data_model = 'nh.clinical.patient.clerking'
                     left join nh_activity review_activity on review_activity.parent_id = spell_activity.id and review_activity.data_model = 'nh.clinical.patient.review'
-                    left join nh_activity ptwr_activity on ptwr_activity.parent_id = spell_activity.id and ptwr_activity.data_model = 'nh.clinical.ptwr' and ptwr_activity.state != 'completed'
+                    left join nh_activity ptwr_activity on ptwr_activity.parent_id = spell_activity.id and ptwr_activity.data_model = 'nh.clinical.ptwr'
                     left join nh_clinical_location location on location.id = spell_activity.location_id
                     where referral_activity.id is not null or tci_activity.id is not null
                 )
@@ -240,14 +240,14 @@ class nh_etake_list_overview(orm.Model):
         return True
 
     def complete_referral(self, cr, uid, ids, context=None):
-        ov = self.browse(cr, uid, ids[0], context=context)
-        if ov.state != 'Referral':
+        ov = self.read(cr, uid, ids[0], ['state', 'activity_id'], context=context)
+        if ov['state'] != 'Referral':
             raise osv.except_osv('Error!', 'Trying to complete referral out of Referral state')
         user_pool = self.pool['res.users']
         user = user_pool.browse(cr, uid, uid, context=context)
         location_ids = [l.id for l in user.location_ids if any([c.name == 'etakelist' for c in l.context_ids])]
         tci_location_id = location_ids[0] if location_ids else False
-        context.update({'default_referral_activity_id': ov.activity_id.id, 'default_tci_location_id': tci_location_id})
+        context.update({'default_referral_activity_id': ov['activity_id'][0], 'default_tci_location_id': tci_location_id})
         return {
             'name': 'Accept Referral',
             'type': 'ir.actions.act_window',
@@ -258,42 +258,70 @@ class nh_etake_list_overview(orm.Model):
             'context': context
         }
 
+    def complete_tci(self, cr, uid, ids, context=None):
+        ov = self.read(cr, uid, ids[0], ['state', 'activity_id'], context=context)
+        if ov['state'] != 'TCI':
+            raise osv.except_osv('Error!', 'The patient is not in To Come In state')
+        activity_pool = self.pool['nh.activity']
+        activity_pool.complete(cr, uid, ov['activity_id'][0], context=context)
+        return True
+
+    def complete_clerking(self, cr, uid, ids, context=None):
+        ov = self.read(cr, uid, ids[0], ['state', 'activity_id'], context=context)
+        if ov['state'] != 'Clerking in Process':
+            raise osv.except_osv('Error!', 'Trying to complete clerking out of Clerking in Process state')
+        activity_pool = self.pool['nh.activity']
+        activity_pool.complete(cr, uid, ov['activity_id'][0], context=context)
+        return True
+
+    def complete_ptwr(self, cr, uid, ids, context=None):
+        ov = self.read(cr, uid, ids[0], ['state', 'activity_id'], context=context)
+        if ov['state'] != 'Consultant Review':
+            raise osv.except_osv('Error!', 'Trying to complete Consultant Review out of Consultant Review state')
+        activity_pool = self.pool['nh.activity']
+        activity_pool.complete(cr, uid, ov['activity_id'][0], context=context)
+        return True
+
     def cancel_referral(self, cr, uid, ids, context=None):
         activity_pool = self.pool['nh.activity']
-        ov = self.browse(cr, uid, ids[0], context=context)
-        if ov.state != 'Referral':
+        ov = self.read(cr, uid, ids[0], ['state', 'activity_id'], context=context)
+        if ov['state'] != 'Referral':
             raise osv.except_osv('Error!', 'Trying to cancel referral out of Referral state')
-        activity_pool.cancel(cr, uid, ov.activity_id.id, context=context)
+        activity_pool.cancel(cr, uid, ov['activity_id'][0], context=context)
         return True
 
     def complete_current_stage(self, cr, uid, ids, context=None):
-        ov = self.browse(cr, uid, ids[0], context=context)
+        ov = self.read(cr, uid, ids[0], ['activity_id'], context=context)
         activity_pool = self.pool['nh.activity']
-        activity_pool.complete(cr, uid, ov.activity_id.id, context=context)
+        activity_pool.complete(cr, uid, ov['activity_id'][0], context=context)
         return True
 
     def cancel_tci(self, cr, uid, ids, context=None):
-        ov = self.browse(cr, uid, ids[0], context=context)
+        ov = self.read(cr, uid, ids[0], ['state', 'patient_id', 'activity_id'], context=context)
+        if ov['state'] != 'TCI':
+            raise osv.except_osv('Error!', 'Trying to cancel patient arrival out of To Come In state')
         activity_pool = self.pool['nh.activity']
-        activity_pool.cancel(cr, uid, ov.activity_id.id, context=context)
+        activity_pool.cancel(cr, uid, ov['activity_id'][0], context=context)
         discharge_pool = self.pool['nh.clinical.patient.discharge']
         discharge_activity_id = discharge_pool.create_activity(
             cr, SUPERUSER_ID, {}, {
-                'patient_id': ov.patient_id.id,
+                'patient_id': ov['patient_id'][0],
                 'discharge_date': dt.now().strftime(dtf)}, context=context)
         activity_pool.complete(cr, uid, discharge_activity_id, context=context)
         return True
 
     def start_clerking(self, cr, uid, ids, context=None):
-        ov = self.browse(cr, uid, ids[0], context=context)
+        ov = self.read(cr, uid, ids[0], ['state', 'activity_id'], context=context)
+        if ov['state'] != 'To be Clerked':
+            raise osv.except_osv('Error!', 'Trying to start patient clerking out of To be Clerked state')
         activity_pool = self.pool['nh.activity']
-        activity_pool.start(cr, uid, ov.activity_id.id, context=context)
-        activity_pool.assign(cr, uid, ov.activity_id.id, uid, context=context)
+        activity_pool.start(cr, uid, ov['activity_id'][0], context=context)
+        activity_pool.assign(cr, uid, ov['activity_id'][0], uid, context=context)
         return {
             'name': 'Clerking',
             'type': 'ir.actions.act_window',
             'res_model': 'nh.etake_list.overview',
-            'res_id': ov.id,
+            'res_id': ids[0],
             'view_mode': 'form',
             'view_type': 'form',
             'target': 'current_edit',
@@ -301,39 +329,48 @@ class nh_etake_list_overview(orm.Model):
         }
 
     def complete_review(self, cr, uid, ids, context=None):
-        ov = self.browse(cr, uid, ids[0], context=context)
+        ov = self.read(cr, uid, ids[0], ['state', 'patient_id', 'spell_activity_id', 'activity_id'], context=context)
+        if ov['state'] != 'Senior Review':
+            raise osv.except_osv('Error!', 'Trying to complete patient review out of Senior Review state')
         activity_pool = self.pool['nh.activity']
-        activity_pool.complete(cr, uid, ov.activity_id.id, context=context)
+        activity_pool.complete(cr, uid, ov['activity_id'][0], context=context)
         ptwr_pool = self.pool['nh.clinical.ptwr']
         ptwr_pool.create_activity(cr, uid, {
-            'parent_id': ov.spell_activity_id.id,
-            'creator_id': ov.activity_id.id
+            'patient_id': ov['patient_id'][0],
+            'parent_id': ov['spell_activity_id'][0],
+            'creator_id': ov['activity_id'][0]
         }, {}, context=context)
         return True
 
     def to_be_discharged(self, cr, uid, ids, context=None):
-        ov = self.browse(cr, uid, ids[0], context=context)
+        ov = self.read(cr, uid, ids[0], ['state', 'patient_id', 'spell_activity_id', 'activity_id', 'hospital_number'], context=context)
+        if ov['state'] != 'Senior Review':
+            raise osv.except_osv('Error!', 'Trying to complete patient review out of Senior Review state')
         activity_pool = self.pool['nh.activity']
-        activity_pool.complete(cr, uid, ov.activity_id.id, context=context)
+        activity_pool.complete(cr, uid, ov['activity_id'][0], context=context)
         discharge_pool = self.pool['nh.clinical.adt.patient.discharge']
         discharge_pool.create_activity(cr, uid, {
-            'parent_id': ov.spell_activity_id.id,
-            'creator_id': ov.activity_id.id
-        }, {'other_identifier': ov.hospital_number}, context=context)
+            'patient_id': ov['patient_id'][0],
+            'parent_id': ov['spell_activity_id'][0],
+            'creator_id': ov['activity_id'][0]
+        }, {'other_identifier': ov['hospital_number']}, context=context)
         return True
 
     def discharge(self, cr, uid, ids, context=None):
-        ov = self.browse(cr, uid, ids[0], context=context)
-        if any([dtask.blocking for dtask in ov.doctor_task_ids if dtask.state != 'completed']):
+        ov = self.read(cr, uid, ids[0], ['state', 'doctor_task_ids', 'activity_id'], context=context)
+        doctor_task_pool = self.pool['nh.clinical.doctor.task']
+        if ov['state'] != 'To be Discharged':
+            raise osv.except_osv('Error!', 'Trying to discharge patient out of To be Discharged state')
+        if any([dtask['blocking'] for dtask in doctor_task_pool.read(cr, uid, ov['doctor_task_ids'], ['state', 'blocking'], context=context) if dtask['state'] != 'completed']):
             raise osv.except_osv('Error!', 'Patient cannot be discharged before the blocking tasks are completed!')
         activity_pool = self.pool['nh.activity']
-        activity_pool.complete(cr, uid, ov.activity_id.id, context=context)
+        activity_pool.complete(cr, uid, ov['activity_id'][0], context=context)
         return True
 
     def create_task(self, cr, uid, ids, context=None):
-        ov = self.browse(cr, uid, ids[0], context=context)
+        ov = self.read(cr, uid, ids[0], ['patient_id', 'spell_activity_id'], context=context)
 
-        context.update({'default_patient_id': ov.patient_id.id, 'default_spell_id': ov.spell_activity_id.id})
+        context.update({'default_patient_id': ov['patient_id'][0], 'default_spell_id': ov['spell_activity_id'][0]})
         return {
             'name': 'Add Task',
             'type': 'ir.actions.act_window',
@@ -355,21 +392,34 @@ class nh_etake_list_overview(orm.Model):
             return False
         activity_pool.cancel(cr, uid, ov.activity_id.id, context=context)
         activity_pool.write(cr, uid, ov.activity_id.id, {'parent_id': False}, context=context)
-        activity_pool.write(cr, uid, ov.activity_id.creator_id.id, {'state': 'scheduled', 'terminate_uid': False}, context=context)
+        activity_pool.write(cr, uid, ov.activity_id.creator_id.id, {'state': 'scheduled', 'terminate_uid': False, 'date_terminated': False}, context=context)
         return True
 
     def rollback_tbc(self, cr, uid, ids, context=None):
         activity_pool = self.pool['nh.activity']
-        ov = self.browse(cr, uid, ids[0], context=context)
-        activity_pool.write(cr, uid, ov.activity_id.id, {'state': 'scheduled', 'user_id': False}, context=context)
+        ov = self.read(cr, uid, ids[0], ['state', 'activity_id'], context=context)
+        if ov['state'] != 'Clerking in Process':
+            raise osv.except_osv('Error!', 'Trying to rollback clerking start out of Clerking in Progress state')
+        activity_pool.write(cr, uid, ov['activity_id'][0], {'state': 'scheduled', 'user_id': False, 'date_started': False}, context=context)
+        return True
+
+    def rollback_ptwr(self, cr, uid, ids, context=None):
+        activity_pool = self.pool['nh.activity']
+        ov = self.read(cr, uid, ids[0], ['state', 'activity_id'], context=context)
+        if ov['state'] != 'admitted':
+            raise osv.except_osv('Error!', 'Trying to rollback consultant review out of Admitted state')
+        activity_pool.write(cr, uid, ov['activity_id'][0], {'state': 'scheduled', 'terminate_uid': False, 'date_terminated': False}, context=context)
         return True
 
     def rollback_discharge(self, cr, uid, ids, context=None):
         activity_pool = self.pool['nh.activity']
         ov = self.browse(cr, uid, ids[0], context=context)
-        spell_ids = activity_pool.search(cr, uid, [['patient_id', '=', ov.patient_id.id], ['state', 'not in', ['completed', 'cancelled']]], context=context)
+        ov = self.read(cr, uid, ids[0], ['state', 'activity_id', 'patient_id', 'spell_activity_id'], context=context)
+        if ov['state'] != 'Discharged':
+            raise osv.except_osv('Error!', 'Trying to rollback discharge out of Discharged state')
+        spell_ids = activity_pool.search(cr, uid, [['patient_id', '=', ov['patient_id'][0]], ['state', 'not in', ['completed', 'cancelled']]], context=context)
         if spell_ids:
             raise osv.except_osv('Error!', "Can't rollback the discharge. The patient already has an open spell")
-        activity_pool.write(cr, uid, ov.activity_id.id, {'state': 'scheduled', 'terminate_uid': False}, context=context)
-        activity_pool.write(cr, uid, ov.activity_id.parent_id.id, {'state': 'started', 'terminate_uid': False}, context=context)
+        activity_pool.write(cr, uid, ov['activity_id'][0], {'state': 'new', 'terminate_uid': False, 'date_terminated': False}, context=context)
+        activity_pool.write(cr, uid, ov['spell_activity_id'][0], {'state': 'started', 'terminate_uid': False, 'date_terminated': False}, context=context)
         return True
