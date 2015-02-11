@@ -163,7 +163,6 @@ openerp.nh_etake_list_theme = function(instance){
         }
     });
 
-<<<<<<< HEAD
     instance.web_kanban.KanbanView.include({
         do_show: function() {
             $('.oe_view_manager_switch').hide();
