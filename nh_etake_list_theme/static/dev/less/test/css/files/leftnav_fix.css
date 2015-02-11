@@ -1,0 +1,224 @@
+/*
+
+fix to get the leftnav bar in Odoo to display as dictated in design. Very Hacky due to Odoo's use of direct child selectors
+
+.oe_leftbar.nh_kiosk_nav - Tells the default Odoo left navigation to show in kiosk mode
+.nh_kiosk_nav > div .oe_logo - Floats the logo to left so the navigation can go to the right
+.nh_kiosk_nav > div .oe_footer - Hides the footer as isn't needed in kiosk mode
+.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container - Contains the navigation lists, removes absolute positioning and overflow hiding
+.nh_kiosk_nav > div > div > div div.oe_secondary_menu_container .oe_secondary_menu_section - is the navigation list header, floated left to make inline
+.nh_kiosk_nav > div > div > div div.oe_secondary_menu_container .oe_secondary_submenu - is the navigation list, floated left to make inline
+.nav-stacked > li + li - Removes 2px margin top assigned to first button
+
+Example:
+  <div class="openerp">
+    <div class="oe_webclient">
+      <div class="oe_leftbar nh_eobs_show nh_kiosk_nav" style="display: block;">
+        <div groups="base.group_user,base.group_portal">
+          <a class="oe_logo" href="/web">
+            <span class="oe_logo_edit">Edit Company data</span>
+            <img src="img/company_logo.png">
+          </a>
+          <div>
+            <div>
+              <div class="oe_secondary_menus_container">
+                <div style="" class="oe_secondary_menu" data-menu-parent="145">
+                  <div class="oe_secondary_menu_section">Patient Management</div>
+                  <ul class="oe_secondary_submenu nav nav-pills nav-stacked">
+                    <li class="active">
+                      <a href="#" class="oe_menu_leaf" data-menu="165" data-action-model="ir.actions.act_window" data-action-id="143">
+                        <span class="oe_menu_text">Patients Board</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="oe_menu_leaf" data-menu="168" data-action-model="ir.actions.act_window" data-action-id="144">
+                        <span class="oe_menu_text">Patients by Ward</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="oe_menu_leaf" data-menu="169" data-action-model="ir.actions.act_window" data-action-id="145">
+                        <span class="oe_menu_text">Recently Discharged</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="oe_menu_leaf" data-menu="170" data-action-model="ir.actions.act_window" data-action-id="146">
+                        <span class="oe_menu_text">Recently Transferred</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="oe_footer">Powered by <a href="http://www.neovahealth.co.uk" target="_blank"><span>NHClinical / Odoo</span></a></div>
+        </div>
+      </div>
+      <div class="oe_application"></div>
+    </div>
+  </div>
+
+Styleguide 5.0
+
+*/
+/*csslint adjoining-classes: false */
+i {
+  font-family: 'fontAwesome';
+  font-style: normal;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+}
+.logo-icon:before {
+  content: "\f1cc";
+  font-size: 2em;
+  color: red;
+}
+/* 			    */
+/* Border Stuff */
+/*			    */
+/*                 */
+/*      Colours    */
+/*                 */
+/*   Colours End  */
+html {
+  color: #333;
+  background-color: #f0eeee;
+  font-family: 'Open Sans', sans-serif;
+}
+/* Typography */
+.oe_leftbar.nh_kiosk_nav {
+  width: 100%;
+  background-color: white;
+}
+.oe_leftbar.nh_kiosk_nav > div {
+  height: inherit;
+  display: inline;
+  width: 100%;
+}
+.oe_leftbar.nh_kiosk_nav > div .oe_logo {
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+  width: 10%;
+  float: left;
+}
+.oe_leftbar.nh_kiosk_nav > div .oe_logo img {
+  width: 100%;
+}
+.oe_leftbar.nh_kiosk_nav > div .oe_footer {
+  display: none;
+}
+.oe_leftbar.nh_kiosk_nav > div > div {
+  display: inline-block;
+  width: 88%;
+  height: inherit;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div {
+  height: inherit;
+  width: 100%;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container {
+  position: relative;
+  overflow-x: visible;
+  overflow-y: visible;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu {
+  float: left;
+  width: 100%;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu:before {
+  display: inline;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu:after {
+  clear: none;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li {
+  float: left;
+  padding-right: 1%;
+  padding-bottom: 1em;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li a {
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  color: #455a64;
+  display: inline-block;
+  font-size: 1.125em;
+  font-weight: 900;
+  background: #84aec3;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #c9dbe4 0%, #84aec3 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #c9dbe4), color-stop(100%, #84aec3));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(#c9dbe4, #84aec3);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #c9dbe4 0%, #84aec3 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #c9dbe4 0%, #84aec3 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #c9dbe4 0%, #84aec3 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c9dbe4', endColorstr='#84aec3', GradientType=0);
+  /* IE6-9 */
+  padding: 10px;
+  border: 1px solid #759bab;
+  box-shadow: 0 1px 1px 0 #737373;
+  text-align: center;
+  text-shadow: 0 1px 1px white;
+  text-decoration: none;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li a .oe_menu_text {
+  max-width: inherit;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li:last-child {
+  padding-right: 0;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li.active a {
+  font-weight: 700;
+  background: #7195a6;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #7195a6 0%, #90acba 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7195a6), color-stop(100%, #90acba));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(#7195a6, #90acba);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #7195a6 0%, #90acba 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #7195a6 0%, #90acba 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #7195a6 0%, #90acba 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7195a6', endColorstr='lighten(#7195a6, 10%)', GradientType=0);
+  /* IE6-9 */
+  border: 1px solid #2d5769;
+  box-shadow: 0 0 3px 1px #f4f8fc, 0 1px 4px 0 #666666 inset;
+  color: white;
+  text-shadow: 0 1px 1px #666666;
+}
+.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li.active:after {
+  position: absolute;
+  font-family: 'FontAwesome';
+  top: 1.57em;
+  left: 33%;
+  text-shadow: 0 3px 0 #dedede, 0 2px 1px #dedede, 0px -2px 2px rgba(0, 0, 0, 0.5);
+  content: "\f0de";
+  font-size: 3em;
+  color: #dedede;
+}
+.oe_leftbar.nh_kiosk_nav .nav-stacked > li + li {
+  margin-top: 0;
+}
+.example .oe_application {
+  height: 5em;
+  background-color: #dedede;
+  box-shadow: 0 0 4px black;
+}
+.example .oe_secondary_submenu > li {
+  padding-bottom: 0;
+}
+.example .oe_secondary_submenu {
+  margin: 0;
+  padding: 0;
+}
+.example .oe_secondary_submenu > .active:after {
+  left: 4.7%;
+}

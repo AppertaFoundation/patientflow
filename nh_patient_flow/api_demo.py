@@ -34,6 +34,9 @@ class nh_clinical_api_demo(orm.AbstractModel):
                 },
                 'consultants': {
                     'name': ['login', [list of locations]]
+                },
+                'referral_team': {
+                    'name': 'login'
                 }
             }
             if there is no data the default behaviour will be to add a receptionist per ward i.e. 'RU' and 'RT' and
@@ -57,35 +60,42 @@ class nh_clinical_api_demo(orm.AbstractModel):
 
         # USERS
         if not users:
-            users = {'receptionists': {}, 'junior_doctors': {}, 'consultants': {}}
+            users = {'receptionists': {}, 'junior_doctors': {}, 'consultants': {}, 'registrars': {},
+                     'referral_team': {'RT1': 'RT1'}}
             for w in wards:
                 users['receptionists']['R'+w] = ['R'+w, w]
                 users['junior_doctors']['JD'+w] = ['JD'+w, bed_codes[w]]
+                users['registrars']['REG'+w] = ['REG'+w, bed_codes[w]]
                 users['consultants']['C'+w] = ['C'+w, bed_codes[w]]
 
         if users.get('receptionists'):
             r_ids = {}
             for r in users['receptionists'].keys():
                 wid = location_pool.search(cr, uid, [('code', '=', users['receptionists'][r][1])])
-                r_ids[r] = self.create(cr, uid, 'res.users', 'user_receptionist', {'name': r, 'login': users['receptionists'][r][0], 'location_ids': [[6, False, wid]]})
+                r_ids[r] = self.create(cr, uid, 'res.users', 'user_receptionist', {'name': r, 'login': users['receptionists'][r][0], 'location_ids': [[6, False, wid]], 'pos_id': pos_id})
 
         if users.get('junior_doctors'):
             jd_ids = {}
             for jd in users['junior_doctors'].keys():
                 lids = location_pool.search(cr, uid, [('code', 'in', users['junior_doctors'][jd][1])])
-                jd_ids[jd] = self.create(cr, uid, 'res.users', 'user_junior_doctor', {'name': jd, 'login': users['junior_doctors'][jd][0], 'location_ids': [[6, False, lids]]})
+                jd_ids[jd] = self.create(cr, uid, 'res.users', 'user_junior_doctor', {'name': jd, 'login': users['junior_doctors'][jd][0], 'location_ids': [[6, False, lids]], 'pos_id': pos_id})
 
         if users.get('registrars'):
             r_ids = {}
             for r in users['registrars'].keys():
                 lids = location_pool.search(cr, uid, [('code', 'in', users['registrars'][r][1])])
-                r_ids[r] = self.create(cr, uid, 'res.users', 'user_registrar', {'name': r, 'login': users['registrars'][r][0], 'location_ids': [[6, False, lids]]})
+                r_ids[r] = self.create(cr, uid, 'res.users', 'user_registrar', {'name': r, 'login': users['registrars'][r][0], 'location_ids': [[6, False, lids]], 'pos_id': pos_id})
 
         if users.get('consultants'):
             c_ids = {}
             for c in users['consultants'].keys():
                 lids = location_pool.search(cr, uid, [('code', 'in', users['consultants'][c][1])])
-                c_ids[c] = self.create(cr, uid, 'res.users', 'user_consultant', {'name': c, 'login': users['consultants'][c][0], 'location_ids': [[6, False, lids]]})
+                c_ids[c] = self.create(cr, uid, 'res.users', 'user_consultant', {'name': c, 'login': users['consultants'][c][0], 'location_ids': [[6, False, lids]], 'pos_id': pos_id})
+
+        if users.get('referral_team'):
+            rt_ids = {}
+            for rt in users['referral_team'].keys():
+                rt_ids[rt] = self.create(cr, uid, 'res.users', 'user_referral_team', {'name': rt, 'login': users['referral_team'][rt], 'pos_id': pos_id})
 
         self.create(cr, uid, 'res.users', 'user_adt', {'name': 'ADT', 'login': 'unittestadt', 'pos_id': pos_id})
 
@@ -94,3 +104,16 @@ class nh_clinical_api_demo(orm.AbstractModel):
             patient_ids.append(self.create(cr, uid, 'nh.clinical.patient', 'patient', {}))
 
         return patient_ids
+
+
+class nh_clinical_api_demo_data(orm.AbstractModel):
+    _name = 'nh.clinical.api.demo.data'
+    _inherit = 'nh.clinical.api.demo.data'
+
+    def user_referral_team(self, cr, uid, values={}):
+        imd_pool = self.pool['ir.model.data']
+        group = imd_pool.get_object(cr, uid, "nh_patient_flow", "group_nhpf_referral_team")
+        v = self._user_base(cr, uid)
+        v.update({'groups_id': [(4, group.id)]})
+        v.update(values)
+        return v

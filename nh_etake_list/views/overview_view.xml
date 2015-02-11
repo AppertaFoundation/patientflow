@@ -7,6 +7,16 @@
                 <search string="NH eTake List Overview Search View">
                     <field name="location_id"/>
                     <field name="patient_id"/>
+                    <!--<group expand="1" string="Filters">-->
+                        <!--<filter name="referral" string="Referrals" domain="[('state','=','Referral')]"/>-->
+                        <!--<filter name="tci" string="To Come In" domain="[('state','=','TCI')]"/>-->
+                        <!--<filter name="tbc" string="To be Clerked" domain="[('state','=','To be Clerked')]"/>-->
+                        <!--<filter name="clerking" string="Clerking in Process" domain="[('state','=','Clerking in Process')]"/>-->
+                        <!--<filter name="senior" string="Senior Review" domain="[('state','=','Senior Review')]"/>-->
+                        <!--<filter name="consultant" string="Consultant Review" domain="[('state','=','Consultant Review')]"/>-->
+                        <!--<filter name="tbd" string="To be Discharged" domain="[('state','=','To be Discharged')]"/>-->
+                        <!--<filter name="discharged" string="Discharged" domain="[('state','=','Discharged')]"/>-->
+                    <!--</group>-->
                     <group expand="1" string="Group By...">
                         <filter name="group_by_state" string="State" domain="[]" context="{'group_by':'state'}" help="Group by State"/>
                         <filter name="group_by_ward" string="Ward" domain="[]" context="{'group_by':'location_id'}" help="Group by Ward"/>
@@ -19,12 +29,18 @@
             <field name="name">NH eTake List Overview Tree View</field>
             <field name="model">nh.etake_list.overview</field>
             <field name="arch" type="xml">
-                <tree string="NH eTake List Overview Tree View" version="7.0">
-                    <!--<button name="complete" type="object" string="Complete" class="oe_highlight" nh_icon="down-caret-1"/>-->
-                    <field name="location_id" />
-                    <field name="patient_id" />
-                    <field name="hospital_number" />
-                    <field name="pos_id" />
+                <tree string="NH eTake List Overview Tree View" version="7.0" create="0" delete="0">
+                    <field name="location_id"/>
+                    <field name="patient_id"/>
+                    <field name="hospital_number"/>
+                    <field name="nhs_number"/>
+                    <field name="clerking_user_id" readonly="1"/>
+                    <field name="clerking_started" readonly="1"/>
+                    <field name="clerking_terminated" readonly="1"/>
+                    <field name="review_user_id" readonly="1"/>
+                    <field name="review_terminated" readonly="1"/>
+                    <field name="discharge_user_id" readonly="1"/>
+                    <field name="discharge_terminated" readonly="1"/>
                     <field name="state" invisible="1"/>
                 </tree>
             </field>
@@ -35,13 +51,66 @@
             <field name="model">nh.etake_list.overview</field>
             <field name="arch" type="xml">
                 <form string="NH eTake List Overview Form View" version="7.0" create="0" delete="0">
+                    <header>
+                        <button name="complete_referral" string="Accept"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible': [('state','!=','Referral')]}"/>
+                        <button name="cancel_referral" string="Reject"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible': [('state','!=','Referral')]}"/>
+                        <button name="start_clerking" string="Clerk"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','To be Clerked']]}"/>
+                        <button name="complete_current_stage" string="Patient Arrived"  type="object" attrs="{'invisible':[['state','!=','TCI']]}"/>
+                        <button name="cancel_tci" string="Remove from List"  type="object" attrs="{'invisible':['|',['state','!=','TCI'],['dna_able','=',False]]}"/>
+                        <button name="complete_current_stage" string="Complete Clerking"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Clerking in Process']]}"/>
+                        <button name="complete_review" string="Complete Review"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Senior Review']]}"/>
+                        <button name="to_be_discharged" string="To Be Discharged"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Senior Review']]}"/>
+                        <button name="complete_current_stage" string="Complete Review"  type="object" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Consultant Review']]}"/>
+                        <button name="create_task" string="Create Task"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','not in',['Clerking in Process','Senior Review']]]}"/>
+                        <button name="discharge" string="Discharge"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','To be Discharged']]}"/>
+                        <button name="rollback_action" string="Rollback"  type="object" groups="nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','in',['Referral','Clerking in Process','Discharged']]]}"/>
+                        <button name="rollback_tbc" string="Rollback"  type="object" groups="nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Clerking in Process']]}"/>
+                        <button name="rollback_discharge" string="Rollback"  type="object" groups="nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Discharged']]}"/>
+                    </header>
                     <sheet>
-                        <group>
-                            <field name="location_id" domain="[['usage', '=', 'ward'], ['user_ids', 'in', uid]]"/>
-                            <field name="patient_id" />
-                            <field name="hospital_number" />
-                            <field name="state"/>
+                        <group col="4">
+                            <field name="location_id" readonly="1" domain="[['usage', '=', 'ward'], ['user_ids', 'in', uid]]" options="{'no_open': True}"/>
+                            <field name="patient_id" readonly="1" options="{'no_open': True}"/>
+                            <field name="hospital_number" readonly="1"/>
+                            <field name="state" readonly="1"/>
+                            <field name="form_id" readonly="1"/>
+                            <field name="clerking_user_id" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}" options="{'no_open': True}"/>
+                            <field name="clerking_started" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}"/>
+                            <field name="clerking_terminated" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked','Clerking in Process'])]}"/>
+                            <field name="review_user_id" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked','Clerking in Process','Senior Review'])]}" options="{'no_open': True}"/>
+                            <field name="review_terminated" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked','Clerking in Process','Senior Review'])]}"/>
+                            <field name="discharge_user_id" readonly="1" attrs="{'invisible': [('state','!=','Discharged')]}" options="{'no_open': True}"/>
+                            <field name="discharge_terminated" readonly="1" attrs="{'invisible': [('state','!=','Discharged')]}"/>
+                            <field name="ptwr_user_id" readonly="1" attrs="{'invisible': [('state','not in',['Discharged','admitted'])]}" options="{'no_open': True}"/>
+                            <field name="ptwr_terminated" readonly="1" attrs="{'invisible': [('state','not in',['Discharged','admitted'])]}"/>
+                            <field name="dna_able" readonly="1" invisible="1"/>
                         </group>
+                        <group col="2">
+                            <div>
+                                <label for="diagnosis" string="Diagnosis:" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}"/>
+                                <field name="diagnosis" label="Diagnosis" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}" nolabel="1"/>
+                            </div>
+                            <div>
+                                <label for="plan" string="Plan:" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}"/>
+                                <field name="plan" label="Plan" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}" nolabel="1"/>
+                            </div>
+                        </group>
+                        <notebook attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}">
+                            <page string="Tasks" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}">
+                                <field name="doctor_task_ids" readonly="1">
+                                    <tree editable="top" create="0" delete="0">
+                                        <field name="summary" readonly="1"/>
+                                        <field name="state" readonly="1"/>
+                                        <field name="date_terminated" readonly="1"/>
+                                        <field name="blocking" readonly="1"/>
+                                        <button name="ov_complete" type="object" nh_icon="tick" string="Complete"/>
+                                    </tree>
+                                    <form>
+                                        <field name="summary" readonly="1"/>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -57,12 +126,45 @@
                     <field name="hospital_number"/>
                     <field name="pos_id" />
                     <field name="state"/>
+                    <field name="gender"/>
+                    <field name="age"/>
+                    <field name="clerking_user_id"/>
+                    <field name="review_deadline_polarity"/>
+                    <field name="review_deadline"/>
                     <templates>
                         <t t-name="kanban-box">
-                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                           <div t-attf-class="oe_kanban_card oe_kanban_global_click">
                                 <div class="oe_kanban_content">
-                                    <div><field name="location_id"/>(<field name="pos_id"/>)</div>
-                                    <div><b><field name="patient_id"/></b>
+                                    <div><b><field name="patient_id"/></b></div>
+                                    <div>
+                                        <field name="age"/>
+                                        <t t-if="record.gender.raw_value == 'M'">
+                                            <img t-attf-src="/nh_etake_list/static/src/img/icons/male.png" t-att-alt="Male"/>
+                                        </t>
+                                        <t t-if="record.gender.raw_value == 'F'">
+                                            <img t-attf-src="/nh_etake_list/static/src/img/icons/female.png" t-att-alt="Female"/>
+                                        </t>
+                                        <field name="location_id"/>
+                                    </div>
+                                    <div>
+                                        <t t-if="record.state.raw_value == 'TCI'">
+                                            <button name="complete_current_stage" type="object" class="oe_highlight">Arrived</button>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'To be Clerked'">
+                                            <button name="start_clerking" type="object" class="oe_highlight" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Clerk</button>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'Clerking in Process'">
+                                            <button name="complete_current_stage" type="object" class="oe_highlight" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'Senior Review'">
+                                            <button name="complete_review" type="object" class="oe_highlight" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'Consultant Review'">
+                                            <button name="complete_current_stage" type="object" class="oe_highlight" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Complete</button>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'To be Discharged'">
+                                            <button name="discharge" type="object" class="oe_highlight">Discharge</button>
+                                        </t>
                                     </div>
                                     <t t-if="record.hospital_number.raw_value != ''">
                                         <div>Hospital Number: <field name="hospital_number"/></div>
@@ -82,9 +184,10 @@
             <field name="name">Referral Board</field>
             <field name="res_model">nh.etake_list.overview</field>
             <field name="view_type">form</field>
-            <field name="domain">[('user_ids','in',uid),('state','not in',['Done','Other'])]</field>
+            <field name="domain">[('state','not in',['Done','Other','dna','to_dna','admitted']),('hours_from_discharge','&lt;',12)]</field>
             <field name="context">{'search_default_group_by_state':1}</field>
             <field name="view_mode">kanban,form</field>
+            <field name="needaction_enabled">1</field>
             <field name="view_id" ref="view_nh_etake_list_overview_kanban"/>
         </record>
 
@@ -100,5 +203,110 @@
             <field name="view_id" ref="view_nh_etake_list_overview_form"/>
             <field name="act_window_id" ref="action_show_overview_kanban"/>
         </record>
+
+        <!--Tree View Actions-->
+
+        <record model="ir.actions.act_window" id="action_show_referrals" >
+            <field name="name">Referrals</field>
+            <field name="res_model">nh.etake_list.overview</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','Referral')]</field>
+            <!--<field name="context">{'search_default_referral':1}</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_tci" >
+            <field name="name">Arrivals</field>
+            <field name="res_model">nh.etake_list.overview</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','TCI')]</field>
+            <!--<field name="context">{'search_default_tci':1}</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_tbc" >
+            <field name="name">To be Clerked</field>
+            <field name="res_model">nh.etake_list.overview</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','To be Clerked')]</field>
+            <!--<field name="context">{'search_default_tbc':1}</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_clerkings" >
+            <field name="name">Clerkings in Progress</field>
+            <field name="res_model">nh.etake_list.overview</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','Clerking in Process')]</field>
+            <!--<field name="context">{'search_default_clerking':1}</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_senior_reviews" >
+            <field name="name">Senior Reviews</field>
+            <field name="res_model">nh.etake_list.overview</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','Senior Review')]</field>
+            <!--<field name="context">{'search_default_senior':1}</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_consultant_reviews" >
+            <field name="name">Consultant Reviews</field>
+            <field name="res_model">nh.etake_list.overview</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','Consultant Review')]</field>
+            <!--<field name="context">{'search_default_consultant':1}</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_tbd" >
+            <field name="name">To be Discharged</field>
+            <field name="res_model">nh.etake_list.overview</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','To be Discharged')]</field>
+            <!--<field name="context">{'search_default_tbd':1}</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_discharged" >
+            <field name="name">Discharged Patients</field>
+            <field name="res_model">nh.etake_list.overview</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','Discharged'),('hours_from_discharge','&lt;',12)]</field>
+            <!--<field name="context">{'search_default_discharged':1}</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_admitted" >
+            <field name="name">Recently Admitted Patients</field>
+            <field name="res_model">nh.etake_list.overview</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','admitted'),('hours_from_ptwr','&lt;',12)]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_nh_etake_list_overview_tree"/>
+        </record>
+
+        <!--DNA patients removal cron job-->
+
+        <record model="ir.cron" id="etake_list_dna_cron">
+            <field name="name">DNA Patients Removal</field>
+            <field name="interval_number">24</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+            <field name="model" eval="'nh.etake_list.overview'"/>
+            <field name="function" eval="'remove_dna_patients'"/>
+            <field name="args" eval="'()'" />
+        </record>
+
     </data>
 </openerp>

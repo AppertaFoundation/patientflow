@@ -1,0 +1,138 @@
+/*
+
+Buttons for clicking.
+
+.btn - A standard button
+
+.btn-nav - A Navigation button with Hover state as Active
+
+.btn-filter - A Filter button with Hover state as Active
+
+Example:
+  <a href="#" class="btn">I'm a normal button</a>
+
+  <a href="#" class="btn-nav">Nav Button</a>
+
+  <a href="#" class="btn-filter">Filter Button</a>
+
+  <a href="#" class="btn-task">Task Button</a>
+
+  <div class="background">
+
+  <p>Something in the background</p>
+
+  </div>
+
+Styleguide 1.0
+
+*/
+@import (once) "mixin.less";
+@import (once) "typography.less";
+
+.btn {
+  .border-radius;
+  border: 1px solid rgb(124, 124, 124);
+  padding: 0.5em 5%;
+  background-color: red;
+  text-decoration: none;
+}
+
+.btn-nav {
+  .border-radius;
+  color: #455a64;
+  display: inline-block;
+  font-size: @nav-tab;
+  font-weight: 900;
+  background: lighten(#84aec3, 20%); /* Old browsers */
+  background: -moz-linear-gradient(top,  lighten(#84aec3, 20%) 0%, #84aec3 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,lighten(#84aec3, 20%)), color-stop(100%,#84aec3)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(lighten(#84aec3, 20%),#84aec3); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  lighten(#84aec3, 20%) 0%,#84aec3 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, lighten(#84aec3, 20%) 0%,#84aec3 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  lighten(#84aec3, 20%) 0%,#84aec3 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='lighten(#84aec3, 20%)', endColorstr='#84aec3',GradientType=0 ); /* IE6-9 */
+  padding: 10px;
+  border: 1px solid #759bab;
+  box-shadow: 0 1px 1px 0 lighten(black, 45%);
+  margin-right: 5%;
+  text-align: center;
+  text-shadow: 0 1px 1px white;
+  text-decoration: none;
+
+  &:hover, :active {
+    font-weight: 700;
+    background: #7195a6; /* Old browsers */
+    background: -moz-linear-gradient(top,  #7195a6 0%, lighten(#7195a6, 10%) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7195a6), color-stop(100%,lighten(#7195a6, 10%))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(#7195a6,lighten(#7195a6, 10%)); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #7195a6 0%,lighten(#7195a6, 10%) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #7195a6 0%,lighten(#7195a6, 10%) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #7195a6 0%,lighten(#7195a6, 10%)100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7195a6)', endColorstr='lighten(#7195a6, 10%)',GradientType=0 ); /* IE6-9 */
+    border: 1px solid #2d5769;
+    box-shadow: 0 0 3px 1px lighten(@eobsBlue, 45%), 0 1px 4px 0 lighten(black, 40%) inset;
+    color: white;
+    text-shadow: 0 1px 1px lighten(black, 40%);
+
+    &:after {
+      position: absolute;
+      font-family: 'FontAwesome';
+      margin-top: 1em;
+      margin-left: -2.3%;
+      text-shadow: 0 1px 4px 0 black inset;
+      content: "\f0de";
+      font-size: 3em;
+      color: @innerBG;
+    }
+  }
+}
+
+.btn-filter {
+  .border-radius;
+  background-color: @mainBG;
+  font-size: @nav-tab;
+  color: #333;
+  padding: 10px;
+  box-shadow: 0 1px 4px 0 lighten(black, 40%);
+  text-decoration: none;
+  text-align: center;
+
+  &:hover, :active {
+    background-color: #B4DEA6;
+    color: #252525;
+  }
+}
+
+.btn-task, .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .task-numbers .task .btn-task  {
+  .border-radius;
+  color: white;
+  display: inline-block;
+  font-size: @nav-tab;
+  background: lighten(#0072A2, 20%); /* Old browsers */
+  background: -moz-linear-gradient(top,  lighten(#0072A2, 20%) 0%, #0072A2 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,lighten(#0072A2, 20%)), color-stop(100%,#0072A2)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(lighten(#0072A2, 20%),#0072A2); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, lighten(#0072A2, 20%) 0%,#0072A2 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='lighten(#0072A2, 20%))', endColorstr='#0072A2',GradientType=0 ); /* IE6-9 */
+  padding: 0.3em 10%;
+  border: 0;
+  box-shadow: 0 1px 2px 0 white inset, 0 2px 0px rgba(0,0,0,0.6);
+  margin-right: 5%;
+  text-align: center;
+  text-shadow: 0 1px 1px lighten(black, 50%);
+  text-decoration: none;
+  height: inherit;
+  font-weight: 900;
+}
+
+.background {
+
+  .border-radius;
+  background: repeating-linear-gradient(to right, @innerBG, #d3d3d3 5px, #e0e0e0 5px, #d3d3d3 10px);
+  box-shadow: 0 0 3px 1px white, 0 0 1px 3px lighten(black, 70%) inset;
+  width: 100%;
+  height: 5em;
+  //border: 1px solid white;
+}

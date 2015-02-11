@@ -1,1 +1,2 @@
 import doctor_task_wizard
+import accept_referral_wizard

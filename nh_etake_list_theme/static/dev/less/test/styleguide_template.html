@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Open-eObs eTake list</title>
+    <style>
+        body{
+            width: 100%;
+        }
+        .leftnav{
+            width: 20%;
+            position: fixed;
+            top: 1.25em;
+            left: 2.5%;
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,0.3);
+            box-shadow: 0 1px 3px rgba(0,0,0, 0.3);
+        }
+        .leftnav ul{
+            padding: 0;
+            margin-bottom: 0;
+        }
+        .leftnav li{
+            padding-left: 5%;
+            display: block;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+            margin: 0;
+        }
+        .leftnav li:last-child{
+            border-bottom-width: 0;
+        }
+        .leftnav li a{
+            text-transform: capitalize;
+            text-decoration: none;
+            color: #3778e9;
+            font-weight: bold;
+            display: block;
+            padding: 0.5em 0;
+        }
+        .main{
+            width: 70%;
+            margin-left: 20%;
+            display: table;
+            padding: 0 5%;
+        }
+        .main ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .main .example{
+            padding: 0 5% 1em 5%;
+            border-radius: 5px;
+            border: 1px solid rgb(124,124,124);
+            display: inline-flex;
+            width: 90%;
+        }
+        .top-link{
+            width: 100%;
+            text-align: right;
+        }
+        .section{
+            margin-top: 3em;
+        }
+    </style>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/oe_base.css"/>
+    {% for css_section_title, css_section in css_sections %}
+        <link rel="stylesheet" href="css/files/{{ css_section.filename }}"/>
+    {% endfor %}
+</head>
+<body class="sg">
+    <div class="leftnav">
+        <ul>
+            <li><a href="#top">Overview</a></li>
+            {% for nav_section_title, nav_section in nav_sections %}
+                <li><a href="#{{ nav_section.filename.replace('.css', '') }}">{{ nav_section.filename.replace('.css', '') }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="main">
+        <div class="section" id="top">
+            <h1>Open-eObs take list styleguide</h1>
+        </div>
+        {% for section_title, section in sections %}
+            <hr/>
+            <div class="section" id="{{ section.filename.replace('.css', '') }}">
+                <h2>{{ section.filename.replace('.css', '') }}</h2>
+                <p>{{ section.description }}</p>
+
+                <h3>Modifiers</h3>
+                <ul>
+                    {% for modifier in section.modifiers %}
+                        <li><strong>{{ modifier.name.replace('.sg', '') }}</strong> - {{ modifier.description }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h3>Examples</h3>
+                <div class="example">
+                    {{ section.modifiers[0].example }}
+                </div>
+                <p class="top-link"><a href="#top">[ TOP ]</a></p>
+            </div>
+
+        {% endfor %}
+    </div>
+</body>
+</html>

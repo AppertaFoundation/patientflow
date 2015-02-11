@@ -1,0 +1,20 @@
+@import "mixin";
+
+@import "buttons";
+
+@import "nav";
+
+@import "typography";
+
+@import "search";
+
+@import "leftnav_fix";
+
+@import "kanban";
+
+@import "icons";
+
+@import "odoo_fixes";
+
+@import "alert.less";
+

@@ -31,6 +31,8 @@ class TestOpsPatientFlow(common.SingleTransactionCase):
         cls.pos_pool = cls.registry('nh.clinical.pos')
         cls.spell_pool = cls.registry('nh.clinical.spell')
         # OPERATIONS DATA MODELS
+        cls.referral_pool = cls.registry('nh.clinical.patient.referral')
+        cls.form_pool = cls.registry('nh.clinical.patient.referral.form')
         cls.tci_pool = cls.registry('nh.clinical.patient.tci')
 
         cls.apidemo = cls.registry('nh.clinical.api.demo')
@@ -48,9 +50,66 @@ class TestOpsPatientFlow(common.SingleTransactionCase):
         cls.jdt_id = cls.users_pool.search(cr, uid, [('login', '=', 'JDT')])[0] #Junior Doctor on ward T
         cls.cu_id = cls.users_pool.search(cr, uid, [('login', '=', 'CU')])[0] #Consultant on ward U
         cls.ct_id = cls.users_pool.search(cr, uid, [('login', '=', 'CT')])[0] #Consultant on ward T
+        cls.regu_id = cls.users_pool.search(cr, uid, [('login', '=', 'REGU')])[0] #Registrar on ward U
+        cls.regt_id = cls.users_pool.search(cr, uid, [('login', '=', 'REGT')])[0] #Registrar on ward T
+        cls.refteam_id = cls.users_pool.search(cr, uid, [('login', '=', 'RT1')])[0] #Referral Team User
         cls.adt_id = cls.users_pool.search(cr, uid, [('groups_id.name', 'in', ['NH Clinical ADT Group']), ('pos_id', '=', cls.pos_id)])[0]
+
+    def test_referral_form(self):
+        cr, uid = self.cr, self.uid
+        # Submit an empty form
+        form_id = self.form_pool.create(cr, self.refteam_id, {})
+        self.assertTrue(form_id, msg="Referral form not created")
+        form = self.form_pool.browse(cr, uid, form_id)
+        self.assertTrue(form.source == 'gp', msg="Referral form created: incorrect default source")
+        self.assertTrue(form.gender == 'NSP', msg="Referral form created: incorrect default gender")
+        self.assertTrue(form.ethnicity == 'Z', msg="Referral form created: incorrect default ethnicity")
+        self.assertTrue(form.patient_id, msg="Referral form created: patient not created automatically")
+        self.assertTrue(form.patient_id.gender == 'NSP', msg="Referral form created: incorrect default patient gender")
+        self.assertTrue(form.patient_id.ethnicity == 'Z', msg="Referral form created: incorrect default patient ethnicity")
+        self.assertTrue(form.source == 'gp', msg="Referral form created: incorrect default source")
+        referral_id = self.referral_pool.search(cr, uid, [['patient_id', '=', form.patient_id.id]])
+        self.assertTrue(referral_id, msg="Referral form created: referral activity not triggered")
+        referral = self.referral_pool.browse(cr, uid, referral_id[0])
+        self.assertTrue(referral.form_id.id == form_id, msg="Referral triggered: referral form not linked correctly")
+        # Submit a form for an existing patient
+        patient_ids = self.patient_ids
+        patient_id = fake.random_element(patient_ids)
+        form_data = {
+            'patient_id': patient_id,
+            'gender': 'U',
+            'middle_names': 'John'
+        }
+        try:
+            form_id = self.form_pool.create(cr, self.refteam_id, form_data)
+        except Exception as e:
+            self.assertTrue(e.args[1].startswith("Cannot submit form. The values in the form do not match the selected patient data"), msg="Unexpected reaction to attempt to create a form with an existing patient (not matching data)!")
+        else:
+            assert False, "Form successfully created with an existing patient (not matching data)!"
+        patient = self.patient_pool.browse(cr, uid, patient_id)
+        form_data = {
+            'nhs_number': patient.patient_identifier,
+            'hospital_number': '0000000001'
+        }
+        try:
+            form_id = self.form_pool.create(cr, self.refteam_id, form_data)
+        except Exception as e:
+            self.assertTrue(e.args[1].startswith("Cannot submit form. There is already a patient in the system with that NHS number"), msg="Unexpected reaction to attempt to create a form with an existing patient (not matching data)!")
+        else:
+            assert False, "Form successfully created with an existing patient (not matching data)!"
+        form_data = {
+            'nhs_number': '0000000001',
+            'hospital_number': patient.other_identifier
+        }
+        try:
+            form_id = self.form_pool.create(cr, self.refteam_id, form_data)
+        except Exception as e:
+            self.assertTrue(e.args[1].startswith("Cannot submit form. There is already a patient in the system with that hospital number"), msg="Unexpected reaction to attempt to create a form with an existing patient (not matching data)!")
+        else:
+            assert False, "Form successfully created with an existing patient (not matching data)!"
+
         
-    def test_Referral(self):
+    def test_referral(self):
         cr, uid = self.cr, self.uid
         patient_ids = self.patient_ids
         patient_id = fake.random_element(patient_ids)

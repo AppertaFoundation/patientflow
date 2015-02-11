@@ -15,8 +15,7 @@
             <field name="name">NH eTake List Referral Form Tree View</field>
             <field name="model">nh.clinical.patient.referral.form</field>
             <field name="arch" type="xml">
-                <tree string="NH eTake List Referral Form Tree View" version="7.0">
-                    <!--<button name="complete" type="object" string="Complete" class="oe_highlight" nh_icon="tick"/>-->
+                <tree string="NH eTake List Referral Form Tree View" version="7.0" create="1" edit="0" delete="0" import="0">
                     <field name="patient_id" />
                     <field name="nhs_number" />
                     <field name="ref_doctor_id" />
@@ -32,20 +31,22 @@
             <field name="name">NH eTake List Referral Form Form View</field>
             <field name="model">nh.clinical.patient.referral.form</field>
             <field name="arch" type="xml">
-                <form string="NH eTake List Referral Form Form View" version="7.0" delete="0">
+                <form string="NH eTake List Referral Form Form View" version="7.0" create="1" edit="0" delete="0" import="0">
                     <sheet>
                         <label for="source" string="Source of Referral"/>
                         <field name="source" nolabel="1"/>
                         <group string="Patient Details" col="4">
                             <field name="patient_id" on_change="onchange_patient_id(patient_id)" widget="nh_many2one"/>
-                            <field name="nhs_number"/>
+                            <field name="hospital_number" on_change="onchange_hospital_number(hospital_number)"/>
+                            <field name="nhs_number" on_change="onchange_nhs_number(nhs_number)"/>
                             <field name="first_name"/>
                             <field name="middle_names"/>
                             <field name="last_name"/>
                             <field name="dob"/>
-                            <field name="postcode"/>
+                            <field name="ethnicity"/>
                             <field name="gender"/>
                             <field name="resides"/>
+                            <field name="postcode"/>
                         </group>
                         <group string="GP" col="4">
                             <field name="ref_doctor_id" widget="nh_many2one"/>
@@ -70,12 +71,6 @@
                                         <field name="medical_history_notes" nolabel="1"/>
                                     </div>
                                 </group>
-                                <!--<div>-->
-                                    <!--<label for="symptoms_notes" string="Symptoms/Investigations Treatment"/>-->
-                                    <!--<field name="symptoms_notes" nolabel="1"/>-->
-                                    <!--<label for="medical_history_notes" string="Past Medical History"/>-->
-                                    <!--<field name="medical_history_notes" nolabel="1"/>-->
-                                <!--</div>-->
                                 <group col="4">
                                     <field name="infection_concerns"/>
                                     <field name="diagnosis"/>
@@ -92,7 +87,7 @@
                             </page>
                             <page string="Speciality">
                                 <group col="4">
-                                    <field name="speciality"/>
+                                    <field name="specialty" widget="nh_many2one"/>
                                     <field name="advised_attendance"/>
                                 </group>
                                 <label for="environmental_factors" string="Environmental Factors, Social/Family"/>
@@ -139,6 +134,15 @@
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_nh_etake_list_referral_form_form"/>
             <field name="act_window_id" ref="action_show_referral_forms"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_show_rejected_referrals" >
+            <field name="name">Rejected Referrals</field>
+            <field name="res_model">nh.clinical.patient.referral.form</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[['referral_activity_id.state','=','cancelled']]</field>
+            <field name="view_id" ref="view_nh_etake_list_referral_form_tree"/>
         </record>
     </data>
 </openerp>
