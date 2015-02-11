@@ -136,5 +136,13 @@
             </xpath>
         </template>
 
+        <template id="login_layout_override" inherit_id="web.login_layout" name="Login Layout Override">
+            <xpath expr="t/div[@class='oe_single_form_container modal-content']/div[@class='oe_single_form_footer']" position="replace">
+                <div class="oe_single_form_footer" t-if="not disable_footer">
+                    <a href="https://www.neovahealth.co.uk" target="_blank">Powered by <span>Neovahealth / Odoo</span></a>
+                </div>
+            </xpath>
+        </template>
+
     </data>
 </openerp>
