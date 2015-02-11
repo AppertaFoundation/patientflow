@@ -131,7 +131,23 @@ openerp.nh_etake_list_theme = function(instance){
     });
 
 
+
     instance.web_kanban.KanbanView.include({
+        do_show: function() {
+            $('.oe_view_manager_switch').hide();
+            if (this.$buttons) {
+                this.$buttons.show();
+            }
+            this.do_push_state({});
+            return this._super();
+        },
+        do_hide: function(){
+            $('.oe_view_manager_switch').show();
+            if (this.$buttons) {
+                this.$buttons.hide();
+            }
+            return this._super();
+        },
         do_add_group: function() {
             var self = this;
             self.do_action({
@@ -145,6 +161,9 @@ openerp.nh_etake_list_theme = function(instance){
                     action_buttons: false,
                 }
             });
+
+
+
             var am = instance.webclient.action_manager;
             var form = am.dialog_widget.views.form.controller;
             form.on("on_button_cancel", am.dialog, am.dialog.close);
