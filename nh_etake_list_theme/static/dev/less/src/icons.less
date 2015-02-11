@@ -12,31 +12,43 @@ Iconography - a list of the icons used and how to call them
 
 Example:
 
-        <p> Time Till <i class="time"></i> </br>
-        Time Overdue <i class="time-overdue"></i></p>
+        <p> Time Till - "time" <i class="time"></i> </br>
+        Time Overdue - "time-overdue" <i class="time-overdue"></i></p>
 
 <hr width="1" size="100">
 
-        <p>Male <i class="male"></i> </br>
-       Female <i class="female"></i></p>
+        <p>Male - "male" <i class="male"></i> </br>
+       Female - "female" <i class="female"></i></p>
 
 <hr width="1" size="100">
 
-        <p> Trend Up <i class="score-up"></i></br>
-        Trend Down <i class="score-down"></i></br>
-        Trend Same <i class="score-same"></i></p>
+        <p> Trend Up - "score-up" <i class="score-up"></i></br>
+        Trend Down - "score-down" <i class="score-down"></i></br>
+        Trend Same - "score-same" <i class="score-same"></i></p>
+
+<hr width="1" size="100">
+
+        <p>Patient in Bed - "bed-pat" <i class="bed-pat"></i></br>
+        Bed Movement - "bed-move" <i class="bed-move"></i></p>
+
+<hr width="1" size="100">
+
+        <p>Alert - "red-alert" <i class="red-alert"></i></br>
+
+<hr width="1" size="100">
+
+        <p>Close - "close-pop" <i class="close-pop"></i></br>
 
 <hr width="1" size="100">
 
 
-        <p>Patient in Bed <i class="bed-pat"></i></br>
-        Bed Movement <i class="bed-move"></i></p>
+        <p>List View - "list-view" <i class="list-view"></i>
+
 
 <hr width="1" size="100">
 
 
-        <p>Alert <i class="red-alert"></i></br>
-
+        <p>Plus  - "plus" <i class="plus"></i>
 
 Styleguide 10.0
 
@@ -174,6 +186,28 @@ text-shadow: 0 1px 1px lighten(black, 30%);
 content:"\f00d";
 font-size:1em;
 color:lighten(black, 85%);
+text-shadow: 0 1px 1px lighten(black, 70%);
+
+}
+
+//List View
+
+.list-view:before {
+
+content:"\f0c9";
+font-size:1.2em;
+color:lighten(black, 25%);
+text-shadow: 0 1px 1px lighten(black, 70%);
+
+}
+
+//Plus
+
+.plus:before {
+
+content:"\f067";
+font-size:1.2em;
+color:white;
 text-shadow: 0 1px 1px lighten(black, 70%);
 
 }

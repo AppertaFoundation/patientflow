@@ -362,6 +362,51 @@ Example:
                           <td class="oe_kanban_column">
                             <div class="oe_kanban_group_list_header"></div>
                             <div class="oe_kanban_column_cards ui-sortable"></div>
+
+                                                        <div class="oe_kanban_group_list_header"></div>
+                            <div class="oe_kanban_column_cards ui-sortable">
+                              <div class="oe_fold_column oe_kanban_record">
+                                <div class="oe_kanban_card oe_kanban_global_click tasks">
+                                  <div class="oe_kanban_content">
+                                    <div class="time-till">
+                                      <ul>
+                                        <li class="plus-box"><a href="#"><i class="plus"></i></a></li>
+                                        <li class="sub-tasks-block">+13</li>
+                                      </ul>
+
+                                      <ul>
+                                        <li class="due">- 2D 5H 12M</li>
+                                      <ul>
+
+                                    </div>
+                                    <div class="patient-info">
+                                      <ul>
+                                        <li class="name">Ledner, Caprice </li>
+                                      </ul>
+                                      <ul>
+                                        <li class="p-info">56</li>
+                                        <li class="p-info"><i class="male"></i></li>
+                                        <li class="score">6<i class="score-up"></i></li>
+                                      </ul>
+                                      <ul>
+                                        <li class="bed">Ward 49, Bed 04, Pillow 8</li>
+                                      </ul>
+                                    </div>
+                                    <div class="task-numbers">
+                                      <ul class="task">
+                                        <li>
+                                          <button class="oe_highlight oe_kanban_action oe_kanban_action_button btn-task" data-name="complete_tci" data-type="object" type="button">Arrived</button>
+                                        </li>
+                                      </ul>
+                                      <ul class="numbers">
+                                        <li class="num-id">565-555-9780</li>
+                                        <li>5728367</li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
                             <div class="oe_kanban_folded_column_cards ui-sortable"></div>
                             <div class="oe_kanban_show_more" style="display: none;">
                               <button class="oe_button">Show more... (<span class="oe_kanban_remaining">0</span> remaining)</button>
@@ -472,7 +517,7 @@ Example:
                                   <div class="oe_kanban_content">
                                     <div class="time-till">
                                       <ul>
-                                        <li class="clock"><i class="time-overdue"></i></li>
+                                        <li class="clock"><i class="time"></i></li>
                                         <li class="sub-tasks-block">+13</li>
                                       </ul>
 
@@ -524,7 +569,7 @@ Example:
                                     <div class="time-till">
                                       <ul>
                                         <li class="clock"><i class="time-overdue"></i></li>
-                                        <li class="sub-tasks-block">+13</li>
+                                        <li class="sub-tasks">25</li>
                                       </ul>
 
                                       <ul>
@@ -753,7 +798,6 @@ text-shadow: 0px 1px 1px lighten(white,50%);
                 padding-right: 0;
                 padding-top: 0;
 
-
                 .oe_dropdown_toggle{
                   top: 7px;
                   height: 2em;
@@ -797,7 +841,7 @@ text-shadow: 0px 1px 1px lighten(white,50%);
 
                     .oe_kanban_group_title_text{
                       //float: left;
-                      //width: 80%;
+                      width: 80%;
                       text-align: center;
                     }
                   }
@@ -853,8 +897,8 @@ text-shadow: 0px 1px 1px lighten(white,50%);
                     .time-till{
                       .border-top;
                       background: -webkit-linear-gradient( #DFEFFA, darken(#DFEFFA, 15%) );
-                      border: 2px solid rgba(255, 255, 255, .1);
-                      border-top: 2px solid rgba(255, 255, 255, .6);
+                      //border: 2px solid rgba(255, 255, 255, .1);
+                      //border-top: 2px solid rgba(255, 255, 255, .6);
                       border-bottom:1px solid rgba(0, 0, 0, .3);
                       font-size:1.2em;
                       font-weight: 900;
@@ -862,6 +906,18 @@ text-shadow: 0px 1px 1px lighten(white,50%);
 
                       ul{
                         border-collapse: collapse;
+                      }
+
+                      .plus-box {
+                          background:-webkit-linear-gradient( #09b6ff, darken(#09b6ff, 15%) );
+                          width:20%;
+                          text-align:center;
+                          line-height:2em;
+                          display: table-cell;
+                          vertical-align: middle;
+                          border-top-left-radius:10px;
+                          border-right: 1px solid black;
+                          border-bottom:1px solid red;
                       }
 
                       .clock {
@@ -873,11 +929,11 @@ text-shadow: 0px 1px 1px lighten(white,50%);
                       }
 
                       .sub-tasks {
-                        //background:-webkit-linear-gradient( white, darken(white, 15%) );
+                        background:-webkit-linear-gradient( white, darken(white, 15%) );
                         //border: 2px solid rgba(255, 255, 255, .5);
                         //border-top: 2px solid rgba(255, 255, 255, .8);
                         //border-bottom:1px solid rgba(0, 0, 0, .5);
-                        color:#5C5C5C;
+                        color:#333333;
                         //margin-left:5%;
                         width: 30%;
                         border-top-right-radius:10px;
@@ -889,10 +945,10 @@ text-shadow: 0px 1px 1px lighten(white,50%);
                       }
 
                       .sub-tasks-block {
-                        //background:-webkit-linear-gradient( #ffcdd2, darken(#ffcdd2, 15%) );
+                        background:-webkit-linear-gradient( #ffcdd2, darken(#ffcdd2, 15%) );
                         //border: 2px solid rgba(255, 255, 255, .5);
                        //border-top: 2px solid rgba(255, 255, 255, .8);
-                       // border-bottom:1px solid rgba(0, 0, 0, .5);
+                        //border-bottom:1px solid rgba(0, 0, 0, .5);
                         color:#C71923;
                         border-top-right-radius:10px;
                         //height:inherit;
@@ -1064,17 +1120,6 @@ text-shadow: 0px 1px 1px lighten(white,50%);
     }
   }
 }
-  .oe_kanban_view{
-    .oe_kanban_header{
-      &:hover{
-        .oe_kanban_group_length{
-          &.oe_tag{
-            display: block;
-          }
-        }
-      }
-    }
-  }
 }
 
 .example .oe_kanban_group_title_vertical{

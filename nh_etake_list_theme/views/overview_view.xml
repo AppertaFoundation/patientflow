@@ -5,6 +5,7 @@
             <field name="name">NH eTake List Overview Kanban View Theme</field>
             <field name="model">nh.etake_list.overview</field>
             <field name="inherit_id" ref="nh_etake_list_eobs.view_nh_etake_list_overview_kanban_eobs"/>
+            <field name="inherit_id" ref="nh_etake_list.view_nh_etake_list_overview_kanban"/>
             <field name="arch" type="xml">
                 <xpath expr="/kanban/templates/t" position="replace">
                     <t t-name="kanban-box">
