@@ -20,7 +20,7 @@
                   sequence="0"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_overview_kanban"
-                  groups="nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_bed_manager,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_receptionist,nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_bed_manager,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Referral Forms"
                   id="menu_nh_etake_list_left_referral_forms"
