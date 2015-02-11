@@ -130,7 +130,38 @@ openerp.nh_etake_list_theme = function(instance){
         }
     });
 
+    instance.web.FormView.include({
+        can_be_discarded: function() {
+            if (this.$el.is('.oe_form_dirty')) {
+                  var popup_content = '<div><p>The record has been modified, your changes will be discarded.</p><p>Please save or discard your changes.</p></div>';
+                  var popup = new instance.web.Dialog(this, {
+                      title: _t('Warning'),
+                      size: 'medium',
+                      buttons: {
+                          Ok: function() {
+                              this.parents('.modal').modal('hide');
+                          }}
+                  }, $(popup_content));
+                  popup.open();
+                  return false;
 
+                this.$el.removeClass('oe_form_dirty');
+            }
+        },
+        on_button_cancel: function(event){
+            var self = this;
+            if (this.get('actual_mode') === 'create') {
+                        this.trigger('history_back');
+            } else {
+                this.to_view_mode();
+                $.when.apply(null, this.render_value_defs).then(function(){
+                    self.trigger('load_record', self.datarecord);
+                });
+            }
+            this.trigger('on_button_cancel');
+            return false;
+        }
+    });
 
     instance.web_kanban.KanbanView.include({
         do_show: function() {
