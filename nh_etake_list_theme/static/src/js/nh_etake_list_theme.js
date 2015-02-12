@@ -76,6 +76,7 @@ openerp.nh_etake_list_theme = function(instance){
             if($main_menu.parent().css('display') == "none"){
                 if($('.oe_secondary_menu .oe_user_menu_placeholder').length < 1){
                     userMenu.clone(true).appendTo(navbarDiv);
+                    userMenu.hide();
                 }
                $('#oe_main_menu_navbar').hide();
                 if($("#oe_main_menu_navbar").css('display') == "none"){
@@ -105,7 +106,7 @@ openerp.nh_etake_list_theme = function(instance){
                     $(this).next('ul').hide();
                 }
 
-                userMenu.show();
+                //userMenu.show();
 
                 // set up events to 'switch tabs'
                 $(this).on('click', function(){
@@ -121,10 +122,11 @@ openerp.nh_etake_list_theme = function(instance){
                 });
 
                 navbarDiv.append($(this));
-                console.log(userMenu.length);
                 if(navbarDiv.find('.oe_user_menu_placeholder').length < 1){
                     userMenu = $('.oe_user_menu_placeholder').first();
                     userMenu.clone(true).appendTo(navbarDiv);
+                    userMenu.hide();
+
                 }
             });
         }
