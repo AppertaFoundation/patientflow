@@ -4,36 +4,42 @@
     <meta charset="UTF-8">
     <title>Open-eObs eTake list</title>
     <style>
+        html{
+            padding: 0;
+            margin: 0;
+        }
         body{
             width: 100%;
+            padding: 0;
+            margin: -1em 0 0 0;
+            background-color: white;
+        }
+        .leftnav-container{
+            position: absolute;
+            top: 0;
+            left: 2.5%;
         }
         .leftnav{
             width: 20%;
             position: fixed;
-            top: 1.25em;
-            left: 2.5%;
-            border-radius: 10px;
-            border: 1px solid rgba(0,0,0,0.3);
-            box-shadow: 0 1px 3px rgba(0,0,0, 0.3);
         }
         .leftnav ul{
             padding: 0;
             margin-bottom: 0;
         }
         .leftnav li{
-            padding-left: 5%;
+            padding: 0;
             display: block;
-            border-bottom: 1px solid rgba(0,0,0,0.2);
             margin: 0;
         }
-        .leftnav li:last-child{
-            border-bottom-width: 0;
+        .leftnav li.active a{
+            border-right: 3px solid rgba(0,0,0,0.1);
+            font-weight: bold;
         }
         .leftnav li a{
             text-transform: capitalize;
             text-decoration: none;
             color: #3778e9;
-            font-weight: bold;
             display: block;
             padding: 0.5em 0;
         }
@@ -43,10 +49,10 @@
             display: table;
             padding: 0 5%;
         }
-        .main ul{
+        .modifiers, .example ul{
             list-style: none;
-            margin: 0;
             padding: 0;
+
         }
         .main .example{
             padding: 0 5% 1em 5%;
@@ -60,38 +66,136 @@
             text-align: right;
         }
         .section{
-            margin-top: 3em;
+            margin-bottom: 3em;
         }
+        .header, .content{
+            width: 95%;
+            position: relative;
+            float: none;
+            clear: both;
+            padding: 1em 2.5%;
+        }
+        .header .logo{
+            float: left;
+            width: 49%;
+            text-align: left;
+        }
+        .header .text{
+            float: right;
+            text-align: right;
+            width: 49%;
+        }
+
+
     </style>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="css/oe_base.css"/>
     {% for css_section_title, css_section in css_sections %}
         <link rel="stylesheet" href="css/files/{{ css_section.filename }}"/>
     {% endfor %}
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery-scrollspy.js"></script>
 </head>
 <body class="sg">
-    <div class="leftnav">
-        <ul>
-            <li><a href="#top">Overview</a></li>
-            {% for nav_section_title, nav_section in nav_sections %}
-                <li><a href="#{{ nav_section.filename.replace('.css', '') }}">{{ nav_section.filename.replace('.css', '') }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="main">
-        <div class="section" id="top">
-            <h1>Open-eObs take list styleguide</h1>
+    <div class="header">
+        <div class="logo">
+             <p><img src="img/neovahealth_logo.png"/></p>
         </div>
-        {% for section_title, section in sections %}
-            <hr/>
+        <div class="text">
+             <h1>Style guide for NH Etake List</h1>
+        </div>
+    </div>
+    <div class="content" id="top">
+        <div class="leftnav-container">
+            <div class="leftnav">
+                <ul>
+                    <li><a href="#intro">Introduction</a></li>
+                    {% for nav_section_title, nav_section in nav_sections %}
+                    <li><a href="#{{ nav_section.filename.replace('.css', '') }}">{{ nav_section.filename.replace('.css', '') }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="main" id="main">
+            <div class="section" id="intro">
+                <h2>Introduction</h2>
+                <p>Here's some ground rules on using the styleguide.</p>
+                <ul>
+                    <li>Create a new Less file for each Odoo component you modify</li>
+                    <li>Make sure you increment the Styleguide attribute in the KSS header, if you reuse a section number your code won't appear</li>
+                    <li>Include an example, if it uses an Odoo shell wrap it in a container with a class of <em>odoo</em>. If you don't then your styles will be removed by the build script.</li>
+                    <li>Build often, and fix any errors the CSS Linter tells you about. By default box-model and adjoining-classes are the only ignored errors, if you want to add additional rules to ignore then raise this in Jabber before adding.</li>
+                </ul>
+
+                <h3>Installation</h3>
+                <p>It's espected you have Python, Pip, Node.js and NPM installed on your system and globally available for the build script. Additional packages are:</p>
+                <ul>
+                    <li><pre>pip install pykss</pre></li>
+                    <li><pre>pip install jinja2</pre></li>
+                    <li><pre>npm install less -g </pre></li>
+                    <li><pre>npm install csslint -g </pre></li>
+                    <li><pre>npm install uncss -g  </pre></li>
+                    <li><pre>npm install clean-css -g </pre></li>
+                </ul>
+
+                <h3>Build Script</h3>
+                <p>The build script runs in bash and handles the Node based CSS build and the Python based styleguide compilation. It's colour coded in bash to show errors. The steps are:</p>
+                <ul>
+                    <li>Use LESS compiler to compile the LESS into CSS</li>
+                    <li>Run CSSLint against the compiled CSS to make sure the CSS is good before concatenating</li>
+                    <li>Generate the StyleGuide via PyKSS and Jinja2</li>
+                    <li>Minify and clean the CSS used by the styleguide</li>
+                    <li>Run UnCSS against the styleguide to ensure the final CSS file isn't bloated</li>
+                    <li>Move the UnCSS'd file into production</li>
+                </ul>
+
+                <h3>Adding a new LESS file</h3>
+                <p>The styleguide is generated with KSS, a simple way to add structure to CSS files so they can be compiled into a styleguide. Here's how to add KSS to your CSS file for inclusion in the styleguide.</p>
+                <ul>
+                    <li>Add the KSS comment block at the start of the file</li>
+                    <li>Write a brief introduction to the file - i.e. what it covers</li>
+                    <li>Add a list of selectors - you can use .sg for element tags (as these don't get picked up by KSS for some reason)</li>
+                    <li>Add some example HTML that will be used by the styles - this will be the way that UnCSS knows those styles are in use. If you are including Odoo HTML wrap it in a div with a class of <em>odoo</em></li>
+                    <li>Add a styleguide section number - be sure not to repeat a previous section number</li>
+                    <li>Write the LESS/CSS to make it look awesome</li>
+                    <li>Save it in the /static/dev/less/src folder under a descriptive name - the build script will pick it up and add it to the styleguide</li>
+                </ul>
+                <p>Here's an example comment block:</p>
+                <pre>
+/*
+
+Buttons for clicking.
+
+.btn - A standard button
+
+Example:
+
+    &lt;a href="#" class="btn"&gt;Button&lt;/a&gt;
+
+Styleguide 1.0
+
+*/
+                </pre>
+
+                <h3>Helpers</h3>
+                <p>Little classes you can add to make the styleguide look pretty but get removed from the final CSS</p>
+                <ul class="modifiers">
+                    <li><strong>.odoo</strong> - A container for the Odoo webclient in examples, helps to make it look like it would on desktop</li>
+                    <li><strong>.sg</strong> - Use if you're redefining HTML elements as KSS doesn't pick them up otherwise</li>
+                    <li><strong>.example</strong> - Use this before any classes you want to redefine so the styleguide's example section works properly</li>
+                </ul>
+                <hr/>
+            </div>
+            {% for section_title, section in sections %}
+
             <div class="section" id="{{ section.filename.replace('.css', '') }}">
                 <h2>{{ section.filename.replace('.css', '') }}</h2>
                 <p>{{ section.description }}</p>
 
                 <h3>Modifiers</h3>
-                <ul>
+                <ul class="modifiers">
                     {% for modifier in section.modifiers %}
-                        <li><strong>{{ modifier.name.replace('.sg', '') }}</strong> - {{ modifier.description }}</li>
+                    <li><strong>{{ modifier.name.replace('.sg', '') }}</strong> - {{ modifier.description }}</li>
                     {% endfor %}
                 </ul>
 
@@ -100,9 +204,31 @@
                     {{ section.modifiers[0].example }}
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
+                <hr/>
             </div>
 
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+           $('.section').each(function(i){
+               var position = $(this).position();
+               $(this).scrollspy({
+                   min: position.top,
+                   max: position.top + $(this).height(),
+                   onEnter: function(element, position) {
+                       $("a[href=#"+element.id+"]").parent('li').addClass('active');
+
+                   },
+                   onLeave: function(element, position) {
+                       $("a[href=#"+element.id+"]").parent('li').removeClass('active');
+                   }
+               });
+
+
+           });
+        });
+    </script>
 </body>
 </html>
