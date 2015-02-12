@@ -834,6 +834,9 @@ text-shadow: 0px 1px 1px lighten(white,50%);
                       top: 0;
                       margin: 0;
 
+                      display: table-cell;
+                      vertical-align: middle;
+
                       .oe_tag{
                         margin: 0;
                       }
@@ -842,7 +845,15 @@ text-shadow: 0px 1px 1px lighten(white,50%);
                     .oe_kanban_group_title_text{
                       //float: left;
                       width: 80%;
-                      text-align: center;
+                      //text-align: center;
+                      line-height:2.2em;
+                      font-size:0.88em;
+
+                        margin-right:2px;
+                        white-space:normal;
+                        overflow: visible;
+                        text-overflow:initial;
+
                     }
                   }
                 }
@@ -971,14 +982,15 @@ text-shadow: 0px 1px 1px lighten(white,50%);
 
                        .due {
 
-                          width:58%;
-                          line-height:2em;
+                          width:38%;
+                          //ine-height:2em;
                           color:#403838;
                           //border-top:1px solid black;
 
                          display: table-cell;
                          vertical-align: middle;
-                         padding-right:1%;
+                         padding-right:2%;
+                         //padding-left:2%;
 
                       }
 
