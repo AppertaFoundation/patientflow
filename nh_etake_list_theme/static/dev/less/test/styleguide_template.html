@@ -13,7 +13,8 @@
             padding: 0;
             margin: -1em 0 0 0;
             background-color: white;
-            overflow: auto;
+            overflow: auto !important;
+            font-family: "Droid Sans", "Ubuntu", "Helvetica", sans-serif;
         }
 
         .leftnav{
@@ -90,6 +91,11 @@
             width: 49%;
         }
 
+        .main h3{
+            margin-top: 2.5em;
+            line-height: 0;
+        }
+
 
     </style>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
@@ -130,7 +136,7 @@
                 </ul>
 
                 <h3>Installation</h3>
-                <p>It's espected you have Python, Pip, Node.js and NPM installed on your system and globally available for the build script. Additional packages are:</p>
+                <p>It's expected you have Python, Pip, Node.js and NPM installed on your system and globally available for the build script. Additional packages are:</p>
                 <ul>
                     <li><pre>pip install pykss</pre></li>
                     <li><pre>pip install jinja2</pre></li>
