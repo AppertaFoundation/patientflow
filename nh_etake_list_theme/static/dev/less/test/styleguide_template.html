@@ -228,7 +228,9 @@ Styleguide 1.0
                    },
                    onLeave: function(element, position) {
                        $("a[href=#"+element.id+"]").parent('li').removeClass('active');
-                       $('.leftnav').removeClass('active');
+                       if(i < 1) {
+                           $('.leftnav').removeClass('active');
+                       }
                    }
                });
 
