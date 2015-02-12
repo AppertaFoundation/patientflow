@@ -14,14 +14,17 @@
             margin: -1em 0 0 0;
             background-color: white;
         }
-        .leftnav-container{
-            position: absolute;
-            top: 0;
-            left: 2.5%;
-        }
+
         .leftnav{
             width: 20%;
+            position: absolute;
+            top: 1.25em;
+            left: 2.5%;
+        }
+
+        .leftnav.active{
             position: fixed;
+            top: 0;
         }
         .leftnav ul{
             padding: 0;
@@ -106,15 +109,13 @@
         </div>
     </div>
     <div class="content" id="top">
-        <div class="leftnav-container">
-            <div class="leftnav">
-                <ul>
-                    <li><a href="#intro">Introduction</a></li>
-                    {% for nav_section_title, nav_section in nav_sections %}
-                    <li><a href="#{{ nav_section.filename.replace('.css', '') }}">{{ nav_section.filename.replace('.css', '') }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
+        <div class="leftnav">
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                {% for nav_section_title, nav_section in nav_sections %}
+                <li><a href="#{{ nav_section.filename.replace('.css', '') }}">{{ nav_section.filename.replace('.css', '') }}</a></li>
+                {% endfor %}
+            </ul>
         </div>
         <div class="main" id="main">
             <div class="section" id="intro">
@@ -214,15 +215,20 @@ Styleguide 1.0
         $(document).ready(function(){
            $('.section').each(function(i){
                var position = $(this).position();
+               if(i < 1){
+                   position.top = position.top + 40;
+               }
                $(this).scrollspy({
                    min: position.top,
                    max: position.top + $(this).height(),
                    onEnter: function(element, position) {
                        $("a[href=#"+element.id+"]").parent('li').addClass('active');
+                       $('.leftnav').addClass('active');
 
                    },
                    onLeave: function(element, position) {
                        $("a[href=#"+element.id+"]").parent('li').removeClass('active');
+                       $('.leftnav').removeClass('active');
                    }
                });
 
