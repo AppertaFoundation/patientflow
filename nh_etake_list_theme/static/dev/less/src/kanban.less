@@ -208,6 +208,8 @@ Example:
                               </div>
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
+                                  <div class="plus-btn"><a href="#"><i class="plus"></i></a></div>
+                                  <div class="list-btn-sq"><a href="#"><i class="list-view"></i></a></div>
                                   <div class="oe_kanban_group_length oe_tag">0</div>
                                   <div class="oe_kanban_group_title_text" title="Referral">Referral</div>
                                 </div>
@@ -228,6 +230,7 @@ Example:
                               </div>
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
+                                  <div class="list-btn"><a href="#"><i class="list-view"></i></a></div>
                                   <div class="oe_kanban_group_length oe_tag">12</div>
                                   <div class="oe_kanban_group_title_text" title="To Come In">To Come In</div>
                                 </div>
@@ -249,6 +252,7 @@ Example:
                               </div>
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
+                                  <div class="list-btn"><a href="#"><i class="list-view"></i></a></div>
                                   <div class="oe_kanban_group_length oe_tag">0</div>
                                   <div class="oe_kanban_group_title_text" title="To be Clerked">To be Clerked</div>
                                 </div>
@@ -269,6 +273,7 @@ Example:
                               </div>
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
+                                  <div class="list-btn"><a href="#"><i class="list-view"></i></a></div>
                                   <div class="oe_kanban_group_length oe_tag">0</div>
                                   <div class="oe_kanban_group_title_text" title="Clerking in Process">Clerking in Process</div>
                                 </div>
@@ -289,6 +294,7 @@ Example:
                               </div>
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
+                                    <div class="list-btn"><a href="#"><i class="list-view"></i></a></div>
                                     <div class="oe_kanban_group_length oe_tag">0</div>
                                     <div class="oe_kanban_group_title_text" title="Senior Review">Senior Review</div>
                                 </div>
@@ -370,7 +376,6 @@ Example:
                                   <div class="oe_kanban_content">
                                     <div class="time-till">
                                       <ul>
-                                        <li class="plus-box"><a href="#"><i class="plus"></i></a></li>
                                         <li class="sub-tasks-block">+13</li>
                                       </ul>
 
@@ -824,7 +829,7 @@ text-shadow: 0px 1px 1px lighten(white,50%);
                       border-top-left-radius: 0;
                       border-bottom-left-radius: 0;
                       border-bottom-right-radius: 0;
-                      border: 1px solid #AFB1B4;
+                      border: 0;
                       box-shadow: 0 1px 2px 0 white inset;
                       text-align: center;
                       min-width: 20%;
@@ -917,18 +922,6 @@ text-shadow: 0px 1px 1px lighten(white,50%);
 
                       ul{
                         border-collapse: collapse;
-                      }
-
-                      .plus-box {
-                          background:-webkit-linear-gradient( #09b6ff, darken(#09b6ff, 15%) );
-                          width:20%;
-                          text-align:center;
-                          line-height:2em;
-                          display: table-cell;
-                          vertical-align: middle;
-                          border-top-left-radius:10px;
-                          border-right: 1px solid black;
-                          border-bottom:1px solid red;
                       }
 
                       .clock {
