@@ -146,6 +146,8 @@ openerp.nh_etake_list_theme = function(instance){
                   return false;
 
                 this.$el.removeClass('oe_form_dirty');
+            }else{
+                return true;
             }
         },
         on_button_cancel: function(event){
@@ -159,7 +161,7 @@ openerp.nh_etake_list_theme = function(instance){
                 });
             }
             this.trigger('on_button_cancel');
-            return false;
+           return false;
         }
     });
 
