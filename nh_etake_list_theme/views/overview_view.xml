@@ -11,15 +11,19 @@
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_card oe_kanban_global_click tasks">
                             <div class="oe_kanban_content">
+                                <t t-if="record.state.raw_value != 'Referral' and record.state.raw_value != 'TCI'">
                                 <div class="time-till">
                                     <ul>
-                                        <t t-if="record.review_deadline_polarity.raw_value == '-'"><li class="clock"><i class="time-overdue"></i></li></t>
-                                        <t t-if="record.review_deadline_polarity.raw_value != '-'"><li class="clock"><i class="time"></i></li></t>
-                                        <li class="due"><field name="review_deadline_polarity"/><field name="review_deadline"/></li>
-                                        <t t-if="record.blocking_tasks.raw_value &gt; 0"><li class="sub-tasks-block"><field name="doctor_tasks"/></li></t>
-                                        <t t-if="record.blocking_tasks.raw_value == 0"><li class="sub-tasks"><field name="doctor_tasks"/></li></t>
+                                        <t t-if="record.state.raw_value != 'Referral' and record.state.raw_value != 'TCI'">
+                                            <t t-if="record.review_deadline_polarity.raw_value == '-'"><li class="clock"><i class="time-overdue"></i></li></t>
+                                            <t t-if="record.review_deadline_polarity.raw_value != '-'"><li class="clock"><i class="time"></i></li></t>
+                                            <li class="due"><field name="review_deadline_polarity"/><field name="review_deadline"/></li>
+                                            <t t-if="record.blocking_tasks.raw_value &gt; 0"><li class="sub-tasks-block"><field name="doctor_tasks"/></li></t>
+                                            <t t-if="record.blocking_tasks.raw_value == 0"><li class="sub-tasks"><field name="doctor_tasks"/></li></t>
+                                        </t>
                                     </ul>
                                 </div>
+                                </t>
                                 <div t-attf-class="#{record.clinical_risk.raw_value == 'High' ? 'patient-info high' : ''} #{record.clinical_risk.raw_value == 'Medium' ? 'patient-info mid' : ''} #{record.clinical_risk.raw_value == 'Low' ? 'patient-info low' : ''} #{record.clinical_risk.raw_value == 'None' ? 'patient-info no' : ''} #{record.clinical_risk.raw_value == 'NoScore' ? 'patient-info' : ''}">
                                     <ul>
                                         <li class="name"><field name="patient_id"/></li>

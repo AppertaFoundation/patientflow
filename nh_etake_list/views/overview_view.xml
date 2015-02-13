@@ -7,6 +7,7 @@
                 <search string="NH eTake List Overview Search View">
                     <field name="location_id"/>
                     <field name="patient_id"/>
+                    <field name="specialty_id"/>
                     <!--<group expand="1" string="Filters">-->
                         <!--<filter name="referral" string="Referrals" domain="[('state','=','Referral')]"/>-->
                         <!--<filter name="tci" string="To Come In" domain="[('state','=','TCI')]"/>-->
@@ -34,13 +35,14 @@
                     <field name="patient_id"/>
                     <field name="hospital_number"/>
                     <field name="nhs_number"/>
-                    <field name="clerking_user_id" readonly="1"/>
-                    <field name="clerking_started" readonly="1"/>
-                    <field name="clerking_terminated" readonly="1"/>
-                    <field name="review_user_id" readonly="1"/>
-                    <field name="review_terminated" readonly="1"/>
-                    <field name="discharge_user_id" readonly="1"/>
-                    <field name="discharge_terminated" readonly="1"/>
+                    <field name="specialty_id"/>
+                    <field name="clerking_user_id"/>
+                    <field name="clerking_started"/>
+                    <field name="clerking_terminated"/>
+                    <field name="review_user_id"/>
+                    <field name="review_terminated"/>
+                    <field name="discharge_user_id"/>
+                    <field name="discharge_terminated"/>
                     <field name="state" invisible="1"/>
                 </tree>
             </field>
@@ -75,6 +77,7 @@
                             <field name="hospital_number" readonly="1"/>
                             <field name="state" readonly="1"/>
                             <field name="form_id" readonly="1"/>
+                            <field name="specialty_id" readonly="1"/>
                             <field name="clerking_user_id" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}" options="{'no_open': True}"/>
                             <field name="clerking_started" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}"/>
                             <field name="clerking_terminated" readonly="1" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked','Clerking in Process'])]}"/>

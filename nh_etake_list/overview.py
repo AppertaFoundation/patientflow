@@ -92,7 +92,8 @@ class nh_etake_list_overview(orm.Model):
         'doctor_task_ids': fields.function(_get_dt_ids, type='many2many', relation='nh.clinical.doctor.task', string='Doctor Tasks'),
         'dna_able': fields.boolean('Can be marked as DNA'),
         'doctor_tasks': fields.integer('Doctor Tasks'),
-        'blocking_tasks': fields.integer('Blocking Tasks')
+        'blocking_tasks': fields.integer('Blocking Tasks'),
+        'specialty_id': fields.many2one('nh.clinical.specialty', 'Specialty')
     }
 
     def init(self, cr):
@@ -161,6 +162,7 @@ class nh_etake_list_overview(orm.Model):
                         patient.other_identifier as hospital_number,
                         patient.patient_identifier as nhs_number,
                         referral.form_id as form_id,
+                        form.specialty_id as specialty_id,
                         clerking_activity.date_started as clerking_started,
                         clerking_activity.date_terminated as clerking_terminated,
                         clerking_activity.user_id as clerking_user_id,
@@ -196,6 +198,7 @@ class nh_etake_list_overview(orm.Model):
                     left join nh_activity spell_activity on spell_activity.id = spell.activity_id
                     left join nh_activity referral_activity on referral_activity.patient_id = patient.id and referral_activity.data_model = 'nh.clinical.patient.referral'
                     left join nh_clinical_patient_referral referral on referral.activity_id = referral_activity.id
+                    left join nh_clinical_patient_referral_form form on referral.form_id = form.id
                     left join nh_activity tci_activity on tci_activity.parent_id = spell_activity.id and tci_activity.data_model = 'nh.clinical.patient.tci'
                     left join nh_activity discharge_activity on discharge_activity.parent_id = spell_activity.id and discharge_activity.data_model = 'nh.clinical.adt.patient.discharge'
                     left join nh_activity clerking_activity on clerking_activity.parent_id = spell_activity.id and clerking_activity.data_model = 'nh.clinical.patient.clerking'

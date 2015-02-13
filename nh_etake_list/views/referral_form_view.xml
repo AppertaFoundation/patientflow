@@ -87,7 +87,7 @@
                             </page>
                             <page string="Speciality">
                                 <group col="4">
-                                    <field name="specialty" widget="nh_many2one"/>
+                                    <field name="specialty_id" widget="nh_many2one"/>
                                     <field name="advised_attendance"/>
                                 </group>
                                 <label for="environmental_factors" string="Environmental Factors, Social/Family"/>
