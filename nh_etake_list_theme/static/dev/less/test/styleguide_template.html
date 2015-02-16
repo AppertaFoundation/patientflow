@@ -60,12 +60,21 @@
 
         }
         .main .example{
-            padding: 0 5% 1em 5%;
+            padding: 1em 2.5% 1em 2.5%;
             border-radius: 5px;
-            border: 1px solid rgb(124,124,124);
-            width: 90%;
+            border: 1px solid rgba(0,0,0,0.1);
+            width: 95%;
             position: relative;
         }
+
+        .main .example .odoo{
+            position: relative;
+            width: 100%;
+            margin-bottom: 2em;
+            float: none;
+            clear: both;
+        }
+
         .main .example:before{
             box-sizing: border-box;
         }
@@ -94,6 +103,12 @@
         .main h3{
             margin-top: 2.5em;
             line-height: 0;
+            color: #3778e9;
+        }
+        .main h2{
+            color: #3778e9;
+            font-size: 2em;
+            text-transform: capitalize;
         }
 
 
@@ -124,7 +139,7 @@
             <ul>
                 <li><a href="#intro">Introduction</a></li>
                 {% for nav_section_title, nav_section in nav_sections %}
-                <li><a href="#{{ nav_section.filename.replace('.css', '') }}">{{ nav_section.filename.replace('.css', '') }}</a></li>
+                <li><a href="#{{ nav_section.filename.replace('.css', '') }}">{{ nav_section.filename.replace('.css', '').replace('_',' ') }}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -196,12 +211,11 @@ Styleguide 1.0
                     <li><strong>.sg</strong> - Use if you're redefining HTML elements as KSS doesn't pick them up otherwise</li>
                     <li><strong>.example</strong> - Use this before any classes you want to redefine so the styleguide's example section works properly</li>
                 </ul>
-                <hr/>
             </div>
             {% for section_title, section in sections %}
 
             <div class="section" id="{{ section.filename.replace('.css', '') }}">
-                <h2>{{ section.filename.replace('.css', '') }}</h2>
+                <h2>{{ section.filename.replace('.css', '').replace('_',' ') }}</h2>
                 <p>{{ section.description }}</p>
 
                 <h3>Modifiers</h3>
@@ -216,7 +230,6 @@ Styleguide 1.0
                     {{ section.modifiers[0].example }}
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
-                <hr/>
             </div>
 
             {% endfor %}
