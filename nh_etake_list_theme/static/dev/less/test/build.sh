@@ -24,7 +24,7 @@ do
     echo "${file}                   "
     echo "######################################"
     echo $(tput setaf 1)
-    csslint $FROM | grep 'csslint: There are' -A 1000
+    csslint $FROM --ignore=adjoining-classes,box-model | grep 'csslint: There are' -A 1000
 done
 echo $(tput setaf 7)
 
