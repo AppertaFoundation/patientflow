@@ -8,7 +8,7 @@ class nh_clinical_admin_userboard_pflow(orm.Model):
     _groups = {'hca': ['NH Clinical HCA Group'],
                'nurse': ['NH Clinical Nurse Group'],
                'ward_manager': ['NH Clinical Ward Manager Group', 'Contact Creation'],
-               'admin': ['NH Clinical Ward Manager Group', 'Contact Creation'],
+               'admin': ['NH Clinical Admin Group', 'Contact Creation'],
                'kiosk': ['NH Clinical Nurse Group'],
                'receptionist': ['NH Clinical Receptionist Group'],
                'referral_team': ['NH Patient Flow GP Referral Team Group'],
