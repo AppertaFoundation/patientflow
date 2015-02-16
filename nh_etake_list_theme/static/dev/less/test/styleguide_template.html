@@ -103,8 +103,12 @@
     {% for css_section_title, css_section in css_sections %}
         <link rel="stylesheet" href="css/files/{{ css_section.filename }}"/>
     {% endfor %}
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/jquery-scrollspy.js"></script>
+    <script type="text/javascript">
+        {{ jquery }}
+    </script>
+    <script type="text/javascript">
+        {{ jquery_scrollspy }}
+    </script>
 </head>
 <body class="sg">
     <div class="header">
