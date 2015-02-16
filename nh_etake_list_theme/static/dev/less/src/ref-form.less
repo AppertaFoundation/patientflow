@@ -8,6 +8,8 @@ Example:
 
 <div class="odoo">
 
+<div class="openerp">
+
     <div class="oe_application"><div><div class="oe_view_manager oe_view_manager_current" data-view-type="form">
             <table class="oe_view_manager_header">
                 <colgroup><col width="20%">
@@ -1154,7 +1156,7 @@ Example:
         </div></div></div>
 
 
-</div>
+</div></div>
 
 Styleguide 10.0
 
@@ -1176,6 +1178,7 @@ Styleguide 10.0
                       background-color: #dedede;
                       background-image: url('/nh_etake_list_theme/static/src/img/repeat.png');
                       background-repeat: repeat;
+                      position: relative;
 
                        .oe_view_manager_view_form {
 
@@ -1213,7 +1216,25 @@ Styleguide 10.0
                 }
 
           }
+          > div {
+
+          > .oe_view_manager{
+
+
+          > .oe_view_manager_wrapper {
+
+             > div {
+
+                > .oe_view_manager_body {
+                position: relative;
+                }
+
+             }
+          }
         }
+        }
+        }
+
 }
 
 .openerp .oe_application .oe_form_sheet {
