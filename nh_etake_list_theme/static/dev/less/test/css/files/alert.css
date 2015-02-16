@@ -110,9 +110,15 @@ Example:
         <p>List View - "list-view" <i class="list-view"></i>
 
 
-
-
         <p>Plus  - "plus" <i class="plus"></i>
+
+        <p>Calender  - "cal" <i class="cal"></i>
+
+        <p> Arrow Up - "arrow-up" <i class="arrow-up"></i></br>
+        Arrow Down - "arrow-down" <i class="arrow-down"></i></br>
+        Arrow Both - "arrow-all" <i class="arrow-all"></i></p>
+
+
 
 Styleguide 10.0
 
@@ -215,11 +221,23 @@ i {
   text-shadow: 0 1px 1px white inset;
 }
 .cal:before {
-  top: 10px;
   content: "\f073";
   font-size: 1.6em;
   color: #8c8c8c;
   text-shadow: 0 1px 1px white inset;
+}
+.arrow-up:before,
+arrow-down:before,
+arrow-all:before {
+  content: "\f0d8";
+  font-size: 1.3em;
+  color: #333;
+}
+.arrow-down:before {
+  content: "\f0d7";
+}
+.arrow-all:before {
+  content: "\f07d";
 }
 .modal-open .modal-dialog {
   -ms-border-radius: 10px;

@@ -581,7 +581,7 @@ Example:
                 <div>
                     <input type="text" id="oe-field-input-8" class="ui-autocomplete-input" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
                     <span class="oe_m2o_drop_down_button">
-                        <img draggable="false" src="http://192.168.200.181:8069/web/static/src/img/down-arrow.png">
+                        <i class="arrow-down"></i>
                     </span>
                 </div>
 
@@ -924,7 +924,7 @@ Example:
                 <div>
                     <input type="text" id="oe-field-input-37" class="ui-autocomplete-input" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
                     <span class="oe_m2o_drop_down_button">
-                        <img draggable="false" src="http://192.168.200.181:8069/web/static/src/img/down-arrow.png">
+                        <i class="arrow-down"></i>
                     </span>
                 </div>
 
@@ -1158,7 +1158,7 @@ Example:
 
 </div></div>
 
-Styleguide 10.0
+Styleguide 13.0
 
 */
 
@@ -1190,11 +1190,17 @@ Styleguide 10.0
 
                                                     .oe_form_sheetbg {
 
+                                                          background: darken(#dedede, 10%);
+                                                          //background-image: url('/nh_etake_list_theme/static/src/img/repeat.png');
+                                                          background-repeat: repeat;
+                                                          box-shadow: 0 0 2px lighten(black, 40%) inset;
+
+
                                                              .oe_form_sheet {
 
-                                                                    padding:5%;
                                                                     min-height:0;
-                                                                    background: darken(white, 10%);
+                                                                    background:#f5f5f5;
+                                                                    border:1px solid darken(white, 10%);
 
                                                         }
 
@@ -1202,8 +1208,18 @@ Styleguide 10.0
                                                         .oe_form_sheet_width {
 
                                                                 .border-radius;
+                                                                padding:2%;
 
-                                                                padding:5%;
+
+                                                                    .oe_horizontal_separator {
+
+                                                                        .border-radius(5px);
+                                                                        background:white;
+                                                                        padding:1%;
+                                                                        color:#546e7a;
+
+
+                                                                    }
 
                                                         }
 
@@ -1241,5 +1257,43 @@ Styleguide 10.0
 
     .border-radius;
     border:1px solid lighten(black, 90%);
+    outline:0;
+
+}
+
+.ui-autocomplete-input, .oe_form_field {
+
+    .border-radius(5px);
+
+    background-color: #ffffff;
+	border:none;
+	//box-shadow:0px 0px 4px 1px darken(@baseColor, 5%) inset;
+	box-shadow: 1px 1px 7px 0px lighten(black,70%) inset;
+
+	color:#333;
+	font-size:1.2em;
+
+}
+
+.oe_m2o_drop_down_button {
+
+      .border-right(5px);
+      background: lighten(#3c4e58, 30%); /* Old browsers */
+      background: -moz-linear-gradient(top, lighten(#3c4e58, 30%) 0%, #3c4e58 90%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, lighten(#3c4e58, 30%)), color-stop(90%,#3c4e58)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(lighten(#3c4e58, 30%), #3c4e58); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top, lighten(#3c4e58, 30%) 0%, #3c4e58 90%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top, lighten(#3c4e58, 30%) 0%, #3c4e58 90%); /* IE10+ */
+      background: linear-gradient(to bottom, lighten(#3c4e58, 30%) 0%, #3c4e58 90%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#3c4e58, 20%)', endColorstr='#3c4e58', GradientType=0); /* IE6-9 */
+      padding: 0.3em 5% 0.3em 5%;
+      border-left:1px solid lighten(#3c4e58,40%);
+      border-bottom:1px solid #3c4e58;
+
+}
+
+.ui-widget-content {
+
+    //background: none;
 
 }
