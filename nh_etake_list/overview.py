@@ -386,7 +386,7 @@ class nh_etake_list_overview(orm.Model):
 
     def remove_dna_patients(self, cr, uid, context=None):
         dna_patient_ids = self.search(cr, uid, [['state', '=', 'to_dna']], context=context)
-        return all([self.cancel_tci(cr, SUPERUSER_ID, p_id, context=context) for p_id in dna_patient_ids])
+        return all([self.cancel_tci(cr, SUPERUSER_ID, [p_id], context=context) for p_id in dna_patient_ids])
 
     def rollback_action(self, cr, uid, ids, context=None):
         activity_pool = self.pool['nh.activity']
