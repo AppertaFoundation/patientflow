@@ -7,6 +7,17 @@ ListView - a list view of the patients per column, table niceties.
 Example:
 
 <div class="odoo">
+
+<div class="oe_view_manager_buttons"><div class="oe_list_buttons">
+
+        <button class="oe_button oe_list_add oe_highlight" type="button">
+            Create
+        </button>
+        <button class="oe_button oe_list_save oe_highlight" type="button">Save</button>
+
+    </div></div>
+
+
     <div class="oe_view_manager_wrapper">
             <div>
                 <div class="oe_view_manager_body">
@@ -519,3 +530,64 @@ table {
     }
 
 }
+
+
+    .oe_view_manager_buttons {
+
+        .oe_list_buttons{
+
+
+            .oe_button, .oe_list_add, .oe_highlight {
+
+
+              .border-radius;
+
+                  color: white;
+                  //display: inline-block;
+                  font-size: @nav-tab;
+                  background: lighten(#0072A2, 20%); /* Old browsers */
+                  background: -moz-linear-gradient(top,  lighten(#0072A2, 20%) 0%, #0072A2 100%); /* FF3.6+ */
+                  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,lighten(#0072A2, 20%)), color-stop(100%,#0072A2)); /* Chrome,Safari4+ */
+                  background: -webkit-linear-gradient(lighten(#0072A2, 20%),#0072A2); /* Chrome10+,Safari5.1+ */
+                  background: -o-linear-gradient(top,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* Opera 11.10+ */
+                  background: -ms-linear-gradient(top, lighten(#0072A2, 20%) 0%,#0072A2 100%); /* IE10+ */
+                  background: linear-gradient(to bottom,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* W3C */
+                  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='lighten(#0072A2, 20%))', endColorstr='#0072A2',GradientType=0 ); /* IE6-9 */
+                  padding: 0.3em 10%;
+                  border: 0;
+                  box-shadow: 0 1px 2px 0 white inset, 0 2px 0px rgba(0,0,0,0.6);
+                  margin-left: 5%;
+                  margin-right: 5%;
+                  text-align: center;
+                  text-shadow: 0 1px 1px lighten(black, 50%);
+                  text-decoration: none;
+                  height: inherit;
+                  font-weight: 600;
+
+
+                  &:hover {
+
+                      background: lighten(#0072A2, 20%); /* Old browsers */
+                      background: -moz-linear-gradient(top,  lighten(#0072A2, 20%) 0%, #0072A2 100%); /* FF3.6+ */
+                      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,lighten(#0072A2, 20%)), color-stop(100%,#0072A2)); /* Chrome,Safari4+ */
+                      background: -webkit-linear-gradient(lighten(#0072A2, 20%),#0072A2); /* Chrome10+,Safari5.1+ */
+                      background: -o-linear-gradient(top,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* Opera 11.10+ */
+                      background: -ms-linear-gradient(top, lighten(#0072A2, 20%) 0%,#0072A2 100%); /* IE10+ */
+                      background: linear-gradient(to bottom,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* W3C */
+                      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='lighten(#0072A2, 20%))', endColorstr='#0072A2',GradientType=0 ); /* IE6-9 */
+
+
+                  }
+
+
+            }
+
+            .oe_button oe_list_save oe_highlight {
+
+
+
+            }
+
+        }
+
+    }
