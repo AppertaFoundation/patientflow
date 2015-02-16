@@ -63,15 +63,15 @@
             padding: 0 5% 1em 5%;
             border-radius: 5px;
             border: 1px solid rgb(124,124,124);
-            display: inline-flex;
             width: 90%;
+            position: relative;
+        }
+        .main .example:before{
+            box-sizing: border-box;
         }
         .top-link{
             width: 100%;
             text-align: right;
-        }
-        .section{
-            margin-bottom: 3em;
         }
         .header, .content{
             width: 95%;
@@ -103,7 +103,7 @@
     
         <link rel="stylesheet" href="css/files/buttons.css"/>
     
-        <link rel="stylesheet" href="css/files/icons.css"/>
+        <link rel="stylesheet" href="css/files/ref-form.css"/>
     
         <link rel="stylesheet" href="css/files/nav.css"/>
     
@@ -9284,7 +9284,7 @@ window.jQuery = window.$ = jQuery;
                 
                 <li><a href="#buttons">buttons</a></li>
                 
-                <li><a href="#icons">icons</a></li>
+                <li><a href="#ref-form">ref-form</a></li>
                 
                 <li><a href="#nav">nav</a></li>
                 
@@ -9411,62 +9411,1168 @@ Styleguide 1.0
 
             
 
-            <div class="section" id="icons">
-                <h2>icons</h2>
-                <p>Iconography - a list of the icons used and how to call them</p>
+            <div class="section" id="ref-form">
+                <h2>ref-form</h2>
+                <p>Patient Referral Form - a list view of the patients per column, table niceties.</p>
 
                 <h3>Modifiers</h3>
                 <ul class="modifiers">
                     
-                    <li><strong>.time, .time-overdue</strong> - Clock icons</li>
-                    
-                    <li><strong>.male, .female</strong> - Gender Icons</li>
-                    
-                    <li><strong>.score-up, .score-down, score-same</strong> - Score Icons</li>
-                    
-                    <li><strong>.bed-pat, .bed-move</strong> - Bed Icons</li>
+                    <li><strong>.dummy-style</strong> - style to test</li>
                     
                 </ul>
 
                 <h3>Examples</h3>
                 <div class="example">
-                    <p> Time Till - "time" <i class="time"></i> </br>
-        Time Overdue - "time-overdue" <i class="time-overdue"></i></p>
+                    <div class="odoo">
 
-<hr width="1" size="100">
-
-        <p>Male - "male" <i class="male"></i> </br>
-       Female - "female" <i class="female"></i></p>
-
-<hr width="1" size="100">
-
-        <p> Trend Up - "score-up" <i class="score-up"></i></br>
-        Trend Down - "score-down" <i class="score-down"></i></br>
-        Trend Same - "score-same" <i class="score-same"></i></p>
-
-<hr width="1" size="100">
-
-        <p>Patient in Bed - "bed-pat" <i class="bed-pat"></i></br>
-        Bed Movement - "bed-move" <i class="bed-move"></i></p>
-
-<hr width="1" size="100">
-
-        <p>Alert - "red-alert" <i class="red-alert"></i></br>
-
-<hr width="1" size="100">
-
-        <p>Close - "close-pop" <i class="close-pop"></i></br>
-
-<hr width="1" size="100">
+    <div class="oe_application"><div><div class="oe_view_manager oe_view_manager_current" data-view-type="form">
+            <table class="oe_view_manager_header">
+                <colgroup><col width="20%">
+                <col width="35%">
+                <col width="15%">
+                <col width="30%">
+                </colgroup><tbody><tr class="oe_header_row oe_header_row_top">
+                    <td colspan="2">
 
 
-        <p>List View - "list-view" <i class="list-view"></i>
+        <h2 class="oe_view_title">
+                                <span class="oe_view_title_text oe_breadcrumb_title"><a href="#" class="oe_breadcrumb_item" data-id="breadcrumb_5">Patient Referral Forms</a> <span class="oe_fade">/</span> <span class="oe_breadcrumb_item">New</span></span>
+                            </h2>
+                    </td>
+                    <td colspan="2">
+                            <div class="oe_view_manager_view_search"><div class="oe_searchview" style="display: none;">
+        <div class="oe_searchview_facets"><div class="oe_searchview_input" contenteditable="true" tabindex="0"></div></div>
+        <div class="oe_searchview_clear"></div>
+        <div class="oe_searchview_unfold_drawer" title="Advanced Search..."></div>
+        <button class="oe_searchview_search" title="Search Again" type="button">Search</button>
+    <div class="oe-autocomplete" style="width: 400px; display: none;">
+        <ul>
+        </ul>
+    </div></div></div>
+                    </td>
+                </tr>
+                <tr class="oe_header_row">
+                    <td>
+                            <div class="oe_view_manager_buttons"><div class="oe_list_buttons" style="display: none;">
+
+            <button class="oe_button oe_list_add oe_highlight" type="button">
+                Create
+            </button>
+            <button class="oe_button oe_list_save oe_highlight" type="button">Save</button>
 
 
-<hr width="1" size="100">
+
+        </div><div class="oe_form_buttons">
+
+            <span class="oe_form_buttons_view" style="display: none;">
 
 
-        <p>Plus  - "plus" <i class="plus"></i>
+                <button accesskey="C" class="oe_button oe_form_button_create" type="button">Create</button>
+            </span>
+            <span class="oe_form_buttons_edit" style="display: inline;">
+                <button accesskey="S" class="oe_button oe_form_button_save oe_highlight" type="button">Save</button>
+                <span class="oe_fade">or</span>
+                <a accesskey="D" class="oe_bold oe_form_button_cancel" href="#">Discard</a>
+            </span>
+
+    </div></div>
+                    </td>
+                    <td colspan="2">
+                            <div class="oe_view_manager_sidebar" style="display: none;"><div style="display: none;">
+        <div class="oe_sidebar">
+
+                <div class="oe_form_dropdown_section" style="display: none;">
+                    <button class="oe_dropdown_toggle oe_dropdown_arrow">
+
+                        Print
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+
+                    <ul class="oe_dropdown_menu">
+
+
+                    </ul>
+                </div>
+
+                <div class="oe_form_dropdown_section">
+                    <button class="oe_dropdown_toggle oe_dropdown_arrow">
+
+                        More
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+
+                    <ul class="oe_dropdown_menu">
+                        <li class="oe_share">
+
+                            <a class="oe_sidebar_action_a" target="_blank" data-index="0" data-section="other" title="" data-original-title="">
+                                Share
+                            </a>
+
+                        </li><li class="oe_share">
+
+                            <a class="oe_sidebar_action_a" target="_blank" data-index="1" data-section="other" title="" data-original-title="">
+                                Embed
+                            </a>
+
+                        </li><li>
+
+                            <a class="oe_sidebar_action_a" target="_blank" data-index="2" data-section="other" title="" data-original-title="">
+                                Export
+                            </a>
+
+                        </li>
+
+                    </ul>
+                </div>
+
+        </div>
+    </div><div>
+        <div class="oe_sidebar">
+
+                <div class="oe_form_dropdown_section" style="display: none;">
+                    <button class="oe_dropdown_toggle oe_dropdown_arrow">
+
+                        Print
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+
+                    <ul class="oe_dropdown_menu">
+
+
+                    </ul>
+                </div>
+
+                <div class="oe_form_dropdown_section">
+                    <button class="oe_dropdown_toggle oe_dropdown_arrow">
+
+                        More
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+
+                    <ul class="oe_dropdown_menu">
+                        <li class="oe_share">
+
+                            <a class="oe_sidebar_action_a" target="_blank" data-index="0" data-section="other" title="" data-original-title="">
+                                Share
+                            </a>
+
+                        </li><li class="oe_share">
+
+                            <a class="oe_sidebar_action_a" target="_blank" data-index="1" data-section="other" title="" data-original-title="">
+                                Embed
+                            </a>
+
+                        </li>
+
+                    </ul>
+                </div>
+
+        </div>
+    </div></div>
+                    </td>
+                    <td>
+                        <ul class="oe_view_manager_switch oe_button_group oe_right">
+
+                              <li class="oe_e">
+                                <a data-view-type="list" title="" class="oe_vm_switch_list" data-original-title="List view"></a>
+                              </li>
+
+                              <li class="oe_e active">
+                                <a data-view-type="form" title="" class="oe_vm_switch_form" data-original-title="Form view"></a>
+                              </li>
+
+                        </ul>
+                        <div class="oe_view_manager_pager oe_right"><div class="oe_list_pager oe_list_pager_single_page" colspan="7" style="display: none;">
+
+        <div class="oe_pager_value">
+
+                <span class="oe_list_pager_state">-</span>
+
+        </div>
+        <ul class="oe_pager_group">
+
+            <li>
+                <a class="oe_i" data-pager-action="previous" type="button">(</a>
+            </li>
+            <li>
+                <a class="oe_i" data-pager-action="next" type="button">)</a>
+            </li>
+
+        </ul>
+
+        </div></div>
+                    </td>
+                </tr>
+            </tbody></table>
+
+        <div class="oe_view_manager_wrapper">
+            <div>
+                <div class="oe_view_manager_body">
+                    <div class="oe_searchview_drawer_container"><div class="oe_searchview_drawer" style="display: none;">
+        <div class="col-md-7"><div class="oe_searchview_custom oe_searchview_section" style="display: none;">
+        <dl class="dl-horizontal">
+            <dt><span class="oe_i">M</span> Favourites</dt>
+            <dd><ul class="oe_searchview_custom_list"></ul></dd>
+        </dl>
+    </div><div class="oe_searchview_filters oe_searchview_section">
+
+    <dl class="dl-horizontal"></dl></div></div>
+        <div class="col-md-5"><div class="oe_searchview_savefilter">
+        <h4>Save current filter</h4>
+        <form class="oe_form">
+            <p class="oe_form_required"><input id="oe_searchview_custom_input" placeholder="Filter name"></p>
+            <p>
+                <input id="oe_searchview_custom_public" type="checkbox">
+                <label for="oe_searchview_custom_public">Share with all users</label>
+                <input id="oe_searchview_custom_default" type="checkbox">
+                <label for="oe_searchview_custom_default">Use by default</label>
+            </p>
+            <button>Save</button>
+        </form>
+    </div><div class="oe_searchview_advanced">
+        <h4>Advanced Search</h4>
+        <form>
+            <ul>
+
+            <li>
+            <span class="searchview_extended_prop_or">or</span>
+            <select class="searchview_extended_prop_field">
+
+                    <option value="acc_informed">
+                        ACC Informed
+                    </option>
+
+                    <option value="advised_attendance">
+                        Advised Attendance At
+                    </option>
+
+                    <option value="allergies">
+                        Allergies
+                    </option>
+
+                    <option value="ambulance">
+                        Ambulance
+                    </option>
+
+                    <option value="averted">
+                        Averted in
+                    </option>
+
+                    <option value="blood_pressure_diastolic">
+                        Blood Pressure Diastolic
+                    </option>
+
+                    <option value="blood_pressure_systolic">
+                        Blood Pressure Systolic
+                    </option>
+
+                    <option value="body_temperature">
+                        Body Temperature
+                    </option>
+
+                    <option value="elsewhere_treatment">
+                        Can patient be treated elsewhere?
+                    </option>
+
+                    <option value="create_date">
+                        Create Date
+                    </option>
+
+                    <option value="create_uid">
+                        Created By
+                    </option>
+
+                    <option value="dob">
+                        Date of Birth
+                    </option>
+
+                    <option value="gp_options_choice">
+                        Did the GP choose any other option?
+                    </option>
+
+                    <option value="eau_informed">
+                        EAU Informed
+                    </option>
+
+                    <option value="access_clinic_datetime">
+                        Emergency GP Access Clinic Date &amp; Time
+                    </option>
+
+                    <option value="environmental_factors">
+                        Environmental Factors, Social/Family
+                    </option>
+
+                    <option value="ethnicity">
+                        Ethnicity
+                    </option>
+
+                    <option value="first_name">
+                        First Name
+                    </option>
+
+                    <option value="poc">
+                        First Point of Contact
+                    </option>
+
+                    <option value="gender">
+                        Gender
+                    </option>
+
+                    <option value="hospital_number">
+                        Hospital Number
+                    </option>
+
+                    <option value="id">
+                        ID
+                    </option>
+
+                    <option value="gp_options_discussed">
+                        If yes were options discussed with GP?
+                    </option>
+
+                    <option value="infection_concerns">
+                        Infection Concerns?
+                    </option>
+
+                    <option value="last_name">
+                        Last Name
+                    </option>
+
+                    <option value="letter_request">
+                        Letter Requested
+                    </option>
+
+                    <option value="medication_list">
+                        Medication List Requested
+                    </option>
+
+                    <option value="middle_names">
+                        Middle Names
+                    </option>
+
+                    <option value="nhs_number">
+                        NHS Number
+                    </option>
+
+                    <option value="o2_saturation">
+                        O2 Saturation
+                    </option>
+
+                    <option value="medical_history_notes">
+                        Past Medical History
+                    </option>
+
+                    <option value="patient_id">
+                        Patient
+                    </option>
+
+                    <option value="diagnosis">
+                        Possible diagnosis
+                    </option>
+
+                    <option value="postcode">
+                        Postcode
+                    </option>
+
+                    <option value="pulse_rate">
+                        Pulse Rate
+                    </option>
+
+                    <option value="referral_reason">
+                        Reason for referral
+                    </option>
+
+                    <option value="referral_activity_id">
+                        Referral
+                    </option>
+
+                    <option value="ref_doctor_id">
+                        Referring Doctor
+                    </option>
+
+                    <option value="resides">
+                        Resides
+                    </option>
+
+                    <option value="source">
+                        Source of Referral
+                    </option>
+
+                    <option value="specialty_id">
+                        Specialty
+                    </option>
+
+                    <option value="symptoms_notes">
+                        Symptoms/Investigations Treatment
+                    </option>
+
+                    <option value="team_informed">
+                        Team Informed
+                    </option>
+
+                    <option value="write_uid">
+                        Updated By
+                    </option>
+
+                    <option value="weight">
+                        Weight
+                    </option>
+
+                    <option value="write_date">
+                        Write Date
+                    </option>
+
+            </select>
+            <select class="searchview_extended_prop_op"><option value="=">is</option><option value="!=">is not</option><option value="E">is set</option><option value="E">is not set</option></select>
+            <span class="searchview_extended_prop_value"><select>
+
+            <option value="yes">Yes</option>
+
+            <option value="no">No</option>
+
+        </select></span>
+            <a class="searchview_extended_delete_prop button">x</a>
+        </li></ul>
+            <button class="oe_add_condition button" type="button">Add a condition</button><br>
+            <button class="oe_apply" type="submit">Apply</button>
+        </form>
+    </div><div class="oe_searchview_dashboard">
+        <h4>Add to Dashboard</h4>
+        <form>
+            <p><input placeholder="Title of new dashboard item"></p>
+            <button class="oe_apply" type="submit">Add</button>
+        </form>
+    </div></div>
+    </div></div>
+
+                            <div class="oe_view_manager_view_list" style="display: none;"><div class="oe_list oe_view oe_cannot_edit oe_cannot_delete" style="display: none;"><table class="oe_list_content">
+
+        <thead>
+
+            <tr class="oe_list_header_columns">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <th data-id="patient_id" class="oe_list_header_many2one oe_sortable"><div>
+                        Patient
+                    </div></th>
+
+                    <th data-id="nhs_number" class="oe_list_header_char oe_sortable"><div>
+                        NHS Number
+                    </div></th>
+
+                    <th data-id="ref_doctor_id" class="oe_list_header_many2one oe_sortable"><div>
+                        Referring Doctor
+                    </div></th>
+
+                    <th data-id="create_date" class="oe_list_header_datetime oe_sortable"><div>
+                        Created
+                    </div></th>
+
+                    <th data-id="create_uid" class="oe_list_header_many2one oe_sortable"><div>
+                        By
+                    </div></th>
+
+                    <th data-id="write_date" class="oe_list_header_datetime oe_sortable"><div>
+                        Modified
+                    </div></th>
+
+                    <th data-id="write_uid" class="oe_list_header_many2one oe_sortable"><div>
+                        By
+                    </div></th>
+
+
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+
+                <td class="oe_list_footer oe_number">
+                </td><td class="oe_list_footer oe_number">
+                </td><td class="oe_list_footer oe_number">
+                </td><td class="oe_list_footer oe_number">
+                </td><td class="oe_list_footer oe_number">
+                </td><td class="oe_list_footer oe_number">
+                </td><td class="oe_list_footer oe_number">
+                </td>
+
+            </tr>
+        </tfoot>
+    <tbody><tr><td title="Patient">&nbsp;</td><td title="NHS Number">&nbsp;</td><td title="Referring Doctor">&nbsp;</td><td title="Created">&nbsp;</td><td title="By">&nbsp;</td><td title="Modified">&nbsp;</td><td title="By">&nbsp;</td></tr><tr><td title="Patient">&nbsp;</td><td title="NHS Number">&nbsp;</td><td title="Referring Doctor">&nbsp;</td><td title="Created">&nbsp;</td><td title="By">&nbsp;</td><td title="Modified">&nbsp;</td><td title="By">&nbsp;</td></tr><tr><td title="Patient">&nbsp;</td><td title="NHS Number">&nbsp;</td><td title="Referring Doctor">&nbsp;</td><td title="Created">&nbsp;</td><td title="By">&nbsp;</td><td title="Modified">&nbsp;</td><td title="By">&nbsp;</td></tr><tr><td title="Patient">&nbsp;</td><td title="NHS Number">&nbsp;</td><td title="Referring Doctor">&nbsp;</td><td title="Created">&nbsp;</td><td title="By">&nbsp;</td><td title="Modified">&nbsp;</td><td title="By">&nbsp;</td></tr></tbody></table></div></div>
+
+                            <div class="oe_view_manager_view_form" style="display: block;"><div class="oe_formview oe_view oe_cannot_edit oe_cannot_delete oe_form_editable" style="opacity: 1;">
+            <div class="oe_form_buttons"></div>
+            <div class="oe_form_sidebar"></div>
+            <div class="oe_form_pager"></div>
+            <div class="oe_form_container"><div class="oe_form"><div class="">
+        <div class="oe_form_sheetbg">
+            <div class="oe_form_sheet oe_form_sheet_width">
+            <label for="oe-field-input-7" class=" oe_form_label oe_align_right">
+            Source of Referral
+        </label><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-7" name="source">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;gp&quot;">
+                        GP
+                    </option>
+
+                    <option value="&quot;ucc&quot;">
+                        UCC
+                    </option>
+
+                    <option value="&quot;ae&quot;">
+                        A&amp;E
+                    </option>
+
+                    <option value="&quot;eau&quot;">
+                        EAU
+                    </option>
+
+                    <option value="&quot;ecp&quot;">
+                        ECP
+                    </option>
+
+                    <option value="&quot;wic&quot;">
+                        WIC
+                    </option>
+
+                    <option value="&quot;ltxc&quot;">
+                        LTxC
+                    </option>
+
+                    <option value="&quot;opd&quot;">
+                        OPD
+                    </option>
+
+                    <option value="&quot;mac&quot;">
+                        MAC
+                    </option>
+
+                    <option value="&quot;comm&quot;">
+                        COMM
+                    </option>
+
+                    <option value="&quot;matron&quot;">
+                        MATRON
+                    </option>
+
+                    <option value="&quot;hospice&quot;">
+                        HOSPICE
+                    </option>
+
+                    <option value="&quot;cons&quot;">
+                        CONS
+                    </option>
+
+        </select>
+    </span><div class="oe_horizontal_separator oe_clear ">
+            Patient Details
+        </div>
+
+        <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group "><tbody><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-8" class=" oe_form_label oe_align_right">
+            Patient
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_many2one oe_form_field_with_button">
+
+
+                <a class="oe_m2o_cm_button oe_e" draggable="false" href="#" tabindex="-1" style="display: none;">/</a>
+                <div>
+                    <input type="text" id="oe-field-input-8" class="ui-autocomplete-input" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                    <span class="oe_m2o_drop_down_button">
+                        <img draggable="false" src="http://192.168.200.181:8069/web/static/src/img/down-arrow.png">
+                    </span>
+                </div>
+
+        </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-9" class=" oe_form_label oe_align_right">
+            Hospital Number
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_char">
+
+                <input id="oe-field-input-9" maxlength="50" type="text">
+
+
+        </span></td></tr><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-10" class=" oe_form_label oe_align_right">
+            NHS Number
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_char">
+
+                <input id="oe-field-input-10" maxlength="50" type="text">
+
+
+        </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-11" class=" oe_form_label oe_align_right">
+            First Name
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_char">
+
+                <input id="oe-field-input-11" maxlength="50" type="text">
+
+
+        </span></td></tr><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-12" class=" oe_form_label oe_align_right">
+            Middle Names
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_char">
+
+                <input id="oe-field-input-12" maxlength="100" type="text">
+
+
+        </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-13" class=" oe_form_label oe_align_right">
+            Last Name
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_char">
+
+                <input id="oe-field-input-13" maxlength="50" type="text">
+
+
+        </span></td></tr><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-14" class=" oe_form_label oe_align_right">
+            Date of Birth
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_datepicker_root oe_form_field_datetime"><span>
+
+            <input class="oe_datepicker_container hasDatepicker" disabled="disabled" style="display: none;" type="text" id="dp1424088816482">
+            <input class="oe_datepicker_master" type="text" name="dob"><i class="cal" title="Select date"></i>
+        </span></span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-15" class=" oe_form_label oe_align_right">
+            Ethnicity
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-15" name="ethnicity">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;A&quot;">
+                        White - British
+                    </option>
+
+                    <option value="&quot;B&quot;">
+                        White - Irish
+                    </option>
+
+                    <option value="&quot;C&quot;">
+                        White - Other background
+                    </option>
+
+                    <option value="&quot;D&quot;">
+                        Mixed - White and Black Caribbean
+                    </option>
+
+                    <option value="&quot;E&quot;">
+                        Mixed - White and Black African
+                    </option>
+
+                    <option value="&quot;F&quot;">
+                        Mixed - White and Asian
+                    </option>
+
+                    <option value="&quot;G&quot;">
+                        Mixed - Other background
+                    </option>
+
+                    <option value="&quot;H&quot;">
+                        Asian - Indian
+                    </option>
+
+                    <option value="&quot;J&quot;">
+                        Asian - Pakistani
+                    </option>
+
+                    <option value="&quot;K&quot;">
+                        Asian - Bangladeshi
+                    </option>
+
+                    <option value="&quot;L&quot;">
+                        Asian - Other background
+                    </option>
+
+                    <option value="&quot;M&quot;">
+                        Black - Caribbean
+                    </option>
+
+                    <option value="&quot;N&quot;">
+                        Black - African
+                    </option>
+
+                    <option value="&quot;P&quot;">
+                        Black - Other background
+                    </option>
+
+                    <option value="&quot;R&quot;">
+                        Chinese
+                    </option>
+
+                    <option value="&quot;S&quot;">
+                        Other ethnic group
+                    </option>
+
+                    <option value="&quot;Z&quot;">
+                        Not stated
+                    </option>
+
+        </select>
+    </span></td></tr><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-16" class=" oe_form_label oe_align_right">
+            Gender
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-16" name="gender">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;BOTH&quot;">
+                        Both
+                    </option>
+
+                    <option value="&quot;F&quot;">
+                        Female
+                    </option>
+
+                    <option value="&quot;I&quot;">
+                        Intermediate
+                    </option>
+
+                    <option value="&quot;M&quot;">
+                        Male
+                    </option>
+
+                    <option value="&quot;NSP&quot;">
+                        Not Specified
+                    </option>
+
+                    <option value="&quot;U&quot;">
+                        Unknown
+                    </option>
+
+        </select>
+    </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-17" class=" oe_form_label oe_align_right">
+            Resides
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-17" name="resides">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;home&quot;">
+                        HOME
+                    </option>
+
+                    <option value="&quot;res&quot;">
+                        RES/HOME
+                    </option>
+
+                    <option value="&quot;nursing&quot;">
+                        N/HOME
+                    </option>
+
+        </select>
+    </span></td></tr><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-18" class=" oe_form_label oe_align_right">
+            Postcode
+        </label></td><td class="oe_form_group_cell" colspan="1" width="33%"><span class="oe_form_field oe_form_field_char">
+
+                <input id="oe-field-input-18" maxlength="10" type="text">
+
+
+        </span></td></tr></tbody></table><div class="oe_horizontal_separator oe_clear ">
+            GP
+        </div>
+
+        <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group "><tbody><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-19" class=" oe_form_label oe_align_right">
+            Referring Doctor
+        </label></td><td class="oe_form_group_cell" colspan="1" width="33%"><span class="oe_form_field oe_form_field_many2one oe_form_field_with_button">
+
+
+                <a class="oe_m2o_cm_button oe_e" draggable="false" href="#" tabindex="-1" style="display: none;">/</a>
+                <div>
+                    <input type="text" id="oe-field-input-19" class="ui-autocomplete-input" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                    <span class="oe_m2o_drop_down_button">
+                        <img draggable="false" src="http://192.168.200.181:8069/web/static/src/img/down-arrow.png">
+                    </span>
+                </div>
+
+        </span></td></tr></tbody></table><div class="oe_clear ui-tabs ui-widget ui-widget-content ui-corner-all">
+            <ul class="oe_notebook ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+                <li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="notebook_page_20" aria-labelledby="ui-id-1" aria-selected="true">
+                    <a href="#notebook_page_20" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1">
+                        Medical
+                    </a>
+                </li><li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="notebook_page_32" aria-labelledby="ui-id-2" aria-selected="false">
+                    <a href="#notebook_page_32" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">
+                        Emergency GP Access Clinic
+                    </a>
+                </li><li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="notebook_page_36" aria-labelledby="ui-id-3" aria-selected="false">
+                    <a href="#notebook_page_36" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3">
+                        Speciality
+                    </a>
+                </li><li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="notebook_page_40" aria-labelledby="ui-id-4" aria-selected="false">
+                    <a href="#notebook_page_40" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-4">
+                        Additional Information
+                    </a>
+                </li>
+            </ul>
+        <div id="notebook_page_20" class="oe_notebook_page  ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" role="tabpanel" aria-expanded="true" aria-hidden="false" style="display: block;">
+        <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group "><tbody><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-21" class=" oe_form_label oe_align_right">
+            Body Temperature
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_float">
+
+                <input id="oe-field-input-21" type="text">
+
+
+        </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-22" class=" oe_form_label oe_align_right">
+            Pulse Rate
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_float">
+
+                <input id="oe-field-input-22" type="text">
+
+
+        </span></td></tr><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-23" class=" oe_form_label oe_align_right">
+            Blood Pressure Systolic
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_float">
+
+                <input id="oe-field-input-23" type="text">
+
+
+        </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-24" class=" oe_form_label oe_align_right">
+            Blood Pressure Diastolic
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_float">
+
+                <input id="oe-field-input-24" type="text">
+
+
+        </span></td></tr><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-25" class=" oe_form_label oe_align_right">
+            O2 Saturation
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_float">
+
+                <input id="oe-field-input-25" type="text">
+
+
+        </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-26" class=" oe_form_label oe_align_right">
+            Weight
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_float">
+
+                <input id="oe-field-input-26" type="text">
+
+
+        </span></td></tr></tbody></table><table border="0" cellpadding="0" cellspacing="0" class="oe_form_group "><tbody><tr class="oe_form_group_row"><td class="oe_form_group_cell" colspan="1" width="50%"><div><label for="oe-field-input-27" class=" oe_form_label oe_align_right">
+            Symptoms/Investigations Treatment
+        </label><div class="oe_form_field oe_form_field_text">
+
+                <textarea class="field_text" rows="6" name="symptoms_notes" style="height: 114px; overflow: hidden; word-wrap: break-word; resize: vertical;"></textarea>
+
+
+        </div></div></td><td class="oe_form_group_cell" colspan="1" width="50%"><div><label for="oe-field-input-28" class=" oe_form_label oe_align_right">
+            Past Medical History
+        </label><div class="oe_form_field oe_form_field_text">
+
+                <textarea class="field_text" rows="6" name="medical_history_notes" style="height: 114px; overflow: hidden; word-wrap: break-word; resize: vertical;"></textarea>
+
+
+        </div></div></td></tr></tbody></table><table border="0" cellpadding="0" cellspacing="0" class="oe_form_group "><tbody><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-29" class=" oe_form_label oe_align_right">
+            Infection Concerns?
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_char">
+
+                <input id="oe-field-input-29" maxlength="200" type="text">
+
+
+        </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-30" class=" oe_form_label oe_align_right">
+            Possible diagnosis
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_char">
+
+                <input id="oe-field-input-30" maxlength="200" type="text">
+
+
+        </span></td></tr></tbody></table><label for="oe-field-input-31" class=" oe_form_label oe_align_right">
+            Allergies
+        </label><div class="oe_form_field oe_form_field_text">
+
+                <textarea class="field_text" rows="6" name="allergies" style="height: 114px; overflow: hidden; word-wrap: break-word; resize: vertical;"></textarea>
+
+
+        </div></div><div id="notebook_page_32" class="oe_notebook_page  ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+        <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group "><tbody><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-33" class=" oe_form_label oe_align_right">
+            Emergency GP Access Clinic Date &amp; Time
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_datepicker_root oe_form_field_datetime"><span>
+
+            <input class="oe_datepicker_container hasDatepicker" disabled="disabled" style="display: none;" type="text" id="dp1424088816483">
+            <input class="oe_datepicker_master" type="text" name="access_clinic_datetime"><img border="0" class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" title="Select date" width="16" src="http://192.168.200.181:8069/web/static/src/img/ui/field_calendar.png">
+        </span></span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-34" class=" oe_form_label oe_align_right">
+            Reason for referral
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_char">
+
+                <input id="oe-field-input-34" maxlength="200" type="text">
+
+
+        </span></td></tr><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-35" class=" oe_form_label oe_align_right">
+            Medication List Requested
+        </label></td><td class="oe_form_group_cell" colspan="1" width="33%"><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-35" name="medication_list">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;yes&quot;">
+                        Yes
+                    </option>
+
+                    <option value="&quot;no&quot;">
+                        No
+                    </option>
+
+        </select>
+    </span></td></tr></tbody></table></div><div id="notebook_page_36" class="oe_notebook_page  ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+        <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group "><tbody><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-37" class=" oe_form_label oe_align_right">
+            Specialty
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_many2one oe_form_field_with_button">
+
+
+                <a class="oe_m2o_cm_button oe_e" draggable="false" href="#" tabindex="-1" style="display: none;">/</a>
+                <div>
+                    <input type="text" id="oe-field-input-37" class="ui-autocomplete-input" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                    <span class="oe_m2o_drop_down_button">
+                        <img draggable="false" src="http://192.168.200.181:8069/web/static/src/img/down-arrow.png">
+                    </span>
+                </div>
+
+        </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-38" class=" oe_form_label oe_align_right">
+            Advised Attendance At
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-38" name="advised_attendance">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;ae&quot;">
+                        A&amp;E
+                    </option>
+
+                    <option value="&quot;eau&quot;">
+                        EAU
+                    </option>
+
+                    <option value="&quot;acc&quot;">
+                        ACC
+                    </option>
+
+                    <option value="&quot;clinic&quot;">
+                        CLINIC
+                    </option>
+
+        </select>
+    </span></td></tr></tbody></table><label for="oe-field-input-39" class=" oe_form_label oe_align_right">
+            Environmental Factors, Social/Family
+        </label><div class="oe_form_field oe_form_field_text">
+
+                <textarea class="field_text" rows="6" name="environmental_factors" style="height: 24px; overflow: hidden; word-wrap: break-word; resize: vertical;"></textarea>
+
+
+        </div></div><div id="notebook_page_40" class="oe_notebook_page  ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+        <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group "><tbody><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-41" class=" oe_form_label oe_align_right">
+            Can patient be treated elsewhere?
+        </label></td><td class="oe_form_group_cell" colspan="1" width="32%"><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-41" name="elsewhere_treatment">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;yes&quot;">
+                        Yes
+                    </option>
+
+                    <option value="&quot;no&quot;">
+                        No
+                    </option>
+
+        </select>
+    </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-42" class=" oe_form_label oe_align_right">
+            EAU Informed
+        </label></td><td class="oe_form_group_cell" colspan="1" width="32%"><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-42" name="eau_informed">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;yes&quot;">
+                        Yes
+                    </option>
+
+                    <option value="&quot;no&quot;">
+                        No
+                    </option>
+
+        </select>
+    </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-43" class=" oe_form_label oe_align_right">
+            Letter Requested
+        </label></td><td class="oe_form_group_cell" colspan="1" width="32%"><span class="oe_form_field oe_form_field_boolean">
+            <input class="field_boolean" type="checkbox" id="oe-field-input-43" name="letter_request">
+        </span></td></tr><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-44" class=" oe_form_label oe_align_right">
+            If yes were options discussed with GP?
+        </label></td><td class="oe_form_group_cell" colspan="1" width="32%"><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-44" name="gp_options_discussed">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;yes&quot;">
+                        Yes
+                    </option>
+
+                    <option value="&quot;no&quot;">
+                        No
+                    </option>
+
+                    <option value="&quot;na&quot;">
+                        N/A
+                    </option>
+
+        </select>
+    </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-45" class=" oe_form_label oe_align_right">
+            ACC Informed
+        </label></td><td class="oe_form_group_cell" colspan="1" width="32%"><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-45" name="acc_informed">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;yes&quot;">
+                        Yes
+                    </option>
+
+                    <option value="&quot;no&quot;">
+                        No
+                    </option>
+
+        </select>
+    </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-46" class=" oe_form_label oe_align_right">
+            Ambulance
+        </label></td><td class="oe_form_group_cell" colspan="1" width="32%"><span class="oe_form_field oe_form_field_boolean">
+            <input class="field_boolean" type="checkbox" id="oe-field-input-46" name="ambulance">
+        </span></td></tr><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-47" class=" oe_form_label oe_align_right">
+            Did the GP choose any other option?
+        </label></td><td class="oe_form_group_cell" colspan="1" width="24%"><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-47" name="gp_options_choice">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;yes&quot;">
+                        Yes
+                    </option>
+
+                    <option value="&quot;no&quot;">
+                        No
+                    </option>
+
+        </select>
+    </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-48" class=" oe_form_label oe_align_right">
+            Team Informed
+        </label></td><td class="oe_form_group_cell" colspan="1" width="24%"><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-48" name="team_informed">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;yes&quot;">
+                        Yes
+                    </option>
+
+                    <option value="&quot;no&quot;">
+                        No
+                    </option>
+
+        </select>
+    </span></td></tr></tbody></table><table border="0" cellpadding="0" cellspacing="0" class="oe_form_group "><tbody><tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-49" class=" oe_form_label oe_align_right">
+            First Point of Contact
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-49" name="poc">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;eau&quot;">
+                        EAU
+                    </option>
+
+                    <option value="&quot;ae&quot;">
+                        A&amp;E
+                    </option>
+
+                    <option value="&quot;acc&quot;">
+                        ACC
+                    </option>
+
+                    <option value="&quot;smdu&quot;">
+                        SMDU
+                    </option>
+
+                    <option value="&quot;clinic&quot;">
+                        Clinic
+                    </option>
+
+        </select>
+    </span></td><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%"><label for="oe-field-input-50" class=" oe_form_label oe_align_right">
+            Averted in
+        </label></td><td class="oe_form_group_cell" colspan="1" width="49%"><span class="oe_form_field oe_form_field_selection">
+        <select id="oe-field-input-50" name="averted">
+
+                    <option value="false">
+
+                    </option>
+
+                    <option value="&quot;com&quot;">
+                        Community
+                    </option>
+
+                    <option value="&quot;clinic&quot;">
+                        Clinic
+                    </option>
+
+                    <option value="&quot;ae&quot;">
+                        A&amp;E
+                    </option>
+
+                    <option value="&quot;eau&quot;">
+                        EAU
+                    </option>
+
+                    <option value="&quot;acu&quot;">
+                        ACU
+                    </option>
+
+                    <option value="&quot;mobile&quot;">
+                        Mobile
+                    </option>
+
+        </select>
+    </span></td></tr></tbody></table></div></div></div>
+        </div></div></div></div>
+        </div></div>
+
+                    <ul class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all openerp" id="ui-id-5" tabindex="0" style="z-index: 1; display: none;"></ul><ul class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all openerp" id="ui-id-6" tabindex="0" style="z-index: 1; display: none;"></ul><ul class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all openerp" id="ui-id-7" tabindex="0" style="z-index: 1; display: none;"></ul></div>
+                </div>
+            </div>
+        </div></div></div>
+
+
+</div>
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
                 <hr/>

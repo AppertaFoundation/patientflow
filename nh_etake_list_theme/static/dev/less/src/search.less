@@ -93,7 +93,7 @@ Styleguide 4.0
 content: "\f0b0";
 font-size: 1.5em;
 color: #37474f;
-text-shadow: 0px 1px 1px lighten(white,50%);
+//text-shadow: 0px 1px 1px lighten(white,50%);
 
 }
 
@@ -148,13 +148,15 @@ text-shadow: 0px 1px 1px lighten(white,50%);
 
         .oe_facet_remove{
           .border-right(5px);
-            top:-1px;
+            top:0;
             right:0;
             background-color:#455a64;
             color:white;
             height:1.3em;
             line-height:1em;
             font-size:1.5em;
+            width:20px;
+            text-shadow: 0 1px 1px lighten(black, 50%);
 
             &:hover {
               background-color:#455a64;
@@ -185,6 +187,8 @@ text-shadow: 0px 1px 1px lighten(white,50%);
             font-size:1.2em;
             line-height:1.6em;
             color:white;
+            font-weight:500;
+            text-shadow: 0 1px 1px lighten(black, 50%);
             padding-right: 6px;
             &:last-child{
               padding-right: 26px;
@@ -198,7 +202,7 @@ text-shadow: 0px 1px 1px lighten(white,50%);
     .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove {
 
     height:3.5em;
-    width:3em;
+    //width:3em;
 
     }
 
@@ -224,6 +228,9 @@ text-shadow: 0px 1px 1px lighten(white,50%);
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#3c4e58, 10%)', endColorstr='#3c4e58', GradientType=0); /* IE6-9 */
       padding: 0.3em 4% 0.3em 4%;
       border-bottom: 1px solid #2b373d;
+
+      display: table-cell;
+      vertical-align: middle;
 
       height: 2.4em;
 
