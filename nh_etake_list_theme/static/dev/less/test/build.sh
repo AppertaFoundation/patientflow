@@ -32,9 +32,10 @@ echo $(tput setaf 7)
 python generate_styleguide.py
 
 cat css/files/* > css/test_etake_style.css
+cat css/files/* > css/etake_style.css
 cleancss -o css/test_etake_style.css css/test_etake_style.css -b --s0
 # use UnCSS to ensure that all styles are used
-uncss styleguide.html > css/etake_style.css  --ignoreSheets css/oe_base.css
+#uncss styleguide.html > css/etake_style.css --ignoreSheets css/oe_base.css
 cleancss -o css/etake_style.css css/etake_style.css -b --s0
 
 #echo $(tput setaf 1)

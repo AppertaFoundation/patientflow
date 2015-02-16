@@ -110,6 +110,91 @@
             font-size: 2em;
             text-transform: capitalize;
         }
+        .mobile_preview_bg{
+            background-color: rgba(0,0,0,0.6);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        .mobile_preview{
+            background-image: url('img/phone-case.png');
+            background-repeat: no-repeat;
+            position: fixed;
+            top: 3em;
+            left: calc(50% - 182px);
+            height: 792px;
+            width: 365px;
+        }
+
+        .tablet_preview{
+            position: fixed;
+            top: 3em;
+            left: calc(50% - 527px);
+            height: 798px;
+            width: 1054px;
+        }
+
+        .desktop_preview{
+            position: fixed;
+            top: 3em;
+            left: calc(50%  - 655px);
+            height: 798px;
+            width: 1310px;
+        }
+
+
+        .tablet_preview .example{
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            height: 768px;
+            width: 1024px;
+            border: 4px solid #22272d;
+            background-color: white;
+            overflow: scroll;
+            display: block;
+        }
+        .desktop_preview .example{
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            height: 768px;
+            width: 1280px;
+            border: 4px solid #22272d;
+            background-color: white;
+            overflow: scroll;
+            display: block;
+        }
+        .mobile_preview .wrapper, .tablet_preview .wrapper, .desktop_preview .wrapper{
+            position: relative;
+        }
+        .mobile_preview .example{
+            position: absolute;
+            top: 104px;
+            left: 15px;
+            width: 328px;
+            height: 576px;
+            border: 4px solid #22272d;
+            background-color: white;
+            overflow: scroll;
+            display: block;
+        }
+
+        .section .options{
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1em 0;
+        }
+        .section .options li{
+            display: inline;
+        }
+        .section .options li a{
+            background-color: #3778e9;
+            color: white;
+            text-decoration: none;
+            padding: 0.5em 3%;
+        }
 
 
     </style>
@@ -226,6 +311,12 @@ Styleguide 1.0
                 </ul>
 
                 <h3>Examples</h3>
+                <ul class="options">
+                    <li><a href="#" onclick="javascript:event.preventDefault();mobile(this, 'mobile_preview');">Launch mobile view</a></li>
+                    <li><a href="#" onclick="javascript:event.preventDefault();mobile(this, 'tablet_preview');">Launch tablet view</a></li>
+                    <li><a href="#" onclick="javascript:event.preventDefault();mobile(this, 'desktop_preview');">Launch desktop view</a></li>
+                </ul>
+
                 <div class="example">
                     {{ section.modifiers[0].example }}
                 </div>
@@ -261,6 +352,25 @@ Styleguide 1.0
 
            });
         });
+        function mobile(object, type){
+            var clicked_obj = $(object);
+            var example_obj = clicked_obj.parents('.section').find('.example');
+            var bg = $('<div>');
+            bg.addClass('mobile_preview_bg');
+            bg.css('height', $('body').height()+'px');
+            bg.click(function(){
+                $(this).remove();
+            });
+
+            var iframe = $('<div>');
+            iframe.addClass(type);
+            var wrapper = $('<div>');
+            wrapper.addClass('wrapper');
+            wrapper.append(example_obj.clone());
+            iframe.append(wrapper);
+            bg.append(iframe);
+            $('body').append(bg);
+        }
     </script>
 </body>
 </html>
