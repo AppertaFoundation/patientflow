@@ -98,3 +98,14 @@ html {
 	font-family: 'Open Sans', sans-serif;
 
 }
+
+.background-gradient(@colour_one, @colour_two){
+  background: @colour_one; /* Old browsers */
+  background: -moz-linear-gradient(top,  @colour_one 0%, @colour_two 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@colour_one), color-stop(100%,@colour_two)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(@colour_one,@colour_two); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  @colour_one 0%,@colour_two 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  @colour_one 0%,@colour_two 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  @colour_one 0%,@colour_two 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@colour_one', endColorstr='@colour_two',GradientType=0 ); /* IE6-9 */
+}
