@@ -6,377 +6,389 @@ ListView - a list view of the patients per column, table niceties.
 
 Example:
 
-<div class="oe_view_manager_wrapper">
-        <div>
-            <div class="oe_view_manager_body">
-                <div class="oe_searchview_drawer_container"><div class="oe_searchview_drawer" style="display: none;">
-    <div class="col-md-7"><div class="oe_searchview_custom oe_searchview_section" style="display: none;">
-    <dl class="dl-horizontal">
-        <dt><span class="oe_i">M</span> Favourites</dt>
-        <dd><ul class="oe_searchview_custom_list"></ul></dd>
-    </dl>
-</div><div class="oe_searchview_filters oe_searchview_section">
+<div class="odoo">
 
-<dl class="dl-horizontal"></dl></div></div>
-    <div class="col-md-5"><div class="oe_searchview_savefilter">
-    <h4>Save current filter</h4>
-    <form class="oe_form">
-        <p class="oe_form_required"><input id="oe_searchview_custom_input" placeholder="Filter name"></p>
-        <p>
-            <input id="oe_searchview_custom_public" type="checkbox">
-            <label for="oe_searchview_custom_public">Share with all users</label>
-            <input id="oe_searchview_custom_default" type="checkbox">
-            <label for="oe_searchview_custom_default">Use by default</label>
-        </p>
-        <button>Save</button>
-    </form>
-</div><div class="oe_searchview_advanced">
-    <h4>Advanced Search</h4>
-    <form>
-        <ul>
+<div class="oe_view_manager_buttons"><div class="oe_list_buttons">
 
-        <li>
-        <span class="searchview_extended_prop_or">or</span>
-        <select class="searchview_extended_prop_field">
+        <button class="oe_button oe_list_add oe_highlight" type="button">
+            Create
+        </button>
+        <button class="oe_button oe_list_save oe_highlight" type="button">Save</button>
 
-                <option value="acc_informed">
-                    ACC Informed
-                </option>
+    </div></div>
 
-                <option value="advised_attendance">
-                    Advised Attendance At
-                </option>
 
-                <option value="allergies">
-                    Allergies
-                </option>
+    <div class="oe_view_manager_wrapper">
+            <div>
+                <div class="oe_view_manager_body">
+                    <div class="oe_searchview_drawer_container"><div class="oe_searchview_drawer" style="display: none;">
+        <div class="col-md-7"><div class="oe_searchview_custom oe_searchview_section" style="display: none;">
+        <dl class="dl-horizontal">
+            <dt><span class="oe_i">M</span> Favourites</dt>
+            <dd><ul class="oe_searchview_custom_list"></ul></dd>
+        </dl>
+        </div><div class="oe_searchview_filters oe_searchview_section">
 
-                <option value="ambulance">
-                    Ambulance
-                </option>
+        <dl class="dl-horizontal"></dl></div></div>
+        <div class="col-md-5"><div class="oe_searchview_savefilter">
+        <h4>Save current filter</h4>
+        <form class="oe_form">
+            <p class="oe_form_required"><input id="oe_searchview_custom_input" placeholder="Filter name"></p>
+            <p>
+                <input id="oe_searchview_custom_public" type="checkbox">
+                <label for="oe_searchview_custom_public">Share with all users</label>
+                <input id="oe_searchview_custom_default" type="checkbox">
+                <label for="oe_searchview_custom_default">Use by default</label>
+            </p>
+            <button>Save</button>
+        </form>
+        </div><div class="oe_searchview_advanced">
+        <h4>Advanced Search</h4>
+        <form>
+            <ul>
 
-                <option value="averted">
-                    Averted in
-                </option>
+            <li>
+            <span class="searchview_extended_prop_or">or</span>
+            <select class="searchview_extended_prop_field">
 
-                <option value="blood_pressure_diastolic">
-                    Blood Pressure Diastolic
-                </option>
+                    <option value="acc_informed">
+                        ACC Informed
+                    </option>
 
-                <option value="blood_pressure_systolic">
-                    Blood Pressure Systolic
-                </option>
+                    <option value="advised_attendance">
+                        Advised Attendance At
+                    </option>
 
-                <option value="body_temperature">
-                    Body Temperature
-                </option>
+                    <option value="allergies">
+                        Allergies
+                    </option>
 
-                <option value="elsewhere_treatment">
-                    Can patient be treated elsewhere?
-                </option>
+                    <option value="ambulance">
+                        Ambulance
+                    </option>
 
-                <option value="create_date">
-                    Create Date
-                </option>
+                    <option value="averted">
+                        Averted in
+                    </option>
 
-                <option value="create_uid">
-                    Created By
-                </option>
+                    <option value="blood_pressure_diastolic">
+                        Blood Pressure Diastolic
+                    </option>
 
-                <option value="dob">
-                    Date of Birth
-                </option>
+                    <option value="blood_pressure_systolic">
+                        Blood Pressure Systolic
+                    </option>
 
-                <option value="gp_options_choice">
-                    Did the GP choose any other option?
-                </option>
+                    <option value="body_temperature">
+                        Body Temperature
+                    </option>
 
-                <option value="eau_informed">
-                    EAU Informed
-                </option>
+                    <option value="elsewhere_treatment">
+                        Can patient be treated elsewhere?
+                    </option>
 
-                <option value="access_clinic_datetime">
-                    Emergency GP Access Clinic Date &amp; Time
-                </option>
+                    <option value="create_date">
+                        Create Date
+                    </option>
 
-                <option value="environmental_factors">
-                    Environmental Factors, Social/Family
-                </option>
+                    <option value="create_uid">
+                        Created By
+                    </option>
 
-                <option value="ethnicity">
-                    Ethnicity
-                </option>
+                    <option value="dob">
+                        Date of Birth
+                    </option>
 
-                <option value="first_name">
-                    First Name
-                </option>
+                    <option value="gp_options_choice">
+                        Did the GP choose any other option?
+                    </option>
 
-                <option value="poc">
-                    First Point of Contact
-                </option>
+                    <option value="eau_informed">
+                        EAU Informed
+                    </option>
 
-                <option value="gender">
-                    Gender
-                </option>
+                    <option value="access_clinic_datetime">
+                        Emergency GP Access Clinic Date &amp; Time
+                    </option>
 
-                <option value="hospital_number">
-                    Hospital Number
-                </option>
+                    <option value="environmental_factors">
+                        Environmental Factors, Social/Family
+                    </option>
 
-                <option value="id">
-                    ID
-                </option>
+                    <option value="ethnicity">
+                        Ethnicity
+                    </option>
 
-                <option value="gp_options_discussed">
-                    If yes were options discussed with GP?
-                </option>
+                    <option value="first_name">
+                        First Name
+                    </option>
 
-                <option value="infection_concerns">
-                    Infection Concerns?
-                </option>
+                    <option value="poc">
+                        First Point of Contact
+                    </option>
 
-                <option value="last_name">
-                    Last Name
-                </option>
+                    <option value="gender">
+                        Gender
+                    </option>
 
-                <option value="letter_request">
-                    Letter Requested
-                </option>
+                    <option value="hospital_number">
+                        Hospital Number
+                    </option>
 
-                <option value="medication_list">
-                    Medication List Requested
-                </option>
+                    <option value="id">
+                        ID
+                    </option>
 
-                <option value="middle_names">
-                    Middle Names
-                </option>
+                    <option value="gp_options_discussed">
+                        If yes were options discussed with GP?
+                    </option>
 
-                <option value="nhs_number">
-                    NHS Number
-                </option>
+                    <option value="infection_concerns">
+                        Infection Concerns?
+                    </option>
 
-                <option value="o2_saturation">
-                    O2 Saturation
-                </option>
+                    <option value="last_name">
+                        Last Name
+                    </option>
 
-                <option value="medical_history_notes">
-                    Past Medical History
-                </option>
+                    <option value="letter_request">
+                        Letter Requested
+                    </option>
 
-                <option value="patient_id">
-                    Patient
-                </option>
+                    <option value="medication_list">
+                        Medication List Requested
+                    </option>
 
-                <option value="diagnosis">
-                    Possible diagnosis
-                </option>
+                    <option value="middle_names">
+                        Middle Names
+                    </option>
 
-                <option value="postcode">
-                    Postcode
-                </option>
+                    <option value="nhs_number">
+                        NHS Number
+                    </option>
 
-                <option value="pulse_rate">
-                    Pulse Rate
-                </option>
+                    <option value="o2_saturation">
+                        O2 Saturation
+                    </option>
 
-                <option value="referral_reason">
-                    Reason for referral
-                </option>
+                    <option value="medical_history_notes">
+                        Past Medical History
+                    </option>
 
-                <option value="referral_activity_id">
-                    Referral
-                </option>
+                    <option value="patient_id">
+                        Patient
+                    </option>
 
-                <option value="ref_doctor_id">
-                    Referring Doctor
-                </option>
+                    <option value="diagnosis">
+                        Possible diagnosis
+                    </option>
 
-                <option value="resides">
-                    Resides
-                </option>
+                    <option value="postcode">
+                        Postcode
+                    </option>
 
-                <option value="source">
-                    Source of Referral
-                </option>
+                    <option value="pulse_rate">
+                        Pulse Rate
+                    </option>
 
-                <option value="specialty">
-                    Specialty
-                </option>
+                    <option value="referral_reason">
+                        Reason for referral
+                    </option>
 
-                <option value="symptoms_notes">
-                    Symptoms/Investigations Treatment
-                </option>
+                    <option value="referral_activity_id">
+                        Referral
+                    </option>
 
-                <option value="team_informed">
-                    Team Informed
-                </option>
+                    <option value="ref_doctor_id">
+                        Referring Doctor
+                    </option>
 
-                <option value="write_uid">
-                    Updated By
-                </option>
+                    <option value="resides">
+                        Resides
+                    </option>
 
-                <option value="weight">
-                    Weight
-                </option>
+                    <option value="source">
+                        Source of Referral
+                    </option>
 
-                <option value="write_date">
-                    Write Date
-                </option>
+                    <option value="specialty">
+                        Specialty
+                    </option>
 
-        </select>
-        <select class="searchview_extended_prop_op"><option value="=">is</option><option value="!=">is not</option><option value="E">is set</option><option value="E">is not set</option></select>
-        <span class="searchview_extended_prop_value"><select>
+                    <option value="symptoms_notes">
+                        Symptoms/Investigations Treatment
+                    </option>
 
-        <option value="yes">Yes</option>
+                    <option value="team_informed">
+                        Team Informed
+                    </option>
 
-        <option value="no">No</option>
+                    <option value="write_uid">
+                        Updated By
+                    </option>
 
-    </select></span>
-        <a class="searchview_extended_delete_prop button">x</a>
-    </li></ul>
-        <button class="oe_add_condition button" type="button">Add a condition</button><br>
-        <button class="oe_apply" type="submit">Apply</button>
-    </form>
-</div><div class="oe_searchview_dashboard">
-    <h4>Add to Dashboard</h4>
-    <form>
-        <p><input placeholder="Title of new dashboard item"></p>
-        <button class="oe_apply" type="submit">Add</button>
-    </form>
-</div></div>
-</div></div>
+                    <option value="weight">
+                        Weight
+                    </option>
 
-                        <div class="oe_view_manager_view_list"><div class="oe_list oe_view oe_cannot_edit oe_cannot_delete"><table class="oe_list_content">
+                    <option value="write_date">
+                        Write Date
+                    </option>
 
-    <thead>
+            </select>
+            <select class="searchview_extended_prop_op"><option value="=">is</option><option value="!=">is not</option><option value="E">is set</option><option value="E">is not set</option></select>
+            <span class="searchview_extended_prop_value"><select>
 
-        <tr class="oe_list_header_columns">
+            <option value="yes">Yes</option>
 
-                <th data-id="patient_id" class="oe_list_header_many2one oe_sortable"><div>
-                    Patient
-                </div></th>
+            <option value="no">No</option>
 
-                <th data-id="nhs_number" class="oe_list_header_char oe_sortable"><div>
-                    NHS Number
-                </div></th>
+        </select></span>
+            <a class="searchview_extended_delete_prop button">x</a>
+        </li></ul>
+            <button class="oe_add_condition button" type="button">Add a condition</button><br>
+            <button class="oe_apply" type="submit">Apply</button>
+        </form>
+        </div><div class="oe_searchview_dashboard">
+        <h4>Add to Dashboard</h4>
+        <form>
+            <p><input placeholder="Title of new dashboard item"></p>
+            <button class="oe_apply" type="submit">Add</button>
+        </form>
+        </div></div>
+        </div></div>
 
-                <th data-id="ref_doctor_id" class="oe_list_header_many2one oe_sortable"><div>
-                    Referring Doctor
-                </div></th>
+                            <div class="oe_view_manager_view_list"><div class="oe_list oe_view oe_cannot_edit oe_cannot_delete"><table class="oe_list_content">
 
-                <th data-id="create_date" class="oe_list_header_datetime oe_sortable"><div>
-                    Created
-                </div></th>
+        <thead>
 
-                <th data-id="create_uid" class="oe_list_header_many2one oe_sortable"><div>
-                    By
-                </div></th>
+            <tr class="oe_list_header_columns">
 
-                <th data-id="write_date" class="oe_list_header_datetime oe_sortable"><div>
-                    Modified
-                </div></th>
+                    <th data-id="patient_id" class="oe_list_header_many2one oe_sortable"><div>
+                        Patient
+                    </div></th>
 
-                <th data-id="write_uid" class="oe_list_header_many2one oe_sortable"><div>
-                    By
-                </div></th>
+                    <th data-id="nhs_number" class="oe_list_header_char oe_sortable"><div>
+                        NHS Number
+                    </div></th>
 
+                    <th data-id="ref_doctor_id" class="oe_list_header_many2one oe_sortable"><div>
+                        Referring Doctor
+                    </div></th>
+
+                    <th data-id="create_date" class="oe_list_header_datetime oe_sortable"><div>
+                        Created
+                    </div></th>
+
+                    <th data-id="create_uid" class="oe_list_header_many2one oe_sortable"><div>
+                        By
+                    </div></th>
+
+                    <th data-id="write_date" class="oe_list_header_datetime oe_sortable"><div>
+                        Modified
+                    </div></th>
+
+                    <th data-id="write_uid" class="oe_list_header_many2one oe_sortable"><div>
+                        By
+                    </div></th>
+
+
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td class="oe_list_footer oe_number">1</td>
+                <td class="oe_list_footer oe_number">2</td>
+                <td class="oe_list_footer oe_number">3</td>
+                <td class="oe_list_footer oe_number">4</td>
+                <td class="oe_list_footer oe_number">5</td>
+                <td class="oe_list_footer oe_number">6</td>
+                <td class="oe_list_footer oe_number">7</td>
+                <td class="oe_list_footer oe_number">8</td>
+                <td class="oe_list_footer oe_number">9</td>
+            </tr>
+        </tfoot>
+        <tbody>
+        <tr data-id="1" style="">
+
+            <td data-field="patient_id" class="oe_list_field_cell oe_list_field_many2one    ">GRAMMAR, Kelsey  </td>
+
+            <td data-field="nhs_number" class="oe_list_field_cell oe_list_field_char    ">930 378 2098</td>
+
+            <td data-field="ref_doctor_id" class="oe_list_field_cell oe_list_field_many2one    ">Chris Jones</td>
+
+            <td data-field="create_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 12:49:33</td>
+
+            <td data-field="create_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">John Roads</td>
+
+            <td data-field="write_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 12:49:33</td>
+
+            <td data-field="write_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">John Roads</td>
 
         </tr>
-    </thead>
-    <tfoot>
-        <tr>
 
-            <td class="oe_list_footer oe_number">
-            </td><td class="oe_list_footer oe_number">
-            </td><td class="oe_list_footer oe_number">
-            </td><td class="oe_list_footer oe_number">
-            </td><td class="oe_list_footer oe_number">
-            </td><td class="oe_list_footer oe_number">
-            </td><td class="oe_list_footer oe_number">
-            </td>
+        <tr data-id="2" style="">
+
+            <td data-field="patient_id" class="oe_list_field_cell oe_list_field_many2one    ">RIVERS, James </td>
+
+            <td data-field="nhs_number" class="oe_list_field_cell oe_list_field_char    ">465 389 0394</td>
+
+            <td data-field="ref_doctor_id" class="oe_list_field_cell oe_list_field_many2one    ">Lucy Chambers</td>
+
+            <td data-field="create_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 12:49:33</td>
+
+            <td data-field="create_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">John Roads</td>
+
+            <td data-field="write_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 12:49:33</td>
+
+            <td data-field="write_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">John Roads</td>
 
         </tr>
-    </tfoot>
-<tbody>
-    <tr data-id="1" style="">
 
-        <td data-field="patient_id" class="oe_list_field_cell oe_list_field_many2one    ">,  </td>
+        <tr data-id="3" style="">
 
-        <td data-field="nhs_number" class="oe_list_field_cell oe_list_field_char    "></td>
+            <td data-field="patient_id" class="oe_list_field_cell oe_list_field_many2one    ">WALSH, Deborah </td>
 
-        <td data-field="ref_doctor_id" class="oe_list_field_cell oe_list_field_many2one    "></td>
+            <td data-field="nhs_number" class="oe_list_field_cell oe_list_field_char    ">264 325 7822</td>
 
-        <td data-field="create_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 12:23:24</td>
+            <td data-field="ref_doctor_id" class="oe_list_field_cell oe_list_field_many2one    ">Ben Grimfield</td>
 
-        <td data-field="create_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">Administrator</td>
+            <td data-field="create_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 12:49:33</td>
 
-        <td data-field="write_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 12:23:24</td>
+            <td data-field="create_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">John Roads</td>
 
-        <td data-field="write_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">Administrator</td>
+            <td data-field="write_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 12:49:33</td>
 
-</tr>
+            <td data-field="write_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">John Roads</td>
 
-    <tr data-id="2" style="">
+        </tr>
 
-        <td data-field="patient_id" class="oe_list_field_cell oe_list_field_many2one    ">, qewqweq </td>
+        <tr data-id="4" style="">
 
-        <td data-field="nhs_number" class="oe_list_field_cell oe_list_field_char    ">eqweqw</td>
+            <td data-field="patient_id" class="oe_list_field_cell oe_list_field_many2one    ">ADAMS, Javion </td>
 
-        <td data-field="ref_doctor_id" class="oe_list_field_cell oe_list_field_many2one    "></td>
+            <td data-field="nhs_number" class="oe_list_field_cell oe_list_field_char    ">691 302 0423</td>
 
-        <td data-field="create_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 12:49:33</td>
+            <td data-field="ref_doctor_id" class="oe_list_field_cell oe_list_field_many2one    ">Clive Jacobs</td>
 
-        <td data-field="create_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">Administrator</td>
+            <td data-field="create_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 12:49:33</td>
 
-        <td data-field="write_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 12:49:33</td>
+            <td data-field="create_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">John Roads</td>
 
-        <td data-field="write_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">Administrator</td>
+            <td data-field="write_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 12:49:33</td>
 
-</tr>
+            <td data-field="write_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">John Roads</td>
 
-    <tr data-id="3" style="">
+        </tr>
+        </tbody></table></div></div>
 
-        <td data-field="patient_id" class="oe_list_field_cell oe_list_field_many2one    ">Walsh, Deborah </td>
+                            <div class="oe_view_manager_view_form" style="display: none;"></div>
 
-        <td data-field="nhs_number" class="oe_list_field_cell oe_list_field_char    ">2643257822</td>
-
-        <td data-field="ref_doctor_id" class="oe_list_field_cell oe_list_field_many2one    "></td>
-
-        <td data-field="create_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 15:54:15</td>
-
-        <td data-field="create_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">Administrator</td>
-
-        <td data-field="write_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 15:54:15</td>
-
-        <td data-field="write_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">Administrator</td>
-
-</tr>
-
-    <tr data-id="4" style="">
-
-        <td data-field="patient_id" class="oe_list_field_cell oe_list_field_many2one    ">Adams, Javion </td>
-
-        <td data-field="nhs_number" class="oe_list_field_cell oe_list_field_char    ">6913020423</td>
-
-        <td data-field="ref_doctor_id" class="oe_list_field_cell oe_list_field_many2one    "></td>
-
-        <td data-field="create_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 15:54:51</td>
-
-        <td data-field="create_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">Administrator</td>
-
-        <td data-field="write_date" class="oe_list_field_cell oe_list_field_datetime   oe_readonly ">12/02/2015 15:54:51</td>
-
-        <td data-field="write_uid" class="oe_list_field_cell oe_list_field_many2one   oe_readonly ">Administrator</td>
-
-</tr>
-</tbody></table></div></div>
-
-                        <div class="oe_view_manager_view_form" style="display: none;"></div>
-
+                    </div>
                 </div>
             </div>
-        </div>
 
+</div>
 
 Styleguide 9.0
 
@@ -385,27 +397,121 @@ Styleguide 9.0
 @import (once) "mixin.less";
 @import (once) "typography.less";
 
+
+table {
+
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: black;
+
+}
+
+
 .oe_view_manager_view_list {
 
     padding:1.5%;
 
+
+
     .oe_list_content {
+
+                box-shadow:0 1px 3px 0 lighten(black, 65%);
+                .border-radius;
+
+
+        tbody {
+
+                     tr:last-child td:first-child  {  
+
+                         border-bottom-left-radius:10px;  
+
+                                }  
+
+                     tr:last-child td:last-child {  
+
+                         border-bottom-right-radius:10px;   
+
+                                }
+
+                     tr:nth-child(odd) td {
+
+                           background: -webkit-linear-gradient(lighten(#f4f4f4, 10%), #f4f4f4 );
+
+                        }
+
+                     tr:nth-child(even) td {
+
+                           background: -webkit-linear-gradient(lighten(#d0e2eb, 5%), #d0e2eb );
+
+                        }
+
+                     td {
+
+                     border-right:1px solid lighten(#8aaec0, 13%);
+
+
+                        &:last-child {
+
+                        border-right:0;
+
+                        }
+
+                     }
+
+             }
+
+        tfoot {
+                 background: -webkit-linear-gradient(lighten(#a9c8d7, 10%), #a9c8d7 );
+                 text-align:center;
+                 display:none;
+
+                tr:last-child td:first-child  {  
+
+                     border-bottom-left-radius:10px;  
+
+                            }  
+
+                 tr:last-child td:last-child {  
+
+                     border-bottom-right-radius:10px;   
+
+                            }
+
+        }
 
             .oe_list_header_columns {
 
-                .border-radius;
-
-                .oe_list_header_many2one, .oe_list_header_char, .oe_list_header_datetime {
+                .oe_list_header_many2one, .oe_list_header_char, .oe_list_header_datetime, .oe_list_header_text, .oe_list_header_boolean, .oe_list_header_one2many, .oe_list_header_selection {
 
 
-                          background: -webkit-linear-gradient(lighten(#749db2, 10%), #749db2 );
-                          box-shadow:0 1px 3px 0 lighten(black, 45%);
+                          background: -webkit-linear-gradient(lighten(#8aaec0, 10%), #8aaec0 );
+                          //box-shadow:0 1px 3px 0 lighten(black, 45%);
 
-                          color: darken(#749db2, 35%);
-                          text-shadow: 0 1px 1px lighten(#749db2, 30%);
-                          font-size:1.15em;
-                          padding:0.3%;
+                          color: darken(#8aaec0, 35%);
+                          text-shadow: 0 1px 1px lighten(#8aaec0, 30%);
+                          font-size:1.1em;
+                          padding:0.5%;
+                          border-right:1px solid darken(#8aaec0, 8%);
+                          //border-left:1px solid darken(#8aaec0, 15%);
+                          border-bottom:1px solid darken(#8aaec0, 20%);
+                          //position:fixed;
 
+
+                          &.oe_list_header_many2one:first-child  {  
+
+                            border-top-left-radius:10px;  
+                            border-right:1px solid darken(#8aaec0,5%);
+                            border-left:0;
+
+                            }  
+
+                          &.oe_list_header_many2one:last-child  {  
+
+                            border-top-right-radius:10px;   
+                            border-right:0;
+
+                            }
 
                 }
 
@@ -414,11 +520,74 @@ Styleguide 9.0
 
             .oe_list_field_many2one, .oe_list_field_char, .oe_list_field_datetime {
 
-                    background:white;
-                    border-bottom:1px solid lighten(black, 30%);
+                    background:#fff;
+                    //border-bottom:1px solid lighten(black, 80%); 
+                    text-align:center;
+                    padding:2%;
 
             }
 
     }
 
 }
+
+
+    .oe_view_manager_buttons {
+
+        .oe_list_buttons{
+
+
+            .oe_button, .oe_list_add, .oe_highlight {
+
+
+              .border-radius;
+
+                  color: white;
+                  //display: inline-block;
+                  font-size: @nav-tab;
+                  background: lighten(#0072A2, 20%); /* Old browsers */
+                  background: -moz-linear-gradient(top,  lighten(#0072A2, 20%) 0%, #0072A2 100%); /* FF3.6+ */
+                  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,lighten(#0072A2, 20%)), color-stop(100%,#0072A2)); /* Chrome,Safari4+ */
+                  background: -webkit-linear-gradient(lighten(#0072A2, 20%),#0072A2); /* Chrome10+,Safari5.1+ */
+                  background: -o-linear-gradient(top,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* Opera 11.10+ */
+                  background: -ms-linear-gradient(top, lighten(#0072A2, 20%) 0%,#0072A2 100%); /* IE10+ */
+                  background: linear-gradient(to bottom,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* W3C */
+                  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='lighten(#0072A2, 20%))', endColorstr='#0072A2',GradientType=0 ); /* IE6-9 */
+                  padding: 0.3em 10%;
+                  border: 0;
+                  box-shadow: 0 1px 2px 0 white inset, 0 2px 0px rgba(0,0,0,0.6);
+                  margin-left: 5%;
+                  margin-right: 5%;
+                  text-align: center;
+                  text-shadow: 0 1px 1px lighten(black, 50%);
+                  text-decoration: none;
+                  height: inherit;
+                  font-weight: 600;
+
+
+                  &:hover {
+
+                      background: lighten(#0072A2, 20%); /* Old browsers */
+                      background: -moz-linear-gradient(top,  lighten(#0072A2, 20%) 0%, #0072A2 100%); /* FF3.6+ */
+                      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,lighten(#0072A2, 20%)), color-stop(100%,#0072A2)); /* Chrome,Safari4+ */
+                      background: -webkit-linear-gradient(lighten(#0072A2, 20%),#0072A2); /* Chrome10+,Safari5.1+ */
+                      background: -o-linear-gradient(top,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* Opera 11.10+ */
+                      background: -ms-linear-gradient(top, lighten(#0072A2, 20%) 0%,#0072A2 100%); /* IE10+ */
+                      background: linear-gradient(to bottom,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* W3C */
+                      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='lighten(#0072A2, 20%))', endColorstr='#0072A2',GradientType=0 ); /* IE6-9 */
+
+
+                  }
+
+
+            }
+
+            .oe_button oe_list_save oe_highlight {
+
+
+
+            }
+
+        }
+
+    }
