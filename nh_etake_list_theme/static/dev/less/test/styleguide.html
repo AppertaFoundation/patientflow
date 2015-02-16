@@ -60,12 +60,21 @@
 
         }
         .main .example{
-            padding: 0 5% 1em 5%;
+            padding: 1em 2.5% 1em 2.5%;
             border-radius: 5px;
-            border: 1px solid rgb(124,124,124);
-            width: 90%;
+            border: 1px solid rgba(0,0,0,0.1);
+            width: 95%;
             position: relative;
         }
+
+        .main .example .odoo{
+            position: relative;
+            width: 100%;
+            margin-bottom: 2em;
+            float: none;
+            clear: both;
+        }
+
         .main .example:before{
             box-sizing: border-box;
         }
@@ -94,6 +103,12 @@
         .main h3{
             margin-top: 2.5em;
             line-height: 0;
+            color: #3778e9;
+        }
+        .main h2{
+            color: #3778e9;
+            font-size: 2em;
+            text-transform: capitalize;
         }
 
 
@@ -9292,11 +9307,11 @@ window.jQuery = window.$ = jQuery;
                 
                 <li><a href="#search">search</a></li>
                 
-                <li><a href="#leftnav_fix">leftnav_fix</a></li>
+                <li><a href="#leftnav_fix">leftnav fix</a></li>
                 
                 <li><a href="#kanban">kanban</a></li>
                 
-                <li><a href="#odoo_fixes">odoo_fixes</a></li>
+                <li><a href="#odoo_fixes">odoo fixes</a></li>
                 
                 <li><a href="#listview">listview</a></li>
                 
@@ -9370,7 +9385,6 @@ Styleguide 1.0
                     <li><strong>.sg</strong> - Use if you're redefining HTML elements as KSS doesn't pick them up otherwise</li>
                     <li><strong>.example</strong> - Use this before any classes you want to redefine so the styleguide's example section works properly</li>
                 </ul>
-                <hr/>
             </div>
             
 
@@ -9406,7 +9420,6 @@ Styleguide 1.0
   </div>
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
-                <hr/>
             </div>
 
             
@@ -10575,7 +10588,6 @@ Styleguide 1.0
 </div>
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
-                <hr/>
             </div>
 
             
@@ -10651,7 +10663,6 @@ Styleguide 1.0
   </div>
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
-                <hr/>
             </div>
 
             
@@ -10707,7 +10718,6 @@ Styleguide 1.0
     </div><div class="modal-backdrop  in"></div>
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
-                <hr/>
             </div>
 
             
@@ -10804,13 +10814,12 @@ Styleguide 1.0
     </div>
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
-                <hr/>
             </div>
 
             
 
             <div class="section" id="leftnav_fix">
-                <h2>leftnav_fix</h2>
+                <h2>leftnav fix</h2>
                 <p>fix to get the leftnav bar in Odoo to display as dictated in design. Very Hacky due to Odoo's use of direct child selectors</p>
 
                 <h3>Modifiers</h3>
@@ -10881,7 +10890,6 @@ Styleguide 1.0
   </div>
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
-                <hr/>
             </div>
 
             
@@ -10910,69 +10918,7 @@ td.oe_kanban_group_header - Odoo Column Header</p>
 
                 <h3>Examples</h3>
                 <div class="example">
-                    <!-- <div class="take-col">
-
-    <div class="col-title">
-
-        <ul>
-
-           <li><a class="add-patient" href="#"><i class="addpatient-icon"></i></a></li>
-
-           <li><h3>To Be Clerked</h3></li>
-
-           <li><div class="task-no">5</div></li>
-
-        </ul>
-
-    </div>
-
-    <div class="tasks">
-
-      <div class="time-till">
-
-          <ul>
-              <li><i class="time"></i>
-              <li>-12M</li>
-              <li class="sub-tasks">+3</li>
-          </ul>
-
-      </div>
-
-      <div class="patient-info">
-
-         <ul>
-        <li>WOODGROVE, Francis James Patrick John</li>
-         </ul>
-
-
-        <ul>
-            <li class="p-info">67</li>
-            <li class="p-info"><i class="male"></i></li>
-            <li class="p-info">6<i class="score-up"></i></li>
-            <li class="last">5G <i class="bed-move"></i> 3L</li>
-        </ul>
-      </div>
-
-        <div class="task-numbers">
-
-             <ul class="task">
-                <li class="btn-task"> Clerk </li>
-            </ul>
-
-           <ul>
-               <li class="num-id">NHS<li>
-               <li>801 340 3902</li>
-
-               <li class="num-hosp">Hospital<li>
-               <li>3094938 </li>
-           </ul>
-        </div>
-    </div>
-
-</div> -->
-
-
-  <div class="openerp">
+                    <div class="openerp">
     <div class="oe_webclient">
       <div class="oe_application">
   <div class="oe_view_manager_wrapper">
@@ -11592,69 +11538,14 @@ td.oe_kanban_group_header - Odoo Column Header</p>
         </div>
       </div>
     </div>
-
-
- <!-- <div class="take-col">
-
-    <div class="col-title">
-
-       <ul>
-            <li><a class="add-patient" href="#"><i class="addpatient-icon"></i></a></li>
-            <li><h3>For Senior Review</h3></li>
-            <li><div class="task-no">5</div></li>
-       </ul>
-
-    </div>
-
-    <div class="tasks">
-
-      <div class="time-till">
-          <ul>
-              <li><i class="time-overdue"></i>
-              <li>-12M</li>
-              <li class="sub-tasks-block">+3</li>
-          </ul>
-
-      </div>
-
-      <div class="patient-info">
-
-         <ul>
-        <li>WOODGROVE, Francis James Patrick John</li>
-         </ul>
-
-
-        <ul>
-            <li class="p-info">67</li>
-            <li class="p-info"><i class="male"></i></li>
-            <li class="p-info">6<i class="score-up"></i></li>
-            <li class="last">5G <i class="bed-move"></i> 3L</li>
-        </ul>
-      </div>
-
-        <div class="task-numbers">
-
-            <ul class="task">
-                <li class="btn-task"> Start Review </li>
-            </ul>
-
-           <ul class="numbers">
-               <li>801 340 3902</li>
-               <li>3094938</li>
-           </ul>
-        </div>
-    </div>
-
-</div>  -->
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
-                <hr/>
             </div>
 
             
 
             <div class="section" id="odoo_fixes">
-                <h2>odoo_fixes</h2>
+                <h2>odoo fixes</h2>
                 <p>Fixes. For making little things change.</p>
 
                 <h3>Modifiers</h3>
@@ -11761,7 +11652,6 @@ td.oe_kanban_group_header - Odoo Column Header</p>
     </div>
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
-                <hr/>
             </div>
 
             
@@ -12164,7 +12054,6 @@ td.oe_kanban_group_header - Odoo Column Header</p>
 </div>
                 </div>
                 <p class="top-link"><a href="#top">[ TOP ]</a></p>
-                <hr/>
             </div>
 
             

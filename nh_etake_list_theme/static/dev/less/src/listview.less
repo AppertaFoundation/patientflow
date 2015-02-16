@@ -482,8 +482,7 @@ table {
 
             .oe_list_header_columns {
 
-                .oe_list_header_many2one, .oe_list_header_char, .oe_list_header_datetime, .oe_list_header_text, .oe_list_header_boolean, .oe_list_header_one2many, .oe_list_header_selection {
-
+                > th {
 
                           background: -webkit-linear-gradient(lighten(#8aaec0, 10%), #8aaec0 );
                           //box-shadow:0 1px 3px 0 lighten(black, 45%);
@@ -498,7 +497,7 @@ table {
                           //position:fixed;
 
 
-                          &.oe_list_header_many2one:first-child  {  
+                          &:first-child  {  
 
                             border-top-left-radius:10px;  
                             border-right:1px solid darken(#8aaec0,5%);
@@ -506,7 +505,7 @@ table {
 
                             }  
 
-                          &.oe_list_header_many2one:last-child  {  
+                          &:last-child  {  
 
                             border-top-right-radius:10px;   
                             border-right:0;
