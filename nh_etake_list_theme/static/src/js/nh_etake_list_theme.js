@@ -133,7 +133,7 @@ openerp.nh_etake_list_theme = function(instance){
             });
 
             var userMenu = $('<ul class="oe_user_menu_placeholder"></ul>');
-            self.user_menu = new instance.web.UserMenu(self);
+            self.user_menu = new instance.web.UserMenu(instance.webclient);
             self.user_menu.appendTo(userMenu);
             userMenu.appendTo(navbarDiv);
             self.user_menu.on('user_logout', self, instance.webclient.on_logout);
