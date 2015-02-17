@@ -194,7 +194,7 @@
             <field name="view_type">form</field>
             <field name="domain">[('state','not in',['Done','Other','dna','to_dna','admitted']),('hours_from_discharge','&lt;',12)]</field>
             <field name="context">{'search_default_group_by_state':1}</field>
-            <field name="view_mode">kanban,form</field>
+            <field name="view_mode">kanban,form,list</field>
             <field name="view_id" ref="view_nh_etake_list_overview_kanban"/>
         </record>
 
