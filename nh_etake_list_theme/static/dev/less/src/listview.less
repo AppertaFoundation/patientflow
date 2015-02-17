@@ -435,14 +435,12 @@ table {
                                 }
 
                      tr:nth-child(odd) td {
-
-                           background: -webkit-linear-gradient(lighten(#f4f4f4, 10%), #f4f4f4 );
+                           .background-gradient(lighten(#f4f4f4, 10%), #f4f4f4);
 
                         }
 
                      tr:nth-child(even) td {
-
-                           background: -webkit-linear-gradient(lighten(#d0e2eb, 5%), #d0e2eb );
+                           .background-gradient(lighten(#d0e2eb, 5%), #d0e2eb);
 
                         }
 
@@ -462,7 +460,7 @@ table {
              }
 
         tfoot {
-                 background: -webkit-linear-gradient(lighten(#a9c8d7, 10%), #a9c8d7 );
+                  .background-gradient(lighten(#a9c8d7, 10%), #a9c8d7);
                  text-align:center;
                  display:none;
 
@@ -483,8 +481,7 @@ table {
             .oe_list_header_columns {
 
                 > th {
-
-                          background: -webkit-linear-gradient(lighten(#8aaec0, 10%), #8aaec0 );
+                          .background-gradient(lighten(#8aaec0, 10%), #8aaec0);
                           //box-shadow:0 1px 3px 0 lighten(black, 45%);
 
                           color: darken(#8aaec0, 35%);
@@ -545,17 +542,10 @@ table {
                   color: white;
                   //display: inline-block;
                   font-size: @nav-tab;
-                  background: lighten(#0072A2, 20%); /* Old browsers */
-                  background: -moz-linear-gradient(top,  lighten(#0072A2, 20%) 0%, #0072A2 100%); /* FF3.6+ */
-                  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,lighten(#0072A2, 20%)), color-stop(100%,#0072A2)); /* Chrome,Safari4+ */
-                  background: -webkit-linear-gradient(lighten(#0072A2, 20%),#0072A2); /* Chrome10+,Safari5.1+ */
-                  background: -o-linear-gradient(top,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* Opera 11.10+ */
-                  background: -ms-linear-gradient(top, lighten(#0072A2, 20%) 0%,#0072A2 100%); /* IE10+ */
-                  background: linear-gradient(to bottom,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* W3C */
-                  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='lighten(#0072A2, 20%))', endColorstr='#0072A2',GradientType=0 ); /* IE6-9 */
+                  .background-gradient(lighten(#0072A2, 20%), #0072A2);
                   padding: 0.3em 10%;
                   border: 0;
-                  box-shadow: 0 1px 2px 0 white inset, 0 2px 0px rgba(0,0,0,0.6);
+                  box-shadow: 0 1px 2px 0 white inset, 0 2px 0 rgba(0,0,0,0.6);
                   margin-left: 5%;
                   margin-right: 5%;
                   text-align: center;
@@ -566,15 +556,7 @@ table {
 
 
                   &:hover {
-
-                      background: lighten(#0072A2, 20%); /* Old browsers */
-                      background: -moz-linear-gradient(top,  lighten(#0072A2, 20%) 0%, #0072A2 100%); /* FF3.6+ */
-                      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,lighten(#0072A2, 20%)), color-stop(100%,#0072A2)); /* Chrome,Safari4+ */
-                      background: -webkit-linear-gradient(lighten(#0072A2, 20%),#0072A2); /* Chrome10+,Safari5.1+ */
-                      background: -o-linear-gradient(top,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* Opera 11.10+ */
-                      background: -ms-linear-gradient(top, lighten(#0072A2, 20%) 0%,#0072A2 100%); /* IE10+ */
-                      background: linear-gradient(to bottom,  lighten(#0072A2, 20%) 0%,#0072A2 100%); /* W3C */
-                      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='lighten(#0072A2, 20%))', endColorstr='#0072A2',GradientType=0 ); /* IE6-9 */
+                      .background-gradient(lighten(#0072A2, 20%), #0072A2);
 
 
                   }
