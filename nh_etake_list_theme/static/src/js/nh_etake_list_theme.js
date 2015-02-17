@@ -11,6 +11,7 @@ openerp.nh_etake_list_theme = function(instance){
 
     instance.web.Menu.include({
         open_menu: function(id){
+            var self = this;
             this.current_menu = id;
             this.session.active_id = id;
             var $clicked_menu, $sub_menu, $main_menu;
@@ -72,12 +73,13 @@ openerp.nh_etake_list_theme = function(instance){
             var sectionTitles = $sub_menu.find('.oe_secondary_menu_section');
             var sectionLists = $sub_menu.find('.oe_secondary_submenu');
             var navbarDiv = $('<div class="navbar"></div>');
-            var userMenu = $('.oe_user_menu_placeholder');
+
+
             if($main_menu.parent().css('display') == "none"){
-                if($('.oe_secondary_menu .oe_user_menu_placeholder').length < 1){
-                    userMenu.clone(true).appendTo(navbarDiv);
-                    //userMenu.hide();
-                }
+//                if($('.oe_secondary_menu .oe_user_menu_placeholder').length < 1){
+//                    userMenu.clone(true).appendTo(navbarDiv);
+//                    //userMenu.hide();
+//                }
                $('#oe_main_menu_navbar').hide();
                 if($("#oe_main_menu_navbar").css('display') == "none"){
                     $(".openerp.openerp_webclient_container").css('height', '100%');
@@ -122,13 +124,20 @@ openerp.nh_etake_list_theme = function(instance){
                 });
 
                 navbarDiv.append($(this));
-                if(navbarDiv.find('.oe_user_menu_placeholder').length < 1){
-                    userMenu = $('.oe_user_menu_placeholder').first();
-                    userMenu.clone(true).appendTo(navbarDiv);
-                    //userMenu.hide();
-
-                }
+//                if(navbarDiv.find('.oe_user_menu_placeholder').length < 1){
+//                    userMenu = $('.oe_user_menu_placeholder').first();
+//                    userMenu.clone(true).appendTo(navbarDiv);
+//                    //userMenu.hide();
+//
+//                }
             });
+
+            var userMenu = $('<ul class="oe_user_menu_placeholder"></ul>');
+            self.user_menu = new instance.web.UserMenu(self);
+            self.user_menu.appendTo(userMenu);
+            userMenu.appendTo(navbarDiv);
+            self.user_menu.on('user_logout', self, instance.webclient.on_logout);
+            self.user_menu.do_update();
         }
     });
 
@@ -165,6 +174,36 @@ openerp.nh_etake_list_theme = function(instance){
             this.trigger('on_button_cancel');
            return false;
         }
+    });
+
+    //test menu foo
+    instance.web.WebClient.include({
+        show_application: function() {
+            var self = this;
+            self.toggle_bars(true);
+
+            self.update_logo();
+            //this.$('.oe_logo_edit_admin').click(function(ev) {
+             //   self.logo_edit(ev);
+            //});
+
+            // Menu is rendered server-side thus we don't want the widget to create any dom
+            self.menu = new instance.web.Menu(self);
+            self.menu.setElement(this.$el.parents().find('.oe_application_menu_placeholder'));
+            self.menu.start();
+            self.menu.on('menu_click', this, this.on_menu_action);
+            //self.user_menu = new instance.web.UserMenu(self);
+            //self.user_menu.appendTo(this.$el.parents().find('.oe_user_menu_placeholder'));
+            //self.user_menu.on('user_logout', self, self.on_logout);
+            //self.user_menu.do_update();
+            self.bind_hashchange();
+            self.set_title();
+            self.check_timezone();
+            if (self.client_options.action_post_login) {
+                self.action_manager.do_action(self.client_options.action_post_login);
+                delete(self.client_options.action_post_login);
+            }
+        },
     });
 
     instance.web_kanban.KanbanView.include({
@@ -223,6 +262,79 @@ openerp.nh_etake_list_theme = function(instance){
                 });
             });
         },
+    });
+
+    instance.web_kanban.KanbanGroup.include({
+       start: function(){
+           var self = this;
+           if(self.dataset.model !== 'nh.etake_list.overview'){
+               return self._super();
+           }
+           if (! self.view.group_by) {
+               self.$el.addClass("oe_kanban_no_group");
+               self.quick = new (get_class(self.view.quick_create_class))(this, self.dataset, {}, false)
+                   .on('added', self, self.proxy('quick_created'));
+               self.quick.replace($(".oe_kanban_no_group_qc_placeholder"));
+           }
+           this.$records = $(QWeb.render('KanbanView.group_records_container', { widget : this}));
+           this.$records.insertBefore(this.view.$el.find('.oe_kanban_groups_records td:last'));
+
+           this.$el.on('click', '.oe_kanban_group_dropdown li a', function(ev) {
+               var fn = 'do_action_' + $(ev.target).data().action;
+               if (typeof(self[fn]) === 'function') {
+                   self[fn]($(ev.target));
+               }
+           });
+
+           this.$el.find('.oe_kanban_add').click(function () {
+               if (self.view.quick) {
+                   self.view.quick.trigger('close');
+               }
+               if (self.quick) {
+                   return false;
+               }
+               self.view.$el.find('.oe_view_nocontent').hide();
+               var ctx = {};
+               ctx['default_' + self.view.group_by] = self.value;
+               self.quick = new (get_class(self.view.quick_create_class))(this, self.dataset, ctx, true)
+                   .on('added', self, self.proxy('quick_created'))
+                   .on('close', self, function() {
+                       self.view.$el.find('.oe_view_nocontent').show();
+                       this.quick.destroy();
+                       delete self.view.quick;
+                       delete this.quick;
+                   });
+               self.quick.appendTo($(".oe_kanban_group_list_header", self.$records));
+               self.quick.focus();
+               self.view.quick = self.quick;
+           });
+           this.$el.find('.nh_referral_add').click(function(){
+               $('.oe_secondary_submenu a[data-action-id=160]').trigger('click');
+           });
+           this.$el.find('.nh_kanban_show_list').click(function(){
+              self.view.do_switch_view('list');
+           });
+           // Add bounce effect on image '+' of kanban header when click on empty space of kanban grouped column.
+           this.$records.on('click', '.oe_kanban_show_more', this.do_show_more);
+           if (this.state.folded) {
+               this.do_toggle_fold();
+           }
+           this.$el.data('widget', this);
+           this.$records.data('widget', this);
+           this.$has_been_started.resolve();
+           var add_btn = this.$el.find('.oe_kanban_add');
+           add_btn.tooltip({delay: { show: 500, hide:1000 }});
+           this.$records.find(".oe_kanban_column_cards").click(function (ev) {
+               if (ev.target == ev.currentTarget) {
+                   if (!self.state.folded) {
+                       add_btn.openerpBounce();
+                   }
+               }
+           });
+           this.is_started = true;
+           var def_tooltip = this.fetch_tooltip();
+           return $.when(def_tooltip);
+       },
     });
 
 }
