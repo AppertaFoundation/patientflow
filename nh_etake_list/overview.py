@@ -160,7 +160,10 @@ class nh_etake_list_overview(orm.Model):
                         end as activity_id,
                         spell_activity.id as spell_activity_id,
                         patient.other_identifier as hospital_number,
-                        patient.patient_identifier as nhs_number,
+                        case
+                            when char_length(patient.patient_identifier) > 6 then substring(patient.patient_identifier from 1 for 3) || ' ' || substring(patient.patient_identifier from 4 for 3) || ' ' || substring(patient.patient_identifier from 7)
+                            else patient.patient_identifier
+                        end as nhs_number,
                         referral.form_id as form_id,
                         form.specialty_id as specialty_id,
                         clerking_activity.date_started as clerking_started,
@@ -189,7 +192,7 @@ class nh_etake_list_overview(orm.Model):
                         end as review_deadline_polarity,
                         case
                             when tci_activity.date_terminated is null then '14H 00M'
-                            when @ extract(days from (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC') > 0 then @ extract(days from (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC') || 'D ' || (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC'
+                            when @ extract(days from (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC') > 0 then @ extract(days from (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC') || 'D ' || extract(hours from (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC') || 'H ' || @ extract(minutes from (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC') || 'M'
                             else @ extract(hours from (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC') || 'H ' || @ extract(minutes from (tci_activity.date_terminated + interval '14 hours') - now() at time zone 'UTC') || 'M'
                         end as review_deadline
 
