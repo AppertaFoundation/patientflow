@@ -146,9 +146,9 @@ Example:
                               </div>
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
-                                  <a class="plus-btn" href="#"><i class="plus"></i></a>
-                                  <a class="list-btn-sq" href="#"><i class="list-view"></i></a>
-                                  <div class="oe_kanban_group_length oe_tag">0</div>
+                                  <a class="btn-head" href="#"><i class="plus"></i></a>
+                                  <a class="btn-head" href="#"><i class="list-view"></i></a>
+                                  <div class="oe_kanban_group_length oe_tag">0</li>
                                   <div class="oe_kanban_group_title_text" title="Referral">Referral</div>
                                 </div>
                               </div>
@@ -168,8 +168,8 @@ Example:
                               </div>
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
-                                  <a class="list-btn" href="#"><i class="list-view"></i></a>
-                                  <div class="oe_kanban_group_length oe_tag">12</div>
+                                  <a class="btn-head" href="#"><i class="list-view"></i></a>
+                                  <div class="oe_kanban_group_length oe_tag">12</li>
                                   <div class="oe_kanban_group_title_text" title="To Come In">To Come In</div>
                                 </div>
                                 <ul class="oe_kanban_aggregates"></ul>
@@ -190,7 +190,7 @@ Example:
                               </div>
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
-                                  <a class="list-btn" href="#"><i class="list-view"></i></a>
+                                  <a class="btn-head" href="#"><i class="list-view"></i></a>
                                   <div class="oe_kanban_group_length oe_tag">0</div>
                                   <div class="oe_kanban_group_title_text" title="To be Clerked">To be Clerked</div>
                                 </div>
@@ -211,7 +211,7 @@ Example:
                               </div>
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
-                                  <a class="list-btn" href="#"><i class="list-view"></i></a>
+                                  <a class="btn-head" href="#"><i class="list-view"></i></a>
                                   <div class="oe_kanban_group_length oe_tag">0</div>
                                   <div class="oe_kanban_group_title_text" title="Clerking in Process">Clerking in Process</div>
                                 </div>
@@ -232,7 +232,7 @@ Example:
                               </div>
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
-                                    <a class="list-btn" href="#"><i class="list-view"></i></a>
+                                    <a class="btn-head" href="#"><i class="list-view"></i></a>
                                     <div class="oe_kanban_group_length oe_tag">0</div>
                                     <div class="oe_kanban_group_title_text" title="Senior Review">Senior Review</div>
                                 </div>
@@ -253,6 +253,7 @@ Example:
                               </div>
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
+                                  <a class="btn-head" href="#"><i class="list-view"></i></a>
                                   <div class="oe_kanban_group_length oe_tag">0</div>
                                   <div class="oe_kanban_group_title_text" title="Consultant Review">Consultant Review</div>
                                 </div>
@@ -273,6 +274,7 @@ Example:
                               </div>
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
+                                  <a class="btn-head" href="#"><i class="list-view"></i></a>
                                   <div class="oe_kanban_group_length oe_tag">0</div>
                                   <div class="oe_kanban_group_title_text" title="To be Discharged">To be Discharged</div>
                                 </div>
@@ -293,6 +295,7 @@ Example:
                               </div>
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
+                                  <a class="btn-head" href="#"><i class="list-view"></i></a>
                                   <div class="oe_kanban_group_length oe_tag">0</div>
                                   <div class="oe_kanban_group_title_text" title="Discharged">Discharged</div>
                                 </div>
@@ -697,10 +700,9 @@ text-shadow: 0 1px 1px lighten(white,50%);
 
                 .oe_fold_column{
 
-                  .oe_kanban_group_title{
-                    text-align: center;
-                    position: relative;
-                    margin-right: 0;
+                  .oe_kanban_group_title {
+
+                            }
 
                     .oe_kanban_group_length{
                       line-height: 1.7em;
@@ -730,16 +732,15 @@ text-shadow: 0 1px 1px lighten(white,50%);
                     }
 
                     .oe_kanban_group_title_text{
-                      //float: left;
-                      width: 80%;
+                      float: left;
+                      width: 85%;
                       //text-align: center;
-                      line-height:2.2em;
+                      //line-height:2.2em;
                       font-size:0.88em;
-
-                        margin-right:2px;
-                        white-space:normal;
-                        overflow: visible;
-                        text-overflow:initial;
+                      //margin-right:2px;
+                      white-space:normal;
+                      overflow: visible;
+                      text-overflow:initial;
 
                     }
                   }
@@ -936,15 +937,15 @@ text-shadow: 0 1px 1px lighten(white,50%);
                         border-bottom: 1px solid lighten(#000000, 30%);
                         border-bottom: 1px solid rgba(0, 0, 0, .3);
                         line-height:2.2em;
-                        display: table;
+                        display:table;
                         width: 100%;
 
                           .name {
-                            border:none;
-                          width:93%;
-                          padding:3%;
-                          font-size:1.1em;
-                          text-align:center;
+                              border:none;
+                              width:93%;
+                              padding:3%;
+                              font-size:1.1em;
+                              text-align:center;
 
                           }
 
@@ -1039,6 +1040,7 @@ text-shadow: 0 1px 1px lighten(white,50%);
 
     .oe_kanban_header{
 
+
       &:hover{
 
         .oe_kanban_group_length{
@@ -1051,7 +1053,6 @@ text-shadow: 0 1px 1px lighten(white,50%);
       }
     }
   }
-}
 
 .example .oe_kanban_group_title_vertical{
   display: none;
