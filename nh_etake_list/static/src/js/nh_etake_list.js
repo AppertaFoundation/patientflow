@@ -110,7 +110,7 @@ openerp.nh_etake_list = function (instance) {
     instance.web.Model.include({
         call_button: function (method, args) {
             instance.web.pyeval.ensure_evaluated(args, {});
-            if (!(window.location.hash.indexOf("view_type=list") > -1) && !(window.location.hash.indexOf("view_type=form") > -1) && this.name == 'nh.etake_list.overview' && method != 'start_clerking'){
+            if (instance.webclient.action_manager.inner_widget.active_view == 'kanban' && this.name == 'nh.etake_list.overview' && method != 'start_clerking'){
                 return this.session().rpc('/web/dataset/call_button', {
                     model: this.name,
                     method: method,
