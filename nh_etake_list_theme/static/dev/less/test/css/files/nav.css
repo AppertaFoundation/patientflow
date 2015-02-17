@@ -202,7 +202,7 @@ html {
 }
 .nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle .caret {
   float: right;
-  border-top-width: 0px;
+  border-top-width: 0;
   margin-right: 8px;
 }
 .nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-toggle .caret:before {

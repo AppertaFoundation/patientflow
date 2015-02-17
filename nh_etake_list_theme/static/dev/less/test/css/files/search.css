@@ -143,7 +143,7 @@ html {
   background-color: #B0BEC5;
 }
 .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet:focus {
-  border-width: 0px;
+  border-width: 0;
   box-shadow: 0 0 1px #303f46;
 }
 .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove {
