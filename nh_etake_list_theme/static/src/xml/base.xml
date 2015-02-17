@@ -8,4 +8,15 @@
             </ul>
         </t>
     </t>
+
+    <t t-extend="KanbanView.group_header">
+            <t t-jquery=".oe_kanban_group_length.oe_tag" t-operation="before">
+                <t t-if="widget.dataset.model=='nh.etake_list.overview'">
+                    <t t-if="widget.title=='Referral'">
+                        <a class="plus-btn" href="#" ><i class="plus"></i></a>
+                    </t>
+                    <a class="list-btn-sq" href="#"><i class="list-view"></i></a>
+                </t>
+            </t>
+    </t>
 </templates>
