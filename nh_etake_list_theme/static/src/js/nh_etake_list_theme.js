@@ -309,7 +309,27 @@ openerp.nh_etake_list_theme = function(instance){
                self.view.quick = self.quick;
            });
            this.$el.find('.nh_referral_add').click(function(){
-               $('.oe_secondary_submenu a[data-action-id=160]').trigger('click');
+               self.rpc('/web/action/load', {action_id: 'nh_etake_list.action_show_referral_forms'}).done(function(result) {
+                    form_view = result.views.map(function(view){
+                       if(view[1] == "form"){
+                           return view[0];
+                       }
+                    }).reduce(function(a,b, index){
+                       if(typeof(b) !== "undefined"){
+                           return b;
+                       }
+                    });
+
+                   // TODO: need to find a way to use form_view to load the actual form view but for now use button pressing hack
+
+                    instance.client.on_menu_action({'action_id': result.id}).done(function(){
+                        $('.oe_secondary_menu .active').removeClass('active');
+                        $('.oe_secondary_menu a[data-action-id='+result.id+']').parent().addClass('active');
+                        $('.oe_list_buttons .oe_list_add').trigger('click');
+                    });
+
+               });
+
            });
            this.$el.find('.nh_kanban_show_list').click(function(){
               self.view.do_switch_view('list');
