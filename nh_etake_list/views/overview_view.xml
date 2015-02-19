@@ -188,6 +188,15 @@
             </field>
         </record>
 
+        <record model="ir.actions.act_window" id="action_show_overview_form_tci" >
+            <field name="name">Referral Board</field>
+            <field name="res_model">nh.etake_list.overview</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','TCI'),('hours_from_discharge','&lt;',12)]</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_nh_etake_list_overview_form"/>
+        </record>
+
         <record model="ir.actions.act_window" id="action_show_overview_kanban" >
             <field name="name">Referral Board</field>
             <field name="res_model">nh.etake_list.overview</field>

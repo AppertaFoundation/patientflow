@@ -115,6 +115,15 @@
             </field>
         </record>
 
+        <record model="ir.actions.act_window" id="action_new_referral_form" >
+            <field name="name">Patient Referral Forms</field>
+            <field name="res_model">nh.clinical.patient.referral.form</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!--<field name="target">current</field>-->
+            <field name="view_id" ref="view_nh_etake_list_referral_form_form"/>
+        </record>
+
         <record model="ir.actions.act_window" id="action_show_referral_forms" >
             <field name="name">Patient Referral Forms</field>
             <field name="res_model">nh.clinical.patient.referral.form</field>

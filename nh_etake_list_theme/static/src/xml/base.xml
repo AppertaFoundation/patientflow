@@ -13,10 +13,119 @@
             <t t-jquery=".oe_kanban_group_length.oe_tag" t-operation="before">
                 <t t-if="widget.dataset.model=='nh.etake_list.overview'">
                     <t t-if="widget.title=='Referral'">
-                        <a class="plus-btn nh_referral_add" href="#"><i class="plus"></i></a>
+                        <a class="btn-head nh_referral_add" href="#"><i class="plus"></i></a>
                     </t>
-                    <a class="list-btn nh_kanban_show_list" href="#"><i class="list-view"></i></a>
+                    <a class="btn-head nh_kanban_show_list" href="#" t-att-data-state="widget.value"><i class="list-view"></i></a>
                 </t>
             </t>
     </t>
+
+    <t t-extend="KanbanView">
+        <t t-jquery=".oe_kanban_view" t-operation="replace">
+            <div class="oe_kanban_view">
+                <div class="oe_kanban_buttons"/>
+                <table class="oe_kanban_groups">
+                    <tr class="oe_kanban_groups_headers">
+                        <td class="oe_kanban_dummy_cell"><div/></td>
+                    </tr>
+                </table>
+                <div class="nh_kanban_scroll_fix">
+                <div>
+                    <table class="oe_kanban_groups">
+                        <tr class="oe_kanban_groups_records">
+                            <td class="oe_kanban_dummy_cell"><div/></td>
+                        </tr>
+                    </table>
+                </div>
+            </div></div>
+        </t>
+    </t>
+
+    <t t-name="NHListView">
+        <table class="oe_list_content nh_list_scroll_fix_header">
+            <t t-set="columns_count" t-value="visible_columns.length + (options.selectable ? 1 : 0) + (options.deletable ? 1 : 0)"/>
+            <thead>
+                <tr t-if="(!!options.action_buttons and !options.$buttons) or (!!options.pager and !options.$pager)">
+                    <th t-att-colspan="columns_count">
+                        <div class="oe_list_buttons"/>
+                        <div class="oe_list_sidebar"/>
+                        <div class="oe_list_pager"/>
+                    </th>
+                </tr>
+                <tr t-if="options.header" class="oe_list_header_columns">
+                    <t t-foreach="columns" t-as="column">
+                        <th t-if="column.meta">
+                            <t t-esc="column.string"/>
+                        </th>
+                    </t>
+                    <th t-if="options.selectable" width="1"  >
+                        <input type="checkbox" class="oe_list_record_selector"/>
+                    </th>
+                    <t t-foreach="columns" t-as="column">
+                        <th t-if="!column.meta and column.invisible !== '1'" t-att-data-id="column.id"
+                            t-attf-class="oe_list_header_#{column.widget or column.type} #{((options.sortable and column.tag !== 'button') ? 'oe_sortable' : null)}"><div>
+                            <t t-if="column.tag !== 'button'"><t t-esc="column.string"/></t>
+                        </div></th>
+                    </t>
+                    <th t-if="options.deletable" class="oe_list_record_delete" width="13px"/>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td t-if="options.selectable"/>
+                    <td t-foreach="aggregate_columns" t-as="column" class="oe_list_footer oe_number"
+                        t-att-data-field="column.id" t-att-title="column.label">
+                    </td>
+                    <td t-if="options.deletable" class="oe_list_record_delete"/>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="nh_list_scroll_fix">
+            <div>
+                <table class="oe_list_content nh_list_scroll_fix_body">
+                    <t t-set="columns_count" t-value="visible_columns.length + (options.selectable ? 1 : 0) + (options.deletable ? 1 : 0)"/>
+                    <thead>
+                        <tr t-if="(!!options.action_buttons and !options.$buttons) or (!!options.pager and !options.$pager)">
+                            <th t-att-colspan="columns_count">
+                                <div class="oe_list_buttons"/>
+                                <div class="oe_list_sidebar"/>
+                                <div class="oe_list_pager"/>
+                            </th>
+                        </tr>
+                        <tr t-if="options.header" class="oe_list_header_columns">
+                            <t t-foreach="columns" t-as="column">
+                                <th t-if="column.meta">
+                                    <t t-esc="column.string"/>
+                                </th>
+                            </t>
+                            <th t-if="options.selectable" width="1"  >
+                                <input type="checkbox" class="oe_list_record_selector"/>
+                            </th>
+                            <t t-foreach="columns" t-as="column">
+                                <th t-if="!column.meta and column.invisible !== '1'" t-att-data-id="column.id"
+                                    t-attf-class="oe_list_header_#{column.widget or column.type} #{((options.sortable and column.tag !== 'button') ? 'oe_sortable' : null)}"><div>
+                                    <t t-if="column.tag !== 'button'"><t t-esc="column.string"/></t>
+                                </div></th>
+                            </t>
+                            <th t-if="options.deletable" class="oe_list_record_delete" width="13px"/>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td t-if="options.selectable"/>
+                            <td t-foreach="aggregate_columns" t-as="column" class="oe_list_footer oe_number"
+                                t-att-data-field="column.id" t-att-title="column.label">
+                            </td>
+                            <td t-if="options.deletable" class="oe_list_record_delete"/>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </t>
+
+
+
+
+
 </templates>

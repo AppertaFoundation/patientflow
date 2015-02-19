@@ -142,38 +142,26 @@ openerp.nh_etake_list_theme = function(instance){
     });
 
     instance.web.FormView.include({
-        can_be_discarded: function() {
+        can_be_discarded: function () {
             if (this.$el.is('.oe_form_dirty')) {
-                  var popup_content = '<div><p>The record has been modified, your changes will be discarded.</p><p>Please save or discard your changes.</p></div>';
-                  var popup = new instance.web.Dialog(this, {
-                      title: _t('Warning'),
-                      size: 'medium',
-                      buttons: {
-                          Ok: function() {
-                              this.parents('.modal').modal('hide');
-                          }}
-                  }, $(popup_content));
-                  popup.open();
-                  return false;
-
+                var popup_content = '<div><p>The record has been modified, your changes will be discarded.</p><p>Please save or discard your changes.</p></div>';
+                var popup = new instance.web.Dialog(this, {
+                    title: _t('Warning'),
+                    size: 'medium',
+                    buttons: {
+                        Ok: function () {
+                            this.parents('.modal').modal('hide');
+                        }}
+                }, $(popup_content));
+                popup.open();
                 this.$el.removeClass('oe_form_dirty');
-            }else{
+                return false;
+
+
+            } else {
                 return true;
             }
         },
-        on_button_cancel: function(event){
-            var self = this;
-            if (this.get('actual_mode') === 'create') {
-                        this.trigger('history_back');
-            } else {
-                this.to_view_mode();
-                $.when.apply(null, this.render_value_defs).then(function(){
-                    self.trigger('load_record', self.datarecord);
-                });
-            }
-            this.trigger('on_button_cancel');
-           return false;
-        }
     });
 
     //test menu foo
@@ -262,6 +250,21 @@ openerp.nh_etake_list_theme = function(instance){
                 });
             });
         },
+
+    });
+
+    instance.web_kanban.KanbanRecord.include({
+          do_action_open: function($action){
+              var self = this;
+              var state = get_action_from_state(self.group.value);
+              this.rpc('/web/action/load', {'action_id': 'nh_etake_list.action_show_'+state}).done(function(result){
+                  result.res_id = self.id;
+                  result.view_type = 'form';
+                  instance.client.action_manager.do_action(result).done(function(){
+                     $('tr[data-id='+self.id+']').trigger('click');
+                  });
+              });
+          },
     });
 
     instance.web_kanban.KanbanGroup.include({
@@ -309,30 +312,30 @@ openerp.nh_etake_list_theme = function(instance){
                self.view.quick = self.quick;
            });
            this.$el.find('.nh_referral_add').click(function(){
-               self.rpc('/web/action/load', {action_id: 'nh_etake_list.action_show_referral_forms'}).done(function(result) {
-                    form_view = result.views.map(function(view){
-                       if(view[1] == "form"){
-                           return view[0];
-                       }
-                    }).reduce(function(a,b, index){
-                       if(typeof(b) !== "undefined"){
-                           return b;
-                       }
-                    });
+               self.rpc('/web/action/load', {action_id: 'nh_etake_list.action_show_referral_forms'}).done(function(res){
+                  self.rpc('/web/action/load', {action_id: 'nh_etake_list.action_new_referral_form'}).done(function(result) {
 
-                   // TODO: need to find a way to use form_view to load the actual form view but for now use button pressing hack
-
-                    instance.client.on_menu_action({'action_id': result.id}).done(function(){
-                        $('.oe_secondary_menu .active').removeClass('active');
-                        $('.oe_secondary_menu a[data-action-id='+result.id+']').parent().addClass('active');
-                        $('.oe_list_buttons .oe_list_add').trigger('click');
-                    });
-
+                      instance.client.on_menu_action({'action_id': result.id}).done(function () {
+                          $('.oe_secondary_menu .active').removeClass('active');
+                          $('.oe_secondary_menu a[data-action-id=' + res.id + ']').parent().addClass('active');
+                      });
+                  });
                });
 
            });
            this.$el.find('.nh_kanban_show_list').click(function(){
-              self.view.do_switch_view('list');
+               var ds = $(this).attr('data-state');
+               var state = get_action_from_state(ds);
+              self.rpc('/web/action/load', {action_id: 'nh_etake_list.action_show_'+state}).done(function(result) {
+
+
+                  instance.client.on_menu_action({'action_id': result.id}).done(function(){
+                      $('.oe_secondary_menu .active').removeClass('active');
+                      $('.oe_secondary_menu a[data-action-id='+result.id+']').parent().addClass('active');
+                      //$('.oe_list_buttons .oe_list_add').trigger('click');
+                  });
+
+              });
            });
            // Add bounce effect on image '+' of kanban header when click on empty space of kanban grouped column.
            this.$records.on('click', '.oe_kanban_show_more', this.do_show_more);
@@ -357,4 +360,190 @@ openerp.nh_etake_list_theme = function(instance){
        },
     });
 
+
+    instance.web.ListView.include({
+        load_list: function(data) {
+            var self = this;
+            this.fields_view = data;
+            this.name = "" + this.fields_view.arch.attrs.string;
+
+            if (this.fields_view.arch.attrs.colors) {
+                this.colors = _(this.fields_view.arch.attrs.colors.split(';')).chain()
+                    .compact()
+                    .map(function(color_pair) {
+                        var pair = color_pair.split(':'),
+                            color = pair[0],
+                            expr = pair[1];
+                        return [color, py.parse(py.tokenize(expr)), expr];
+                    }).value();
+            }
+
+            if (this.fields_view.arch.attrs.fonts) {
+                this.fonts = _(this.fields_view.arch.attrs.fonts.split(';')).chain().compact()
+                    .map(function(font_pair) {
+                        var pair = font_pair.split(':'),
+                            font = pair[0],
+                            expr = pair[1];
+                        return [font, py.parse(py.tokenize(expr)), expr];
+                    }).value();
+            }
+
+            this.setup_columns(this.fields_view.fields, this.grouped);
+
+            this.$el.html(QWeb.render('NHListView', this));
+            this.$el.addClass(this.fields_view.arch.attrs['class']);
+
+            // Head hook
+            // Selecting records
+            this.$el.find('.oe_list_record_selector').click(function(){
+                self.$el.find('.oe_list_record_selector input').prop('checked',
+                        self.$el.find('.oe_list_record_selector').prop('checked')  || false);
+                var selection = self.groups.get_selection();
+                $(self.groups).trigger(
+                    'selected', [selection.ids, selection.records]);
+            });
+
+            // Add button
+            if (!this.$buttons) {
+                this.$buttons = $(QWeb.render("ListView.buttons", {'widget':self}));
+                if (this.options.$buttons) {
+                    this.$buttons.appendTo(this.options.$buttons);
+                } else {
+                    this.$el.find('.oe_list_buttons').replaceWith(this.$buttons);
+                }
+                this.$buttons.find('.oe_list_add')
+                    .click(this.proxy('do_add_record'))
+                    .prop('disabled', this.grouped);
+            }
+
+            // Pager
+            if (!this.$pager) {
+                this.$pager = $(QWeb.render("ListView.pager", {'widget':self}));
+                if (this.options.$buttons) {
+                    this.$pager.appendTo(this.options.$pager);
+                } else {
+                    this.$el.find('.oe_list_pager').replaceWith(this.$pager);
+                }
+
+                this.$pager
+                    .on('click', 'a[data-pager-action]', function () {
+                        var $this = $(this);
+                        var max_page = Math.floor(self.dataset.size() / self.limit());
+                        switch ($this.data('pager-action')) {
+                            case 'first':
+                                self.page = 0; break;
+                            case 'last':
+                                self.page = max_page - 1;
+                                break;
+                            case 'next':
+                                self.page += 1; break;
+                            case 'previous':
+                                self.page -= 1; break;
+                        }
+                        if (self.page < 0) {
+                            self.page = max_page;
+                        } else if (self.page > max_page) {
+                            self.page = 0;
+                        }
+                        self.reload_content();
+                    }).find('.oe_list_pager_state')
+                    .click(function (e) {
+                        e.stopPropagation();
+                        var $this = $(this);
+
+                        var $select = $('<select>')
+                            .appendTo($this.empty())
+                            .click(function (e) {e.stopPropagation();})
+                            .append('<option value="80">80</option>' +
+                                '<option value="200">200</option>' +
+                                '<option value="500">500</option>' +
+                                '<option value="2000">2000</option>' +
+                                '<option value="NaN">' + _t("Unlimited") + '</option>')
+                            .change(function () {
+                                var val = parseInt($select.val(), 10);
+                                self._limit = (isNaN(val) ? null : val);
+                                self.page = 0;
+                                self.reload_content();
+                            }).blur(function() {
+                                $(this).trigger('change');
+                            })
+                            .val(self._limit || 'NaN');
+                    });
+            }
+
+            // Sidebar
+            if (!this.sidebar && this.options.$sidebar) {
+                this.sidebar = new instance.web.Sidebar(this);
+                this.sidebar.appendTo(this.options.$sidebar);
+                this.sidebar.add_items('other', _.compact([
+                    { label: _t("Export"), callback: this.on_sidebar_export },
+                        self.is_action_enabled('delete') && { label: _t('Delete'), callback: this.do_delete_selected }
+                ]));
+                this.sidebar.add_toolbar(this.fields_view.toolbar);
+                this.sidebar.$el.hide();
+            }
+            //Sort
+            var default_order = this.fields_view.arch.attrs.default_order,
+                unsorted = !this.dataset._sort.length;
+            if (unsorted && default_order) {
+                this.dataset.set_sort(default_order.split(','));
+            }
+
+            if(this.dataset._sort.length){
+                if(this.dataset._sort[0].indexOf('-') == -1){
+                    this.$el.find('th[data-id=' + this.dataset._sort[0] + ']').addClass("sortdown");
+                }else {
+                    this.$el.find('th[data-id=' + this.dataset._sort[0].split('-')[1] + ']').addClass("sortup");
+                }
+            }
+            this.trigger('list_view_loaded', data, this.grouped);
+        },
+
+
+    })
+}
+
+
+function get_action_from_state(state){
+    switch (state) {
+        case 'Referral':
+            return 'referrals';
+            break;
+        case 'TCI':
+            return 'tci';
+            break;
+        case 'To be Clerked':
+            return 'tbc';
+            break;
+        case 'Senior Review':
+            return 'senior_reviews';
+            break;
+        case 'Consultant Review':
+            return 'consultant_reviews';
+            break;
+        case 'Discharged':
+            return 'discharged';
+            break;
+        case 'To Be Discharged':
+            return 'tbd';
+            break;
+        case 'Other':
+            return 'overview_kanban';
+            break;
+        case 'Clerking in Progress':
+            return 'clerkings';
+            break;
+        case 'Done':
+            return 'overview_kanban';
+            break;
+        case 'dna':
+            return 'overview_kanban';
+            break;
+        case 'to_dna':
+            return 'overview_kanban';
+            break;
+        case 'admitted':
+            return 'admitted';
+            break;
+    }
 }
