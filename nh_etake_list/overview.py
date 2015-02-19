@@ -161,7 +161,7 @@ class nh_etake_list_overview(orm.Model):
                         spell_activity.id as spell_activity_id,
                         patient.other_identifier as hospital_number,
                         case
-                            when char_length(patient.patient_identifier) > 6 then substring(patient.patient_identifier from 1 for 3) || ' ' || substring(patient.patient_identifier from 4 for 3) || ' ' || substring(patient.patient_identifier from 7)
+                            when char_length(patient.patient_identifier) > 6 then substring(patient.patient_identifier from 1 for 3) || '-' || substring(patient.patient_identifier from 4 for 3) || '-' || substring(patient.patient_identifier from 7)
                             else patient.patient_identifier
                         end as nhs_number,
                         referral.form_id as form_id,
