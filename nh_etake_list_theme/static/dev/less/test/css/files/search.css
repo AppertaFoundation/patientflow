@@ -108,22 +108,32 @@ html {
   font-family: 'Open Sans', sans-serif;
 }
 /* Typography */
+h2 {
+  color: #737373;
+}
+h2 a {
+  color: #428BCD;
+}
 .filter-icon:after {
   content: "\f0b0";
   font-size: 1.5em;
   color: #37474f;
 }
-.openerp .oe_searchview {
+.openerp .oe_view_manager_view_search .oe_searchview {
   -ms-border-radius: 10px;
   border-radius: 10px;
   background-color: #ffffff;
-  box-shadow: 0 0 4px 1px #999999 inset;
+  box-shadow: 0 0 4px 1px #cccccc inset;
 }
-.openerp .oe_searchview .oe_searchview_facets {
+.openerp .oe_view_manager_view_search .oe_searchview.oe_focused {
+  border: 1px solid #90b3c4;
+  box-shadow: 0 0 4px 1px #90b3c4 inset;
+}
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_facets {
   min-height: 2.2em;
-  margin: 0 0 0 8%;
+  margin: 0 28% 0 8%;
 }
-.openerp .oe_searchview .oe_searchview_facets .oe_searchview_input {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_facets .oe_searchview_input {
   border: none;
   color: #333;
   padding: 0.5em 1% 0.5em 1%;
@@ -131,24 +141,25 @@ html {
   font-size: 1.2em;
   margin-top: 0;
 }
-.openerp .oe_searchview .oe_searchview_facets .oe_searchview_input:focus {
-  background-color: #f2f2f2;
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_facets .oe_searchview_input:focus {
   outline: 0;
 }
-.openerp .oe_searchview .oe_searchview_facets .oe_tag {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_facets .oe_tag {
   height: 2em;
-  top: 2.5px;
+  margin-top: 2.5px;
+  margin-bottom: 2.5px;
+  box-shadow: 0 1px 1px #4d4d4d;
 }
-.openerp .oe_searchview .oe_searchview_facets .oe_tag_dark {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_facets .oe_tag_dark {
   background-color: #B0BEC5;
 }
-.openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet:focus {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_facets .oe_searchview_facet:focus {
   border-width: 0;
   box-shadow: 0 0 1px #303f46;
 }
-.openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove {
+  border-top-right-radius: 2.5px;
+  border-bottom-right-radius: 2.5px;
   top: 0;
   right: 0;
   background-color: #455a64;
@@ -159,14 +170,17 @@ html {
   width: 20px;
   text-shadow: 0 1px 1px #808080;
 }
-.openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove:hover {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove:hover {
   background-color: #455a64;
 }
-.openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_values {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_category {
+  margin-top: 1px;
+}
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_values {
   border: 0;
   background-color: #78909c;
 }
-.openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_values .oe_facet_value {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_values .oe_facet_value {
   font-size: 1.2em;
   line-height: 1.6em;
   color: white;
@@ -174,19 +188,22 @@ html {
   text-shadow: 0 1px 1px #808080;
   padding-right: 6px;
 }
-.openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_values .oe_facet_value:last-child {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_values .oe_facet_value:last-child {
   padding-right: 26px;
 }
-.openerp .oe_searchview .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove {
+.openerp .oe_view_manager_view_search .oe_searchview .oe-autocomplete .oe-selection-focus {
+  background-color: #6F9CB2;
+}
+.openerp .oe_view_manager_view_search .oe_searchview .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove {
   height: 3.5em;
 }
-.openerp .oe_searchview .oe_searchview_search {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_search {
   left: 7px;
 }
-.openerp .oe_searchview .oe_searchview_search:before {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_search:before {
   font: 28px "mnmliconsRegular";
 }
-.openerp .oe_searchview .oe_searchview_unfold_drawer {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_unfold_drawer {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   background: #516976;
@@ -206,57 +223,65 @@ html {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#3c4e58, 10%)', endColorstr='#3c4e58', GradientType=0);
   /* IE6-9 */
   padding: 0.3em 4% 0.3em 4%;
-  border-bottom: 1px solid #2b373d;
   display: table-cell;
   vertical-align: middle;
-  height: 2.4em;
+  box-shadow: 0 2px 2px #4d4d4d;
+  border-bottom: 1px solid #314c59;
+  border-top: 1px solid #729db1;
+  min-height: 2.42em;
 }
-.openerp .oe_searchview .oe_searchview_unfold_drawer:before {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_unfold_drawer:before {
   border-top-color: white;
-  font-size: 1.5em;
-  top: 0.75em;
+  font-size: 1.7em;
+  top: 0.55em;
   right: 30%;
   border-top-width: 7px;
   border-left-width: 7px;
   border-right-width: 7px;
 }
-.openerp .oe_searchview .oe_searchview_unfold_drawer:focus {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_unfold_drawer:focus {
   box-shadow: 0 0 0 2px gray;
   background-color: #b3b3b3;
   outline: 0;
+  border: 0;
 }
-.openerp .oe_searchview .oe_searchview_unfold_drawer::selection,
-.openerp .oe_searchview .oe_searchview_unfold_drawer ::-moz-selection {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_unfold_drawer::selection,
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_unfold_drawer ::-moz-selection {
   background: #dec9dd;
 }
-.openerp .oe_searchview .oe_searchview_clear {
-  background: #3b4d56;
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_clear {
+  background: #729db1;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #3b4d56 0%, #263238 100%);
+  background: -moz-linear-gradient(top, #729db1 0%, #43687a 80%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3b4d56), color-stop(100%, #263238));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #729db1), color-stop(80%, #43687a));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(#3b4d56 #263238);
+  background: -webkit-linear-gradient(#729db1 #43687a);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #3b4d56 0%, #263238 100%);
+  background: -o-linear-gradient(top, #729db1 0%, #43687a 80%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #3b4d56 0%, #263238 100%);
+  background: -ms-linear-gradient(top, #729db1 0%, #43687a 80%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #3b4d56 0%, #263238 100%);
+  background: linear-gradient(to bottom, #729db1 0%, #43687a 80%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#263238, 10%)', endColorstr='#263238', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#263238, 20%)', endColorstr='#263238', GradientType=0);
   /* IE6-9 */
-  padding: 0.35em 18% 0.35em 3%;
-  height: 2.4em;
+  padding: 0.35em 14% 0.35em 3%;
+  margin-right: 3.64%;
+  min-height: 2.4em;
   color: white;
+  text-shadow: 0 1px 1px #808080;
+  box-shadow: 0 2px 2px #4d4d4d;
+  border-bottom: 1px solid #314c59;
+  border-top: 1px solid #93b3c3;
+  display: table-cell;
 }
-.openerp .oe_searchview .oe_searchview_clear:before {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_clear:before {
   content: 'Clear';
 }
-.openerp .oe_searchview .oe_searchview_clear:after {
+.openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_clear:after {
   content: 'X';
   margin-left: 0.5em;
-  font-weight: 900;
 }
 .example .oe_searchview > .oe_searchview_clear {
   padding: 0.35em 14% 0.35em 3%;
@@ -264,4 +289,30 @@ html {
 }
 .example .oe_searchview > .oe_searchview_unfold_drawer {
   height: 1.85em;
+}
+.openerp .oe_view_manager_wrapper .oe_view_manager_body .oe_searchview_drawer_container .oe_searchview_drawer {
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  margin-bottom: 1em;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.openerp .oe_view_manager_wrapper .oe_view_manager_body .oe_searchview_drawer_container .oe_searchview_drawer dt {
+  color: #53839b;
+}
+.openerp .oe_view_manager_wrapper .oe_view_manager_body .oe_searchview_drawer_container .oe_searchview_drawer form {
+  margin-left: 14px;
+}
+.openerp .oe_view_manager_wrapper .oe_view_manager_body .oe_searchview_drawer_container .oe_searchview_drawer form .oe_searchview_savefilter .oe_opened .oe_form .oe_form_required .oe_searchview_custom_input {
+  background-color: #f2f2f2 !important;
+}
+.openerp .oe_view_manager_wrapper .oe_view_manager_body .oe_searchview_drawer_container .oe_searchview_drawer form .oe_searchview_savefilter .oe_opened .oe_form button {
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  background-color: blue;
+}
+.openerp .badge {
+  background-color: #6F9CB2;
 }

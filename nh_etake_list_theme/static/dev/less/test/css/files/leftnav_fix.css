@@ -84,6 +84,12 @@ html {
   font-family: 'Open Sans', sans-serif;
 }
 /* Typography */
+h2 {
+  color: #737373;
+}
+h2 a {
+  color: #428BCD;
+}
 .oe_leftbar.nh_kiosk_nav {
   width: 100%;
   background-color: white;

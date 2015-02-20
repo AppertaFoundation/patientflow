@@ -99,193 +99,233 @@ color: #37474f;
 }
 
 .openerp {
-  .oe_searchview {
-    .border-radius;
-    background-color: #ffffff;
-    box-shadow: 0 0 4px 1px lighten(black, 60%) inset;
 
-    .oe_searchview_facets{
+    .oe_view_manager_view_search {
 
-      min-height: 2.2em;
-      margin: 0 0 0 8%;
+          .oe_searchview {
+            .border-radius;
+            background-color: #ffffff;
+            box-shadow: 0 0 4px 1px lighten(black, 80%) inset;
 
+                &.oe_focused {
 
+                    border:1px solid lighten(#6F9CB2, 10%);
+                    box-shadow:0 0 4px 1px lighten(#6F9CB2, 10%) inset;
+                    //background-color: darken(white, 2%);
 
-      .oe_searchview_input {
-        border: none;
-        color: #333;
-        padding: 0.5em 1% 0.5em 1%;
-        resize: none;
-        font-size: 1.2em;
-        margin-top: 0;
+                }
 
-        &:focus {
-          background-color: darken(white, 5%);
-          outline: 0;
-        }
-      }
+            .oe_searchview_facets{
+
+              min-height: 2.2em;
+              margin: 0 28% 0 8%;
 
 
-      .oe_tag {
 
-      height:2em;
-      top:2.5px;
+              .oe_searchview_input {
+                border: none;
+                color: #333;
+                padding: 0.5em 1% 0.5em 1%;
+                resize: none;
+                font-size: 1.2em;
+                margin-top: 0;
 
-      }
+                &:focus {
+                  //background-color: darken(white, 5%);
+                  outline: 0;
+                }
+              }
 
-      .oe_tag_dark {
 
-        background-color:#B0BEC5;
+              .oe_tag {
+
+              height:2em;
+              margin-top:2.5px;
+              margin-bottom:2.5px;
+              box-shadow:0 1px 1px lighten(black, 30%);
+
+              }
+
+              .oe_tag_dark {
+
+                background-color:#B0BEC5;
 
 
-      }
+              }
 
-      .oe_searchview_facet{
+              .oe_searchview_facet{
 
-        &:focus{
-          border-width: 0;
-          box-shadow: 0 0 1px darken(#455a64, 10);
-        }
+                &:focus{
+                  border-width: 0;
+                  box-shadow: 0 0 1px darken(#455a64, 10);
+                }
 
-        .oe_facet_remove{
-          .border-right(5px);
-            top:0;
-            right:0;
-            background-color:#455a64;
-            color:white;
-            height:1.3em;
-            line-height:1em;
-            font-size:1.5em;
-            width:20px;
-            text-shadow: 0 1px 1px lighten(black, 50%);
+                .oe_facet_remove{
+                  .border-right(2.5px);
+                    top:0;
+                    right:0;
+                    background-color:#455a64;
+                    color:white;
+                    height:1.3em;
+                    line-height:1em;
+                    font-size:1.5em;
+                    width:20px;
+                    text-shadow: 0 1px 1px lighten(black, 50%);
 
-            &:hover {
-              background-color:#455a64;
+                    &:hover {
+                      background-color:#455a64;
+                    }
+                  }
+
+                  .oe_facet_category{
+
+                        margin-top: 1px;
+
+                    .oe_i {
+                        &:before {
+
+                               //font-family: 'FontAwesome';  
+
+                                //content: "\f0b0";
+                               //font-size: 1.2em;
+                               //color: #37474f;
+
+                            }
+
+                        }
+                  }
+
+                .oe_facet_values {
+                  //height:2em;
+                  border:0;
+                  background-color:#78909c;
+
+                  .oe_facet_value {
+                    font-size:1.2em;
+                    line-height:1.6em;
+                    color:white;
+                    font-weight:500;
+                    text-shadow: 0 1px 1px lighten(black, 50%);
+                    padding-right: 6px;
+                    &:last-child{
+                      padding-right: 26px;
+                    }
+                  }
+                }
+              }
+            }
+
+            .oe-autocomplete {
+
+
+                .oe-selection-focus {
+
+                background-color:#6F9CB2;
+
+                }
+
+            }
+
+
+            .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove {
+
+            height:3.5em;
+            //width:3em;
+
+            }
+
+
+            .oe_searchview_search{
+              left: 7px;
+
+
+              &:before{
+                font: 28px "mnmliconsRegular";
+              }
+            }
+
+            .oe_searchview_unfold_drawer {
+              .border-right;
+              background: lighten(#3c4e58, 10%); /* Old browsers */
+              background: -moz-linear-gradient(top, lighten(#3c4e58, 10%) 0%, #3c4e58 100%); /* FF3.6+ */
+              background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, lighten(#3c4e58, 10%)), color-stop(100%,#3c4e58)); /* Chrome,Safari4+ */
+              background: -webkit-linear-gradient(lighten(#3c4e58, 10%), #3c4e58); /* Chrome10+,Safari5.1+ */
+              background: -o-linear-gradient(top, lighten(#3c4e58, 10%) 0%, #3c4e58 100%); /* Opera 11.10+ */
+              background: -ms-linear-gradient(top, lighten(#3c4e58, 10%) 0%, #3c4e58 100%); /* IE10+ */
+              background: linear-gradient(to bottom, lighten(#3c4e58, 10%) 0%, #3c4e58 100%); /* W3C */
+              filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#3c4e58, 10%)', endColorstr='#3c4e58', GradientType=0); /* IE6-9 */
+              padding: 0.3em 4% 0.3em 4%;
+
+              display: table-cell;
+              vertical-align: middle;
+
+              box-shadow:0 2px 2px lighten(black, 30%);
+              border-bottom:1px solid darken(#43687A, 10%);
+              border-top:1px solid lighten(#43687A, 20%);
+
+              min-height: 2.42em;
+
+              &:before{
+                border-top-color: white;
+                font-size: 1.7em;
+                top: 0.55em;
+                right: 30%;
+                border-top-width: 7px;
+                border-left-width: 7px;
+                border-right-width: 7px;
+              }
+
+                &:focus {
+
+                    box-shadow:0 0 0 2px gray;
+                    background-color: lighten(gray, 20%);
+                    outline: 0;
+                    border:0;
+
+            }
+
+                &::selection, ::-moz-selection {
+
+                background:#dec9dd;
+
+            }
+
+            }
+
+            .oe_searchview_clear {
+              background: lighten(#43687A, 20%); /* Old browsers */
+              background: -moz-linear-gradient(top, lighten(#43687A, 20%) 0%, #43687A 80%); /* FF3.6+ */
+              background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, lighten(#43687A, 20%)), color-stop(80%,#43687A)); /* Chrome,Safari4+ */
+              background: -webkit-linear-gradient(lighten(#43687A, 20%) #43687A); /* Chrome10+,Safari5.1+ */
+              background: -o-linear-gradient(top, lighten(#43687A, 20%) 0%, #43687A 80%); /* Opera 11.10+ */
+              background: -ms-linear-gradient(top, lighten(#43687A, 20%) 0%, #43687A 80%); /* IE10+ */
+              background: linear-gradient(to bottom, lighten(#43687A, 20%) 0%, #43687A 80%); /* W3C */
+              filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#263238, 20%)', endColorstr='#263238', GradientType=0); /* IE6-9 */
+
+              padding: 0.35em 14% 0.35em 3%;
+              margin-right:3.64%;
+              min-height: 2.4em;
+              color: white;
+              text-shadow: 0 1px 1px lighten(black, 50%);
+              box-shadow:0 2px 2px lighten(black, 30%);
+              border-bottom:1px solid darken(#43687A, 10%);
+              border-top:1px solid lighten(#43687A, 30%);
+
+
+              display:table-cell;
+
+              &:before{
+                content: 'Clear';
+              }
+
+              &:after{
+                content: 'X';
+                margin-left: 0.5em;
+                //font-weight: 900;
+              }
             }
           }
-
-          .oe_facet_category{
-            //.oe_i {
-//              &:before {
-//
-//                        font-family: 'FontAwesome';  
-//
-//                        content: "\f0b0";
-//                        font-size: 1.4em;
-//                        color: #37474f;
-//
-//                    }
-//
-//                }
-          }
-
-        .oe_facet_values {
-          //height:2em;
-          border:0;
-          background-color:#78909c;
-
-          .oe_facet_value {
-            font-size:1.2em;
-            line-height:1.6em;
-            color:white;
-            font-weight:500;
-            text-shadow: 0 1px 1px lighten(black, 50%);
-            padding-right: 6px;
-            &:last-child{
-              padding-right: 26px;
-            }
-          }
-        }
-      }
     }
-
-
-    .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove {
-
-    height:3.5em;
-    //width:3em;
-
-    }
-
-
-    .oe_searchview_search{
-      left: 7px;
-
-
-      &:before{
-        font: 28px "mnmliconsRegular";
-      }
-    }
-
-    .oe_searchview_unfold_drawer {
-      .border-right;
-      background: lighten(#3c4e58, 10%); /* Old browsers */
-      background: -moz-linear-gradient(top, lighten(#3c4e58, 10%) 0%, #3c4e58 100%); /* FF3.6+ */
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, lighten(#3c4e58, 10%)), color-stop(100%,#3c4e58)); /* Chrome,Safari4+ */
-      background: -webkit-linear-gradient(lighten(#3c4e58, 10%), #3c4e58); /* Chrome10+,Safari5.1+ */
-      background: -o-linear-gradient(top, lighten(#3c4e58, 10%) 0%, #3c4e58 100%); /* Opera 11.10+ */
-      background: -ms-linear-gradient(top, lighten(#3c4e58, 10%) 0%, #3c4e58 100%); /* IE10+ */
-      background: linear-gradient(to bottom, lighten(#3c4e58, 10%) 0%, #3c4e58 100%); /* W3C */
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#3c4e58, 10%)', endColorstr='#3c4e58', GradientType=0); /* IE6-9 */
-      padding: 0.3em 4% 0.3em 4%;
-      border-bottom: 1px solid #2b373d;
-
-      display: table-cell;
-      vertical-align: middle;
-
-      height: 2.4em;
-
-      &:before{
-        border-top-color: white;
-        font-size: 1.5em;
-        top: 0.75em;
-        right: 30%;
-        border-top-width: 7px;
-        border-left-width: 7px;
-        border-right-width: 7px;
-      }
-
-      	&:focus {
-
-            box-shadow:0 0 0 2px gray;
-            background-color: lighten(gray, 20%);
-            outline: 0;
-
-	}
-
-        &::selection, ::-moz-selection {
-
-        background:#dec9dd;
-
-    }
-
-    }
-
-    .oe_searchview_clear {
-      background: lighten(#263238, 10%); /* Old browsers */
-      background: -moz-linear-gradient(top, lighten(#263238, 10%) 0%, #263238 100%); /* FF3.6+ */
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, lighten(#263238, 10%)), color-stop(100%,#263238)); /* Chrome,Safari4+ */
-      background: -webkit-linear-gradient(lighten(#263238, 10%) #263238); /* Chrome10+,Safari5.1+ */
-      background: -o-linear-gradient(top, lighten(#263238, 10%) 0%, #263238 100%); /* Opera 11.10+ */
-      background: -ms-linear-gradient(top, lighten(#263238, 10%) 0%, #263238 100%); /* IE10+ */
-      background: linear-gradient(to bottom, lighten(#263238, 10%) 0%, #263238 100%); /* W3C */
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#263238, 10%)', endColorstr='#263238', GradientType=0); /* IE6-9 */
-
-      padding: 0.35em 18% 0.35em 3%;
-      height: 2.4em;
-      color: white;
-
-      &:before{
-        content: 'Clear';
-      }
-
-      &:after{
-        content: 'X';
-        margin-left: 0.5em;
-        font-weight: 900;
-      }
-    }
-  }
 }
 
 .example .oe_searchview > .oe_searchview_clear{
@@ -294,4 +334,102 @@ color: #37474f;
 }
 .example .oe_searchview > .oe_searchview_unfold_drawer{
   height: 1.85em;
+
 }
+
+//Advanced Search
+
+.openerp {
+
+    .oe_view_manager_wrapper {
+
+        .oe_view_manager_body {
+
+            .oe_searchview_drawer_container {
+
+                    .oe_searchview_drawer {
+
+                        .border-radius;
+                        background-color:#f5f5f5;
+                        margin-bottom:1em;
+                        width:90%;
+                        margin-left: auto;
+                        margin-right: auto;
+
+
+                        dt {
+
+                            color:darken(#6F9CB2, 10%);
+
+                        }
+
+
+                        .col-md-7 {
+
+                            .oe_searchview_filters  {
+
+                                .oe_searchview_section {
+
+                                        .dl-horizontal {
+
+                                            dd {
+
+                                                ul {
+
+                                                    .badge {
+
+
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                }
+                            }
+                        }
+
+                            form {
+
+                                margin-left:14px;
+
+                                    .oe_searchview_savefilter {
+
+                                        .oe_opened {
+
+                                            .oe_form {
+
+                                                .oe_form_required {
+
+                                                    .oe_searchview_custom_input {
+
+                                                        background-color:darken(white,5%) !important;
+
+                                                    }
+
+                                                }
+
+                                                button {
+
+                                                    .border-radius;
+                                                    background-color:blue;
+
+
+                                                }
+
+                                            }
+                                        }
+                                    }
+
+                            }
+                    }
+            }
+        }
+    }
+}
+
+.openerp .badge {
+
+    background-color:#6F9CB2;
+
+}
+

@@ -148,7 +148,7 @@ Example:
                                 <div class="oe_kanban_group_title ">
                                   <a class="btn-head" href="#"><i class="plus"></i></a>
                                   <a class="btn-head" href="#"><i class="list-view"></i></a>
-                                  <div class="oe_kanban_group_length oe_tag">0</li>
+                                  <div class="oe_kanban_group_length oe_tag">0</div>
                                   <div class="oe_kanban_group_title_text" title="Referral">Referral</div>
                                 </div>
                               </div>
@@ -169,7 +169,7 @@ Example:
                               <div class="oe_fold_column">
                                 <div class="oe_kanban_group_title ">
                                   <a class="btn-head" href="#"><i class="list-view"></i></a>
-                                  <div class="oe_kanban_group_length oe_tag">12</li>
+                                  <div class="oe_kanban_group_length oe_tag">12</div>
                                   <div class="oe_kanban_group_title_text" title="To Come In">To Come In</div>
                                 </div>
                                 <ul class="oe_kanban_aggregates"></ul>
@@ -681,6 +681,9 @@ text-shadow: 0 1px 1px lighten(white,50%);
           .oe_kanban_groups_headers{
 
             //position:fixed;
+            //width:100%;
+            //z-index:1;
+            //top:14em;
 
             .oe_kanban_group_header{
               .border-top;
@@ -707,10 +710,12 @@ text-shadow: 0 1px 1px lighten(white,50%);
 
                   .oe_kanban_group_title {
 
+                        margin-right:0;
+
                             }
 
                     .oe_kanban_group_length{
-                      line-height: 1.7em;
+                      line-height: 2.3em;
                       font-weight:900;
                       .background-gradient(lighten(#d4d6d8,10), #d4d6d8);
                       text-shadow: 0 1px 1px lighten(white,50%);
@@ -721,8 +726,8 @@ text-shadow: 0 1px 1px lighten(white,50%);
                       border-bottom-right-radius: 0;
                       border: 0;
                       box-shadow: 0 1px 2px 0 white inset;
-                      text-align: center;
-                      min-width: 20%;
+                      //text-align: center;
+                      min-width: 13%;
                       position: relative;
                       float: right;
                       right: -5px;
@@ -737,8 +742,8 @@ text-shadow: 0 1px 1px lighten(white,50%);
                     }
 
                     .oe_kanban_group_title_text{
-                      float: left;
-                      width: 85%;
+                      //float: left;
+                      width: 83%;
                       //text-align: center;
                       //line-height:2.2em;
                       font-size:0.88em;
@@ -746,6 +751,11 @@ text-shadow: 0 1px 1px lighten(white,50%);
                       white-space:normal;
                       overflow: visible;
                       text-overflow:initial;
+                      display: table-cell;
+                      height: 3em;
+                      vertical-align: middle;
+
+
 
                     }
                   }
@@ -836,7 +846,7 @@ text-shadow: 0 1px 1px lighten(white,50%);
                         //border-bottom:1px solid rgba(0, 0, 0, .5);
                         color:#333333;
                         //margin-left:5%;
-                        width: 30%;
+                        width: 15%;
                         border-top-right-radius:10px;
                         //padding:2%;
 
@@ -853,7 +863,7 @@ text-shadow: 0 1px 1px lighten(white,50%);
                         color:#C71923;
                         border-top-right-radius:10px;
                         //height:inherit;
-                        width: 30%;
+                        width: 15%;
                         text-align:center;
                         display: table-cell;
                         vertical-align: middle;
@@ -1052,6 +1062,7 @@ text-shadow: 0 1px 1px lighten(white,50%);
           &.oe_tag{
 
             display: block;
+
           }
         }
       }

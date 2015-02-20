@@ -69,6 +69,12 @@ html {
   font-family: 'Open Sans', sans-serif;
 }
 /* Typography */
+h2 {
+  color: #737373;
+}
+h2 a {
+  color: #428BCD;
+}
 .modal-open .modal-dialog {
   -ms-border-radius: 10px;
   border-radius: 10px;

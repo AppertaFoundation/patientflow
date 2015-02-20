@@ -1,1 +1,7 @@
 /* Typography */
+h2 {
+  color: #737373;
+}
+h2 a {
+  color: #428BCD;
+}

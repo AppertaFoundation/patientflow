@@ -124,6 +124,12 @@ html {
   font-family: 'Open Sans', sans-serif;
 }
 /* Typography */
+h2 {
+  color: #737373;
+}
+h2 a {
+  color: #428BCD;
+}
 .openerp .oe_application {
   margin: -1px 6px 0 6px;
   background-color: #dedede;

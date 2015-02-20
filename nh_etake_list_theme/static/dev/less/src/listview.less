@@ -417,6 +417,7 @@ table {
   .nh_list_scroll_fix{
     height: 35em;
     overflow: scroll;
+       thead {
 
 
     .nh_list_scroll_fix_body{
@@ -434,9 +435,9 @@ table {
   }
 
     .oe_list_content {
+        vertical-align:middle;
 
-                box-shadow:0 1px 3px 0 lighten(black, 65%);
-                .border-radius;
+       }
 
 
         tbody {
@@ -557,7 +558,7 @@ table {
             .oe_button, .oe_list_add, .oe_highlight {
 
 
-              .border-radius;
+              .border-radius(5px);
 
                   color: white;
                   //display: inline-block;
@@ -574,9 +575,49 @@ table {
                   height: inherit;
                   font-weight: 600;
 
+                                                        &:hover {
+                      .background-gradient(lighten(#0072A2, 10%), #0072A2);
 
-                  &:hover {
-                      .background-gradient(lighten(#0072A2, 20%), #0072A2);
+                  }
+
+
+            }
+
+            .oe_form_button_save  {
+
+                  .background-gradient(lighten(#5EB58E, 20%), #5EB58E);
+                  color:#17422F;
+                  text-shadow: 0 1px 2px white;
+
+                                    &:hover {
+                      .background-gradient(lighten(#5EB58E, 10%), #5EB58E);
+
+                  }
+
+
+            }
+
+            .oe_form_button_cancel, .oe_form_button_edit {
+
+                 .border-radius(5px);
+                 padding: 0.3em 10%;
+                 .background-gradient(lighten(#EBAC75, 20%), #EBAC75);
+                  color:#3D3120;
+                  text-shadow: 0 1px 2px white;
+
+                  //display: inline-block;
+                  font-size: @nav-tab;
+                  box-shadow: 0 1px 2px 0 white inset, 0 2px 0 rgba(0,0,0,0.4);
+                  margin-left: 5%;
+                  margin-right: 5%;
+                  text-align: center;
+                  text-shadow: 0 1px 2px white;
+                  text-decoration: none;
+                  height: inherit;
+                  font-weight: 600;
+
+                                    &:hover {
+                      .background-gradient(lighten(#EBAC75, 10%), #EBAC75);
 
 
                   }
@@ -584,8 +625,11 @@ table {
 
             }
 
-            .oe_button .oe_list_save .oe_highlight {
+            .oe_fade {
 
+            color:#333;
+            font-weight:800;
+            font-size:1.1em;
 
 
             }
