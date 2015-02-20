@@ -196,6 +196,10 @@ openerp.nh_etake_list_theme = function(instance){
 
     instance.web_kanban.KanbanView.include({
         do_show: function() {
+            var application_height = $(window).height();
+            var table_offset = $('.nh_kanban_scroll_fix').offset();
+            var vertical_padding = 30;
+            $('.nh_kanban_scroll_fix').css('height', ((application_height-table_offset.top) - (vertical_padding*2)));
             $('.oe_view_manager_switch').hide();
             if (this.$buttons) {
                 this.$buttons.show();
@@ -368,6 +372,13 @@ openerp.nh_etake_list_theme = function(instance){
             return this._super();
         },
         compute_aggregates: function(records) {
+            var application_height = $(window).height();
+            var table_offset = $('.nh_list_scroll_fix').offset();
+            var vertical_padding = 15;
+            $('.nh_list_scroll_fix').css('height', ((application_height-table_offset.top) - (vertical_padding*2)));
+
+
+
             var table_header_width = $('.nh_list_scroll_fix_body thead').width();
             $('.nh_list_scroll_fix_header').css('width', table_header_width);
             $('.nh_list_scroll_fix_header thead').css('width', table_header_width);
