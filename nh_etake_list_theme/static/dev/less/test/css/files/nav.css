@@ -220,6 +220,18 @@ h2 a {
   color: white;
   margin-left: 6px;
 }
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-menu {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background: #4d4d4d;
+  color: white;
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-menu li a {
+  color: white;
+}
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-menu li a:hover {
+  background: #666666;
+}
 .example .dropdown-menu {
   display: none;
 }
