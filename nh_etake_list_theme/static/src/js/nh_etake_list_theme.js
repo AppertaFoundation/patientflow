@@ -196,6 +196,10 @@ openerp.nh_etake_list_theme = function(instance){
 
     instance.web_kanban.KanbanView.include({
         do_show: function() {
+            var application_height = $(window).height();
+            var table_offset = $('.nh_kanban_scroll_fix').offset();
+            var vertical_padding = 30;
+            $('.nh_kanban_scroll_fix').css('height', ((application_height-table_offset.top) - (vertical_padding*2)));
             $('.oe_view_manager_switch').hide();
             if (this.$buttons) {
                 this.$buttons.show();
@@ -362,144 +366,28 @@ openerp.nh_etake_list_theme = function(instance){
 
 
     instance.web.ListView.include({
-        load_list: function(data) {
-            var self = this;
-            this.fields_view = data;
-            this.name = "" + this.fields_view.arch.attrs.string;
-
-            if (this.fields_view.arch.attrs.colors) {
-                this.colors = _(this.fields_view.arch.attrs.colors.split(';')).chain()
-                    .compact()
-                    .map(function(color_pair) {
-                        var pair = color_pair.split(':'),
-                            color = pair[0],
-                            expr = pair[1];
-                        return [color, py.parse(py.tokenize(expr)), expr];
-                    }).value();
-            }
-
-            if (this.fields_view.arch.attrs.fonts) {
-                this.fonts = _(this.fields_view.arch.attrs.fonts.split(';')).chain().compact()
-                    .map(function(font_pair) {
-                        var pair = font_pair.split(':'),
-                            font = pair[0],
-                            expr = pair[1];
-                        return [font, py.parse(py.tokenize(expr)), expr];
-                    }).value();
-            }
-
-            this.setup_columns(this.fields_view.fields, this.grouped);
-
-            this.$el.html(QWeb.render('NHListView', this));
-            this.$el.addClass(this.fields_view.arch.attrs['class']);
-
-            // Head hook
-            // Selecting records
-            this.$el.find('.oe_list_record_selector').click(function(){
-                self.$el.find('.oe_list_record_selector input').prop('checked',
-                        self.$el.find('.oe_list_record_selector').prop('checked')  || false);
-                var selection = self.groups.get_selection();
-                $(self.groups).trigger(
-                    'selected', [selection.ids, selection.records]);
-            });
-
-            // Add button
-            if (!this.$buttons) {
-                this.$buttons = $(QWeb.render("ListView.buttons", {'widget':self}));
-                if (this.options.$buttons) {
-                    this.$buttons.appendTo(this.options.$buttons);
-                } else {
-                    this.$el.find('.oe_list_buttons').replaceWith(this.$buttons);
-                }
-                this.$buttons.find('.oe_list_add')
-                    .click(this.proxy('do_add_record'))
-                    .prop('disabled', this.grouped);
-            }
-
-            // Pager
-            if (!this.$pager) {
-                this.$pager = $(QWeb.render("ListView.pager", {'widget':self}));
-                if (this.options.$buttons) {
-                    this.$pager.appendTo(this.options.$pager);
-                } else {
-                    this.$el.find('.oe_list_pager').replaceWith(this.$pager);
-                }
-
-                this.$pager
-                    .on('click', 'a[data-pager-action]', function () {
-                        var $this = $(this);
-                        var max_page = Math.floor(self.dataset.size() / self.limit());
-                        switch ($this.data('pager-action')) {
-                            case 'first':
-                                self.page = 0; break;
-                            case 'last':
-                                self.page = max_page - 1;
-                                break;
-                            case 'next':
-                                self.page += 1; break;
-                            case 'previous':
-                                self.page -= 1; break;
-                        }
-                        if (self.page < 0) {
-                            self.page = max_page;
-                        } else if (self.page > max_page) {
-                            self.page = 0;
-                        }
-                        self.reload_content();
-                    }).find('.oe_list_pager_state')
-                    .click(function (e) {
-                        e.stopPropagation();
-                        var $this = $(this);
-
-                        var $select = $('<select>')
-                            .appendTo($this.empty())
-                            .click(function (e) {e.stopPropagation();})
-                            .append('<option value="80">80</option>' +
-                                '<option value="200">200</option>' +
-                                '<option value="500">500</option>' +
-                                '<option value="2000">2000</option>' +
-                                '<option value="NaN">' + _t("Unlimited") + '</option>')
-                            .change(function () {
-                                var val = parseInt($select.val(), 10);
-                                self._limit = (isNaN(val) ? null : val);
-                                self.page = 0;
-                                self.reload_content();
-                            }).blur(function() {
-                                $(this).trigger('change');
-                            })
-                            .val(self._limit || 'NaN');
-                    });
-            }
-
-            // Sidebar
-            if (!this.sidebar && this.options.$sidebar) {
-                this.sidebar = new instance.web.Sidebar(this);
-                this.sidebar.appendTo(this.options.$sidebar);
-                this.sidebar.add_items('other', _.compact([
-                    { label: _t("Export"), callback: this.on_sidebar_export },
-                        self.is_action_enabled('delete') && { label: _t('Delete'), callback: this.do_delete_selected }
-                ]));
-                this.sidebar.add_toolbar(this.fields_view.toolbar);
-                this.sidebar.$el.hide();
-            }
-            //Sort
-            var default_order = this.fields_view.arch.attrs.default_order,
-                unsorted = !this.dataset._sort.length;
-            if (unsorted && default_order) {
-                this.dataset.set_sort(default_order.split(','));
-            }
-
-            if(this.dataset._sort.length){
-                if(this.dataset._sort[0].indexOf('-') == -1){
-                    this.$el.find('th[data-id=' + this.dataset._sort[0] + ']').addClass("sortdown");
-                }else {
-                    this.$el.find('th[data-id=' + this.dataset._sort[0].split('-')[1] + ']').addClass("sortup");
-                }
-            }
-            this.trigger('list_view_loaded', data, this.grouped);
+        start: function(){
+            this.$el.addClass('oe_list');
+            this._template = "NHListView";
+            return this._super();
         },
+        compute_aggregates: function(records) {
+            var application_height = $(window).height();
+            var table_offset = $('.nh_list_scroll_fix').offset();
+            var vertical_padding = 15;
+            $('.nh_list_scroll_fix').css('height', ((application_height-table_offset.top) - (vertical_padding*2)));
 
 
+
+            var table_header_width = $('.nh_list_scroll_fix_body thead').width();
+            $('.nh_list_scroll_fix_header').css('width', table_header_width);
+            $('.nh_list_scroll_fix_header thead').css('width', table_header_width);
+            var fixed_headers = $('.nh_list_scroll_fix_header .oe_list_header_columns th');
+            $('.nh_list_scroll_fix_body .oe_list_header_columns th').each(function(i){
+                $(fixed_headers[i]).find('div').css('width', $(this).find('div').width());
+            });
+            this._super(records);
+        },
     })
 }
 
