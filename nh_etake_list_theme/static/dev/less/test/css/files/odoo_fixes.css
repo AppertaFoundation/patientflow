@@ -138,6 +138,7 @@ h2 a {
   box-shadow: 0 0 4px black inset;
   width: calc(100% - 12px);
   border-radius: 10px;
+  height: 110%;
 }
 .openerp .oe_application .oe_view_manager_header {
   background: none;

@@ -110,6 +110,12 @@
             font-size: 2em;
             text-transform: capitalize;
         }
+        .main h4{
+            color: #3778e9;
+            line-height: 0;
+            margin-top: 3em;
+            margin-bottom: 0;
+        }
         .mobile_preview_bg{
             background-color: rgba(0,0,0,0.6);
             position: absolute;
@@ -9474,6 +9480,120 @@ Styleguide 1.0
                     <li><strong>.sg</strong> - Use if you're redefining HTML elements as KSS doesn't pick them up otherwise</li>
                     <li><strong>.example</strong> - Use this before any classes you want to redefine so the styleguide's example section works properly</li>
                 </ul>
+
+                <h3>Coding style</h3>
+                <p>To make the code more readable here's a simple coding style to follow:</p>
+
+                <h4>General coding style</h4>
+                <ul>
+                    <li>Use hyphens in selector names where possible (Odoo selectors use underscores)</li>
+                    <li>Indent 4 spaces / tab</li>
+                    <li>One property per line, use shorthand where available</li>
+                    <li>One line gap between bottom of a style and start of another style</li>
+                    <li>One line gap between bottom of a property declaration group and next property declaration group</li>
+                    <li>One Space between selector and brace, one space between color and property value</li>
+                    <li>Use em for vertical sizing (fonts etc)</li>
+                    <li>Use percentages for horizontal sizing (width etc)</li>
+                    <li>Pixels are allowed for borders but use calc to subtract the left and right borders from the desired width</li>
+                </ul>
+
+                <h4>Property declaration order</h4>
+                <p>Properties should be grouped into and declared in Positioning, Box Model, Typography, Visual, Misc order. Leave a line gap between each group and use a <em>//</em> comment to write the groups heading. Here's a guide to what groups common properties fit into:</p>
+                <dl>
+                    <dt>Positioning</dt>
+                    <dd><pre>
+                        bottom,
+                        left,
+                        margin (and it's child properties),
+                        position,
+                        right,
+                        top,
+                        vertical-align,
+                        z-index
+                    </pre></dd>
+                    <dt>Box Model</dt>
+                    <dd><pre>
+                        border-collapse,
+                        border-spacing,
+                        box-sizing,
+                        clear,
+                        clip,
+                        display,
+                        flex (and it's properties),
+                        float,
+                        height,
+                        justify-content,
+                        overflow (and it's properties),
+                        max-height/max-width,
+                        min-height/min-width,
+                        order,
+                        padding (and it's properties),
+                        resize,
+                        table-layout,
+                        width
+                    </pre></dd>
+                    <dt>Typography</dt>
+                    <dd><pre>
+                        @font-face,
+                        @font-feature-values,
+                        color,
+                        direction,
+                        font (and it's properties),
+                        hanging-punctuation,
+                        hyphens,
+                        letter-spacing,
+                        line-break,
+                        line-height,
+                        mark (and it's properties),
+                        marks,
+                        orphans,
+                        overflow-wrap,
+                        page-break (and it's properties),
+                        quotes,
+                        tab-size,
+                        text (and it's properties),
+                        white-space,
+                        widows,
+                        word-break,
+                        word-spacing,
+                        word-wrap,
+                        writing-mode,
+                        unicode-bidi
+                    </pre></dd>
+                    <dt>Visual</dt>
+                    <dd><pre>
+                        backface-visibility,
+                        background (and it's properties),
+                        border (and it's properties),
+                        box-decoration-break,
+                        box-shadow,
+                        counter-increment/counter-reset,
+                        filter,
+                        image (and it's properties),
+                        list-style (and it's properties),
+                        object (and it's properties),
+                        perspective (and it's properties),
+                        transform (and it's properties)
+                    </pre></dd>
+                    <dt>Misc</dt>
+                    <dd><pre>
+                        @keyframes,
+                        animation (and it's properties),
+                        break (and it's properties),
+                        column (and it's properties),
+                        content,
+                        cursor,
+                        icon,
+                        marquee (and it's properties),
+                        nav (and it's properties),
+                        opacity,
+                        outline (and it's properties),
+                        phonemes,
+                        rest (and it's properties),
+                        transition (and it's properties),
+                        voice (and it's properties),
+                    </pre></dd>
+                </dl>
             </div>
             
 
