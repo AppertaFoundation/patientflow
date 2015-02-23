@@ -1,0 +1,668 @@
+/*
+
+New Version of the Patient Referral Form - change of layout, sections built for touch screen/ buttons.
+
+.dummy-style - style to test
+
+Example:
+
+		<div class="ref-nav-tabs">
+			<ul>
+				<li><a href="#patient-info">Patient Information</a></li>
+				<li><a href="#medical">Medical</a></li>
+				<li><a href="#emergency-clinic"</a>Emergency GP Access Clinic</li>
+				<li><a href="#speciality">Speciality</a></li>
+				<li><a href="#additional-info"</a>Aditional Information</li>
+				<li class="cancel"><a href="#">Cancel</a></li>
+			</ul>
+		</div>
+
+
+
+<form>
+ <div id="patient-info">
+
+
+        <fieldset>
+            <h2>Source of Referral</h2>
+                <ul class="src-list">
+                    <li><input type="radio" name="src" value="GP">GP</li>
+                    <li><input type="radio" name="src" value="UCC">UCC</li>
+                    <li><input type="radio" name="src" value="AE">A&E</li>
+                    <li><input type="radio" name="src" value="EAU">EAU</li>
+                    <li><input type="radio" name="src" value="WIC">WIC</li>
+                    <li><input type="radio" name="src" value="LTxC">LTxC</li>
+                    <li><input type="radio" name="src" value="OPD">OPD</li>
+                    <li><input type="radio" name="src" value="MAC">MAC</li>
+                    <li><input type="radio" name="src" value="COMM">COMM</li>
+                    <li><input type="radio" name="src" value="MATRON">MATRON</li>
+                    <li><input type="radio" name="src" value="HOSPICE">HOSPICE</li>
+                    <li><input type="radio" name="src" value="CONS">CONS</li>
+                </ul>
+        </fieldset>
+
+
+<div class="row-one">
+        <div class="gp-search">
+            <h2>GP</h2>
+                <p>GP Surgery</p>
+                <input type="search">
+                <button><i class="arrow-down"></i></button>
+        </div>
+
+
+
+        <div class="pat-search">
+            <h2>Patient Details</h2>
+                <p>Patient Search</p>
+                <input type="search">
+                <button><i class="arrow-down"></i></button>
+        </div>
+
+
+        <div class="nhs-no">
+            <fieldset>
+                <p>NHS Number</p>
+                    <ul>
+                        <li><input type="number" min="000" max="999"></li>
+                        <li><input type="number" min="000" max="999"></li>
+                        <li><input type="number" min="0000" max="9999"></li>
+                    </ul>
+            </fieldset>
+        </div>
+
+        <div class="hosp-no">
+            <fieldset>
+                <p>Hosptial Number<p>
+                <input type="number" max="3">
+            </fieldset>
+        </div>
+    </div>
+
+<div class="row-two">
+
+	<div class="pat-name">
+		<fieldset>
+			    <ul>
+                    <li>First Name:<br>
+                    <input type="text" name="firstname"></li>
+                    <li>Middle Name(s):<br>
+                    <input type="text" name="middlename"></li>
+                    <li>Last name:<br>
+                    <input type="text" name="lastname"></li>
+				</ul>
+		</fieldset>
+    </div>
+
+		<fieldset>
+			<p>Date of Birth</p>
+			<input type="number" min="00" max="99"><input type="number" min="00" max="99"><input type="number" min="00" max="99">
+		</fieldset>
+
+		<fieldset>
+			<p>Gender</p>
+				<ul class="gen-list">
+					<li><input type="radio" name="gen" value="not-specified">Not Specified</li>
+					<li><input type="radio" name="gen" value="male">Male</li>
+					<li><input type="radio" name="gen" value="female">Female</li>
+					<li><input type="radio" name="gen" value="both">Both</li>
+					<li><input type="radio" name="gen" value="intermediate">Intermediate</li>
+					<li><input type="radio" name="gen" value="nknown">Unknown</li>
+				</ul>
+		</fieldset>
+</div>
+
+<div class="row-three">
+		<fieldset>
+			<p>Postcode</p>
+				<input type="text" maxlength="3"><input type="text" maxlength="3">
+		</fieldset>
+
+		<fieldset>
+			<p>Resides</p>
+				<ul class="res-list">
+					<li><input type="radio" name="res" value="home">Home</li>
+					<li><input type="radio" name="res" value="resident">Res/Home</li>
+					<li><input type="radio" name="res" value="nursery">N/Home</li>
+				</ul>
+		</fieldset>
+</div>
+
+		<fieldset>
+			<p>Ethnicity</p>
+				<ul class="eth-list">
+					<li><input type="radio" name="eth" value="not-stated">Not Stated</li>
+				<br>
+					White: <br>
+					<li><input type="radio" name="eth" value="british">British</li>
+					<li><input type="radio" name="eth" value="irish">Irish</li>
+					<li><input type="radio" name="eth" value="white-other">Other</li>
+				<br>
+					Black: <br>
+					<li><input type="radio" name="eth" value="caribbean">Caribbean</li>
+					<li><input type="radio" name="eth" value="african">African</li>
+					<li><input type="radio" name="eth" value="black-other">Other</li>
+				<br>
+					Mixed: <br>
+					<li><input type="radio" name="eth" value="mixed-caribbean">White and Black Caribbean</li>
+					<li><input type="radio" name="eth" value="mixed-african">White and Black African</li>
+					<li><input type="radio" name="eth" value="mixed-asian">White and Asian</li>
+					<li><input type="radio" name="eth" value="mixed-other">Other</li>
+				<br>
+					Asian: <br>
+					<li><input type="radio" name="eth" value="mixed-caribbean">Indian</li>
+					<li><input type="radio" name="eth" value="mixed-african">Pakistani</li>
+					<li><input type="radio" name="eth" value="mixed-asian">Bangladeshi</li>
+					<li><input type="radio" name="eth" value="mixed-other">Other</li>
+					<hr>
+					<li><input type="radio" name="eth" value="chinese">Chinese</li>
+					<hr><li><input type="radio" name="eth" value="other-group">Other Ethnic Group</li>
+
+
+				</ul>
+		</fieldset>
+
+</div>
+
+
+<div id="medical">
+
+    <h2>Medical</h2>
+
+    <p>Symptoms/ Investigations - Treatment</p>
+
+        <textarea>
+        </textarea>
+
+    <p>Flu/Cough - Travel/Infection - Concerns?</p>
+
+        <textarea>
+        </textarea>
+
+    <p>Past Medical History</p>
+
+        <textarea>
+        </textarea>
+
+    <p>Possible Diagnosis</p>
+
+        <textarea>
+        </textarea>
+
+    <p>Allergies</p>
+
+        <textarea>
+        </textarea>
+
+      <ul class="observations">
+        <li>Temperature <input type="number" name="temp"><div class="measurement">C</div></li>
+        <li>Pulse Rate <input type="number" name="pulse"><div class="measurement">BPM</div></li>
+        <li>Blood Pressure <input type="number" name="systolic" placeholder="Systolic"> / <input type="number" name="diastolic" placeholder="Diastolic"><div class="measurement">mm Hg</div></li>
+        <li>Respiratory Rate <input type="number" name="resp-rate"><div class="measurement">RR</div></li>
+        <li>Weight <input type="number" name="weight"><div class="measurement">st</div></li>
+      </ul>
+
+</div>
+
+
+<div id="emergency-clinic">
+
+    <h2>Emergency GP Access Clinic</h2>
+
+    <fieldset>
+        <p>Date & Time</p>
+            <input type="date" min="000" max="999">
+            <button><i class="cal"></i></button>
+    </fieldset>
+
+    <p>Reason for Referral</p>
+
+    <textarea>
+    </textarea>
+
+    <fieldset>
+        <ul class="med-list">
+            <p>Medication List Required?</p>
+                <li><input type="radio" name="med" value="yes">Yes</li>
+                <li><input type="radio" name="med" value="no">No</li>
+        </ul>
+	</fieldset>
+
+
+</div>
+
+<div id="additional-info">
+
+    <h2>Additional Information</h2>
+
+        <ul>
+            <p>Can the Patient be treated elsewhere?</p>
+                <li><input type="radio" name="treat-elsewhere" value="yes">Yes</li>
+                <li><input type="radio" name="treat-elsewhere" value="no">No</li>
+            <ul>
+                <p>Were options discussed with the GP?</p>
+                    <li><input type="radio" name="options-discussed" value="yes">Yes</li>
+                    <li><input type="radio" name="options-discussed" value="no">No</li>
+                    <li><input type="radio" name="options-discussed" value="na">N/A</li>
+                <ul>
+                 <p>Did the GP choose any other option?</p>
+                        <li><input type="radio" name="options-chosen" value="yes">Yes</li>
+                        <li><input type="radio" name="options-chosen" value="no">No</li>
+                    <textarea>
+                    </textarea>
+                </ul>
+            </ul>
+         </ul>
+
+
+    <fieldset>
+        <ul class="tick-list">
+             <li><input type="checkbox" name="letter" value="letter">Letter Requested?</li>
+             <li><input type="checkbox" name="letter" value="letter">Ambulance?</li>
+        </ul>
+    </fieldeset>
+
+
+    <fieldset>
+        <ul class="contact-list">
+            <p>First Point of Conatct List</p>
+                <li><input type="radio" name="contact" value="eau">EAU</li>
+                <li><input type="radio" name="contact" value="ae">A&E</li>
+                <li><input type="radio" name="contact" value="ae">ACC</li>
+                <li><input type="radio" name="contact" value="ae">SMDU</li>
+                <li><input type="radio" name="contact" value="ae">Clinic</li>
+        </ul>
+	</fieldset>
+
+	<fieldset>
+        <ul class="averted-list">
+            <p>Averted In</p>
+                <li><input type="radio" name="averted" value="comm">Community</li>
+                <li><input type="radio" name="averted" value="clinic">Clinic</li>
+                <li><input type="radio" name="averted" value="ae">A&E</li>
+                <li><input type="radio" name="averted" value="eau">EAU</li>
+                <li><input type="radio" name="averted" value="acu">ACU</li>
+                <li><input type="radio" name="averted" value="mobile">Mobile</li>
+        </ul>
+	</fieldset>
+
+</div>
+
+
+<div id="speciality">
+
+    <h2>Speciality</h2>
+
+        <ul class="attend-list">
+            <p>Advised Attendance at:</p>
+                <li><input type="radio" name="attend" value="EAU">EAU</li>
+                <li><input type="radio" name="attend" value="AE">A&E</li>
+                <li><input type="radio" name="attend" value="ACC">ACC</li>
+                <li><input type="radio" name="attend" value="clinic">Clinic</li>
+        </ul>
+
+    <p>Environmental Factors - Social/ Family</p>
+
+        <textarea>
+        </textarea>
+
+    <p>Speciality</p>
+        <input type="search">
+        <button><i class="arrow-down"></i></button>
+
+</div>
+
+</form>
+
+<div class="validation-form">
+
+    <h2 class="help">Help</h2>
+
+        <p>The following amendments need to be made to proceed:</p>
+
+    <ul class="error-list">
+        <li><div class="action-name">Name</div> and <div class="action-name">Allergies</div> needs to be completed before you can proceed.</li>
+        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras imperdiet nisl vel ex congue semper. </li>
+        <li><div class="action-name">Date of Birth</div> needs to be completed before you can proceed.</li>
+    </ul>
+
+</div>
+
+
+Styleguide 14.0
+
+*/
+
+
+@import (once) "mixin.less";
+@import (once) "typography.less";
+
+
+body {
+
+background:rgba(254,254,254,0)
+
+}
+
+form {
+
+
+       border-radius:10px;
+       background:white;
+       //padding:2%;
+
+       width:90%;
+       margin-right:auto;
+       margin-left:auto;
+
+       box-shadow:0 2px 2px lighten(black, 50%);
+
+       border:1px solid #e0e0e0;
+
+
+
+}
+
+fieldset {
+
+border:none;
+
+}
+
+input, textarea {
+
+.border-radius(5px);
+padding:0.5%;
+box-shadow:1px 1px 1px rgba(254,254,254,0.5)inset;
+//border:0;
+resize: none;
+
+}
+
+button {
+
+.border-right(5px);
+padding:0.5%;
+
+font-size:1.5em;
+color:darken(#7995a2, 20%);
+text-shadow: 0 2px darken(white, 10%);
+
+border:1px solid #627a85;
+.background-gradient(lighten(#759cae, 10%), #759cae);
+
+}
+
+.ref-nav-tabs {
+
+       width:80%;
+       //background:white;
+       margin-right:auto;
+       margin-left:auto;
+       border:none;
+
+        ul {
+
+        margin:0;
+
+                    li {
+
+                    display:inline-block;
+                    text-decoration: none;
+                    list-style: none;
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
+                    background:white;
+                    padding:2%;
+
+                    //box-shadow:0 2px 2px #646464;
+                    border:1px solid #e0e0e0;
+                    border-bottom:0;
+                    color:#333;
+
+                    line-height:2em;
+
+                           a {
+
+                           text-decoration:none;
+                           color:#333;
+
+                           }
+
+                        &:hover {
+
+                        background:#f5f5f5;
+
+                        }
+
+                        &.cancel {
+
+                       border:1px solid #ee4722;
+                       border-bottom:0;
+                       .background-gradient(lighten(#fbd2c8, 10%), #fbd2c8);
+                       float:right;
+
+                            &:hover {
+
+                           //border:1px solid #ee4722;
+                           //.background-gradient(darken(#fbd2c8, 10%), #fbd2c8);
+
+                            }
+
+                        }
+
+                    }
+        }
+}
+
+h2 {
+
+padding-left:4%;
+
+color: #546e7a;
+font-size: 1.5em;
+font-weight: 900;
+
+
+}
+
+.row-one, .row-two, .row-three {
+
+width:100%;
+background:#f5f5f5;
+
+}
+
+.src-list, .gen-list, .res-list, .eth-list, .attend-list, .med-list, .contact-list, .averted-list {
+
+    background:#f5f5f5;
+    width:100%;
+    padding:2%;
+
+        li {
+
+               padding:1%;
+               margin-bottom:0.5em;
+
+               display:inline-block;
+               list-style:none;
+
+               border-radius:10px;
+
+               background:#fff;
+               border:1px solid #dcdada;
+               box-shadow:0 1px 1px lighten(black, 30%);
+
+               //width:96%;
+
+               &:active, :hover, .pressed {
+
+               background:#d1c4e9;
+               border:1px solid #8088b7;
+               box-shadow:0 1px 1px lighten(black, 30%)inset;
+               //margin-top:-0.2em;
+
+               }
+
+        }
+
+}
+
+.gp-search {
+
+float:left;
+width:15%;
+padding:0.5%;
+
+border-bottom-right-radius:10px;
+border:0 4px 0 4px solid white;
+background:#e7e7e7;
+
+}
+
+.pat-search {
+
+//float:right;
+border-right:1px solid #dadada;
+
+}
+
+.nhs-no {
+
+width:50%;
+
+    ul {
+
+        li {
+
+           padding:2%;
+           display:inline-block;
+           text-decoration: none;
+           list-style: none;
+
+        }
+
+    }
+
+}
+
+.pat-no {
+
+width:30%;
+
+}
+
+.pat-name {
+
+    width:50%;
+    float:left;
+
+
+    ul {
+
+        li {
+
+           padding:2%;
+           display:inline-block;
+           text-decoration: none;
+           list-style: none;
+
+        }
+
+    }
+
+}
+
+.observations {
+
+border-bottom-left-radius:10px;
+border: 0 0 1px 1px solid white;
+background:#cfd8dc;
+padding:2%;
+width:40%;
+
+        li {
+
+           padding:1%;
+           text-decoration: none;
+           list-style: none;
+
+           .measurement {
+
+           float:right;
+
+           }
+
+
+           input {
+
+           float:right;
+
+           }
+
+        }
+
+}
+
+.validation-form {
+
+width:50%;
+.border-radius;
+background:#fde3e1;
+border:1px solid #fdbeba;
+box-shadow:0 2px 2px lighten(black, 50%);
+
+    h2.help {
+
+    //width:100%;
+    .border-top;
+    padding:0.5em 0 0.5em 2%;
+    margin:0;
+    border-bottom:1px solid #fdbeba;
+    background:#ffd3d0;
+    color:#b57f7c;
+    font-weight:800;
+
+    }
+
+    p {
+
+    color:#b18a8a;
+    text-align:center;
+    margin-bottom:2em;
+
+    }
+
+    .error-list {
+
+        li {
+
+            list-style:none;
+            border-bottom:1px solid #fdbeba;
+            width:90%;
+            line-height:1.5em;
+            margin:0 0 1em 5%;
+            padding-bottom:1em;
+            color:#805b59;
+
+            &:last-child {
+
+            border:none;
+
+            }
+
+        }
+
+        .action-name {
+
+        font-weight:800;
+        font-size:1.2em;
+        text-shadow:0 1px darken(white, 20%);
+        clear:both;
+        padding-right:1%;
+
+        }
+
+    }
+
+}
