@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+                id="nh_etake_list_report_takelist"
+                model="nh.etake_list.overview"
+                string="Take List"
+                report_type="qweb-pdf"
+                name="nh_etake_list.takelist_report"
+                file="nh_etake_list.takelist_report"
+                />
+    </data>
+</openerp>

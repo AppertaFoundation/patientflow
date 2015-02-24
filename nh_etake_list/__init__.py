@@ -6,3 +6,4 @@ import transfer
 import wizard
 import api_demo
 import overview
+import report
