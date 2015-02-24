@@ -22,41 +22,92 @@ Example:
 <form>
  <div id="patient-info">
 
-
         <fieldset>
             <h2>Source of Referral</h2>
                 <ul class="src-list">
-                    <li><input type="radio" name="src" value="GP">GP</li>
-                    <li><input type="radio" name="src" value="UCC">UCC</li>
-                    <li><input type="radio" name="src" value="AE">A&E</li>
-                    <li><input type="radio" name="src" value="EAU">EAU</li>
-                    <li><input type="radio" name="src" value="WIC">WIC</li>
-                    <li><input type="radio" name="src" value="LTxC">LTxC</li>
-                    <li><input type="radio" name="src" value="OPD">OPD</li>
-                    <li><input type="radio" name="src" value="MAC">MAC</li>
-                    <li><input type="radio" name="src" value="COMM">COMM</li>
-                    <li><input type="radio" name="src" value="MATRON">MATRON</li>
-                    <li><input type="radio" name="src" value="HOSPICE">HOSPICE</li>
-                    <li><input type="radio" name="src" value="CONS">CONS</li>
+                    <li>
+                        <span class="radio">GP</span>
+                            <input class="radio" type="radio" name="src" value="GP">
+                        <span class="radio-selected">GP</span>
+                    </li>
+                    <li>
+                        <span class="radio">UCC</span>
+                            <input class="radio" type="radio" name="src" value="UCC">
+                        <span class="radio-selected">UCC</span>
+                    </li>
+                    <li>
+                        <span class="radio">A&E</span>
+                            <input class="radio" type="radio" name="src" value="AE">
+                        <span class="radio-selected">A&E</span>
+                    </li>
+                    <li>
+                        <span class="radio">EAU</span>
+                            <input class="radio" type="radio" name="src" value="eau">
+                        <span class="radio-selected">EAU</span>
+                    </li>
+                    <li>
+                        <span class="radio">WIC</span>
+                            <input class="radio" type="radio" name="src" value="wic">
+                        <span class="radio-selected">WIC</span>
+                    </li>
+                    <li>
+                        <span class="radio">LTxC</span>
+                            <input class="radio" type="radio" name="src" value="ltxc">
+                        <span class="radio-selected">LTxC</span>
+                    </li>
+                    <li>
+                        <span class="radio">OPD</span>
+                            <input class="radio" type="radio" name="src" value="opd">
+                        <span class="radio-selected">OPD</span>
+                    </li>
+                    <li>
+                        <span class="src">MAC</span>
+                            <input class="src" type="radio" name="src" value="mac">
+                        <span class="src-selected">MAC</span>
+                    </li>
+                    <li>
+                        <span class="src">COMM</span>
+                            <input class="src" type="radio" name="src" value="comm">
+                        <span class="src-selected">COMM</span>
+                    </li>
+                    <li>
+                        <span class="src">MATRON</span>
+                            <input class="src" type="radio" name="src" value="matron">
+                        <span class="src-selected">MATRON</span>
+                    </li>
+                    <li>
+                        <span class="src">HOSPICE</span>
+                            <input class="src" type="radio" name="src" value="hospice">
+                        <span class="src-selected">HOSPICE</span>
+                    </li>
+                    <li>
+                        <span class="src">CONS</span>
+                            <input class="src" type="radio" name="src" value="cons">
+                        <span class="src-selected">CONS</span>
+                    </li>
                 </ul>
         </fieldset>
 
 
 <div class="row-one">
+
+
+
         <div class="gp-search">
+
             <h2>GP</h2>
                 <p>GP Surgery</p>
                 <input type="search">
-                <button><i class="arrow-down"></i></button>
+                <button></button>
         </div>
 
-
+    <h2>Patient Details</h2>
 
         <div class="pat-search">
-            <h2>Patient Details</h2>
+
                 <p>Patient Search</p>
                 <input type="search">
-                <button><i class="arrow-down"></i></button>
+                <button></button>
         </div>
 
 
@@ -64,20 +115,20 @@ Example:
             <fieldset>
                 <p>NHS Number</p>
                     <ul>
-                        <li><input type="number" min="000" max="999"></li>
-                        <li><input type="number" min="000" max="999"></li>
-                        <li><input type="number" min="0000" max="9999"></li>
+                        <li><input class="first-box" type="number" min="000" max="999"></li>
+                        <li><input class="mid-box" type="number" min="000" max="999"></li>
+                        <li><input class="last-box" type="number" min="0000" max="9999"></li>
                     </ul>
             </fieldset>
         </div>
 
         <div class="hosp-no">
             <fieldset>
-                <p>Hosptial Number<p>
-                <input type="number" max="3">
+                <p>Hosptial Number</p>
+                <input class="one-box" type="number">
             </fieldset>
         </div>
-    </div>
+</div>
 
 <div class="row-two">
 
@@ -85,18 +136,18 @@ Example:
 		<fieldset>
 			    <ul>
                     <li>First Name:<br>
-                    <input type="text" name="firstname"></li>
+                    <input class="first-box" type="text" name="firstname"></li>
                     <li>Middle Name(s):<br>
-                    <input type="text" name="middlename"></li>
+                    <input class="mid-box" type="text" name="middlename"></li>
                     <li>Last name:<br>
-                    <input type="text" name="lastname"></li>
+                    <input class="last-box" type="text" name="lastname"></li>
 				</ul>
 		</fieldset>
     </div>
 
 		<fieldset>
 			<p>Date of Birth</p>
-			<input type="number" min="00" max="99"><input type="number" min="00" max="99"><input type="number" min="00" max="99">
+			<input class="first-box" type="number" min="00" max="99"><input class="mid-box" type="number" min="00" max="99"><input class="last-box" type="number" min="00" max="99">
 		</fieldset>
 
 		<fieldset>
@@ -115,7 +166,7 @@ Example:
 <div class="row-three">
 		<fieldset>
 			<p>Postcode</p>
-				<input type="text" maxlength="3"><input type="text" maxlength="3">
+				<input class="first-box" type="text" maxlength="3"><input class="last-box"type="text" maxlength="3">
 		</fieldset>
 
 		<fieldset>
@@ -169,38 +220,60 @@ Example:
 
     <h2>Medical</h2>
 
-    <p>Symptoms/ Investigations - Treatment</p>
+      <div class="observations">
+          <p class="title">Observations</p>
+            <table>
+              <tr>
+                <td>Temperature</td>
+                <td><input class="one-box" type="number" name="temp"> C </td>
+              </tr>
+              <tr>
+                <td>Pulse Rate</td>
+                <td><input class="one-box" type="number" name="pulse"> BPM </td>
+              </tr>
+              <tr>
+                <td>Blood Pressure</td>
+                <td><input class="first-box" type="number" name="systolic" placeholder="Systolic"> / <input class="last-box" type="number" name="diastolic" placeholder="Diastolic"> mm Hg </td>
+              </tr>
+              <tr>
+                <td>Respiratory Rate</td>
+                <td><input class="one-box" type="number" name="resp-rate"> RR </td>
+              </tr>
+              <tr>
+                <td>Weight</td>
+                <td><input class="one-box" type="number" name="weight"> st </td>
+              </tr>
+            </table>
+      </div>
 
-        <textarea>
-        </textarea>
+        <div class="free-text">
 
-    <p>Flu/Cough - Travel/Infection - Concerns?</p>
+            <p>Symptoms/ Investigations - Treatment</p>
 
-        <textarea>
-        </textarea>
+                <textarea>
+                </textarea>
 
-    <p>Past Medical History</p>
+            <p>Flu/Cough - Travel/Infection - Concerns?</p>
 
-        <textarea>
-        </textarea>
+                <textarea>
+                </textarea>
 
-    <p>Possible Diagnosis</p>
+            <p>Past Medical History</p>
 
-        <textarea>
-        </textarea>
+                <textarea>
+                </textarea>
 
-    <p>Allergies</p>
+            <p>Possible Diagnosis</p>
 
-        <textarea>
-        </textarea>
+                <textarea>
+                </textarea>
 
-      <ul class="observations">
-        <li>Temperature <input type="number" name="temp"><div class="measurement">C</div></li>
-        <li>Pulse Rate <input type="number" name="pulse"><div class="measurement">BPM</div></li>
-        <li>Blood Pressure <input type="number" name="systolic" placeholder="Systolic"> / <input type="number" name="diastolic" placeholder="Diastolic"><div class="measurement">mm Hg</div></li>
-        <li>Respiratory Rate <input type="number" name="resp-rate"><div class="measurement">RR</div></li>
-        <li>Weight <input type="number" name="weight"><div class="measurement">st</div></li>
-      </ul>
+            <p>Allergies</p>
+
+                <textarea>
+                </textarea>
+
+        </div>
 
 </div>
 
@@ -212,7 +285,7 @@ Example:
     <fieldset>
         <p>Date & Time</p>
             <input type="date" min="000" max="999">
-            <button><i class="cal"></i></button>
+            <button class="btn-date"></button>
     </fieldset>
 
     <p>Reason for Referral</p>
@@ -235,19 +308,19 @@ Example:
 
     <h2>Additional Information</h2>
 
-        <ul>
+        <ul class="elsewhere">
             <p>Can the Patient be treated elsewhere?</p>
-                <li><input type="radio" name="treat-elsewhere" value="yes">Yes</li>
-                <li><input type="radio" name="treat-elsewhere" value="no">No</li>
-            <ul>
+                <li><input type="radio" name="elsewhere-options" value="yes">Yes</li>
+                <li><input type="radio" name="elsewhere-options" value="no">No</li>
+            <ul class="discussed">
                 <p>Were options discussed with the GP?</p>
-                    <li><input type="radio" name="options-discussed" value="yes">Yes</li>
-                    <li><input type="radio" name="options-discussed" value="no">No</li>
-                    <li><input type="radio" name="options-discussed" value="na">N/A</li>
-                <ul>
+                    <li><input type="radio" name="discussed-options" value="yes">Yes</li>
+                    <li><input type="radio" name="discussed-options" value="no">No</li>
+                    <li><input type="radio" name="discussed-options" value="na">N/A</li>
+                <ul class="chosen">
                  <p>Did the GP choose any other option?</p>
-                        <li><input type="radio" name="options-chosen" value="yes">Yes</li>
-                        <li><input type="radio" name="options-chosen" value="no">No</li>
+                        <li><input type="radio" name="chosen-options" value="yes">Yes</li>
+                        <li><input type="radio" name="chosen-options" value="no">No</li>
                     <textarea>
                     </textarea>
                 </ul>
@@ -293,23 +366,27 @@ Example:
 
     <h2>Speciality</h2>
 
-        <ul class="attend-list">
-            <p>Advised Attendance at:</p>
-                <li><input type="radio" name="attend" value="EAU">EAU</li>
-                <li><input type="radio" name="attend" value="AE">A&E</li>
-                <li><input type="radio" name="attend" value="ACC">ACC</li>
-                <li><input type="radio" name="attend" value="clinic">Clinic</li>
-        </ul>
+        <div class="speciality-content">
 
-    <p>Environmental Factors - Social/ Family</p>
+            <ul class="attend-list">
+                <p>Advised Attendance at:</p>
+                    <li><input type="radio" name="attend" value="EAU">EAU</li>
+                    <li><input type="radio" name="attend" value="AE">A&E</li>
+                    <li><input type="radio" name="attend" value="ACC">ACC</li>
+                    <li><input type="radio" name="attend" value="clinic">Clinic</li>
+            </ul>
 
-        <textarea>
-        </textarea>
+        <p>Environmental Factors - Social/ Family</p>
 
-    <p>Speciality</p>
-        <input type="search">
-        <button><i class="arrow-down"></i></button>
+            <textarea>
+            </textarea>
 
+        <p>Speciality</p>
+            <input type="search">
+            <button></button>
+            </input>
+
+        </div>
 </div>
 
 </form>
@@ -356,41 +433,119 @@ form {
        margin-left:auto;
 
        box-shadow:0 2px 2px lighten(black, 50%);
+       color:#8f8f8f;
 
-       border:1px solid #e0e0e0;
+       border:1px solid #E0E0E2;
 
+       h2 {
 
+       color:#546e7a;
+       font-weight:300;
+       font-size:1.2em;
+       background:white;
+       padding:0.5em 2% 0.5em 2%;
+       margin:0;
+
+       }
 
 }
 
 fieldset {
 
 border:none;
+padding:0;
+margin:0;
 
 }
 
-input, textarea {
+input[type="search"], input[type="date"] {
 
-.border-radius(5px);
-padding:0.5%;
-box-shadow:1px 1px 1px rgba(254,254,254,0.5)inset;
-//border:0;
-resize: none;
+.border-left(5px);
+padding:0.5em 2% 0.2em 2%;
+box-shadow:1px 0 5px lighten(black,50%)inset;
+border:0;
+
+font-size:1em;
+color:#333;
+font-family:sans-serif;
 
 }
 
-button {
+button, .btn-date {
 
 .border-right(5px);
-padding:0.5%;
-
-font-size:1.5em;
-color:darken(#7995a2, 20%);
-text-shadow: 0 2px darken(white, 10%);
+margin-left:-0.4em;
 
 border:1px solid #627a85;
 .background-gradient(lighten(#759cae, 10%), #759cae);
 
+    &:before {
+
+   font-family: FontAwesome;
+   content: "\f0d7";
+   color:darken(#7995a2, 20%);
+   text-shadow: 0 2px darken(white, 10%);
+   font-size: 2em;
+   line-height: 1.3em;
+
+    }
+
+    &.btn-date:before {
+
+    content: "\f073"
+
+    }
+
+}
+
+.first-box, .mid-box, .last-box {
+
+padding:1em 2% 1em 2%;
+box-shadow:0 0 5px lighten(black,50%)inset;
+border:0;
+
+    &.first-box {
+
+    .border-left(5px);
+
+    }
+
+    &.last-box {
+
+    .border-right(5px);
+
+    }
+
+}
+
+.one-box {
+
+    .border-radius(5px);
+    padding:1em 2% 1em 2%;
+    box-shadow:0 0 5px lighten(black,50%)inset;
+    border:0;
+
+}
+
+textarea {
+
+.border-radius(5px);
+box-shadow:0 0 5px lighten(black,50%)inset;
+border:0;
+resize:none;
+width:50%;
+min-height:5em;
+padding:0.5em 1% 0.5em 1%;
+font-size:1em;
+color:#333;
+
+    &:focus {
+
+    //border:1px solid lighten(black, 30%);
+    outline:none;
+    box-shadow:0 0 5px lighten(black,50%)inset, 0 0 5px lighten(#546e7a, 30%);
+
+    }
 }
 
 .ref-nav-tabs {
@@ -413,14 +568,14 @@ border:1px solid #627a85;
                     border-top-left-radius: 10px;
                     border-top-right-radius: 10px;
                     background:white;
-                    padding:2%;
+                    padding:1em 1% 1em 1%;
 
                     //box-shadow:0 2px 2px #646464;
                     border:1px solid #e0e0e0;
                     border-bottom:0;
                     color:#333;
 
-                    line-height:2em;
+                    //line-height:2em;
 
                            a {
 
@@ -463,26 +618,39 @@ color: #546e7a;
 font-size: 1.5em;
 font-weight: 900;
 
-
 }
+
+
 
 .row-one, .row-two, .row-three {
 
 width:100%;
 background:#f5f5f5;
+//display:block;
+
+    h2 {
+
+    margin:0;
+    padding:0.3em 0 0.3em 1%;
+    background:white;
+    width:16.2%;
+
+    }
 
 }
 
-.src-list, .gen-list, .res-list, .eth-list, .attend-list, .med-list, .contact-list, .averted-list {
+.src-list, .gen-list, .res-list, .eth-list, .attend-list, .med-list, .elsewhere, .discussed, .chosen, .contact-list, .averted-list {
 
-    background:#f5f5f5;
     width:100%;
-    padding:2%;
+    text-align:center;
+    margin:0;
+    padding:0;
 
         li {
 
                padding:1%;
-               margin-bottom:0.5em;
+               margin-top:1em;
+               margin-bottom:1.3em;
 
                display:inline-block;
                list-style:none;
@@ -490,6 +658,7 @@ background:#f5f5f5;
                border-radius:10px;
 
                background:#fff;
+               color:#555;
                border:1px solid #dcdada;
                box-shadow:0 1px 1px lighten(black, 30%);
 
@@ -500,6 +669,7 @@ background:#f5f5f5;
                background:#d1c4e9;
                border:1px solid #8088b7;
                box-shadow:0 1px 1px lighten(black, 30%)inset;
+               color:#2c2c2c
                //margin-top:-0.2em;
 
                }
@@ -508,28 +678,82 @@ background:#f5f5f5;
 
 }
 
+#patient-info {
+
+background:#f5f5f5;
+
+    h2 {
+
+    .border-top;
+
+    }
+
+    .src-list {
+
+        h2 {
+
+        border-radius:0;
+
+        }
+
+        li {
+
+            input[type="radio"] {
+
+                display:none;
+                -webkit-apperance:none;
+
+            }
+        }
+    }
+}
+
 .gp-search {
 
-float:left;
-width:15%;
-padding:0.5%;
+float: left;
+width: 20%;
+padding: 0 0 1em 0;
 
-border-bottom-right-radius:10px;
-border:0 4px 0 4px solid white;
-background:#e7e7e7;
+text-align:center;
+
+border-bottom-right-radius: 10px;
+border-bottom: 2px solid white;
+border-right: 2px solid white;
+background: #e7e7e7;
+
+
+    h2 {
+
+    .border-top(0px);
+
+    width:100%;
+    text-align:left;
+    margin-bottom:0.5em;
+    padding:0.3em 0 0.3em 2%;
+
+    }
+
+    p {
+
+    margin:0 0 0.5em 0;
+
+    }
 
 }
 
 .pat-search {
 
-//float:right;
-border-right:1px solid #dadada;
+border-right: 1px solid #dadada;
+width: 25%;
+float: left;
+padding: 1%;
 
 }
 
 .nhs-no {
 
-width:50%;
+min-width: 18%;
+float: left;
 
     ul {
 
@@ -546,9 +770,10 @@ width:50%;
 
 }
 
-.pat-no {
+.hosp-no {
 
 width:30%;
+float:left;
 
 }
 
@@ -562,7 +787,7 @@ width:30%;
 
         li {
 
-           padding:2%;
+           //padding:2%;
            display:inline-block;
            text-decoration: none;
            list-style: none;
@@ -576,31 +801,98 @@ width:30%;
 .observations {
 
 border-bottom-left-radius:10px;
-border: 0 0 1px 1px solid white;
+border-left:2px solid white;
+border-bottom:2px solid white;
 background:#cfd8dc;
-padding:2%;
-width:40%;
+//padding:2%;
+width:48%;
+float:right;
 
-        li {
+color:#333;
 
-           padding:1%;
-           text-decoration: none;
-           list-style: none;
+    .title {
 
-           .measurement {
+        border-bottom-right-radius:10px;
+        border-right:2px solid white;
+        border-bottom:2px solid white;
+        width:30%;
+        padding: 0 0 0 2%;
+        line-height:2em;
+        font-size:1.3em;
+        margin:0;
 
-           float:right;
 
-           }
+    }
 
+        table {
 
-           input {
+            tr {
 
-           float:right;
+                td {
 
-           }
+                padding:1em 0 1em 5%;
+
+                }
+
+            }
 
         }
+
+}
+
+#medical {
+
+background:#f5f5f5;
+
+    .free-text {
+
+    width:60%;
+    padding:0 2% 1em 2%;
+    //float:left;
+
+    }
+}
+
+#emergency-clinic {
+
+background:#f5f5f5;
+
+}
+
+#additional-info {
+
+background:#f5f5f5;
+
+    .elsewhere {
+
+        .discussed {
+
+            .chosen-options {
+
+                textarea {
+
+                box-shadow: 1px 1px 1px lighten(black, 20%)inset;
+
+                }
+            }
+
+        }
+
+    }
+
+}
+
+
+#speciality {
+
+background:#f5f5f5;
+.border-bottom;
+
+    .speciality-content {
+
+    padding:2%;
+
+    }
 
 }
 

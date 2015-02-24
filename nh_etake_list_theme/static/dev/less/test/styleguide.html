@@ -10919,41 +10919,92 @@ Styleguide 1.0
 <form>
  <div id="patient-info">
 
-
         <fieldset>
             <h2>Source of Referral</h2>
                 <ul class="src-list">
-                    <li><input type="radio" name="src" value="GP">GP</li>
-                    <li><input type="radio" name="src" value="UCC">UCC</li>
-                    <li><input type="radio" name="src" value="AE">A&E</li>
-                    <li><input type="radio" name="src" value="EAU">EAU</li>
-                    <li><input type="radio" name="src" value="WIC">WIC</li>
-                    <li><input type="radio" name="src" value="LTxC">LTxC</li>
-                    <li><input type="radio" name="src" value="OPD">OPD</li>
-                    <li><input type="radio" name="src" value="MAC">MAC</li>
-                    <li><input type="radio" name="src" value="COMM">COMM</li>
-                    <li><input type="radio" name="src" value="MATRON">MATRON</li>
-                    <li><input type="radio" name="src" value="HOSPICE">HOSPICE</li>
-                    <li><input type="radio" name="src" value="CONS">CONS</li>
+                    <li>
+                        <span class="radio">GP</span>
+                            <input class="radio" type="radio" name="src" value="GP">
+                        <span class="radio-selected">GP</span>
+                    </li>
+                    <li>
+                        <span class="radio">UCC</span>
+                            <input class="radio" type="radio" name="src" value="UCC">
+                        <span class="radio-selected">UCC</span>
+                    </li>
+                    <li>
+                        <span class="radio">A&E</span>
+                            <input class="radio" type="radio" name="src" value="AE">
+                        <span class="radio-selected">A&E</span>
+                    </li>
+                    <li>
+                        <span class="radio">EAU</span>
+                            <input class="radio" type="radio" name="src" value="eau">
+                        <span class="radio-selected">EAU</span>
+                    </li>
+                    <li>
+                        <span class="radio">WIC</span>
+                            <input class="radio" type="radio" name="src" value="wic">
+                        <span class="radio-selected">WIC</span>
+                    </li>
+                    <li>
+                        <span class="radio">LTxC</span>
+                            <input class="radio" type="radio" name="src" value="ltxc">
+                        <span class="radio-selected">LTxC</span>
+                    </li>
+                    <li>
+                        <span class="radio">OPD</span>
+                            <input class="radio" type="radio" name="src" value="opd">
+                        <span class="radio-selected">OPD</span>
+                    </li>
+                    <li>
+                        <span class="src">MAC</span>
+                            <input class="src" type="radio" name="src" value="mac">
+                        <span class="src-selected">MAC</span>
+                    </li>
+                    <li>
+                        <span class="src">COMM</span>
+                            <input class="src" type="radio" name="src" value="comm">
+                        <span class="src-selected">COMM</span>
+                    </li>
+                    <li>
+                        <span class="src">MATRON</span>
+                            <input class="src" type="radio" name="src" value="matron">
+                        <span class="src-selected">MATRON</span>
+                    </li>
+                    <li>
+                        <span class="src">HOSPICE</span>
+                            <input class="src" type="radio" name="src" value="hospice">
+                        <span class="src-selected">HOSPICE</span>
+                    </li>
+                    <li>
+                        <span class="src">CONS</span>
+                            <input class="src" type="radio" name="src" value="cons">
+                        <span class="src-selected">CONS</span>
+                    </li>
                 </ul>
         </fieldset>
 
 
 <div class="row-one">
+
+
+
         <div class="gp-search">
+
             <h2>GP</h2>
                 <p>GP Surgery</p>
                 <input type="search">
-                <button><i class="arrow-down"></i></button>
+                <button></button>
         </div>
 
-
+    <h2>Patient Details</h2>
 
         <div class="pat-search">
-            <h2>Patient Details</h2>
+
                 <p>Patient Search</p>
                 <input type="search">
-                <button><i class="arrow-down"></i></button>
+                <button></button>
         </div>
 
 
@@ -10961,20 +11012,20 @@ Styleguide 1.0
             <fieldset>
                 <p>NHS Number</p>
                     <ul>
-                        <li><input type="number" min="000" max="999"></li>
-                        <li><input type="number" min="000" max="999"></li>
-                        <li><input type="number" min="0000" max="9999"></li>
+                        <li><input class="first-box" type="number" min="000" max="999"></li>
+                        <li><input class="mid-box" type="number" min="000" max="999"></li>
+                        <li><input class="last-box" type="number" min="0000" max="9999"></li>
                     </ul>
             </fieldset>
         </div>
 
         <div class="hosp-no">
             <fieldset>
-                <p>Hosptial Number<p>
-                <input type="number" max="3">
+                <p>Hosptial Number</p>
+                <input class="one-box" type="number">
             </fieldset>
         </div>
-    </div>
+</div>
 
 <div class="row-two">
 
@@ -10982,18 +11033,18 @@ Styleguide 1.0
 		<fieldset>
 			    <ul>
                     <li>First Name:<br>
-                    <input type="text" name="firstname"></li>
+                    <input class="first-box" type="text" name="firstname"></li>
                     <li>Middle Name(s):<br>
-                    <input type="text" name="middlename"></li>
+                    <input class="mid-box" type="text" name="middlename"></li>
                     <li>Last name:<br>
-                    <input type="text" name="lastname"></li>
+                    <input class="last-box" type="text" name="lastname"></li>
 				</ul>
 		</fieldset>
     </div>
 
 		<fieldset>
 			<p>Date of Birth</p>
-			<input type="number" min="00" max="99"><input type="number" min="00" max="99"><input type="number" min="00" max="99">
+			<input class="first-box" type="number" min="00" max="99"><input class="mid-box" type="number" min="00" max="99"><input class="last-box" type="number" min="00" max="99">
 		</fieldset>
 
 		<fieldset>
@@ -11012,7 +11063,7 @@ Styleguide 1.0
 <div class="row-three">
 		<fieldset>
 			<p>Postcode</p>
-				<input type="text" maxlength="3"><input type="text" maxlength="3">
+				<input class="first-box" type="text" maxlength="3"><input class="last-box"type="text" maxlength="3">
 		</fieldset>
 
 		<fieldset>
@@ -11066,38 +11117,60 @@ Styleguide 1.0
 
     <h2>Medical</h2>
 
-    <p>Symptoms/ Investigations - Treatment</p>
+      <div class="observations">
+          <p class="title">Observations</p>
+            <table>
+              <tr>
+                <td>Temperature</td>
+                <td><input class="one-box" type="number" name="temp"> C </td>
+              </tr>
+              <tr>
+                <td>Pulse Rate</td>
+                <td><input class="one-box" type="number" name="pulse"> BPM </td>
+              </tr>
+              <tr>
+                <td>Blood Pressure</td>
+                <td><input class="first-box" type="number" name="systolic" placeholder="Systolic"> / <input class="last-box" type="number" name="diastolic" placeholder="Diastolic"> mm Hg </td>
+              </tr>
+              <tr>
+                <td>Respiratory Rate</td>
+                <td><input class="one-box" type="number" name="resp-rate"> RR </td>
+              </tr>
+              <tr>
+                <td>Weight</td>
+                <td><input class="one-box" type="number" name="weight"> st </td>
+              </tr>
+            </table>
+      </div>
 
-        <textarea>
-        </textarea>
+        <div class="free-text">
 
-    <p>Flu/Cough - Travel/Infection - Concerns?</p>
+            <p>Symptoms/ Investigations - Treatment</p>
 
-        <textarea>
-        </textarea>
+                <textarea>
+                </textarea>
 
-    <p>Past Medical History</p>
+            <p>Flu/Cough - Travel/Infection - Concerns?</p>
 
-        <textarea>
-        </textarea>
+                <textarea>
+                </textarea>
 
-    <p>Possible Diagnosis</p>
+            <p>Past Medical History</p>
 
-        <textarea>
-        </textarea>
+                <textarea>
+                </textarea>
 
-    <p>Allergies</p>
+            <p>Possible Diagnosis</p>
 
-        <textarea>
-        </textarea>
+                <textarea>
+                </textarea>
 
-      <ul class="observations">
-        <li>Temperature <input type="number" name="temp"><div class="measurement">C</div></li>
-        <li>Pulse Rate <input type="number" name="pulse"><div class="measurement">BPM</div></li>
-        <li>Blood Pressure <input type="number" name="systolic" placeholder="Systolic"> / <input type="number" name="diastolic" placeholder="Diastolic"><div class="measurement">mm Hg</div></li>
-        <li>Respiratory Rate <input type="number" name="resp-rate"><div class="measurement">RR</div></li>
-        <li>Weight <input type="number" name="weight"><div class="measurement">st</div></li>
-      </ul>
+            <p>Allergies</p>
+
+                <textarea>
+                </textarea>
+
+        </div>
 
 </div>
 
@@ -11109,7 +11182,7 @@ Styleguide 1.0
     <fieldset>
         <p>Date & Time</p>
             <input type="date" min="000" max="999">
-            <button><i class="cal"></i></button>
+            <button class="btn-date"></button>
     </fieldset>
 
     <p>Reason for Referral</p>
@@ -11132,19 +11205,19 @@ Styleguide 1.0
 
     <h2>Additional Information</h2>
 
-        <ul>
+        <ul class="elsewhere">
             <p>Can the Patient be treated elsewhere?</p>
-                <li><input type="radio" name="treat-elsewhere" value="yes">Yes</li>
-                <li><input type="radio" name="treat-elsewhere" value="no">No</li>
-            <ul>
+                <li><input type="radio" name="elsewhere-options" value="yes">Yes</li>
+                <li><input type="radio" name="elsewhere-options" value="no">No</li>
+            <ul class="discussed">
                 <p>Were options discussed with the GP?</p>
-                    <li><input type="radio" name="options-discussed" value="yes">Yes</li>
-                    <li><input type="radio" name="options-discussed" value="no">No</li>
-                    <li><input type="radio" name="options-discussed" value="na">N/A</li>
-                <ul>
+                    <li><input type="radio" name="discussed-options" value="yes">Yes</li>
+                    <li><input type="radio" name="discussed-options" value="no">No</li>
+                    <li><input type="radio" name="discussed-options" value="na">N/A</li>
+                <ul class="chosen">
                  <p>Did the GP choose any other option?</p>
-                        <li><input type="radio" name="options-chosen" value="yes">Yes</li>
-                        <li><input type="radio" name="options-chosen" value="no">No</li>
+                        <li><input type="radio" name="chosen-options" value="yes">Yes</li>
+                        <li><input type="radio" name="chosen-options" value="no">No</li>
                     <textarea>
                     </textarea>
                 </ul>
@@ -11190,23 +11263,27 @@ Styleguide 1.0
 
     <h2>Speciality</h2>
 
-        <ul class="attend-list">
-            <p>Advised Attendance at:</p>
-                <li><input type="radio" name="attend" value="EAU">EAU</li>
-                <li><input type="radio" name="attend" value="AE">A&E</li>
-                <li><input type="radio" name="attend" value="ACC">ACC</li>
-                <li><input type="radio" name="attend" value="clinic">Clinic</li>
-        </ul>
+        <div class="speciality-content">
 
-    <p>Environmental Factors - Social/ Family</p>
+            <ul class="attend-list">
+                <p>Advised Attendance at:</p>
+                    <li><input type="radio" name="attend" value="EAU">EAU</li>
+                    <li><input type="radio" name="attend" value="AE">A&E</li>
+                    <li><input type="radio" name="attend" value="ACC">ACC</li>
+                    <li><input type="radio" name="attend" value="clinic">Clinic</li>
+            </ul>
 
-        <textarea>
-        </textarea>
+        <p>Environmental Factors - Social/ Family</p>
 
-    <p>Speciality</p>
-        <input type="search">
-        <button><i class="arrow-down"></i></button>
+            <textarea>
+            </textarea>
 
+        <p>Speciality</p>
+            <input type="search">
+            <button></button>
+            </input>
+
+        </div>
 </div>
 
 </form>
