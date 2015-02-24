@@ -60,6 +60,7 @@ class nh_etake_list_overview(orm.Model):
                     select
                         patient.id as id,
                         patient.gender as gender,
+                        patient.dob as dob,
                         extract(year from age(now(), patient.dob)) as age,
                         tci_activity.pos_id as pos_id,
                         (select count(*) from dt where dt.parent_id = spell_activity.id) as doctor_tasks,

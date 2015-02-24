@@ -73,6 +73,7 @@ class nh_etake_list_overview(orm.Model):
         'state': fields.selection(_state_selection, 'State'),
         'gender': fields.selection(_gender, 'Gender'),
         'age': fields.integer('Age'),
+        'dob': fields.datetime('Date of Birth'),
         'form_id': fields.many2one('nh.clinical.patient.referral.form', 'Referral Form'),
         'clerking_started': fields.datetime('Clerking Started'),
         'clerking_terminated': fields.datetime('Clerking Finished'),
@@ -114,6 +115,7 @@ class nh_etake_list_overview(orm.Model):
                     select
                         patient.id as id,
                         patient.gender as gender,
+                        patient.dob as dob,
                         extract(year from age(now(), patient.dob)) as age,
                         tci_activity.pos_id as pos_id,
                         (select count(*) from dt where dt.parent_id = spell_activity.id) as doctor_tasks,
