@@ -10,7 +10,6 @@ openerp.nh_etake_list = function (instance) {
                     options.selectable = false;
                 };
             }
-            options.import_enabled = false;
             this._super.apply(this, [parent, dataset, view_id, options]);
         },
     });
