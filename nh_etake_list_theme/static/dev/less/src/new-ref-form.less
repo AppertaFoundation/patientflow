@@ -98,8 +98,10 @@ Example:
             <h2>GP</h2>
                 <p>GP Surgery</p>
                 <input type="search">
-                <button></button>
+                <button class="btn-drop"></button>
         </div>
+
+  <div class="patient-details">
 
     <h2>Patient Details</h2>
 
@@ -107,7 +109,7 @@ Example:
 
                 <p>Patient Search</p>
                 <input type="search">
-                <button></button>
+                <button class="btn-drop"></button>
         </div>
 
 
@@ -128,6 +130,7 @@ Example:
                 <input class="one-box" type="number">
             </fieldset>
         </div>
+    </div>
 </div>
 
 <div class="row-two">
@@ -250,27 +253,27 @@ Example:
 
             <p>Symptoms/ Investigations - Treatment</p>
 
-                <textarea>
+                <textarea class="half-width">
                 </textarea>
 
             <p>Flu/Cough - Travel/Infection - Concerns?</p>
 
-                <textarea>
+                <textarea class="half-width">
                 </textarea>
 
             <p>Past Medical History</p>
 
-                <textarea>
+                <textarea class="full-width">
                 </textarea>
 
             <p>Possible Diagnosis</p>
 
-                <textarea>
+                <textarea class="full-width">
                 </textarea>
 
             <p>Allergies</p>
 
-                <textarea>
+                <textarea class="full-width">
                 </textarea>
 
         </div>
@@ -290,7 +293,7 @@ Example:
 
     <p>Reason for Referral</p>
 
-    <textarea>
+    <textarea class="full-width">
     </textarea>
 
     <fieldset>
@@ -378,12 +381,12 @@ Example:
 
         <p>Environmental Factors - Social/ Family</p>
 
-            <textarea>
+            <textarea class="full-width">
             </textarea>
 
         <p>Speciality</p>
             <input type="search">
-            <button></button>
+            <button class="btn-drop"></button>
             </input>
 
         </div>
@@ -471,7 +474,7 @@ font-family:sans-serif;
 
 }
 
-button, .btn-date {
+.btn-drop, .btn-date {
 
 .border-right(5px);
 margin-left:-0.4em;
@@ -527,14 +530,14 @@ border:0;
 
 }
 
-textarea {
+.half-width, .full-width {
 
 .border-radius(5px);
 box-shadow:0 0 5px lighten(black,50%)inset;
 border:0;
 resize:none;
 width:50%;
-min-height:5em;
+min-height:7.6em;
 padding:0.5em 1% 0.5em 1%;
 font-size:1em;
 color:#333;
@@ -544,6 +547,12 @@ color:#333;
     //border:1px solid lighten(black, 30%);
     outline:none;
     box-shadow:0 0 5px lighten(black,50%)inset, 0 0 5px lighten(#546e7a, 30%);
+
+    }
+
+    &.full-width {
+
+    width:102%;
 
     }
 }
@@ -633,7 +642,24 @@ background:#f5f5f5;
     margin:0;
     padding:0.3em 0 0.3em 1%;
     background:white;
-    width:16.2%;
+
+    }
+
+    .patient-details {
+
+    float:left;
+    width:60%;
+
+    //width:16.2%;
+
+        .pat-search {
+
+        border-right: 1px solid #dadada;
+        //width: 45%;
+        //float: left;
+        padding: 1%;
+
+        }
 
     }
 
@@ -741,15 +767,6 @@ background: #e7e7e7;
 
 }
 
-.pat-search {
-
-border-right: 1px solid #dadada;
-width: 25%;
-float: left;
-padding: 1%;
-
-}
-
 .nhs-no {
 
 min-width: 18%;
@@ -846,7 +863,7 @@ background:#f5f5f5;
 
     .free-text {
 
-    width:60%;
+    width:92%;
     padding:0 2% 1em 2%;
     //float:left;
 
