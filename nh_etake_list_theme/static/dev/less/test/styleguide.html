@@ -10923,64 +10923,40 @@ Styleguide 1.0
             <h2>Source of Referral</h2>
                 <ul class="src-list">
                     <li>
-                        <span class="radio">GP</span>
-                            <input class="radio" type="radio" name="src" value="GP">
-                        <span class="radio-selected">GP</span>
+                        <input class="radio" type="radio" name="src" value="GP">GP
                     </li>
                     <li>
-                        <span class="radio">UCC</span>
-                            <input class="radio" type="radio" name="src" value="UCC">
-                        <span class="radio-selected">UCC</span>
+                        <input class="radio" type="radio" name="src" value="UCC">UCC
                     </li>
                     <li>
-                        <span class="radio">A&E</span>
-                            <input class="radio" type="radio" name="src" value="AE">
-                        <span class="radio-selected">A&E</span>
+                        <input class="radio" type="radio" name="src" value="AE">AE
                     </li>
                     <li>
-                        <span class="radio">EAU</span>
-                            <input class="radio" type="radio" name="src" value="eau">
-                        <span class="radio-selected">EAU</span>
+                        <input class="radio" type="radio" name="src" value="eau">EAU
                     </li>
                     <li>
-                        <span class="radio">WIC</span>
-                            <input class="radio" type="radio" name="src" value="wic">
-                        <span class="radio-selected">WIC</span>
+                        <input class="radio" type="radio" name="src" value="wic">WIC
                     </li>
                     <li>
-                        <span class="radio">LTxC</span>
-                            <input class="radio" type="radio" name="src" value="ltxc">
-                        <span class="radio-selected">LTxC</span>
+                        <input class="radio" type="radio" name="src" value="ltxc">LTxC
                     </li>
                     <li>
-                        <span class="radio">OPD</span>
-                            <input class="radio" type="radio" name="src" value="opd">
-                        <span class="radio-selected">OPD</span>
+                        <input class="radio" type="radio" name="src" value="opd">OPD
                     </li>
                     <li>
-                        <span class="src">MAC</span>
-                            <input class="src" type="radio" name="src" value="mac">
-                        <span class="src-selected">MAC</span>
+                        <input class="src" type="radio" name="src" value="mac">MAC
                     </li>
                     <li>
-                        <span class="src">COMM</span>
-                            <input class="src" type="radio" name="src" value="comm">
-                        <span class="src-selected">COMM</span>
+                        <input class="src" type="radio" name="src" value="comm">COMM
                     </li>
                     <li>
-                        <span class="src">MATRON</span>
-                            <input class="src" type="radio" name="src" value="matron">
-                        <span class="src-selected">MATRON</span>
+                        <input type="radio" name="src" value="matron">MATRON
                     </li>
                     <li>
-                        <span class="src">HOSPICE</span>
-                            <input class="src" type="radio" name="src" value="hospice">
-                        <span class="src-selected">HOSPICE</span>
+                        <input type="radio" name="src" value="hospice">HOSPICE
                     </li>
                     <li>
-                        <span class="src">CONS</span>
-                            <input class="src" type="radio" name="src" value="cons">
-                        <span class="src-selected">CONS</span>
+                       <input type="radio" name="src" value="cons">CONS
                     </li>
                 </ul>
         </fieldset>
@@ -10994,7 +10970,7 @@ Styleguide 1.0
 
             <h2>GP</h2>
                 <p>GP Surgery</p>
-                <input type="search">
+                <input class="search-box" type="search">
                 <button class="btn-drop"></button>
         </div>
 
@@ -11005,7 +10981,7 @@ Styleguide 1.0
         <div class="pat-search">
 
                 <p>Patient Search</p>
-                <input type="search">
+                <input class="search-box" type="search">
                 <button class="btn-drop"></button>
         </div>
 
@@ -11023,7 +10999,7 @@ Styleguide 1.0
 
         <div class="hosp-no">
             <fieldset>
-                <p>Hosptial Number</p>
+                <p>Hospital Number</p>
                 <input class="one-box" type="number">
             </fieldset>
         </div>
@@ -11035,84 +11011,120 @@ Styleguide 1.0
 	<div class="pat-name">
 		<fieldset>
 			    <ul>
-                    <li>First Name:<br>
-                    <input class="first-box" type="text" name="firstname"></li>
-                    <li>Middle Name(s):<br>
-                    <input class="mid-box" type="text" name="middlename"></li>
-                    <li>Last name:<br>
-                    <input class="last-box" type="text" name="lastname"></li>
+                    <li>
+                    <p>First Name:</p>
+                        <input class="first-box" type="text" name="firstname">
+                    </li>
+                    <li>
+                    <p>Middle Name(s):</p>
+                        <input class="mid-box" type="text" name="middlename">
+                    </li>
+                    <li>
+                    <p>Last name:</p>
+                        <input class="last-box" type="text" name="lastname">
+                    </li>
 				</ul>
 		</fieldset>
     </div>
 
-		<fieldset>
-			<p>Date of Birth</p>
-			<input class="first-box" type="number" min="00" max="99"><input class="mid-box" type="number" min="00" max="99"><input class="last-box" type="number" min="00" max="99">
-		</fieldset>
+    <div class="dob">
+        <fieldset>
+            <p>Date of Birth</p>
+            <ul>
+                <li><input class="first-box" type="number" min="00" max="99"></li>
+                <li><input class="mid-box" type="number" min="00" max="99"></li>
+                <li><input class="last-box" type="number" min="00" max="99"></li>
+            </ul>
+        </fieldset>
+    </div>
 
-		<fieldset>
-			<p>Gender</p>
-				<ul class="gen-list">
-					<li><input type="radio" name="gen" value="not-specified">Not Specified</li>
-					<li><input type="radio" name="gen" value="male">Male</li>
-					<li><input type="radio" name="gen" value="female">Female</li>
-					<li><input type="radio" name="gen" value="both">Both</li>
-					<li><input type="radio" name="gen" value="intermediate">Intermediate</li>
-					<li><input type="radio" name="gen" value="nknown">Unknown</li>
-				</ul>
-		</fieldset>
+    <div class="gender">
+        <fieldset>
+            <p>Gender</p>
+                <ul class="gen-list">
+                    <li><input type="radio" name="gen" value="not-specified">Not Specified</li>
+                    <li><input type="radio" name="gen" value="male">Male</li>
+                    <li><input type="radio" name="gen" value="female">Female</li>
+                    <li><input type="radio" name="gen" value="both">Both</li>
+                    <li><input type="radio" name="gen" value="intermediate">Intermediate</li>
+                    <li><input type="radio" name="gen" value="nknown">Unknown</li>
+                </ul>
+        </fieldset>
+    </div>
+
 </div>
 
 <div class="row-three">
-		<fieldset>
-			<p>Postcode</p>
-				<input class="first-box" type="text" maxlength="3"><input class="last-box"type="text" maxlength="3">
-		</fieldset>
 
-		<fieldset>
-			<p>Resides</p>
-				<ul class="res-list">
-					<li><input type="radio" name="res" value="home">Home</li>
-					<li><input type="radio" name="res" value="resident">Res/Home</li>
-					<li><input type="radio" name="res" value="nursery">N/Home</li>
-				</ul>
-		</fieldset>
+        <div class="postcode">
+            <fieldset>
+                <p>Postcode</p>
+                <ul class="post-list">
+                    <li>
+                        <input class="first-box" type="text" maxlength="3">
+                    </li>
+                    <li>
+                        <input class="last-box"type="text" maxlength="3">
+                    </li>
+                </ul>
+            </fieldset>
+		</div>
+
+        <div class="resides">
+            <fieldset>
+                <p>Resides</p>
+                    <ul class="res-list">
+                        <li><input type="radio" name="res" value="home">Home</li>
+                        <li><input type="radio" name="res" value="resident">Res/Home</li>
+                        <li><input type="radio" name="res" value="nursery">N/Home</li>
+                    </ul>
+            </fieldset>
+		</div>
 </div>
 
-		<fieldset>
-			<p>Ethnicity</p>
-				<ul class="eth-list">
-					<li><input type="radio" name="eth" value="not-stated">Not Stated</li>
-				<br>
-					White: <br>
-					<li><input type="radio" name="eth" value="british">British</li>
-					<li><input type="radio" name="eth" value="irish">Irish</li>
-					<li><input type="radio" name="eth" value="white-other">Other</li>
-				<br>
-					Black: <br>
-					<li><input type="radio" name="eth" value="caribbean">Caribbean</li>
-					<li><input type="radio" name="eth" value="african">African</li>
-					<li><input type="radio" name="eth" value="black-other">Other</li>
-				<br>
-					Mixed: <br>
-					<li><input type="radio" name="eth" value="mixed-caribbean">White and Black Caribbean</li>
-					<li><input type="radio" name="eth" value="mixed-african">White and Black African</li>
-					<li><input type="radio" name="eth" value="mixed-asian">White and Asian</li>
-					<li><input type="radio" name="eth" value="mixed-other">Other</li>
-				<br>
-					Asian: <br>
-					<li><input type="radio" name="eth" value="mixed-caribbean">Indian</li>
-					<li><input type="radio" name="eth" value="mixed-african">Pakistani</li>
-					<li><input type="radio" name="eth" value="mixed-asian">Bangladeshi</li>
-					<li><input type="radio" name="eth" value="mixed-other">Other</li>
-					<hr>
-					<li><input type="radio" name="eth" value="chinese">Chinese</li>
-					<hr><li><input type="radio" name="eth" value="other-group">Other Ethnic Group</li>
+    <div class="row-four">
 
-
-				</ul>
-		</fieldset>
-
+            <fieldset>
+                <h2>Ethnicity</h2>
+                    <ul class="eth-list">
+                        <div class="not-stated">
+                                <li><input type="radio" name="eth" value="not-stated">Not Stated</li>
+                        </div>
+                        <div class="white">
+                            <p>White:</p>
+                                <li><input type="radio" name="eth" value="british">British</li>
+                                <li><input type="radio" name="eth" value="irish">Irish</li>
+                                <li><input type="radio" name="eth" value="white-other">Other</li>
+                        </div>
+                        <div class="black">
+                            <p>Black:</p>
+                                <li><input type="radio" name="eth" value="caribbean">Caribbean</li>
+                                <li><input type="radio" name="eth" value="african">African</li>
+                                <li><input type="radio" name="eth" value="black-other">Other</li>
+                        </div>
+                        <div class="asian">
+                            <p>Asian:</p>
+                                <li><input type="radio" name="eth" value="mixed-caribbean">Indian</li>
+                                <li><input type="radio" name="eth" value="mixed-african">Pakistani</li>
+                                <li><input type="radio" name="eth" value="mixed-asian">Bangladeshi</li>
+                                <li><input type="radio" name="eth" value="mixed-other">Other</li>
+                        </div>
+                        <div class="chinese">
+                                <li><input type="radio" name="eth" value="chinese">Chinese</li>
+                        </div>
+                        <div class="mixed">
+                            <p>Mixed:</p>
+                                <li><input type="radio" name="eth" value="mixed-caribbean">White and Black Caribbean</li>
+                                <li><input type="radio" name="eth" value="mixed-african">White and Black African</li>
+                                <li><input type="radio" name="eth" value="mixed-asian">White and Asian</li>
+                                <li><input type="radio" name="eth" value="mixed-other">Other</li>
+                        </div>
+                        <div class="other">
+                                <li><input type="radio" name="eth" value="other-group">Other Ethnic Group</li>
+                        </div>
+                    </ul>
+            </fieldset>
+    </div>
 </div>
 
 
@@ -11182,26 +11194,33 @@ Styleguide 1.0
 
     <h2>Emergency GP Access Clinic</h2>
 
-    <fieldset>
-        <p>Date & Time</p>
-            <input type="date" min="000" max="999">
-            <button class="btn-date"></button>
-    </fieldset>
+    <div class="emergency-clinic-content">
 
-    <p>Reason for Referral</p>
+            <div class="date-time">
+                <fieldset>
+                    <p>Date & Time</p>
+                        <input class="date-box" type="date" min="000" max="999">
+                        <button class="btn-date"></button>
+                </fieldset>
+            </div>
 
-    <textarea class="full-width">
-    </textarea>
+            <div class="med-req">
+            <fieldset>
+                <ul class="med-list">
+                    <p>Medication List Required?</p>
+                        <li><input type="radio" name="med" value="yes">Yes</li>
+                        <li><input type="radio" name="med" value="no">No</li>
+                </ul>
+            </fieldset>
+            </div>
 
-    <fieldset>
-        <ul class="med-list">
-            <p>Medication List Required?</p>
-                <li><input type="radio" name="med" value="yes">Yes</li>
-                <li><input type="radio" name="med" value="no">No</li>
-        </ul>
-	</fieldset>
+            <div class="free-text">
+                <p>Reason for Referral</p>
+                    <textarea class="full-width">
+                    </textarea>
+            </div>
 
-
+        </div>
 </div>
 
 <div id="additional-info">
@@ -11213,17 +11232,16 @@ Styleguide 1.0
                 <li><input type="radio" name="elsewhere-options" value="yes">Yes</li>
                 <li><input type="radio" name="elsewhere-options" value="no">No</li>
             <ul class="discussed">
-                <p>Were options discussed with the GP?</p>
+                <p class="top">Were options discussed with the GP?</p>
                     <li><input type="radio" name="discussed-options" value="yes">Yes</li>
                     <li><input type="radio" name="discussed-options" value="no">No</li>
                     <li><input type="radio" name="discussed-options" value="na">N/A</li>
                 <ul class="chosen">
-                 <p>Did the GP choose any other option?</p>
+                    <p>Did the GP choose any other option?</p>
                         <li><input type="radio" name="chosen-options" value="yes">Yes</li>
                         <li><input type="radio" name="chosen-options" value="no">No</li>
-                    <textarea>
-                    </textarea>
                 </ul>
+                <textarea class="other-option-text" placeholder="Please describe the chosen option here."></textarea>
             </ul>
          </ul>
 
@@ -11276,15 +11294,14 @@ Styleguide 1.0
                     <li><input type="radio" name="attend" value="clinic">Clinic</li>
             </ul>
 
+         <p>Speciality</p>
+                <input class="search-box" type="search">
+            <button class="btn-drop"></button>
+
         <p>Environmental Factors - Social/ Family</p>
 
             <textarea class="full-width">
             </textarea>
-
-        <p>Speciality</p>
-            <input type="search">
-            <button class="btn-drop"></button>
-            </input>
 
         </div>
 </div>
