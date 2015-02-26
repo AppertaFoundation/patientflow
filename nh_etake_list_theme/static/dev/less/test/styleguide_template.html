@@ -471,6 +471,19 @@ Styleguide 1.0
 
 
            });
+
+	   $('#new-ref-form .example form > div').each(function(){
+		$(this).hide();
+	   });
+
+	   $('#new-ref-form .example .ref-nav-tabs a').each(function(){
+		$(this).click(function(){
+			//e.preventDefault();
+			var item_id = $(this).attr('data-section');
+			$('#new-ref-form .example form > div').each(function(){ $(this).hide(); });
+			$(item_id).show();
+		});
+	   });
         });
         function mobile(object, type){
             var clicked_obj = $(object);
