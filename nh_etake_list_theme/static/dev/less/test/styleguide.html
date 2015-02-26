@@ -11437,7 +11437,24 @@ Styleguide 1.0
                 </ul>
 
                 <div class="example">
-                    <div class="oe_notification ui-notify"></div><div aria-hidden="false" class="modal in" data-backdrop="static" role="dialog" tabindex="-1" style="display: block;">
+                    <div class="modal-dialog">
+            <div class="modal-content openerp">
+                <div class="modal-header">
+                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button">X</button>
+                    <h3 class="modal-title">Warning</h3>
+                </div>
+                <div class="modal-body">
+                <div class="in" aria-hidden="false"><p>The record has been modified, your changes will be discarded.</p><p>Please save or discard your changes.</p></div></div><div class="modal-footer"><span class="oe_dialog_custom_buttons"><button type="button" class="oe_button oe_form_button ">
+
+
+        <span>Ok</span>
+
+    </button></span></div>
+            </div>
+        </div>
+
+
+        <div class="oe_notification ui-notify"></div><div aria-hidden="false" class="modal in" data-backdrop="static" role="dialog" tabindex="-1" style="display: block;">
         <div class="modal-dialog">
             <div class="modal-content openerp">
                 <div class="modal-header">

@@ -11,6 +11,24 @@ Alert pop-ups
 
 Example:
 
+
+<div class="modal-dialog">
+            <div class="modal-content openerp">
+                <div class="modal-header">
+                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button">X</button>
+                    <h3 class="modal-title">Warning</h3>
+                </div>
+                <div class="modal-body">
+                <div class="in" aria-hidden="false"><p>The record has been modified, your changes will be discarded.</p><p>Please save or discard your changes.</p></div></div><div class="modal-footer"><span class="oe_dialog_custom_buttons"><button type="button" class="oe_button oe_form_button ">
+
+
+        <span>Ok</span>
+
+    </button></span></div>
+            </div>
+        </div>
+
+
         <div class="oe_notification ui-notify"></div><div aria-hidden="false" class="modal in" data-backdrop="static" role="dialog" tabindex="-1" style="display: block;">
         <div class="modal-dialog">
             <div class="modal-content openerp">
@@ -75,47 +93,61 @@ h2 {
 h2 a {
   color: #428BCD;
 }
-.modal-open .modal-dialog {
+.modal-open .modal-content {
   -ms-border-radius: 10px;
   border-radius: 10px;
-  background: red;
+  box-shadow: 0 1px 1px black;
 }
-.modal-open .modal-dialog .modal-content .openerp {
-  background: red;
-}
-.modal-open .modal-dialog .modal-content .openerp .modal-header {
+.modal-open .modal-dialog .modal-content .modal-header {
   padding: 5%;
+  background: #f5f5f5;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
-.modal-open .modal-dialog .modal-content .openerp .modal-header .close {
+.modal-open .modal-dialog .modal-content .modal-header .close {
   float: right;
+  border-top-right-radius: 10px;
+  border-left: 1px solid #888;
+  padding: 1em 3% 2em;
+  margin-top: -1.5em;
+  margin-right: -1.5em;
+  background: #FFC7C7;
 }
-.modal-open .modal-dialog .modal-content .openerp .modal-header .modal-title {
+.modal-open .modal-dialog .modal-content .modal-header .close:before {
+  font-family: FontAwesome;
+  content: "\f00d";
+  color: #4a606b;
+  text-shadow: 0 2px #e6e6e6;
+  font-size: 1em;
+  line-height: 1em;
+}
+.modal-open .modal-dialog .modal-content .modal-header .modal-title {
   float: left;
 }
-.modal-open .modal-dialog .modal-content .openerp .modal-body .in .oe_dialog_warning .oe_dialog_icon {
+.modal-open .modal-dialog .modal-content .modal-body .in .oe_dialog_warning .oe_dialog_icon {
   padding: 0;
   width: 0;
 }
-.modal-open .modal-dialog .modal-content .openerp .modal-footer .oe_dialog_custom_buttons .oe_button .oe_form_button {
-  -ms-border-radius: 10px;
-  border-radius: 10px;
+.modal-open .modal-dialog .modal-content .modal-footer .oe_dialog_custom_buttons .oe_button {
+  -ms-border-radius: 5px;
+  border-radius: 5px;
   color: white;
   display: inline-block;
-  background: #09b6ff;
+  background: #0096d5;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #09b6ff 0%, #0072a2 100%);
+  background: -moz-linear-gradient(top, #0096d5, 10%, #0072a2, 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #09b6ff), color-stop(100%, #0072a2));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #0096d5), color-stop(100%, #0072a2));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(#09b6ff, #0072a2);
+  background: -webkit-linear-gradient(#0096d5, #0072a2);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #09b6ff 0%, #0072a2 100%);
+  background: -o-linear-gradient(top, #0096d5, 10%, #0072a2, 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #09b6ff 0%, #0072a2 100%);
+  background: -ms-linear-gradient(top, #0096d5, 10%, #0072a2, 10%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #09b6ff 0%, #0072a2 100%);
+  background: linear-gradient(to bottom, #0096d5, 10%, #0072a2, 10%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(#0072A2, 20%))', endColorstr='#0072A2', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@colour_one', endColorstr='@colour_two', GradientType=0);
   /* IE6-9 */
   padding: 0.3em 10%;
   border: 1px solid #0D5571;
@@ -126,4 +158,22 @@ h2 a {
   text-decoration: none;
   height: inherit;
   font-weight: 900;
+}
+.modal-open .modal-dialog .modal-content .modal-footer .oe_dialog_custom_buttons .oe_button.oe_form_m2o_qc_button {
+  background: #00d596;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #00d596, 10%, #00a272, 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #00d596), color-stop(100%, #00a272));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(#00d596, #00a272);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #00d596, 10%, #00a272, 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #00d596, 10%, #00a272, 10%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #00d596, 10%, #00a272, 10%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@colour_one', endColorstr='@colour_two', GradientType=0);
+  /* IE6-9 */
 }
