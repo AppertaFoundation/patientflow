@@ -330,6 +330,8 @@ Example:
 
     <h2>Additional Information</h2>
 
+    <div class="additional-content">
+
         <ul class="elsewhere">
             <p>Can the Patient be treated elsewhere?</p>
                 <li><input type="radio" name="elsewhere-options" value="yes">Yes</li>
@@ -380,6 +382,8 @@ Example:
         </ul>
 	</fieldset>
 
+	</div>
+
 </div>
 
 
@@ -403,9 +407,8 @@ Example:
 
         <p>Environmental Factors - Social/ Family</p>
 
-            <textarea class="full-width">
-            </textarea>
-
+                <textarea class="full-width">
+                </textarea>
         </div>
 </div>
 
@@ -450,6 +453,7 @@ form {
        width:90%;
        margin-right:auto;
        margin-left:auto;
+       margin-bottom:1em;
 
        box-shadow:0 2px 2px lighten(black, 50%);
        color:#8f8f8f;
@@ -475,6 +479,17 @@ border:none;
 padding:0;
 margin:0;
 
+}
+
+
+li {
+
+    input[type="radio"] {
+
+        display:none;
+        -webkit-apperance:none;
+
+    }
 }
 
 .search-box, .date-box {
@@ -1005,8 +1020,6 @@ background:#cfd8dc;
 width:48%;
 float:right;
 
-color:#333;
-
     .title {
 
         border-bottom-right-radius:10px;
@@ -1039,7 +1052,7 @@ color:#333;
 
 }
 
-#medical, #emergency-clinic {
+#medical, #emergency-clinic, #speciality {
 
 background:#f5f5f5;
 
@@ -1071,86 +1084,91 @@ background:#f5f5f5;
     width:70%;
 
     }
+
+    &#speciality {
+
+    .border-bottom;
+
+            .speciality-content {
+
+            padding:2%;
+
+            }
+
+    }
+
 }
 
 #additional-info {
 
 background:#f5f5f5;
 
-    .elsewhere {
+   .additional-content {
 
-    width:60%;
-    margin-bottom:1em;
+   padding:0.5em 2% 0.5em 2%;
 
-        .discussed {
+        .elsewhere {
 
-        .border-radius(5px);
-        width:45%;
-        //margin-right:auto;
-        //margin-left:auto;
+        width:60%;
+        margin-bottom:1em;
 
-        box-shadow:0 2px 2px lighten(black, 50%);
-        //border:1px solid #E0E0E2;
-        text-align:center;
+            .discussed {
 
-           &:before {
+            .border-radius(5px);
+            width:45%;
+            //margin-right:auto;
+            //margin-left:auto;
 
-           position: absolute;
-           font-family: 'FontAwesome';
-           margin-top: -0.4em;
-           margin-left: -9.3%;
-           content: "\f0de";
-           font-size: 3em;
-           color: white;
-           text-shadow:
-               0 0 0 #E0E0E2,
-             -1px -1px 0 #E0E0E2,
-              1px -1px 0 #E0E0E2,
-              -1px 1px 0 #FFF,
-               1px 1px 0 #FFF;
-
-           }
-
-
-            p {
-
-            background:white;
+            box-shadow:0 2px 2px lighten(black, 50%);
+            //border:1px solid #E0E0E2;
             text-align:center;
-            padding:1em 2% 1em 2%;
-            margin:0 0 1em 0;
 
-                &.top {
+               &:before {
 
-                .border-top;
+               position: absolute;
+               font-family: 'FontAwesome';
+               margin-top: -0.4em;
+               margin-left: -9.3%;
+               content: "\f0de";
+               font-size: 3em;
+               color: white;
+               text-shadow:
+                   0 0 0 #E0E0E2,
+                 -1px -1px 0 #E0E0E2,
+                  1px -1px 0 #E0E0E2,
+                  -1px 1px 0 #FFF,
+                   1px 1px 0 #FFF;
+
+               }
+
+
+                p {
+
+                background:white;
+                text-align:center;
+                padding:1em 2% 1em 2%;
+                margin:0 0 1em 0;
+
+                    &.top {
+
+                    .border-top;
+
+                    }
 
                 }
 
-            }
+                .chosen-options {
 
-            .chosen-options {
+                    textarea {
 
-                textarea {
+                    box-shadow: 1px 1px 1px lighten(black, 20%)inset;
 
-                box-shadow: 1px 1px 1px lighten(black, 20%)inset;
-
+                    }
                 }
+
             }
 
         }
-
-    }
-
-}
-
-
-#speciality {
-
-background:#f5f5f5;
-.border-bottom;
-
-    .speciality-content {
-
-    padding:2%;
 
     }
 
@@ -1163,6 +1181,9 @@ width:50%;
 background:#fde3e1;
 border:1px solid #fdbeba;
 box-shadow:0 2px 2px lighten(black, 50%);
+
+margin-left:auto;
+margin-right:auto;
 
     h2.help {
 
