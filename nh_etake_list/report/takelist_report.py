@@ -11,9 +11,9 @@ class TakeListReport(models.AbstractModel):
         report = report_obj._get_report_from_name('nh_etake_list.takelist_report_view')
         overview_pool = self.pool['nh.etake_list.overview']
         clerking_order = 'location_name asc, clerking_started asc' if data and data == 'W' else 'clerking_started asc'
-        #non_clerking_order = 'location_name asc, id asc' if data and data == 'W' else 'id asc'
+        # non_clerking_order = 'location_name asc, id asc' if data and data == 'W' else 'id asc'
         clerking_take_list_ids = overview_pool.search(self._cr, self._uid, [['state', 'not in', ['Done','Other','dna','to_dna','admitted']], ['hours_from_discharge', '<', 12], ['clerking_started', '!=', False]], order=clerking_order)
-        #non_clerking_take_list_ids = overview_pool.search(self._cr, self._uid, [['state', 'not in', ['Done','Other','dna','to_dna','admitted']], ['hours_from_discharge', '<', 12], ['clerking_started', '=', False]], order=non_clerking_order)
+        # non_clerking_take_list_ids = overview_pool.search(self._cr, self._uid, [['state', 'not in', ['Done','Other','dna','to_dna','admitted']], ['hours_from_discharge', '<', 12], ['clerking_started', '=', False]], order=non_clerking_order)
         take_list = overview_pool.read(self._cr, self._uid, clerking_take_list_ids)
         grouped_take_list = reduce(lambda x,y: x+[{'location': y, 'patients': []}] if not {'location': y, 'patients': []} in x else x, [p['location_name'] for p in take_list],[])
         for patient in take_list:

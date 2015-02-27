@@ -9,6 +9,7 @@
                         padding: 0.5em 1%;
                         border-top: 1px solid black;
                         border-bottom: 1px solid black;
+
                     }
                     .clerking-deadline{
                         background-color: black;
@@ -23,6 +24,7 @@
                         border-collapse: collapse;
                         border-radius: 10px;
                         font-size: 0.9em;
+                        page-break-inside: avoid;
                     }
                     .inner-table{
                         border-collapse: collapse;
@@ -66,6 +68,8 @@
                     }
                     .who .right-cell{
                         width: 65%;
+                        word-wrap: break-word;
+                        word-break: break-all;
                     }
                     .where .left-cell{
                         width: 35%;
@@ -73,6 +77,8 @@
                     }
                     .where .right-cell{
                         width: 60%;
+                    word-wrap: break-word;
+                    word-break: break-all;
                     }
                     .what .left-cell{
                         width: 25%;
@@ -80,6 +86,8 @@
                     }
                     .what .right-cell{
                         width: 70%;
+                    word-wrap: break-word;
+                    word-break: break-all;
                     }
                 </style>
             </xpath>
