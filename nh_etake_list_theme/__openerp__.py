@@ -9,7 +9,10 @@
     'author': 'Neova Health',
     'website': 'http://www.neovahealth.co.uk/',
     'depends': ['nh_etake_list_eobs'],
-    'data': ['views/overview_view.xml'],
+    'data': [
+        'views/overview_view.xml',
+        'views/referral_form_view.xml'
+    ],
     'demo': [],
     'css': [],
     'js': [],
