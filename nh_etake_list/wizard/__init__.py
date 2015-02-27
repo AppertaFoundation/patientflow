@@ -1,2 +1,3 @@
 import doctor_task_wizard
 import accept_referral_wizard
+import print_paper_take_list_wizard

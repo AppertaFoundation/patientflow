@@ -431,3 +431,9 @@ class nh_etake_list_overview(orm.Model):
         activity_pool.write(cr, uid, ov['activity_id'][0], {'state': 'new', 'terminate_uid': False, 'date_terminated': False}, context=context)
         activity_pool.write(cr, uid, ov['spell_activity_id'][0], {'state': 'started', 'terminate_uid': False, 'date_terminated': False}, context=context)
         return True
+
+
+    def print_paper_takelist(self, cr, uid, ids, context=None):
+        '''This function prints the picking list'''
+        context = dict(context or {}, active_ids=ids)
+        return self.pool.get("report").get_action(cr, uid, [], 'nh_etake_list.takelist_report_view', context=context)

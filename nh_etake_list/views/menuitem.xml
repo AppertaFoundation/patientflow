@@ -92,5 +92,12 @@
                   action="action_show_admitted"
                   groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
 
+        <menuitem name="Print Take List"
+                  id="menu_nh_etake_list_left_report"
+                  sequence="11"
+                  parent="menu_nh_take_list_left_patient"
+                  action="action_nh_etake_list_print_paper_take_list_wizard"
+                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+
     </data>
 </openerp>

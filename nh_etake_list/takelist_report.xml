@@ -6,8 +6,9 @@
                 model="nh.etake_list.overview"
                 string="Take List"
                 report_type="qweb-pdf"
-                name="nh_etake_list.takelist_report"
-                file="nh_etake_list.takelist_report"
+                name="nh_etake_list.takelist_report_view"
+                file="nh_etake_list.takelist_report_view"
+                attachment_use="False"
                 />
     </data>
 </openerp>

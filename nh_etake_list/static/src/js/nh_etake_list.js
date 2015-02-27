@@ -132,4 +132,16 @@ openerp.nh_etake_list = function (instance) {
         }
     });
 
+    instance.web.ActionManager = instance.web.ActionManager.extend({
+        ir_actions_act_close_wizard_and_print_report: function(action, options){
+            if(!this.dialog){
+                options.on_close();
+            }
+            this.dialog_stop();
+            // trigger report print
+            instance.webclient.action_manager.ir_actions_report_xml(action['tag'], action['tag']['data']);
+            return $.when();
+        }
+    })
+
 }

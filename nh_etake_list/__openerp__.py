@@ -19,6 +19,7 @@
              'views/userboard_view.xml',
              'wizard/doctor_task_wizard_view.xml',
              'wizard/accept_referral_wizard_view.xml',
+             'wizard/print_report_wizard_view.xml',
              'views/menuitem.xml',
              'takelist_report.xml',
              'views/takelist_report_view.xml'],
