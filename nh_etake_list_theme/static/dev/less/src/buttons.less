@@ -217,24 +217,64 @@ margin:0;
 
 }
 
-header {
-
-    .oe_button {
-
-        .oe_form_button {
-
-            .oe_form_buttons_view {
-
-                .oe_form_button_create {
+.openerp .oe_form > :not(.oe_form_nosheet) header .oe_button, .openerp .oe_form > .oe_form_nosheet header .oe_button {
 
 
-                background:green;
+margin: 3px 1%;
+
+}
+
+.oe_form_container {
+
+    .oe_form {
+
+        header {
+
+        background:white;
+        height:4em;
+        padding-top:0.4em;
+        text-align:center;
+
+        border-top: 1px solid #afafb6;
+        border-bottom: 1px solid #afafb6;
+
+            .oe_button {
+
+            .border-radius(5px);
+
+            .background-gradient(lighten(#AFCFDE, 20%), #AFCFDE);
+            box-shadow:0 1px 1px lighten(black ,40%);
+            border:1px solid #AFCFDE;
+            border-top: 1px solid white;
+            border-bottom:1px solid darken(#AFCFDE,15%);
+
+            line-height: 2em;
+            text-shadow: 0 1px 1px darken(white, 30%);
+
+            font-size:1em;
+
+                &:active {
+
+                //.background-gradient(#CFE0E8, darken(#CFE0E8,5%));
 
 
                 }
 
-            }
 
+                .oe_form_button {
+
+                    .oe_form_buttons_view {
+
+                        .oe_form_button_create {
+
+                        background:green;
+
+                        }
+
+                    }
+
+                }
+            }
         }
     }
 }

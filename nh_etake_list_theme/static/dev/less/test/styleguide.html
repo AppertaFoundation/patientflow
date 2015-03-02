@@ -10905,12 +10905,12 @@ Styleguide 1.0
                 <div class="example">
                     <div class="ref-nav-tabs">
 			<ul>
-				<li><a href="#patient-info">Patient Information</a></li>
-				<li><a href="#medical">Medical</a></li>
-				<li><a href="#emergency-clinic"</a>Emergency GP Access Clinic</li>
-				<li><a href="#speciality">Speciality</a></li>
-				<li><a href="#additional-info"</a>Aditional Information</li>
-				<li class="cancel"><a href="#">Cancel</a></li>
+				<li><a data-section="#patient-info">Patient Information</a></li>
+				<li><a data-section="#medical">Medical</a></li>
+				<li><a data-section="#emergency-clinic">Emergency GP Access Clinic</a></li>
+				<li><a data-section="#speciality">Speciality</a></li>
+				<li><a data-section="#additional-info">Aditional Information</a></li>
+				<li class="cancel"><a>Cancel</a></li>
 			</ul>
 		</div>
 
@@ -12884,6 +12884,19 @@ td.oe_kanban_group_header - Odoo Column Header</p>
 
 
            });
+
+	   $('#new-ref-form .example form > div').each(function(){
+		$(this).hide();
+	   });
+
+	   $('#new-ref-form .example .ref-nav-tabs a').each(function(){
+		$(this).click(function(){
+			//e.preventDefault();
+			var item_id = $(this).attr('data-section');
+			$('#new-ref-form .example form > div').each(function(){ $(this).hide(); });
+			$(item_id).show();
+		});
+	   });
         });
         function mobile(object, type){
             var clicked_obj = $(object);
