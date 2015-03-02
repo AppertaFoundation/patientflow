@@ -11,26 +11,44 @@
                             <notebook>
                                 <page string="Patient Information">
                                     <group string="Source of Referral" col="4">
-                                        <field name="source" nolabel="1"/>
+                                        <field name="source" nolabel="1" widget="radio"/>
                                     </group>
-                                    <group string="GP" col="4">
-                                        <field name="ref_doctor_id" widget="nh_many2one"/>
-                                    </group>
-                                    <group string="Patient Details" col="4">
-                                        <field name="patient_id" on_change="onchange_patient_id(patient_id)" widget="nh_many2one"/>
-                                        <field name="hospital_number" on_change="onchange_hospital_number(hospital_number)"/>
-                                        <field name="nhs_number" on_change="onchange_nhs_number(nhs_number)"/>
+                                    <div class="sidebyside">
+                                        <div class="one-quarter aside left">
+                                            <group string="GP" col="4">
+                                                <field name="ref_doctor_id" widget="nh_many2one"/>
+                                            </group>
+                                        </div>
+                                        <div class="three-quarter right">
+                                            <div class="oe_horizontal_separator oe_clear">Patient Details</div>
+                                            <div class="sidebyside">
+                                                <div class="one-third left">
+                                                    <p>Search Patient</p>
+                                                    <field name="patient_id" on_change="onchange_patient_id(patient_id)" widget="nh_many2one"/>
+                                                </div>
+                                                <div class="one-third left">
+                                                    <p>NHS Number</p>
+                                                    <field name="nhs_number" on_change="onchange_nhs_number(nhs_number)"/>
+                                                </div>
+                                                <div class="one-third left">
+                                                    <p>Hospital Number</p>
+                                                    <field name="hospital_number" on_change="onchange_hospital_number(hospital_number)"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <group string="" col="3" class="reset-group">
                                         <field name="first_name"/>
                                         <field name="middle_names"/>
                                         <field name="last_name"/>
                                         <field name="dob"/>
 
-                                        <field name="gender"/>
-                                        <field name="resides"/>
+                                        <field name="gender" widget="radio"/>
+                                        <field name="resides" widget="radio"/>
                                         <field name="postcode"/>
                                     </group>
                                     <group string="Ethnicity">
-                                        <field name="ethnicity"/>
+                                        <field name="ethnicity" widget="radio"/>
                                     </group>
                                 </page>
                                 <page string="Medical">
@@ -62,32 +80,34 @@
                                 <page string="Emergency GP Access Clinic">
                                     <group col="4">
                                         <field name="access_clinic_datetime"/>
-                                        <field name="referral_reason"/>
+                                        <field name="referral_reason" widget="radio"/>
                                         <field name="medication_list"/>
                                     </group>
                                 </page>
                                 <page string="Speciality">
                                     <group col="4">
                                         <field name="specialty_id" widget="nh_many2one"/>
-                                        <field name="advised_attendance"/>
+                                        <field name="advised_attendance" widget="radio"/>
                                     </group>
                                     <label for="environmental_factors" string="Environmental Factors, Social/Family"/>
                                     <field name="environmental_factors"/>
                                 </page>
                                 <page string="Additional Information">
                                     <group col="6">
-                                        <field name="elsewhere_treatment"/>
-                                        <field name="eau_informed"/>
+                                        <field name="elsewhere_treatment" widget="radio"/>
+                                        <!-- <field name="eau_informed"/> -->
+                                        <!--<field name="acc_informed"/>-->
+                                        <field name="gp_options_discussed" widget="radio"/>
+                                        <field name="gp_options_choice" widget="radio"/>
+                                        <!--<field name="team_informed"/>-->
+                                    </group>
+                                    <group col="6">
                                         <field name="letter_request"/>
-                                        <field name="gp_options_discussed"/>
-                                        <field name="acc_informed"/>
                                         <field name="ambulance"/>
-                                        <field name="gp_options_choice"/>
-                                        <field name="team_informed"/>
                                     </group>
                                     <group col="4">
-                                        <field name="poc"/>
-                                        <field name="averted"/>
+                                        <field name="poc" widget="radio"/>
+                                        <field name="averted" widget="radio"/>
                                     </group>
                                 </page>
                             </notebook>

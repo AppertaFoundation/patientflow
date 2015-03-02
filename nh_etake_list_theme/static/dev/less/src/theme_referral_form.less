@@ -1,0 +1,962 @@
+/*
+
+New Version of the Patient Referral Form - change of layout, sections built for touch screen/ buttons.
+
+.openerp .oe_form .oe_form_field label - Radio button label
+.openerp .oe_form .oe_form_field .oe_radio_input - Radio button input (hidden)
+.openerp .oe_form .oe_form_field .oe_radio_input input - Radio button input (proper one hidden)
+.openerp .oe_application .oe_form_sheet .oe_notebook_page - reset padding on sheet so headers span full width
+.openerp .oe_application .oe_form_sheet .oe_notebook_page .oe_horizontal_separator - makes section title bigger
+.openerp .oe_application .oe_view_manager_wrapper .oe_view_manager_body .oe_view_manager_view_form .oe_formview .oe_form_container .oe_form .oe_form_sheetbg .oe_form_sheet_width .oe_horizontal_separator - Makes section title blue
+.openerp .oe_application .oe_form_sheet .oe_notebook_page .oe_horizontal_separator:first-child - moves the first section title up so it touches the tabs
+.openerp .oe_application .oe_form_sheet .oe_notebook_page .sidebyside - container for side by side form structures
+.openerp .oe_application .oe_form_sheet .oe_notebook_page .sidebyside .(one/two/three)-quarter - sets the column to be (25/50/75)% wide
+.openerp .oe_application .oe_form_sheet .oe_notebook_page .sidebyside .aside  - sets the column to have different background and white border
+.openerp .oe_application .oe_form_sheet .oe_notebook_page .sidebyside .(left/right) - sets the column to float in given direction
+
+
+Example:
+   <div class="openerp">
+    <div class="oe_webclient">
+      <div class="oe_application">
+        <div>
+          <div class="oe_view_manager oe_view_manager_current" data-view-type="form">
+            <div class="oe_view_manager_wrapper">
+            <div class="oe_view_manager_body">
+              <div class="oe_view_manager_view_form">
+                <div class="oe_formview oe_view oe_cannot_edit oe_cannot_delete oe_form_editable oe_form_dirty">
+                  <div class="oe_form_container">
+                    <div class="oe_form">
+                      <div class="">
+                        <div class="oe_form_sheetbg">
+                          <div class="oe_form_sheet oe_form_sheet_width">
+                            <div class="oe_clear ui-tabs ui-widget ui-widget-content ui-corner-all">
+                              <ul class="oe_notebook ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+                                <li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="notebook_page_2" aria-labelledby="ui-id-1" aria-selected="true">
+                                  <a href="#notebook_page_2" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1">Patient Information</a>
+                                </li>
+                                <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="notebook_page_15" aria-labelledby="ui-id-2" aria-selected="false">
+                                  <a href="#notebook_page_15" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Medical</a>
+                                </li>
+                                <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="notebook_page_27" aria-labelledby="ui-id-3" aria-selected="false">
+                                  <a href="#notebook_page_27" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3">Emergency GP Access Clinic</a>
+                                </li>
+                                <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="notebook_page_31" aria-labelledby="ui-id-4" aria-selected="false">
+                                  <a href="#notebook_page_31" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-4">Speciality</a>
+                                </li>
+                                <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="notebook_page_35" aria-labelledby="ui-id-5" aria-selected="false">
+                                  <a href="#notebook_page_35" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-5">Additional Information</a>
+                                </li>
+                              </ul>
+                            <div id="notebook_page_2" class="oe_notebook_page  ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" role="tabpanel" aria-expanded="true" aria-hidden="false" style="display: block;">
+                              <div class="oe_horizontal_separator oe_clear ">Source of Referral</div>
+                              <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group ">
+                                <tbody>
+                                  <tr class="oe_form_group_row">
+                                    <tr class="oe_form_group_cell" colspan="1">
+                                      <span class="oe_form_field oe_form_field_radio oe_horizontal" data-original-title="" title="">
+                                        <span>
+                                          <div>
+                                            <span class="oe_radio_input">
+                                              <input type="radio" id="undefined_gp" value="gp">
+                                            </span>
+                                            <label for="undefined_gp">GP</label>
+                                          </div>
+                                          <div>
+                                            <span class="oe_radio_input">
+                                              <input type="radio" id="undefined_ucc" value="ucc">
+                                            </span>
+                                            <label for="undefined_ucc">UCC</label>
+                                          </div>
+                                          <div>
+                                            <span class="oe_radio_input">
+                                              <input type="radio" id="undefined_ae" value="ae">
+                                            </span>
+                                            <label for="undefined_ae">A&amp;E</label>
+                                          </div>
+                                          <div>
+                                            <span class="oe_radio_input">
+                                              <input type="radio" id="undefined_eau" value="eau">
+                                            </span>
+                                            <label for="undefined_eau">EAU</label>
+                                          </div>
+                                          <div>
+                                              <span class="oe_radio_input">
+                                                <input type="radio" id="undefined_ecp" value="ecp">
+                                              </span>
+                                              <label for="undefined_ecp">ECP</label>
+                                          </div>
+                                          <div>
+                                              <span class="oe_radio_input">
+                                                <input type="radio" id="undefined_wic" value="wic">
+                                              </span>
+                                              <label for="undefined_wic">WIC</label>
+                                          </div>
+                                          <div>
+                                              <span class="oe_radio_input">
+                                                <input type="radio" id="undefined_ltxc" value="ltxc">
+                                              </span>
+                                              <label for="undefined_ltxc">LTxC</label>
+                                          </div>
+                                          <div>
+                                              <span class="oe_radio_input">
+                                                <input type="radio" id="undefined_opd" value="opd">
+                                              </span>
+                                              <label for="undefined_opd">OPD</label>
+                                          </div>
+                                          <div>
+                                              <span class="oe_radio_input">
+                                                <input type="radio" id="undefined_mac" value="mac">
+                                              </span>
+                                              <label for="undefined_mac">MAC</label>
+                                          </div>
+                                          <div>
+                                              <span class="oe_radio_input">
+                                                <input type="radio" id="undefined_comm" value="comm">
+                                              </span>
+                                              <label for="undefined_comm">COMM</label>
+                                          </div>
+                                          <div>
+                                              <span class="oe_radio_input">
+                                                <input type="radio" id="undefined_matron" value="matron">
+                                              </span>
+                                              <label for="undefined_matron">MATRON</label>
+                                          </div>
+                                          <div>
+                                              <span class="oe_radio_input">
+                                                <input type="radio" id="undefined_hospice" value="hospice">
+                                              </span>
+                                              <label for="undefined_hospice">HOSPICE</label>
+                                          </div>
+                                          <div>
+                                              <span class="oe_radio_input">
+                                                <input type="radio" id="undefined_cons" value="cons">
+                                              </span>
+                                              <label for="undefined_cons">CONS</label>
+                                          </div>
+                                        </span>
+                                      </span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <div class="sidebyside">
+                                <div class="one-quarter aside left">
+                                  <div class="oe_horizontal_separator oe_clear ">GP</div>
+                                  <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group ">
+                                    <tbody>
+                                      <tr class="oe_form_group_row">
+                                        <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                          <label for="oe-field-input-3" class=" oe_form_label oe_align_right" data-original-title="" title="">Referring Doctor</label>
+                                        </td>
+                                        <tr class="oe_form_group_cell" colspan="1">
+                                          <span class="oe_form_field oe_form_field_many2one oe_form_field_with_button">
+                                            <a class="oe_m2o_cm_button oe_e" draggable="false" href="#" tabindex="-1" style="display: none;">/</a>
+                                            <div>
+                                              <input type="text" id="oe-field-input-3" class="ui-autocomplete-input" autocomplete="off">
+                                              <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                                              <span class="oe_m2o_drop_down_button">
+                                                <img draggable="false" src="http://localhost:8169/web/static/src/img/down-arrow.png">
+                                              </span>
+                                            </div>
+                                          </span>
+                                        </td>
+                                      <ul class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all openerp" id="ui-id-6" tabindex="0" style="z-index: 1; display: none;">
+                                      </ul>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                               </div>
+                               <div class="three-quarter right">
+                                <div class="oe_horizontal_separator oe_clear ">Patient Details</div>
+                                <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group ">
+                                  <tbody>
+                                    <tr class="oe_form_group_row">
+                                      <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                        <label for="oe-field-input-4" class=" oe_form_label oe_align_right" data-original-title="" title="">Patient</label>
+                                      </td>
+                                      <tr class="oe_form_group_cell" colspan="1">
+                                        <span class="oe_form_field oe_form_field_many2one oe_form_field_with_button">
+                                          <a class="oe_m2o_cm_button oe_e" draggable="false" href="#" tabindex="-1" style="display: none;">/</a>
+                                          <div>
+                                            <input type="text" id="oe-field-input-4" class="ui-autocomplete-input" autocomplete="off">
+                                              <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                                              <span class="oe_m2o_drop_down_button">
+                                                <img draggable="false" src="http://localhost:8169/web/static/src/img/down-arrow.png">
+                                              </span>
+                                          </div>
+                                        </span>
+                                      </td>
+                                      <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                        <label for="oe-field-input-5" class=" oe_form_label oe_align_right" data-original-title="" title="">Hospital Number</label>
+                                      </td>
+                                      <tr class="oe_form_group_cell" colspan="1">
+                                        <span class="oe_form_field oe_form_field_char">
+                                          <input id="oe-field-input-5" maxlength="50" type="text">
+                                        </span>
+                                      </td>
+                                      <ul class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all openerp" id="ui-id-7" tabindex="0" style="z-index: 1; display: none;"></ul>
+                                    </tr>
+                                    <tr class="oe_form_group_row">
+                                      <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                        <label for="oe-field-input-6" class=" oe_form_label oe_align_right" data-original-title="" title="">NHS Number</label>
+                                      </td>
+                                      <tr class="oe_form_group_cell" colspan="1">
+                                        <span class="oe_form_field oe_form_field_char">
+                                          <input id="oe-field-input-6" maxlength="50" type="text">
+                                        </span>
+                                      </td>
+                                      <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                        <label for="oe-field-input-7" class=" oe_form_label oe_align_right" data-original-title="" title="">First Name</label>
+                                      </td>
+                                      <tr class="oe_form_group_cell" colspan="1">
+                                        <span class="oe_form_field oe_form_field_char">
+                                          <input id="oe-field-input-7" maxlength="50" type="text">
+                                        </span>
+                                      </td>
+                                    </tr>
+                                    <tr class="oe_form_group_row">
+                                      <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                        <label for="oe-field-input-8" class=" oe_form_label oe_align_right" data-original-title="" title="">Middle Names</label>
+                                      </td>
+                                      <tr class="oe_form_group_cell" colspan="1">
+                                        <span class="oe_form_field oe_form_field_char">
+                                          <input id="oe-field-input-8" maxlength="100" type="text">
+                                        </span>
+                                      </td>
+                                      <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                        <label for="oe-field-input-9" class=" oe_form_label oe_align_right" data-original-title="" title="">Last Name</label>
+                                      </td>
+                                      <tr class="oe_form_group_cell" colspan="1">
+                                        <span class="oe_form_field oe_form_field_char">
+                                          <input id="oe-field-input-9" maxlength="50" type="text">
+                                        </span>
+                                      </td>
+                                    </tr>
+                                    <tr class="oe_form_group_row">
+                                      <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                        <label for="oe-field-input-10" class=" oe_form_label oe_align_right" data-original-title="" title="">Date of Birth</label>
+                                      </td>
+                                      <tr class="oe_form_group_cell" colspan="1">
+                                        <span class="oe_form_field oe_datepicker_root oe_form_field_datetime"><span>
+                                        <input class="oe_datepicker_container hasDatepicker" disabled="disabled" style="display: none;" type="text" id="dp1425309166273">
+                                        <input class="oe_datepicker_master" type="text" name="dob">
+                                          <img border="0" class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" title="Select date" width="16" src="http://localhost:8169/web/static/src/img/ui/field_calendar.png">
+                                        </span>
+                                      </span>
+                                    </td>
+                                    <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                      <label for="oe-field-input-11" class=" oe_form_label oe_align_right" data-original-title="" title="">Gender</label>
+                                    </td>
+                                    <tr class="oe_form_group_cell" colspan="1"><span class="oe_form_field oe_form_field_radio oe_vertical">
+                                      <span>
+                                        <div>
+                                            <span class="oe_radio_input"><input type="radio" id="undefined_BOTH" value="BOTH"></span>
+                                            <label for="undefined_BOTH">Both</label>
+                                        </div>
+                                        <div>
+                                            <span class="oe_radio_input"><input type="radio" id="undefined_F" value="F"></span>
+                                            <label for="undefined_F">Female</label>
+                                        </div>
+                                        <div>
+                                            <span class="oe_radio_input"><input type="radio" id="undefined_I" value="I"></span>
+                                            <label for="undefined_I">Intermediate</label>
+                                        </div>
+                                        <div>
+                                            <span class="oe_radio_input"><input type="radio" id="undefined_M" value="M"></span>
+                                            <label for="undefined_M">Male</label>
+                                        </div>
+                                        <div>
+                                            <span class="oe_radio_input"><input type="radio" id="undefined_NSP" value="NSP"></span>
+                                            <label for="undefined_NSP">Not Specified</label>
+                                        </div>
+                                        <div>
+                                            <span class="oe_radio_input"><input type="radio" id="undefined_U" value="U"></span>
+                                            <label for="undefined_U">Unknown</label>
+                                        </div>
+                                      </span>
+                                    </span>
+                                  </td>
+                                </tr>
+                                <tr class="oe_form_group_row">
+                                  <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                    <label for="oe-field-input-12" class=" oe_form_label oe_align_right" data-original-title="" title="">Resides</label>
+                                  </td>
+                                  <tr class="oe_form_group_cell" colspan="1">
+                                    <span class="oe_form_field oe_form_field_radio oe_vertical">
+                                      <span>
+                                        <div>
+                                            <span class="oe_radio_input"><input type="radio" id="undefined_home" value="home"></span>
+                                            <label for="undefined_home">HOME</label>
+                                        </div>
+                                        <div>
+                                            <span class="oe_radio_input"><input type="radio" id="undefined_res" value="res"></span>
+                                            <label for="undefined_res">RES/HOME</label>
+                                        </div>
+                                        <div>
+                                            <span class="oe_radio_input"><input type="radio" id="undefined_nursing" value="nursing"></span>
+                                            <label for="undefined_nursing">N/HOME</label>
+                                        </div>
+                                      </span>
+                                    </span>
+                                  </td>
+                                  <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                    <label for="oe-field-input-13" class=" oe_form_label oe_align_right" data-original-title="" title="">Postcode</label>
+                                  </td>
+                                  <tr class="oe_form_group_cell" colspan="1">
+                                    <span class="oe_form_field oe_form_field_char">
+                                      <input id="oe-field-input-13" maxlength="10" type="text">
+                                    </span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="oe_horizontal_separator oe_clear ">Ethnicity</div>
+                        <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group ">
+                          <tbody>
+                            <tr class="oe_form_group_row">
+                              <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                <label for="oe-field-input-14" class=" oe_form_label oe_align_right" data-original-title="" title="">Ethnicity</label>
+                              </td>
+                              <tr class="oe_form_group_cell" colspan="1">
+                                <span class="oe_form_field oe_form_field_radio oe_vertical">
+                                  <span>
+                                    <div>
+                                        <span class="oe_radio_input"><input type="radio" id="undefined_A" value="A"></span>
+                                        <label for="undefined_A">White - British</label>
+                                    </div>
+                                    <div>
+                                        <span class="oe_radio_input"><input type="radio" id="undefined_B" value="B"></span>
+                                        <label for="undefined_B">White - Irish</label>
+                                    </div>
+                                    <div>
+                                        <span class="oe_radio_input"><input type="radio" id="undefined_C" value="C"></span>
+                                          <label for="undefined_C">White - Other background</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_D" value="D"></span>
+                                          <label for="undefined_D">Mixed - White and Black Caribbean</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_E" value="E"></span>
+                                          <label for="undefined_E">Mixed - White and Black African</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_F" value="F"></span>
+                                          <label for="undefined_F">Mixed - White and Asian</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_G" value="G"></span>
+                                          <label for="undefined_G">Mixed - Other background</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_H" value="H"></span>
+                                          <label for="undefined_H">Asian - Indian</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_J" value="J"></span>
+                                          <label for="undefined_J">Asian - Pakistani</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_K" value="K"></span>
+                                          <label for="undefined_K">Asian - Bangladeshi</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_L" value="L"></span>
+                                          <label for="undefined_L">Asian - Other background</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_M" value="M"></span>
+                                          <label for="undefined_M">Black - Caribbean</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_N" value="N"></span>
+                                          <label for="undefined_N">Black - African</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_P" value="P"></span>
+                                          <label for="undefined_P">Black - Other background</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_R" value="R"></span>
+                                          <label for="undefined_R">Chinese</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_S" value="S"></span>
+                                          <label for="undefined_S">Other ethnic group</label>
+                                      </div>
+                                      <div>
+                                          <span class="oe_radio_input"><input type="radio" id="undefined_Z" value="Z"></span>
+                                          <label for="undefined_Z">Not stated</label>
+                                      </div>
+                                    </span>
+                                  </span>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div id="notebook_page_15" class="oe_notebook_page  ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+                          <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group ">
+                            <tbody>
+                              <tr class="oe_form_group_row">
+                                <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                  <label for="oe-field-input-16" class=" oe_form_label oe_align_right" data-original-title="" title="">Body Temperature</label>
+                                </td>
+                                <tr class="oe_form_group_cell" colspan="1">
+                                  <span class="oe_form_field oe_form_field_float">
+                                    <input id="oe-field-input-16" type="text">
+                                  </span>
+                                </td>
+                                <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                  <label for="oe-field-input-17" class=" oe_form_label oe_align_right" data-original-title="" title="">Pulse Rate</label>
+                                </td>
+                                <tr class="oe_form_group_cell" colspan="1">
+                                  <span class="oe_form_field oe_form_field_float">
+                                    <input id="oe-field-input-17" type="text">
+                                  </span>
+                                </td>
+                              </tr>
+                              <tr class="oe_form_group_row"><td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                <label for="oe-field-input-18" class=" oe_form_label oe_align_right" data-original-title="" title="">Blood Pressure Systolic</label>
+                              </td>
+                              <tr class="oe_form_group_cell" colspan="1">
+                                <span class="oe_form_field oe_form_field_float">
+                                  <input id="oe-field-input-18" type="text">
+                                </span>
+                              </td>
+                              <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                <label for="oe-field-input-19" class=" oe_form_label oe_align_right" data-original-title="" title="">Blood Pressure Diastolic</label>
+                              </td>
+                              <tr class="oe_form_group_cell" colspan="1">
+                                <span class="oe_form_field oe_form_field_float">
+                                  <input id="oe-field-input-19" type="text">
+                                </span>
+                              </td>
+                            </tr>
+                            <tr class="oe_form_group_row">
+                              <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                <label for="oe-field-input-20" class=" oe_form_label oe_align_right" data-original-title="" title="">O2 Saturation</label>
+                              </td>
+                              <tr class="oe_form_group_cell" colspan="1">
+                                <span class="oe_form_field oe_form_field_float">
+                                  <input id="oe-field-input-20" type="text">
+                                </span>
+                              </td>
+                              <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                <label for="oe-field-input-21" class=" oe_form_label oe_align_right" data-original-title="" title="">Weight</label>
+                              </td>
+                              <tr class="oe_form_group_cell" colspan="1">
+                                <span class="oe_form_field oe_form_field_float">
+                                  <input id="oe-field-input-21" type="text">
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group ">
+                          <tbody>
+                            <tr class="oe_form_group_row">
+                              <tr class="oe_form_group_cell" colspan="1">
+                                <div>
+                                  <label for="oe-field-input-22" class=" oe_form_label oe_align_right" data-original-title="" title="">Symptoms/Investigations Treatment</label>
+                                  <div class="oe_form_field oe_form_field_text">
+                                    <textarea class="field_text" rows="6" name="symptoms_notes" style="height: 26px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
+                                  </div>
+                                </div>
+                              </td>
+                              <tr class="oe_form_group_cell" colspan="1">
+                                <div>
+                                  <label for="oe-field-input-23" class=" oe_form_label oe_align_right" data-original-title="" title="">Past Medical History</label>
+                                  <div class="oe_form_field oe_form_field_text">
+                                    <textarea class="field_text" rows="6" name="medical_history_notes" style="height: 26px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group ">
+                          <tbody>
+                            <tr class="oe_form_group_row">
+                              <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                <label for="oe-field-input-24" class=" oe_form_label oe_align_right" data-original-title="" title="">Infection Concerns?</label>
+                              </td>
+                              <tr class="oe_form_group_cell" colspan="1">
+                                <span class="oe_form_field oe_form_field_char">
+                                  <input id="oe-field-input-24" maxlength="200" type="text">
+                                </span>
+                              </td>
+                              <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                                <label for="oe-field-input-25" class=" oe_form_label oe_align_right" data-original-title="" title="">Possible diagnosis</label>
+                              </td>
+                              <tr class="oe_form_group_cell" colspan="1">
+                                <span class="oe_form_field oe_form_field_char">
+                                  <input id="oe-field-input-25" maxlength="200" type="text">
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <label for="oe-field-input-26" class=" oe_form_label oe_align_right" data-original-title="" title="">Allergies</label>
+                        <div class="oe_form_field oe_form_field_text">
+                          <textarea class="field_text" rows="6" name="allergies" style="height: 26px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
+                        </div>
+                      </div>
+                      <div id="notebook_page_27" class="oe_notebook_page  ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+                      <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group ">
+                        <tbody>
+                          <tr class="oe_form_group_row">
+                            <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                              <label for="oe-field-input-28" class=" oe_form_label oe_align_right" data-original-title="" title="">Emergency GP Access Clinic Date &amp; Time</label>
+                            </td>
+                            <tr class="oe_form_group_cell" colspan="1">
+                              <span class="oe_form_field oe_datepicker_root oe_form_field_datetime">
+                                <span>
+                                  <input class="oe_datepicker_container hasDatepicker" disabled="disabled" style="display: none;" type="text" id="dp1425309166274">
+                                  <input class="oe_datepicker_master" type="text" name="access_clinic_datetime">
+                                    <img border="0" class="oe_input_icon oe_datepicker_trigger" draggable="false" height="16" title="Select date" width="16" src="http://localhost:8169/web/static/src/img/ui/field_calendar.png">
+                                </span>
+                              </span>
+                            </td>
+                            <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                              <label for="oe-field-input-29" class=" oe_form_label oe_align_right" data-original-title="" title="">Reason for referral</label>
+                            </td>
+                            <tr class="oe_form_group_cell" colspan="1">
+                              <span class="oe_form_field oe_form_field_radio oe_vertical">
+                                <span></span>
+                              </span>
+                            </td>
+                          </tr>
+                          <tr class="oe_form_group_row">
+                            <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                              <label for="oe-field-input-30" class=" oe_form_label oe_align_right" data-original-title="" title="">Medication List Requested</label>
+                            </td>
+                            <tr class="oe_form_group_cell" colspan="1">
+                              <span class="oe_form_field oe_form_field_selection">
+                                <select id="oe-field-input-30" name="medication_list">
+                                  <option value="false"></option>
+                                  <option value="&quot;yes&quot;">Yes</option>
+                                  <option value="&quot;no&quot;">No</option>
+                                </select>
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div id="notebook_page_31" class="oe_notebook_page  ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+                      <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group ">
+                        <tbody>
+                          <tr class="oe_form_group_row">
+                            <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                              <label for="oe-field-input-32" class=" oe_form_label oe_align_right" data-original-title="" title="">Specialty</label>
+                            </td>
+                            <tr class="oe_form_group_cell" colspan="1">
+                              <span class="oe_form_field oe_form_field_many2one oe_form_field_with_button">
+                                <a class="oe_m2o_cm_button oe_e" draggable="false" href="#" tabindex="-1" style="display: none;">/</a>
+                                <div>
+                                  <input type="text" id="oe-field-input-32" class="ui-autocomplete-input" autocomplete="off">
+                                  <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                                  <span class="oe_m2o_drop_down_button">
+                                      <img draggable="false" src="http://localhost:8169/web/static/src/img/down-arrow.png">
+                                  </span>
+                                </div>
+                              </span>
+                            </td>
+                            <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                              <label for="oe-field-input-33" class=" oe_form_label oe_align_right" data-original-title="" title="">Advised Attendance At</label>
+                            </td>
+                            <tr class="oe_form_group_cell" colspan="1">
+                              <span class="oe_form_field oe_form_field_radio oe_vertical">
+                                <span>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_ae" value="ae"></span>
+                                      <label for="undefined_ae">A&amp;E</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_eau" value="eau"></span>
+                                      <label for="undefined_eau">EAU</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_acc" value="acc"></span>
+                                      <label for="undefined_acc">ACC</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_clinic" value="clinic"></span>
+                                      <label for="undefined_clinic">CLINIC</label>
+                                  </div>
+                                </span>
+                              </span>
+                            </td>
+                            <ul class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all openerp" id="ui-id-8" tabindex="0" style="z-index: 1; display: none;"></ul>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <label for="oe-field-input-34" class=" oe_form_label oe_align_right" data-original-title="" title="">Environmental Factors, Social/Family</label>
+                      <div class="oe_form_field oe_form_field_text">
+                        <textarea class="field_text" rows="6" name="environmental_factors" style="height: 26px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
+                      </div>
+                    </div>
+                    <div id="notebook_page_35" class="oe_notebook_page  ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-5" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+                      <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group ">
+                        <tbody>
+                          <tr class="oe_form_group_row">
+                            <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                              <label for="oe-field-input-36" class=" oe_form_label oe_align_right" data-original-title="" title="">Can patient be treated elsewhere?</label>
+                            </td>
+                            <tr class="oe_form_group_cell" colspan="1">
+                              <span class="oe_form_field oe_form_field_radio oe_vertical">
+                                <span>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_yes" value="yes"></span>
+                                      <label for="undefined_yes">Yes</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_no" value="no"></span>
+                                      <label for="undefined_no">No</label>
+                                  </div>
+                                </span>
+                              </span>
+                            </td>
+                            <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                              <label for="oe-field-input-37" class=" oe_form_label oe_align_right" data-original-title="" title="">If yes were options discussed with GP?</label>
+                            </td>
+                            <tr class="oe_form_group_cell" colspan="1">
+                              <span class="oe_form_field oe_form_field_radio oe_vertical">
+                                <span>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_yes" value="yes"></span>
+                                      <label for="undefined_yes">Yes</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_no" value="no"></span>
+                                      <label for="undefined_no">No</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_na" value="na"></span>
+                                      <label for="undefined_na">N/A</label>
+                                  </div>
+                                </span>
+                              </span>
+                            </td>
+                            <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                              <label for="oe-field-input-38" class=" oe_form_label oe_align_right" data-original-title="" title="">Did the GP choose any other option?</label>
+                            </td>
+                            <tr class="oe_form_group_cell" colspan="1">
+                              <span class="oe_form_field oe_form_field_radio oe_vertical">
+                                <span>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_yes" value="yes"></span>
+                                      <label for="undefined_yes">Yes</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_no" value="no"></span>
+                                      <label for="undefined_no">No</label>
+                                  </div>
+                                </span>
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group ">
+                        <tbody>
+                          <tr class="oe_form_group_row">
+                            <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                              <label for="oe-field-input-39" class=" oe_form_label oe_align_right" data-original-title="" title="">Letter Requested</label>
+                            </td>
+                            <tr class="oe_form_group_cell" colspan="1">
+                              <span class="oe_form_field oe_form_field_boolean">
+                                <input class="field_boolean" type="checkbox" id="oe-field-input-39" name="letter_request">
+                              </span>
+                            </td>
+                            <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                              <label for="oe-field-input-40" class=" oe_form_label oe_align_right" data-original-title="" title="">Ambulance</label>
+                            </td>
+                            <tr class="oe_form_group_cell" colspan="1">
+                              <span class="oe_form_field oe_form_field_boolean">
+                                <input class="field_boolean" type="checkbox" id="oe-field-input-40" name="ambulance">
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group ">
+                        <tbody>
+                          <tr class="oe_form_group_row">
+                            <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                              <label for="oe-field-input-41" class=" oe_form_label oe_align_right" data-original-title="" title="">First Point of Contact</label>
+                            </td>
+                            <tr class="oe_form_group_cell" colspan="1">
+                              <span class="oe_form_field oe_form_field_radio oe_vertical">
+                                <span>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_eau" value="eau"></span>
+                                      <label for="undefined_eau">EAU</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_ae" value="ae"></span>
+                                      <label for="undefined_ae">A&amp;E</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_acc" value="acc"></span>
+                                      <label for="undefined_acc">ACC</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_smdu" value="smdu"></span>
+                                      <label for="undefined_smdu">SMDU</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_clinic" value="clinic"></span>
+                                      <label for="undefined_clinic">Clinic</label>
+                                  </div>
+                                </span>
+                              </span>
+                            </td>
+                            <td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" width="1%">
+                              <label for="oe-field-input-42" class=" oe_form_label oe_align_right" data-original-title="" title="">Averted in</label>
+                            </td>
+                            <tr class="oe_form_group_cell" colspan="1">
+                              <span class="oe_form_field oe_form_field_radio oe_vertical">
+                                <span>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_com" value="com"></span>
+                                      <label for="undefined_com">Community</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_clinic" value="clinic"></span>
+                                      <label for="undefined_clinic">Clinic</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_ae" value="ae"></span>
+                                      <label for="undefined_ae">A&amp;E</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_eau" value="eau"></span>
+                                      <label for="undefined_eau">EAU</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_acu" value="acu"></span>
+                                      <label for="undefined_acu">ACU</label>
+                                  </div>
+                                  <div>
+                                      <span class="oe_radio_input"><input type="radio" id="undefined_mobile" value="mobile"></span>
+                                      <label for="undefined_mobile">Mobile</label>
+                                  </div>
+                                </span>
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+
+Styleguide 14.1
+
+*/
+
+
+.openerp {
+
+  .oe_application {
+
+    .oe_form_sheet {
+
+      .oe_notebook_page {
+
+        /* box model */
+        padding: 0;
+
+        .oe_horizontal_separator {
+
+          /* typography */
+          font-size: 2em;
+          text-transform: capitalize;
+
+          &:first-child {
+
+            /* positioning */
+            margin-top: -0.4em;
+            border-radius: 5px;
+          }
+        }
+
+        .sidebyside {
+
+          /* box model */
+          width: 100%;
+
+          .one-quarter {
+
+            /* box model */
+            width: 25%;
+            box-sizing: border-box;
+
+            .oe_horizontal_separator:first-child {
+
+              /* positioning */
+              margin-top: 0;
+            }
+          }
+
+          .three-quarter {
+
+            /* box model */
+            width: 75%;
+            box-sizing: border-box;
+
+            .oe_horizontal_separator:first-child {
+
+              /* positioning */
+              margin-top: 0;
+            }
+          }
+
+          .one-third {
+
+            /* box model */
+            width: 33%;
+            box-sizing: border-box;
+          }
+
+          .left {
+
+            /* box-model */
+            float: left;
+          }
+
+          .right {
+
+            /* box-model */
+            float: right;
+          }
+
+          .aside {
+
+            /* visual */
+            background-color: #e7e7e7;
+            border-bottom-right-radius: 10px;
+            border-bottom: 3px solid white;
+            border-right: 3px solid white;
+          }
+        }
+      }
+    }
+
+    .oe_view_manager_wrapper {
+
+      .oe_view_manager_body {
+
+        .oe_view_manager_view_form {
+
+          .oe_formview {
+
+            .oe_form_container {
+
+              .oe_form {
+
+                .oe_form_sheetbg {
+
+                  .oe_form_sheet_width {
+
+                    .oe_horizontal_separator {
+
+                      /* typography */
+                      color: #3778e9;
+                      font-weight: normal;
+                      border-radius: 0;
+                      padding: 0.5em 1%;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .oe_form {
+
+    .oe_form_field {
+
+      > span > div {
+
+        /* positioning */
+        margin:0 1% 1.3em 1%;
+
+        /* box model */
+        float: left;
+        padding: 0 1%;
+        width: inherit;
+        box-sizing: border-box;
+      }
+
+      .oe_radio_input {
+
+        /* box model */
+        display: none;
+
+        input {
+
+          /* box model */
+          display: none;
+        }
+      }
+
+      label {
+
+        /* positioning */
+        margin:0 1% 1.3em 1%;
+
+
+        /* box model */
+        padding:0.5em 10px 0.5em 10px;
+        display: inline-block;
+        box-sizing: content-box;
+        width: calc(100% - 20px);
+        min-width: calc(100% - 20px);
+
+        /* typography */
+        color:#555;
+        text-align: center;
+
+        /* visual */
+        border-radius:10px;
+        background:#fff;
+        border:1px solid #dcdada;
+        box-shadow:0 1px 1px lighten(black, 30%);
+
+        &:active, :hover {
+
+          /* typography */
+          color:#2c2c2c;
+
+          /* visual */
+          background:#d1c4e9;
+          border-color: #8088b7;
+          box-shadow:0 1px 1px lighten(black, 30%) inset;
+        }
+      }
+    }
+  }
+}
