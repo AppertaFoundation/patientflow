@@ -139,7 +139,8 @@ openerp.nh_etake_list = function (instance) {
             }
             this.dialog_stop();
             // trigger report print
-            instance.webclient.action_manager.ir_actions_report_xml(action['tag'], action['tag']['data']);
+            //options['sort_by'] = action['tag']['data'];
+            instance.webclient.action_manager.ir_actions_report_xml(action['tag'], options);
             return $.when();
         }
     })
