@@ -5,6 +5,7 @@ Fixes. For making little things change.
 .openerp - The main class used by Odoo
 .openerp .oe_webclient .oe_leftbar - The side navigation
 .openerp .oe_webclient .oe_application - This is the main application (not the navigation)
+.openerp .oe_pager_value - This is the x-y of y pager in views
 
 Example:
   <div class="openerp openerp_webclient_container">
@@ -140,5 +141,11 @@ Styleguide 8.0
     .oe_activate_debug_mode{
       display: none;
     }
+  }
+
+  .oe_pager_value {
+
+    /* box model */
+    width: 100%;
   }
 }
