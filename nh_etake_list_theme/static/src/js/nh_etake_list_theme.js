@@ -164,7 +164,7 @@ openerp.nh_etake_list_theme = function(instance){
         },
     });
 
-    instance.web.form.FormRenderingEngine.include({
+    /* instance.web.form.FormRenderingEngine.include({
         process_group: function($group) {
             var self = this;
             $group.children('field').each(function() {
@@ -282,7 +282,7 @@ openerp.nh_etake_list_theme = function(instance){
             this.handle_common_properties($new_group, $group);
             return $new_group;
         },
-    });
+    });  */
 
     //test menu foo
     instance.web.WebClient.include({
