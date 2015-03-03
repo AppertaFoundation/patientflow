@@ -157,9 +157,7 @@
                                 </table>
                             </t>
                         </t>
-
-
-                        <t t-if="sort_by=='none'">
+                        <t t-if="sort_by!='W'">
                             <table t-foreach="take_list" t-as="patient" class="main-table">
                                 <tr>
                                     <t t-if="'clerking_deadline' in patient and patient['clerking_deadline']"><td class="clerking-deadline"><t t-esc="patient['clerking_deadline']"/></td></t>
