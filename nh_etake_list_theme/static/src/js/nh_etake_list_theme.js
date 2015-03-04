@@ -497,17 +497,23 @@ openerp.nh_etake_list_theme = function(instance){
             var vertical_padding = 15;
             $('.nh_list_scroll_fix').css('height', ((application_height-table_offset.top) - (vertical_padding*2)));
 
-
+            if(this.fields_view.type == 'tree'){
+                $('.nh_list_scroll_fix_header').remove();
+                $('.nh_list_scroll_fix_body').css('margin-top', '0');
+                $('.nh_list_scroll_fix_body .oe_list_header_columns').css('visibility', 'visible');
+                return this._super(records);
+            }
 
             var table_header_width = $('.nh_list_scroll_fix_body thead').width();
             $('.nh_list_scroll_fix_header').css('width', table_header_width);
             $('.nh_list_scroll_fix_header thead').css('width', table_header_width);
             var fixed_headers = $('.nh_list_scroll_fix_header .oe_list_header_columns th');
             $('.nh_list_scroll_fix_body .oe_list_header_columns th').each(function(i){
-                $(fixed_headers[i]).find('div').css('width', $(this).find('div').width());
+                    $(fixed_headers[i]).find('div').css('width', $(this).find('div').width());
             });
             this._super(records);
         },
+
     })
 }
 
