@@ -1,0 +1,18 @@
+{
+  "name": "NHEtakeListStyleguide",
+  "description": "A styleguide for NeovaHealth's eTakeList module",
+  "author": "Colin Wren <colin@neovahealth.co.uk>, Joseph Ryan <joseph@neovahealth.co.uk>",
+  "dependencies": {
+  	"gulp": "3.8.11",
+  	"del": "1.1.1",
+  	"gulp-kss": "0.0.2",
+  	"gulp-less": "3.0.0",
+  	"gulp-csslint": "0.1.5",
+  	"gulp-minify-css": "0.4.6",
+  	"gulp-notify": "2.2.0",
+  	"gulp-uncss": "1.0.0",
+  	"gulp-recess": "1.1.2",
+  	"gulp-util": "3.0.4",
+  	"glob": "4.4.2"
+  }
+}

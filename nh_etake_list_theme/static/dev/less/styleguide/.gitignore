@@ -1,0 +1,11 @@
+# Node modules
+node_modules/
+
+# Mac
+.DS_Store
+
+# Mockup Skeleton
+mockup/
+
+# Node 
+npm-debug.log
