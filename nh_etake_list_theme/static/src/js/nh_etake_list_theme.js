@@ -538,13 +538,13 @@ function get_action_from_state(state){
         case 'Discharged':
             return 'discharged';
             break;
-        case 'To Be Discharged':
+        case 'To be Discharged':
             return 'tbd';
             break;
         case 'Other':
             return 'overview_kanban';
             break;
-        case 'Clerking in Progress':
+        case 'Clerking in Process':
             return 'clerkings';
             break;
         case 'Done':
