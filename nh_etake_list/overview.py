@@ -57,7 +57,8 @@ class nh_etake_list_overview(orm.Model):
         res = {}
         location_pool = self.pool['nh.clinical.location']
         for ov in self.browse(cr, uid, ids, context=context):
-            res[ov.id] = location_pool.find_nearest_location_id(cr, uid, ov.location_id.id, context=context)
+            res[ov.id] = ov.location_id.id if ov.location_id.usage == 'ward' \
+                else location_pool.get_closest_parent_id(cr, uid, ov.location_id.id, 'ward', context=context)
         return res
 
     _columns = {

@@ -406,7 +406,8 @@ class nh_clinical_spell_timespan(orm.Model):
         if not spell_id:
             raise osv.except_osv('Error!', 'Spell not found!')
         spell = spell_pool.browse(cr, uid, spell_id[0], context=context)
-        ward_id = location_pool.find_nearest_location_id(cr, uid, spell.activity_id.location_id.id, context=context)
+        ward_id = spell.activity_id.location_id.id if spell.activity_id.location_id.usage == 'ward' \
+            else location_pool.get_closest_parent_id(cr, uid, spell.activity_id.location_id.id, 'ward', context=context)
         shift_id = shift_pool.current_shift(cr, uid, ward_id, context=context)
         if not shift_id:
             return True
