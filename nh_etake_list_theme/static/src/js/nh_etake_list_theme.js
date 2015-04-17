@@ -141,148 +141,28 @@ openerp.nh_etake_list_theme = function(instance){
         }
     });
 
-    instance.web.FormView.include({
-        can_be_discarded: function () {
-            if (this.$el.is('.oe_form_dirty')) {
-                var popup_content = '<div><p>The record has been modified, your changes will be discarded.</p><p>Please save or discard your changes.</p></div>';
-                var popup = new instance.web.Dialog(this, {
-                    title: _t('Warning'),
-                    size: 'medium',
-                    buttons: {
-                        Ok: function () {
-                            this.parents('.modal').modal('hide');
-                        }}
-                }, $(popup_content));
-                popup.open();
-                this.$el.removeClass('oe_form_dirty');
-                return false;
-
-
-            } else {
-                return true;
-            }
-        },
-    });
-
-    /* instance.web.form.FormRenderingEngine.include({
-        process_group: function($group) {
-            var self = this;
-            $group.children('field').each(function() {
-                self.preprocess_field($(this));
-            });
-            var $new_group = this.render_element('FormRenderingGroup', $group.getAttributes());
-            var $table;
-            if ($new_group.first().is('table.oe_form_group')) {
-                $table = $new_group;
-            } else if ($new_group.filter('table.oe_form_group').length) {
-                $table = $new_group.filter('table.oe_form_group').first();
-            } else {
-                $table = $new_group.find('table.oe_form_group').first();
-            }
-
-            var $tr, $td,
-                cols = parseInt($group.attr('col') || 2, 10),
-                row_cols = cols;
-
-            var children = [];
-            $group.children().each(function(a,b,c) {
-                var $child = $(this);
-                var colspan = parseInt($child.attr('colspan') || 1, 10);
-                var tagName = $child[0].tagName.toLowerCase();
-                var $td = $('<tr/>').addClass('oe_form_group_cell').attr('colspan', colspan);
-                var newline = tagName === 'newline';
-
-                // Note FME: those classes are used in layout debug mode
-                if ($tr && row_cols > 0 && (newline || row_cols < colspan)) {
-                    $tr.addClass('oe_form_group_row_incomplete');
-                    if (newline) {
-                        $tr.addClass('oe_form_group_row_newline');
-                    }
-                }
-                if (newline) {
-                    $tr = null;
-                    return;
-                }
-                if (!$tr || row_cols < colspan) {
-                    $tr = $('<tr/>').addClass('oe_form_group_row').appendTo($table);
-                    row_cols = cols;
-                } else if (tagName==='group') {
-                    // When <group> <group/><group/> </group>, we need a spacing between the two groups
-                    $td.addClass('oe_group_right');
-                }
-                row_cols -= colspan;
-
-                // invisibility transfer
-                var field_modifiers = JSON.parse($child.attr('modifiers') || '{}');
-                var invisible = field_modifiers.invisible;
-                self.handle_common_properties($td, $("<dummy>").attr("modifiers", JSON.stringify({invisible: invisible})));
-
-                $tr.append($td.append($child));
-                children.push($child[0]);
-            });
-            if (row_cols && $td) {
-                $td.attr('colspan', parseInt($td.attr('colspan'), 10) + row_cols);
-            }
-            $group.before($new_group).remove();
-
-            $table.find('> tbody > tr').each(function() {
-                var to_compute = [],
-                    row_cols = cols,
-                    total = 100;
-                $(this).children().each(function() {
-                    var $td = $(this),
-                        $child = $td.children(':first');
-                    if ($child.attr('cell-class')) {
-                        $td.addClass($child.attr('cell-class'));
-                    }
-                    switch ($child[0].tagName.toLowerCase()) {
-                        case 'separator':
-                            break;
-                        case 'label':
-                            if ($child.attr('for')) {
-                                $td.addClass('oe_form_group_cell_label');
-                                row_cols-= $td.attr('colspan') || 1;
-                                total--;
-                            }
-                            break;
-                        default:
-                            var width = _.str.trim($child.attr('width') || ''),
-                                iwidth = parseInt(width, 10);
-                            if (iwidth) {
-                                if (width.substr(-1) === '%') {
-                                    total -= iwidth;
-                                    width = iwidth + '%';
-                                } else {
-                                    // Absolute width
-                                    $td.css('min-width', width + 'px');
-                                }
-                                //$td.attr('width', width);
-                                $child.removeAttr('width');
-                                row_cols-= $td.attr('colspan') || 1;
-                            } else {
-                                to_compute.push($td);
-                            }
-
-                    }
-                });
-                if (row_cols) {
-                    var unit = Math.floor(total / row_cols);
-                    if (!$(this).is('.oe_form_group_row_incomplete')) {
-                        _.each(to_compute, function($td, i) {
-                            var width = parseInt($td.attr('colspan'), 10) * unit;
-                            //$td.attr('width', width + '%');
-                            total -= width;
-                        });
-                    }
-                }
-            });
-            _.each(children, function(el) {
-                self.process($(el));
-            });
-            this.handle_common_properties($new_group, $group);
-            return $new_group;
-        },
-    });  */
+    //instance.web.FormView.include({
+    //    can_be_discarded: function () {
+    //        if (this.$el.is('.oe_form_dirty')) {
+    //            var popup_content = '<div><p>The record has been modified, your changes will be discarded.</p><p>Please save or discard your changes.</p></div>';
+    //            var popup = new instance.web.Dialog(this, {
+    //                title: _t('Warning'),
+    //                size: 'medium',
+    //                buttons: {
+    //                    Ok: function () {
+    //                        this.parents('.modal').modal('hide');
+    //                    }}
+    //            }, $(popup_content));
+    //            popup.open();
+    //            this.$el.removeClass('oe_form_dirty');
+    //            return false;
+    //
+    //
+    //        } else {
+    //            return true;
+    //        }
+    //    },
+    //});
 
     //test menu foo
     instance.web.WebClient.include({
@@ -437,13 +317,11 @@ openerp.nh_etake_list_theme = function(instance){
            });
            this.$el.find('.nh_referral_add').click(function(){
                self.rpc('/web/action/load', {action_id: 'nh_etake_list.action_show_referral_forms'}).done(function(res){
-                  self.rpc('/web/action/load', {action_id: 'nh_etake_list.action_new_referral_form'}).done(function(result) {
-
-                      instance.client.on_menu_action({'action_id': result.id}).done(function () {
-                          $('.oe_secondary_menu .active').removeClass('active');
-                          $('.oe_secondary_menu a[data-action-id=' + res.id + ']').parent().addClass('active');
-                      });
-                  });
+                   instance.client.on_menu_action({'action_id': res.id}).done(function () {
+                        $('.oe_secondary_menu .active').removeClass('active');
+                        $('.oe_secondary_menu a[data-action-id=' + res.id + ']').parent().addClass('active');
+                        instance.client.action_manager.inner_widget.views.list.controller.do_add_record();
+                   });
                });
 
            });
