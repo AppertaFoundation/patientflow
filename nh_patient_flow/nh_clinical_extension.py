@@ -1,4 +1,4 @@
-from openerp.osv import orm, fields
+from openerp.osv import orm, fields, osv
 
 
 class nh_clinical_patient_flow_patient(orm.Model):
@@ -33,19 +33,29 @@ class nh_clinical_patient_flow_patient(orm.Model):
                 return False
         return True
 
-    def _check_nhs_number(self, cr, uid, nhs_number, data, context=None):
-        if not nhs_number:
-            return False
-        domain = [('patient_identifier', '=', nhs_number)]
-        patient_id = self.search(cr, uid, domain, context=context)
-        if patient_id:
-            return self.write(cr, uid, patient_id[0], data, context=context)
-        else:
-            domain = [('unverified_nhs', '=', nhs_number)]
+    def check_nhs_number(self, cr, uid, nhs_number, exception=False, context=None):
+        """
+        Checks if there is a patient with the provided NHS Number
+        If there is no patient with the provided NHS Number and a patient with a matching unverified NHS number is
+        found, its actual NHS Number will be updated.
+        :param exception: string with values 'True' or 'False'.
+        :return: if no exception parameter is provided: True if patient exists. False if not.
+                if exception = 'True': Integrity Error exception is raised if patient exists. False if not.
+                if exception = 'False': True if patient exists. Patient Not Found exception is raised if not.
+        """
+        domain = [['patient_identifier', '=', nhs_number]]
+        result = bool(self.search(cr, uid, domain, context=context))
+        if not result:
+            domain = [['unverified_nhs', '=', nhs_number]]
             patient_id = self.search(cr, uid, domain, context=context)
             if patient_id:
-                match = self._check_match(cr, uid, patient_id[0], data, context=context)
-                if match:
-                    self.write(cr, uid, patient_id[0], {'patient_identifier': nhs_number}, context=context)
-                    return self.write(cr, uid, patient_id[0], data, context=context)
-        return False
+                self.write(cr, uid, patient_id, {'patient_identifier': nhs_number}, context=context)
+            result = bool(patient_id)
+        if exception:
+            if eval(exception) and result:
+                raise osv.except_osv('Integrity Error!', 'Patient with NHS Number %s already exists!'
+                                     % nhs_number)
+            elif not eval(exception) and not result:
+                raise osv.except_osv('Patient Not Found!', 'There is no patient with NHS Number %s' %
+                                     nhs_number)
+        return result
