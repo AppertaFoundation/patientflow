@@ -20,7 +20,7 @@
             </t>
     </t>
 
-    <t t-extend="KanbanView">
+    <!-- <t t-extend="KanbanView">
         <t t-jquery=".oe_kanban_view" t-operation="replace">
             <div class="oe_kanban_view">
                 <div class="oe_kanban_buttons"/>
@@ -39,10 +39,10 @@
                 </div>
             </div></div>
         </t>
-    </t>
+    </t> -->
 
     <t t-name="NHListView">
-        <table class="oe_list_content nh_list_scroll_fix_header">
+        <!-- <table class="oe_list_content nh_list_scroll_fix_header">
             <t t-set="columns_count" t-value="visible_columns.length + (options.selectable ? 1 : 0) + (options.deletable ? 1 : 0)"/>
             <thead>
                 <tr t-if="(!!options.action_buttons and !options.$buttons) or (!!options.pager and !options.$pager)">
@@ -81,7 +81,7 @@
             </tfoot>
         </table>
         <div class="nh_list_scroll_fix">
-            <div>
+            <div> -->
                 <table class="oe_list_content nh_list_scroll_fix_body">
                     <t t-set="columns_count" t-value="visible_columns.length + (options.selectable ? 1 : 0) + (options.deletable ? 1 : 0)"/>
                     <thead>
@@ -120,8 +120,8 @@
                         </tr>
                     </tfoot>
                 </table>
-            </div>
-        </div>
+            <!-- </div>
+        </div> -->
     </t>
 
 

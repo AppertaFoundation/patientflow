@@ -196,16 +196,16 @@ openerp.nh_etake_list_theme = function(instance){
 
     instance.web_kanban.KanbanView.include({
         do_show: function() {
-            var application_height = $(window).height();
-            var table_offset = $('.nh_kanban_scroll_fix').offset();
-            var vertical_padding = 30;
-            $('.nh_kanban_scroll_fix').css('height', ((application_height-table_offset.top) - (vertical_padding*2)));
+        //    var application_height = $(window).height();
+        //    //var table_offset = $('.nh_kanban_scroll_fix').offset();
+        //    var vertical_padding = 30;
+        //    $('.nh_kanban_scroll_fix').css('height', ((application_height-table_offset.top) - (vertical_padding*2)));
             $('.oe_view_manager_switch').hide();
-            if (this.$buttons) {
-                this.$buttons.show();
-            }
-            this.do_push_state({});
-            return this._super();
+        //    if (this.$buttons) {
+        //        this.$buttons.show();
+        //    }
+        //    this.do_push_state({});
+        //    return this._super();
         },
         do_hide: function(){
             $('.oe_view_manager_switch').show();
@@ -363,36 +363,36 @@ openerp.nh_etake_list_theme = function(instance){
     });
 
 
-    instance.web.ListView.include({
-        start: function(){
-            this.$el.addClass('oe_list');
-            this._template = "NHListView";
-            return this._super();
-        },
-        compute_aggregates: function(records) {
-            var application_height = $(window).height();
-            var table_offset = $('.nh_list_scroll_fix').offset();
-            var vertical_padding = 15;
-            $('.nh_list_scroll_fix').css('height', ((application_height-table_offset.top) - (vertical_padding*2)));
-
-            if(this.fields_view.type == 'tree'){
-                $('.nh_list_scroll_fix_header').remove();
-                $('.nh_list_scroll_fix_body').css('margin-top', '0');
-                $('.nh_list_scroll_fix_body .oe_list_header_columns').css('visibility', 'visible');
-                return this._super(records);
-            }
-
-            var table_header_width = $('.nh_list_scroll_fix_body thead').width();
-            $('.nh_list_scroll_fix_header').css('width', table_header_width);
-            $('.nh_list_scroll_fix_header thead').css('width', table_header_width);
-            var fixed_headers = $('.nh_list_scroll_fix_header .oe_list_header_columns th');
-            $('.nh_list_scroll_fix_body .oe_list_header_columns th').each(function(i){
-                    $(fixed_headers[i]).find('div').css('width', $(this).find('div').width());
-            });
-            this._super(records);
-        },
-
-    })
+    //instance.web.ListView.include({
+    //    start: function(){
+    //        this.$el.addClass('oe_list');
+    //        this._template = "NHListView";
+    //        return this._super();
+    //    },
+    //    compute_aggregates: function(records) {
+    //        var application_height = $(window).height();
+    //        var table_offset = $('.nh_list_scroll_fix').offset();
+    //        var vertical_padding = 15;
+    //        $('.nh_list_scroll_fix').css('height', ((application_height-table_offset.top) - (vertical_padding*2)));
+    //
+    //        if(this.fields_view.type == 'tree'){
+    //            $('.nh_list_scroll_fix_header').remove();
+    //            $('.nh_list_scroll_fix_body').css('margin-top', '0');
+    //            $('.nh_list_scroll_fix_body .oe_list_header_columns').css('visibility', 'visible');
+    //            return this._super(records);
+    //        }
+    //
+    //        var table_header_width = $('.nh_list_scroll_fix_body thead').width();
+    //        $('.nh_list_scroll_fix_header').css('width', table_header_width);
+    //        $('.nh_list_scroll_fix_header thead').css('width', table_header_width);
+    //        var fixed_headers = $('.nh_list_scroll_fix_header .oe_list_header_columns th');
+    //        $('.nh_list_scroll_fix_body .oe_list_header_columns th').each(function(i){
+    //                $(fixed_headers[i]).find('div').css('width', $(this).find('div').width());
+    //        });
+    //        this._super(records);
+    //    },
+    //
+    //})
 }
 
 
