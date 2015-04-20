@@ -107,7 +107,7 @@
                                         <field name="state" readonly="1"/>
                                         <field name="date_terminated" readonly="1"/>
                                         <field name="blocking" readonly="1"/>
-                                        <button name="ov_complete" type="object" nh_icon="tick" string="Complete"/>
+                                        <button name="ov_complete" type="object" attrs="{'invisible': [('state', 'in', ['completed'])]}" nh_icon="tick" string="Complete"/>
                                     </tree>
                                     <form>
                                         <field name="summary" readonly="1"/>
