@@ -101,8 +101,8 @@
                         </group>
                         <notebook attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}">
                             <page string="Tasks" attrs="{'invisible': [('state','in',['Referral','TCI','To be Clerked'])]}">
-                                <field name="doctor_task_ids" readonly="1">
-                                    <tree editable="top" create="0" delete="0">
+                                <field name="doctor_task_ids" no_open="1" readonly="1">
+                                    <tree create="0" delete="0" no_open="1" editable="0">
                                         <field name="summary" readonly="1"/>
                                         <field name="state" readonly="1"/>
                                         <field name="date_terminated" readonly="1"/>
