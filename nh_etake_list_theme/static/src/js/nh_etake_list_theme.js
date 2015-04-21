@@ -362,6 +362,36 @@ openerp.nh_etake_list_theme = function(instance){
        },
     });
 
+    // override for search view so can't remove group_by on kanban
+    instance.web.search.FacetView.include({
+        events: {
+            'focus': function () { this.trigger('focused', this); },
+            'blur': function () { this.trigger('blurred', this); },
+            'click': function (e) {
+                if ($(e.target).is('.oe_facet_remove')) {
+                    if(instance.webclient.action_manager.inner_widget.action.res_model === "nh.etake_list.overview" && instance.webclient.action_manager.inner_widget.active_view === "kanban"){
+                        if(instance.webclient.action_manager.inner_widget.searchview.$el.find('.oe_searchview_facet').length < 2){
+                            return false;
+                        }
+                    }
+                    this.model.destroy();
+                    return false;
+                }
+                this.$el.focus();
+                e.stopPropagation();
+            },
+            'keydown': function (e) {
+                var keys = $.ui.keyCode;
+                switch (e.which) {
+                case keys.BACKSPACE:
+                case keys.DELETE:
+                    this.model.destroy();
+                    return false;
+                }
+            }
+        },
+    })
+
 
     //instance.web.ListView.include({
     //    start: function(){
