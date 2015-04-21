@@ -1295,7 +1295,7 @@ table {
     background-image: url(/nh_etake_list_theme/static/src/img/repeat.png);
     background-repeat: repeat;
     box-shadow: 0 0 4px #000 inset;
-    width: calc(100% - 12px);
+    width: 100%;
     border-radius: 10px;
 }
 
