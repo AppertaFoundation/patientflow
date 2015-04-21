@@ -584,7 +584,7 @@
     display: none
 }
 
-.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header .oe_fold_column .oe_kanban_group_title {
+.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers Hospi.oe_kanban_group_header .oe_kanban_header .oe_fold_column .oe_kanban_group_title {
     margin-right: 0;
     width: 100%;
 }
@@ -1406,7 +1406,7 @@ table {
     border: 1px solid #dedede
 }
 
-.openerp input, .openerp textarea {
+.openerp input:not([type=checkbox]), .openerp textarea {
     -ms-border-radius: 5px;
     border-radius: 5px;
     background-color: #fff;
@@ -1431,6 +1431,18 @@ i {
     font-style: normal;
     display: inline-block;
     -webkit-font-smoothing: antialiased
+}
+
+.openerp .oe_list.oe_list_editable.oe_editing .oe_form_field input[type=checkbox]{
+    height: inherit;
+}
+
+.openerp .oe_list .oe_form .oe_form_field_boolean input[type=checkbox]{
+    margin-left: 0px !important;
+}
+
+.openerp .oe_form_editable .oe_form{
+    position: relative;
 }
 
 .logo-icon:before {
