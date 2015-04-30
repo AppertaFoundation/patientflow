@@ -44,6 +44,9 @@ class nh_etake_list_overview(orm.Model):
                         ['to_dna', 'DNA'],
                         ['dna', 'DNA'],
                         ['admitted', 'Admitted']]
+    _stage_selection = [['referral', 'Referral'], ['tci', 'To Come In'], ['tbc', 'To be Clerked'],
+                        ['cip', 'Clerking in Progress'], ['sr', 'Senior Review'], ['cr', 'Consultant Review'],
+                        ['admitted', 'Admitted'], ['tbd', 'To Be Discharged'], ['d', 'Discharged'], ['dna', 'DNA']]
     _gender = [['M', 'Male'], ['F', 'Female']]
 
     def _get_dt_ids(self, cr, uid, ids, field_names, arg, context=None):
@@ -72,6 +75,7 @@ class nh_etake_list_overview(orm.Model):
         'hospital_number': fields.text('Hospital Number'),
         'nhs_number': fields.text('NHS Number'),
         'state': fields.selection(_state_selection, 'State'),
+        'stage': fields.selection(_stage_selection, 'Stage'),
         'gender': fields.selection(_gender, 'Gender'),
         'age': fields.integer('Age'),
         'dob': fields.datetime('Date of Birth'),
@@ -137,6 +141,21 @@ class nh_etake_list_overview(orm.Model):
                             when review_activity.state = 'scheduled' then 'Senior Review'
                             else 'Other'
                         end as state,
+                        case
+                            when referral_activity.state is null and tci_activity.state is null then null
+                            when spell_activity.state = 'cancelled' then null
+                            when ptwr_activity.state is not null and ptwr_activity.state = 'completed' then 'admitted'
+                            when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'discharged'
+                            when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'tbd'
+                            when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then 'referral'
+                            when tci_activity.state is not null and tci_activity.state = 'cancelled' then 'dna'
+                            when tci_activity.state is not null and tci_activity.state = 'scheduled' then 'tci'
+                            when clerking_activity.state = 'scheduled' then 'tbc'
+                            when clerking_activity.state = 'started' then 'cip'
+                            when ptwr_activity.state is not null and ptwr_activity.state != 'completed' and ptwr_activity.state != 'cancelled' then 'cr'
+                            when review_activity.state = 'scheduled' then 'sr'
+                            else null
+                        end as stage,
                         case
                             when tci_activity.state is null then FALSE
                             when tci_activity.state is not null and tci_activity.state != 'scheduled' then FALSE

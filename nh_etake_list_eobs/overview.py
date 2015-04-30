@@ -82,6 +82,21 @@ class nh_etake_list_overview(orm.Model):
                             else 'Other'
                         end as state,
                         case
+                            when referral_activity.state is null and tci_activity.state is null then null
+                            when spell_activity.state = 'cancelled' then null
+                            when ptwr_activity.state is not null and ptwr_activity.state = 'completed' then 'admitted'
+                            when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'discharged'
+                            when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'tbd'
+                            when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then 'referral'
+                            when tci_activity.state is not null and tci_activity.state = 'cancelled' then 'dna'
+                            when tci_activity.state is not null and tci_activity.state = 'scheduled' then 'tci'
+                            when clerking_activity.state = 'scheduled' then 'tbc'
+                            when clerking_activity.state = 'started' then 'cip'
+                            when ptwr_activity.state is not null and ptwr_activity.state != 'completed' and ptwr_activity.state != 'cancelled' then 'cr'
+                            when review_activity.state = 'scheduled' then 'sr'
+                            else null
+                        end as stage,
+                        case
                             when tci_activity.state is null then FALSE
                             when tci_activity.state is not null and tci_activity.state != 'scheduled' then FALSE
                             when now() at time zone 'UTC' >= ((extract(YEAR FROM tci_activity.date_scheduled) || '-' ||  extract(MONTH FROM tci_activity.date_scheduled) || '-' || extract(DAY FROM tci_activity.date_scheduled) || ' 08:00:00')::timestamp + '1 day') then TRUE
