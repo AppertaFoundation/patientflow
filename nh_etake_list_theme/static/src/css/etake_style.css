@@ -545,7 +545,7 @@
     -webkit-border-horizontal-spacing: 5px;
     border-collapse: separate;
     background: 0 0;
-    box-shadow: 2px 0 0 0 rgba(0, 0, 0, .3) inset;
+    /*box-shadow: 2px 0 0 0 rgba(0, 0, 0, .3) inset;*/
     width: 100%
 }
 
@@ -905,7 +905,12 @@
     display: inline-table
 }
 
-.oe_leftbar.nh_kiosk_nav {
+.openerp .oe_leftbar{
+    background-color: #fff;
+    border-right: 0px solid rgba(0,0,0,0);
+}
+
+/* .oe_leftbar.nh_kiosk_nav {
     width: 100%;
     background-color: #fff
 }
@@ -963,9 +968,13 @@
     float: left;
     padding-right: 1%;
     padding-bottom: 1em
+}*/
+
+.oe_leftbar > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li{
+    padding: 0 8% 0.6em 5%;
 }
 
-.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li a {
+.oe_leftbar > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li a {
     -ms-border-radius: 10px;
     border-radius: 10px;
     color: #455a64;
@@ -988,15 +997,16 @@
     text-decoration: none
 }
 
-.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li a .oe_menu_text {
-    max-width: inherit
+.oe_leftbar > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li a .oe_menu_text {
+    max-width: inherit;
+    white-space: normal;
 }
 
-.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li:last-child {
+.oe_leftbar > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li:last-child {
     padding-right: 0
 }
 
-.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li.active a {
+.oe_leftbar > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li.active a {
     font-weight: 700;
     background: #7195a6;
     background: -moz-linear-gradient(top, #7195a6 0, #90acba 100%);
@@ -1012,39 +1022,39 @@
     text-shadow: 0 1px 1px #666
 }
 
-.oe_leftbar.nh_kiosk_nav > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li.active:after {
+.oe_leftbar > div > div > div div.oe_secondary_menus_container .oe_secondary_menu .oe_secondary_submenu li.active:after {
     position: absolute;
     font-family: FontAwesome;
-    top: 1.57em;
-    left: 33%;
-    text-shadow: 0 3px 0 #dedede, 0 2px 1px #dedede, 0 -2px 2px rgba(0, 0, 0, .5);
-    content: "\f0de";
+    top: 28%;
+    right: -2px;
+    text-shadow: 0 0 0 #dedede, 2px 0 0 #dedede, -1px 0 2px rgba(0, 0, 0, .5);
+    content: "\f0d9";
     font-size: 3em;
     color: #dedede
 }
 
-.oe_leftbar.nh_kiosk_nav .nav-stacked > li + li {
-    margin-top: 0
-}
+/*.oe_leftbar.nh_kiosk_nav .nav-stacked > li + li {*/
+    /*margin-top: 0*/
+/*}*/
 
-.example .oe_application {
-    height: 5em;
-    background-color: #dedede;
-    box-shadow: 0 0 4px #000
-}
+/*.example .oe_application {*/
+    /*height: 5em;*/
+    /*background-color: #dedede;*/
+    /*box-shadow: 0 0 4px #000*/
+/*}*/
 
-.example .oe_secondary_submenu > li {
-    padding-bottom: 0
-}
+/*.example .oe_secondary_submenu > li {*/
+    /*padding-bottom: 0*/
+/*}*/
 
-.example .oe_secondary_submenu {
-    margin: 0;
-    padding: 0
-}
+/*.example .oe_secondary_submenu {*/
+    /*margin: 0;*/
+    /*padding: 0*/
+/*}*/
 
-.example .oe_secondary_submenu > .active:after {
-    left: 4.7%
-}
+/*.example .oe_secondary_submenu > .active:after {*/
+    /*left: 4.7%*/
+/*}*/
 
 table {
     display: table;
@@ -1294,9 +1304,9 @@ table {
     background-color: #dedede;
     background-image: url(/nh_etake_list_theme/static/src/img/repeat.png);
     background-repeat: repeat;
-    box-shadow: 0 0 4px #000 inset;
     width: 100%;
-    border-radius: 10px;
+    /*box-shadow: 0 0 4px #000 inset;*/
+    /*border-radius: 10px;*/
 }
 
 .openerp .oe_application .oe_view_manager_header {
@@ -1682,4 +1692,8 @@ h2 {
 
 h2 a {
     color: #428BCD
+}
+
+#announcement_bar_table{
+    display: none;
 }

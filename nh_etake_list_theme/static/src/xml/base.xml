@@ -11,13 +11,18 @@
 
     <t t-extend="KanbanView.group_header">
             <t t-jquery=".oe_kanban_group_length.oe_tag" t-operation="before">
+                <!--<t t-debug="true"/>-->
                 <t t-if="widget.dataset.model=='nh.etake_list.overview'">
-                    <t t-if="widget.title=='Referral'">
+                    <t t-if="widget.title=='Referral' &amp;&amp; widget.can_create_referral">
                         <a class="btn-head nh_referral_add" href="#"><i class="plus"></i></a>
                     </t>
                     <a class="btn-head nh_kanban_show_list" href="#" t-att-data-state="widget.value"><i class="list-view"></i></a>
                 </t>
             </t>
+    </t>
+
+    <t t-extend="WebClient.announcement_bar">
+        <t t-jquery=".announcement_bar" t-operation="replace"></t>
     </t>
 
     <!-- <t t-extend="KanbanView">
@@ -30,14 +35,15 @@
                     </tr>
                 </table>
                 <div class="nh_kanban_scroll_fix">
-                <div>
-                    <table class="oe_kanban_groups">
-                        <tr class="oe_kanban_groups_records">
-                            <td class="oe_kanban_dummy_cell"><div/></td>
-                        </tr>
-                    </table>
+                    <div>
+                        <table class="oe_kanban_groups">
+                            <tr class="oe_kanban_groups_records">
+                                <td class="oe_kanban_dummy_cell"><div/></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div></div>
+            </div>
         </t>
     </t> -->
 

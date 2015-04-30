@@ -119,7 +119,7 @@
             </field>
         </record>
 
-       <template inherit_id="web.webclient_bootstrap" name="Test Index" id="test_index">
+       <!-- <template inherit_id="web.webclient_bootstrap" name="Test Index" id="test_index">
             <xpath expr="t/div[@class='openerp openerp_webclient_container']" position="replace">
                 <div class='openerp openerp_webclient_container'>
                     <div class='oe_webclient'>
@@ -132,7 +132,7 @@
                     </div>
                 </div>
             </xpath>
-        </template>
+        </template> -->
 
         <template id="assets_backend" name="etake list assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
