@@ -11,24 +11,24 @@
     border-top-right-radius: 10px
 }
 
-.modal-open .modal-dialog .modal-content .modal-header .close {
-    float: right;
-    border-top-right-radius: 10px;
-    border-left: 1px solid #888;
-    padding: 1em 3% 2em;
-    margin-top: -1.5em;
-    margin-right: -1.5em;
-    background: #FFC7C7
-}
+/*.modal-open .modal-dialog .modal-content .modal-header .close {*/
+    /*float: right;*/
+    /*border-top-right-radius: 10px;*/
+    /*border-left: 1px solid #888;*/
+    /*padding: 1em 3% 2em;*/
+    /*margin-top: -1.5em;*/
+    /*margin-right: -1.5em;*/
+    /*background: #FFC7C7*/
+/*}*/
 
-.modal-open .modal-dialog .modal-content .modal-header .close:before {
-    font-family: FontAwesome;
-    content: "\f00d";
-    color: #4a606b;
-    text-shadow: 0 2px #e6e6e6;
-    font-size: 1em;
-    line-height: 1em
-}
+/*.modal-open .modal-dialog .modal-content .modal-header .close:before {*/
+    /*font-family: FontAwesome;*/
+    /*content: "\f00d";*/
+    /*color: #4a606b;*/
+    /*text-shadow: 0 2px #e6e6e6;*/
+    /*font-size: 1em;*/
+    /*line-height: 1em*/
+/*}*/
 
 .modal-open .modal-dialog .modal-content .modal-header .modal-title {
     float: left
