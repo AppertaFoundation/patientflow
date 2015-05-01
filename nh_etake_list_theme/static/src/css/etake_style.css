@@ -1711,7 +1711,8 @@ h2 a {
 
 .openerp .oe_form > :not(.oe_form_nosheet) header{
     padding: 0;
-
+    background-color: transparent;
+    border-bottom-width: 0;
 }
 
 .nh-view-header-stage{
@@ -1722,6 +1723,11 @@ h2 a {
     text-align: left;
     padding: 0 1% 0 0;
     border-bottom: 1px solid #afafb6;
+}
+
+.nh-view-header-buttons{
+    background-color: transparent;
+    padding-top: 8px;
 }
 
 .openerp ul.oe_form_status_clickable li:nth-last-child(2) > .arrow, .openerp ul.oe_form_status_clickable li:nth-last-child(2) > .arrow span{
@@ -1775,4 +1781,17 @@ h2 a {
 /* long word wrap fix */
 .openerp .oe_form .oe_form_field_text .oe_form_text_content{
     word-break: break-all;
+}
+
+
+/* form view header override */
+.openerp .oe_view_manager_view_form .oe_formview{
+    background: #c5c5c5;
+}
+.openerp .oe_view_manager_view_form .oe_formview .oe_form_container, .openerp .oe_view_manager_view_form .oe_formview .oe_form_container .oe_form, .openerp .oe_view_manager_view_form .oe_formview .oe_form_container .oe_form > div {
+    background-color: transparent;
+}
+
+.openerp .oe_application .oe_view_manager_wrapper .oe_view_manager_body .oe_view_manager_view_form .oe_formview .oe_form_container .oe_form .oe_form_sheetbg{
+    box-shadow: none;
 }
