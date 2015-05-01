@@ -1771,3 +1771,8 @@ h2 a {
 .openerp ul.oe_form_status_clickable li:last-child > .label{
         padding-right: 24px;
 }
+
+/* long word wrap fix */
+.openerp .oe_form .oe_form_field_text .oe_form_text_content{
+    word-break: break-all;
+}
