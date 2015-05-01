@@ -138,6 +138,7 @@
             <xpath expr="." position="inside">
                  <link rel="stylesheet" href="/nh_etake_list_theme/static/src/css/etake_style.css"/>
                 <script type="text/javascript" src="/nh_etake_list_theme/static/src/js/nh_etake_list_theme.js"/>
+                 <script type="text/javascript" src="/nh_etake_list_theme/static/src/js/test_gui.js"/>
             </xpath>
         </template>
 
