@@ -54,22 +54,29 @@
             <field name="arch" type="xml">
                 <form string="NH eTake List Overview Form View" version="7.0" create="0" delete="0" options="{'import_enabled': False}">
                     <header>
-                        <button name="complete_referral" string="Accept"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible': [('state','!=','Referral')]}"/>
-                        <button name="cancel_referral" string="Reject"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible': [('state','!=','Referral')]}"/>
-                        <button name="start_clerking" string="Clerk"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','To be Clerked']]}"/>
-                        <button name="complete_tci" string="Patient Arrived"  type="object" attrs="{'invisible':[['state','!=','TCI']]}"/>
-                        <button name="cancel_tci" string="Remove from List"  type="object" attrs="{'invisible':['|',['state','!=','TCI'],['dna_able','=',False]]}"/>
-                        <button name="complete_clerking" string="Complete Clerking"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Clerking in Process']]}"/>
-                        <button name="complete_review" string="Complete Review"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Senior Review']]}"/>
-                        <button name="to_be_discharged" string="To Be Discharged"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Senior Review']]}"/>
-                        <button name="complete_ptwr" string="Complete Review"  type="object" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Consultant Review']]}"/>
-                        <button name="create_task" string="Create Task"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','not in',['Clerking in Process','Senior Review']]]}"/>
-                        <button name="discharge" string="Discharge"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','To be Discharged']]}"/>
-                        <button name="rollback_action" string="Rollback"  type="object" groups="nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','in',['Referral','Clerking in Process','Discharged']]]}"/>
-                        <button name="rollback_tbc" string="Rollback"  type="object" groups="nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Clerking in Process']]}"/>
-                        <button name="rollback_ptwr" string="Rollback"  type="object" groups="nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Admitted']]}"/>
-                        <button name="rollback_discharge" string="Rollback"  type="object" groups="nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Discharged']]}"/>
-                    </header>
+                            <div class="nh-view-header-stage">
+                                <field name="stage" widget="statusbar" clickable="False" options="{'fold_field': 'fold'}"/>
+                            </div>
+                            <div class="nh-view-header-buttons">
+                                 <button name="complete_referral" string="Accept"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible': [('state','!=','Referral')]}"/>
+                                <button name="cancel_referral" string="Reject"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible': [('state','!=','Referral')]}"/>
+                                <button name="start_clerking" string="Clerk"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','To be Clerked']]}"/>
+                                <button name="complete_tci" string="Patient Arrived"  type="object" attrs="{'invisible':[['state','!=','TCI']]}"/>
+                                <button name="cancel_tci" string="Remove from List"  type="object" attrs="{'invisible':['|',['state','!=','TCI'],['dna_able','=',False]]}"/>
+                                <button name="complete_clerking" string="Complete Clerking"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Clerking in Process']]}"/>
+                                <button name="complete_review" string="Complete Review"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Senior Review']]}"/>
+                                <button name="to_be_discharged" string="To Be Discharged"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Senior Review']]}"/>
+                                <button name="complete_ptwr" string="Complete Review"  type="object" groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Consultant Review']]}"/>
+                                <button name="create_task" string="Create Task"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','not in',['Clerking in Process','Senior Review']]]}"/>
+                                <button name="discharge" string="Discharge"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','To be Discharged']]}"/>
+                                <button name="rollback_action" string="Rollback"  type="object" groups="nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','in',['Referral','Clerking in Process','Discharged']]]}"/>
+                                <button name="rollback_tbc" string="Rollback"  type="object" groups="nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Clerking in Process']]}"/>
+                                <button name="rollback_ptwr" string="Rollback"  type="object" groups="nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Admitted']]}"/>
+                                <button name="rollback_discharge" string="Rollback"  type="object" groups="nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','Discharged']]}"/>
+                            </div>
+
+
+                        </header>
                     <sheet>
                         <group col="4">
                             <field name="location_id" readonly="1" domain="[['usage', '=', 'ward'], ['user_ids', 'in', uid]]" options="{'no_open': True}"/>

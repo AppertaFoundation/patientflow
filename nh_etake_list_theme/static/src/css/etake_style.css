@@ -257,11 +257,15 @@
 
 .oe_form_container .oe_form header {
     background: #fff;
-    height: 4em;
+    /*height: 4em;*/
     padding-top: .4em;
     text-align: center;
     border-top: 1px solid #afafb6;
     border-bottom: 1px solid #afafb6
+}
+
+.openerp .oe_form > :not(.oe_form_nosheet) header ul:not(.oe_tooltip_technical):not(.oe_dropdown_menu){
+    width: 100%;
 }
 
 .oe_form_container .oe_form header .oe_button {
@@ -588,10 +592,6 @@
     display: none
 }
 
-.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers Hospi.oe_kanban_group_header .oe_kanban_header .oe_fold_column .oe_kanban_group_title {
-    margin-right: 0;
-    width: 100%;
-}
 
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header .oe_fold_column .oe_kanban_group_length {
     line-height: 2.3em;
@@ -1705,3 +1705,69 @@ h2 a {
 /*.oe_application_menu_placeholder .active{*/
     /*display: block !important;*/
 /*}*/
+
+
+/* form view header foo */
+
+.openerp .oe_form > :not(.oe_form_nosheet) header{
+    padding: 0;
+
+}
+
+.nh-view-header-stage{
+    background-color: #ededed;
+    background-image: linear-gradient(to bottom, #fcfcfc, #dedede);
+    width: 100%;
+    display: inline-block;
+    text-align: left;
+    padding: 0 1% 0 0;
+    border-bottom: 1px solid #afafb6;
+}
+
+.openerp ul.oe_form_status_clickable li:nth-last-child(2) > .arrow, .openerp ul.oe_form_status_clickable li:nth-last-child(2) > .arrow span{
+    display: none;
+}
+
+.openerp ul.oe_form_status_clickable li:last-child{
+    border-right: 0px solid black;
+}
+
+.nh-view-header-stage ul li:last-child{
+    float: right;
+    background: none;
+    border-radius: 5px;
+    cursor: pointer !important;
+}
+
+.openerp .nh-view-header-stage ul.oe_form_status_clickable li{
+    cursor: default;
+}
+
+.openerp .nh-view-header-stage ul.oe_form_status_clickable li.oe_active{
+    margin-top: 1px;
+}
+
+.openerp .nh-view-header-stage ul.oe_form_status_clickable li.oe_active:hover, .openerp .nh-view-header-stage ul.oe_form_status_clickable li.oe_active:hover .arrow > span{
+    background-color: #5382b9;
+    background-image: linear-gradient(to bottom, #729fcf, #3465a4);
+}
+
+.openerp .nh-view-header-stage ul.oe_form_status_clickable li:hover, .openerp .nh-view-header-stage ul.oe_form_status_clickable li:hover .arrow > span{
+    background-color: #ededed;
+    background-image: linear-gradient(to bottom, #fcfcfc, #dedede);
+}
+
+.nh-view-header-stage ul li:last-child .label{
+    background: -webkit-linear-gradient(#f7fafc, #afcfde);
+    box-shadow: 0 1px 1px #666;
+    border: 1px solid #afcfde;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #79afc8;
+    text-shadow: 0 1px 1px #b3b3b3;
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+.openerp ul.oe_form_status_clickable li:last-child > .label{
+        padding-right: 24px;
+}
