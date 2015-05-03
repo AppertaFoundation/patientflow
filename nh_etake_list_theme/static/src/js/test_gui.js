@@ -27,9 +27,6 @@
                 element:   '.oe_button.oe_list_add.oe_highlight:contains("Create")'
             },
 
-
-
-
 /*
            // Overriding template
               {
