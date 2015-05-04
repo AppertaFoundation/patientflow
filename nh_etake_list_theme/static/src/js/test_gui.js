@@ -3,8 +3,9 @@
 
     var _t = openerp._t;
 
+
     openerp.Tour.register({
-        id: 'tour_test',
+        id: 'refferal_nurse_able_to_create_referral',
         name: _t("Reconcile the demo bank statement"),
         path: '/web?debug=',
         //mode: 'test',
@@ -13,7 +14,7 @@
         steps: [
 
             {
-                title:     _t("Loging page"),
+                title:     _t("Login page"),
                 element:   '.oe_topbar_name'
             },
 
@@ -23,9 +24,35 @@
             },
 
              {
-                title:     _t("Referral form"),
+                title:     _t("Create Referral"),
                 element:   '.oe_button.oe_list_add.oe_highlight:contains("Create")'
             },
+
+            {
+                title:     _t("Select Patient"),
+                element:   '#oe-field-input-16',
+                sampleText: 'Klocko, Lindell'
+            },
+             {
+                title:     _t("Enter Symptoms"),
+                element:   'textarea[name=symptoms_notes]',
+                sampleText: 'Test Symptom Notes'
+            },
+            {
+                title:     _t("Enter Medical History"),
+                element:   'textarea[name=medical_history_notes]',
+                sampleText: 'Test Medical History Notes'
+            },
+            {
+                title:     _t("Save"),
+                element:   '.oe_form_button_save'
+            }
+
+           /* {
+                title:      _t("Insert Data into referral form"),
+                element:    '#oe-field-input-103'
+            }
+*/
 
 /*
            // Overriding template
