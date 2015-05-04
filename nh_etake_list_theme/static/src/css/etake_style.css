@@ -1097,7 +1097,7 @@ table {
     border-bottom-right-radius: 10px
 }
 
-.oe_view_manager_view_list tbody tr:nth-child(odd) td {
+.oe_view_manager_view_list tbody tr:nth-child(odd) td, .oe_view_manager_view_list tbody tr:nth-child(odd) .oe_list_record_selector {
     background: #fff;
     background: -moz-linear-gradient(top, #fff, 10%, #f4f4f4, 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #fff), color-stop(100%, #f4f4f4));
@@ -1108,7 +1108,7 @@ table {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@colour_one', endColorstr='@colour_two', GradientType=0)
 }
 
-.oe_view_manager_view_list tbody tr:nth-child(even) td {
+.oe_view_manager_view_list tbody tr:nth-child(even) td, .oe_view_manager_view_list tbody tr:nth-child(even) .oe_list_record_selector {
     background: #e2edf3;
     background: -moz-linear-gradient(top, #e2edf3, 10%, #d0e2eb, 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #e2edf3), color-stop(100%, #d0e2eb));
@@ -1178,7 +1178,7 @@ table {
     border-right: 0
 }
 
-.oe_view_manager_view_list .oe_list_field_char, .oe_view_manager_view_list .oe_list_field_datetime, .oe_view_manager_view_list .oe_list_field_many2one, .oe_view_manager_view_list .oe_list_field_text {
+.oe_view_manager_view_list .oe_list_field_char, .oe_view_manager_view_list .oe_list_field_datetime, .oe_view_manager_view_list .oe_list_field_many2one, .oe_view_manager_view_list .oe_list_field_text, .oe_view_manager_view_list .oe_list_record_selector {
     background: #fff;
     text-align: center;
     padding: 2%
