@@ -576,6 +576,7 @@
 
 .openerp .oe_kanban_view div.oe_kanban_group_title{
     margin-right: 0;
+    width: 100%;
 }
 
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header {
