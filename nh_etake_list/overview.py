@@ -452,8 +452,42 @@ class nh_etake_list_overview(orm.Model):
         activity_pool.write(cr, uid, ov['spell_activity_id'][0], {'state': 'started', 'terminate_uid': False, 'date_terminated': False}, context=context)
         return True
 
-
     def print_paper_takelist(self, cr, uid, ids, context=None):
         '''This function prints the picking list'''
         context = dict(context or {}, active_ids=ids)
         return self.pool.get("report").get_action(cr, uid, [], 'nh_etake_list.takelist_report_view', context=context)
+
+    def check_etake_list_presence(self, cr, uid, patient_id, context=None):
+        states = ['Discharged', 'Other', 'Done', 'dna', 'admitted']
+        if not self.search(cr, uid, [['patient_id', '=', patient_id], ['state', 'in', states]], context=context):
+            raise osv.except_osv('eTake List Error!', 'The selected patient is already in the eTake List.')
+
+class nh_clinical_patient_referral_form(orm.Model):
+    _name = 'nh.clinical.patient.referral.form'
+    _inherit = 'nh.clinical.patient.referral.form'
+
+    def onchange_patient_id(self, cr, uid, ids, patient_id, context=None):
+        patient_pool = self.pool['nh.clinical.patient']
+        etl_pool = self.pool['nh.etake_list.overview']
+        if not patient_id:
+            return {}
+        etl_pool.check_etake_list_presence(cr, uid, patient_id, context=context)
+        patient = patient_pool.browse(cr, uid, patient_id, context=context)
+        return {
+            'value': {
+                'hospital_number': patient.other_identifier,
+                'nhs_number': patient.patient_identifier if patient.patient_identifier else patient.unverified_nhs,
+                'first_name': patient.given_name,
+                'middle_names': patient.middle_names,
+                'last_name': patient.family_name,
+                'dob': patient.dob,
+                'gender': patient.gender if patient.gender in [g[0] for g in self._gender] else False,
+                'ethnicity': patient.ethnicity if patient.ethnicity in [e[0] for e in self._ethnicity] else False,
+            }
+        }
+
+    def create(self, cr, uid, vals, context=None):
+        if vals.get('patient_id'):
+            etl_pool = self.pool['nh.etake_list.overview']
+            etl_pool.check_etake_list_presence(cr, uid, vals.get('patient_id'), context=context)
+        return super(nh_clinical_patient_referral_form, self).create(cr, uid, vals, context=context)
