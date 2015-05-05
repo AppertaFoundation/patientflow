@@ -459,6 +459,8 @@ class nh_etake_list_overview(orm.Model):
         states = ['Discharged', 'Other', 'Done', 'dna', 'admitted']
         if not self.search(cr, uid, [['patient_id', '=', patient_id], ['state', 'in', states]], context=context):
             raise osv.except_osv('eTake List Error!', 'The selected patient is already in the eTake List.')
+        return True
+
 
 class nh_clinical_patient_referral_form(orm.Model):
     _name = 'nh.clinical.patient.referral.form'
@@ -489,3 +491,20 @@ class nh_clinical_patient_referral_form(orm.Model):
             etl_pool = self.pool['nh.etake_list.overview']
             etl_pool.check_etake_list_presence(cr, uid, vals.get('patient_id'), context=context)
         return super(nh_clinical_patient_referral_form, self).create(cr, uid, vals, context=context)
+
+
+class nh_clinical_patient_tci(orm.Model):
+    _name = 'nh.clinical.patient.tci'
+    _inherit = 'nh.clinical.patient.tci'
+
+    def create(self, cr, uid, vals, context=None):
+        res = super(nh_clinical_patient_tci, self).create(cr, uid, vals, context=context)
+        tci_data = self.browse(cr, uid, res, context=context)
+        activity_pool = self.pool['nh.activity']
+        referral_ids = activity_pool.search(cr, uid, [
+            ['patient_id', '=', tci_data.patient_id.id],
+            ['state', 'not in', ['completed', 'cancelled']],
+            ['data_model', '=', 'nh.clinical.patient.referral']], context=context)
+        for rid in referral_ids:
+            activity_pool.cancel(cr, uid, rid, context=context)
+        return res
