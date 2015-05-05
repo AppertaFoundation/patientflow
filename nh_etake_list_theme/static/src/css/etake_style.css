@@ -1284,18 +1284,18 @@ table {
     margin-left: 6px
 }
 
-.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-menu {
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-menu, .navbar .oe_user_menu_placeholder .dropdown .dropdown-menu  {
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     background: #4d4d4d;
     color: #fff
 }
 
-.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-menu li a {
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-menu li a, .navbar .oe_user_menu_placeholder .dropdown .dropdown-menu li a {
     color: #fff
 }
 
-.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-menu li a:hover {
+.nh_kiosk_nav .navbar .oe_user_menu_placeholder .dropdown .dropdown-menu li a:hover, .navbar .oe_user_menu_placeholder .dropdown .dropdown-menu li a:hover {
     background: #666
 }
 
