@@ -3,6 +3,7 @@ import logging
 from openerp import SUPERUSER_ID
 from datetime import datetime as dt
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as dtf
+from lxml import etree
 
 _logger = logging.getLogger(__name__)
 
@@ -460,6 +461,41 @@ class nh_etake_list_overview(orm.Model):
         if not self.search(cr, uid, [['patient_id', '=', patient_id], ['state', 'in', states]], context=context):
             raise osv.except_osv('eTake List Error!', 'The selected patient is already in the eTake List.')
         return True
+
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
+        # 349 appears to be form view screen, also test for view_type == 'form'
+        # arch is an XML thing so maybe go in and change edit if possible
+        # need to find way of getting record ID
+        if context is None:
+            context = {}
+        res = super(nh_etake_list_overview, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
+        params = context and context.get('params', False) or False
+        record_id = False
+        if params:
+           record_id = params.get('id', False)
+        else:
+            record_id = context and context.get('active_id', False) or False
+        active_model = context.get('active_model')
+
+        if not record_id or (active_model and active_model != 'nh.etake_list.overview') or view_type != 'form':
+            return res
+
+        record = self.read(cr, uid, record_id, ['state'], context=context)
+        record_state = record.get('state', False)
+        # TODO: Shout at Joel for not changing the Clerking in Process issue on both sides of state attr
+        if record_state and record_state in ['Senior Review', 'Clerking in Process']:
+            doc = etree.XML(res['arch'])
+            form_nodes = doc.xpath("//form")
+            for form_node in form_nodes:
+                form_node.set('edit', '1')
+            res['arch'] = etree.tostring(doc)
+        return res
+
+
+
+
+
+
 
 
 class nh_clinical_patient_referral_form(orm.Model):

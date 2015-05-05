@@ -52,7 +52,7 @@
             <field name="name">NH eTake List Overview Form View</field>
             <field name="model">nh.etake_list.overview</field>
             <field name="arch" type="xml">
-                <form string="NH eTake List Overview Form View" version="7.0" create="0" delete="0" options="{'import_enabled': False}">
+                <form string="NH eTake List Overview Form View" version="7.0" edit="0" create="0" delete="0" options="{'import_enabled': False}">
                     <header>
                             <div class="nh-view-header-stage">
                                 <field name="stage" widget="statusbar" clickable="False" options="{'fold_field': 'fold'}"/>
@@ -126,6 +126,17 @@
                 </form>
             </field>
         </record>
+
+        <!--<record model="ir.ui.view" id="view_nh_etake_list_overview_form_remove_edit">-->
+            <!--<field name="name">NH eTake List Overview Form View - Remove Edit for stages</field>-->
+            <!--<field name="model">nh.etake_list.overview</field>-->
+            <!--<field name="inherit_id" ref="view_nh_etake_list_overview_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//form" position="attributes">-->
+                    <!--<attribute name="edit">true</attribute>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
 
         <record model="ir.ui.view" id="view_nh_etake_list_overview_kanban">
             <field name="name">NH eTake List Overview Kanban View</field>

@@ -442,6 +442,44 @@ openerp.nh_etake_list_theme = function(instance){
        },
     });
 
+    instance.web.View.include({
+        load_view: function(context) {
+        var self = this;
+        var view_loaded_def;
+        if (this.embedded_view) {
+            view_loaded_def = $.Deferred();
+            $.async_when().done(function() {
+                view_loaded_def.resolve(self.embedded_view);
+            });
+        } else {
+            if (! this.view_type)
+                console.warn("view_type is not defined", this);
+            var context = this.dataset.get_context();
+            if(this.view_type == 'form'){
+                context = this.dataset.context;
+            }
+            view_loaded_def = instance.web.fields_view_get({
+                "model": this.dataset._model,
+                "view_id": this.view_id,
+                "view_type": this.view_type,
+                "toolbar": !!this.options.$sidebar,
+                "context": context,
+            });
+        }
+        return this.alive(view_loaded_def).then(function(r) {
+            self.fields_view = r;
+            // add css classes that reflect the (absence of) access rights
+            self.$el.addClass('oe_view')
+                .toggleClass('oe_cannot_create', !self.is_action_enabled('create'))
+                .toggleClass('oe_cannot_edit', !self.is_action_enabled('edit'))
+                .toggleClass('oe_cannot_delete', !self.is_action_enabled('delete'));
+            return $.when(self.view_loading(r)).then(function() {
+                self.trigger('view_loaded', r);
+            });
+        });
+    },
+    })
+
     // override for search view so can't remove group_by on kanban
     instance.web.search.FacetView.include({
         events: {
