@@ -46,7 +46,7 @@ class nh_etake_list_overview(orm.Model):
                         ['admitted', 'Admitted']]
     _stage_selection = [['referral', 'Referral'], ['tci', 'To Come In'], ['tbc', 'To be Clerked'],
                         ['cip', 'Clerking in Progress'], ['sr', 'Senior Review'], ['cr', 'Consultant Review'],
-                        ['admitted', 'Admitted'], ['tbd', 'To Be Discharged'], ['d', 'Discharged'], ['dna', 'DNA']]
+                        ['tbd', 'To Be Discharged'], ['d', 'Discharged'], ['dna', 'DNA']]
     _gender = [['M', 'Male'], ['F', 'Female']]
 
     def _get_dt_ids(self, cr, uid, ids, field_names, arg, context=None):
