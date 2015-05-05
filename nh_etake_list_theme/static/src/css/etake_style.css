@@ -1793,6 +1793,10 @@ h2 a {
     background-color: transparent;
 }
 
+ .openerp .modal-body .oe_view_manager_view_form .oe_formview, .openerp .modal-body .oe_view_manager_view_form .oe_formview .oe_form_container .oe_form > div{
+     background-color: white;
+ }
+
 .openerp .oe_application .oe_view_manager_wrapper .oe_view_manager_body .oe_view_manager_view_form .oe_formview .oe_form_container .oe_form .oe_form_sheetbg{
     box-shadow: none;
 }
