@@ -11,24 +11,24 @@
     border-top-right-radius: 10px
 }
 
-.modal-open .modal-dialog .modal-content .modal-header .close {
-    float: right;
-    border-top-right-radius: 10px;
-    border-left: 1px solid #888;
-    padding: 1em 3% 2em;
-    margin-top: -1.5em;
-    margin-right: -1.5em;
-    background: #FFC7C7
-}
+/*.modal-open .modal-dialog .modal-content .modal-header .close {*/
+    /*float: right;*/
+    /*border-top-right-radius: 10px;*/
+    /*border-left: 1px solid #888;*/
+    /*padding: 1em 3% 2em;*/
+    /*margin-top: -1.5em;*/
+    /*margin-right: -1.5em;*/
+    /*background: #FFC7C7*/
+/*}*/
 
-.modal-open .modal-dialog .modal-content .modal-header .close:before {
-    font-family: FontAwesome;
-    content: "\f00d";
-    color: #4a606b;
-    text-shadow: 0 2px #e6e6e6;
-    font-size: 1em;
-    line-height: 1em
-}
+/*.modal-open .modal-dialog .modal-content .modal-header .close:before {*/
+    /*font-family: FontAwesome;*/
+    /*content: "\f00d";*/
+    /*color: #4a606b;*/
+    /*text-shadow: 0 2px #e6e6e6;*/
+    /*font-size: 1em;*/
+    /*line-height: 1em*/
+/*}*/
 
 .modal-open .modal-dialog .modal-content .modal-header .modal-title {
     float: left
@@ -257,11 +257,15 @@
 
 .oe_form_container .oe_form header {
     background: #fff;
-    height: 4em;
+    /*height: 4em;*/
     padding-top: .4em;
     text-align: center;
     border-top: 1px solid #afafb6;
     border-bottom: 1px solid #afafb6
+}
+
+.openerp .oe_form > :not(.oe_form_nosheet) header ul:not(.oe_tooltip_technical):not(.oe_dropdown_menu){
+    width: 100%;
 }
 
 .oe_form_container .oe_form header .oe_button {
@@ -572,6 +576,7 @@
 
 .openerp .oe_kanban_view div.oe_kanban_group_title{
     margin-right: 0;
+    width: 100%;
 }
 
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header {
@@ -588,10 +593,6 @@
     display: none
 }
 
-.openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers Hospi.oe_kanban_group_header .oe_kanban_header .oe_fold_column .oe_kanban_group_title {
-    margin-right: 0;
-    width: 100%;
-}
 
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups .oe_kanban_groups_headers .oe_kanban_group_header .oe_kanban_header .oe_fold_column .oe_kanban_group_length {
     line-height: 2.3em;
@@ -1096,7 +1097,7 @@ table {
     border-bottom-right-radius: 10px
 }
 
-.oe_view_manager_view_list tbody tr:nth-child(odd) td {
+.oe_view_manager_view_list tbody tr:nth-child(odd) td, .oe_view_manager_view_list tbody tr:nth-child(odd) .oe_list_record_selector {
     background: #fff;
     background: -moz-linear-gradient(top, #fff, 10%, #f4f4f4, 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #fff), color-stop(100%, #f4f4f4));
@@ -1107,7 +1108,7 @@ table {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@colour_one', endColorstr='@colour_two', GradientType=0)
 }
 
-.oe_view_manager_view_list tbody tr:nth-child(even) td {
+.oe_view_manager_view_list tbody tr:nth-child(even) td, .oe_view_manager_view_list tbody tr:nth-child(even) .oe_list_record_selector {
     background: #e2edf3;
     background: -moz-linear-gradient(top, #e2edf3, 10%, #d0e2eb, 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #e2edf3), color-stop(100%, #d0e2eb));
@@ -1177,7 +1178,7 @@ table {
     border-right: 0
 }
 
-.oe_view_manager_view_list .oe_list_field_char, .oe_view_manager_view_list .oe_list_field_datetime, .oe_view_manager_view_list .oe_list_field_many2one, .oe_view_manager_view_list .oe_list_field_text {
+.oe_view_manager_view_list .oe_list_field_char, .oe_view_manager_view_list .oe_list_field_datetime, .oe_view_manager_view_list .oe_list_field_many2one, .oe_view_manager_view_list .oe_list_field_text, .oe_view_manager_view_list .oe_list_record_selector {
     background: #fff;
     text-align: center;
     padding: 2%
@@ -1705,3 +1706,93 @@ h2 a {
 /*.oe_application_menu_placeholder .active{*/
     /*display: block !important;*/
 /*}*/
+
+
+/* form view header foo */
+
+.openerp .oe_form > :not(.oe_form_nosheet) header{
+    padding: 0;
+    background-color: transparent;
+    border-bottom-width: 0;
+}
+
+.nh-view-header-stage{
+    background-color: #ededed;
+    background-image: linear-gradient(to bottom, #fcfcfc, #dedede);
+    width: 100%;
+    display: inline-block;
+    text-align: left;
+    padding: 0 1% 0 0;
+    border-bottom: 1px solid #afafb6;
+}
+
+.nh-view-header-buttons{
+    background-color: transparent;
+    padding-top: 8px;
+}
+
+.openerp ul.oe_form_status_clickable li:nth-last-child(2) > .arrow, .openerp ul.oe_form_status_clickable li:nth-last-child(2) > .arrow span{
+    display: none;
+}
+
+.openerp ul.oe_form_status_clickable li:last-child{
+    border-right: 0px solid black;
+}
+
+.nh-view-header-stage ul li:last-child{
+    float: right;
+    background: none;
+    border-radius: 5px;
+    cursor: pointer !important;
+}
+
+.openerp .nh-view-header-stage ul.oe_form_status_clickable li{
+    cursor: default;
+}
+
+.openerp .nh-view-header-stage ul.oe_form_status_clickable li.oe_active{
+    margin-top: 1px;
+}
+
+.openerp .nh-view-header-stage ul.oe_form_status_clickable li.oe_active:hover, .openerp .nh-view-header-stage ul.oe_form_status_clickable li.oe_active:hover .arrow > span{
+    background-color: #5382b9;
+    background-image: linear-gradient(to bottom, #729fcf, #3465a4);
+}
+
+.openerp .nh-view-header-stage ul.oe_form_status_clickable li:hover, .openerp .nh-view-header-stage ul.oe_form_status_clickable li:hover .arrow > span{
+    background-color: #ededed;
+    background-image: linear-gradient(to bottom, #fcfcfc, #dedede);
+}
+
+.nh-view-header-stage ul li:last-child .label{
+    background: -webkit-linear-gradient(#f7fafc, #afcfde);
+    box-shadow: 0 1px 1px #666;
+    border: 1px solid #afcfde;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #79afc8;
+    text-shadow: 0 1px 1px #b3b3b3;
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+.openerp ul.oe_form_status_clickable li:last-child > .label{
+        padding-right: 24px;
+}
+
+/* long word wrap fix */
+.openerp .oe_form .oe_form_field_text .oe_form_text_content{
+    word-break: break-all;
+}
+
+
+/* form view header override */
+.openerp .oe_view_manager_view_form .oe_formview{
+    background: #c5c5c5;
+}
+.openerp .oe_view_manager_view_form .oe_formview .oe_form_container, .openerp .oe_view_manager_view_form .oe_formview .oe_form_container .oe_form, .openerp .oe_view_manager_view_form .oe_formview .oe_form_container .oe_form > div {
+    background-color: transparent;
+}
+
+.openerp .oe_application .oe_view_manager_wrapper .oe_view_manager_body .oe_view_manager_view_form .oe_formview .oe_form_container .oe_form .oe_form_sheetbg{
+    box-shadow: none;
+}
