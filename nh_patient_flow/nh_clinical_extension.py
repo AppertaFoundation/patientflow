@@ -1,4 +1,6 @@
 from openerp.osv import orm, fields, osv
+from openerp.tools import SUPERUSER_ID
+from datetime import datetime as dt, timedelta as td
 
 
 class nh_clinical_patient_flow_patient(orm.Model):

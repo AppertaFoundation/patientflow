@@ -9,7 +9,7 @@ class nh_clinical_patient_referral(orm.Model):
                                'type': 'schedule',
                                'context': 'etakelist',
                                'create_data': {
-                                   'location_id': 'data_ref.tci_location_id.id'
+                                   'location_id': 'activity.data_ref.tci_location_id.id'
                                }}]}
 
 
@@ -39,7 +39,7 @@ class nh_clinical_patient_admission(orm.Model):
                                'type': 'schedule',
                                'context': 'etakelist',
                                'create_data': {
-                                   'location_id': 'data_ref.suggested_location_id.id'
+                                   'location_id': 'activity.data_ref.suggested_location_id.id'
                                }}]}
 
 
@@ -50,9 +50,19 @@ class nh_clinical_adt_patient_transfer(orm.Model):
     _POLICY = {'activities': [{'model': 'nh.clinical.patient.tci',
                                'type': 'schedule', 
                                'context': 'etakelist',
+                               'domains': [
+                                   {
+                                       'object': 'nh.activity',
+                                       'domain': [['data_model', 'in', ['nh.clinical.patient.tci',
+                                                                        'nh.clinical.adt.patient.discharge',
+                                                                        'nh.clinical.patient.clerking',
+                                                                        'nh.clinical.ptwr']],
+                                                  ['state', 'not in', ['completed', 'cancelled']]]
+                                   }
+                               ],
                                'cancel_others': True,
                                'create_data': {
-                                   'location_id': 'data_ref.location_id.id'
+                                   'location_id': 'activity.data_ref.location_id.id'
                                }
                               }]}
     
@@ -65,10 +75,20 @@ class nh_clinical_adt_spell_update(orm.Model):
                                'type': 'schedule', 
                                'context': 'etakelist',
                                'cancel_others': True,
+                               'domains': [
+                                   {
+                                       'object': 'nh.activity',
+                                       'domain': [['data_model', 'in', ['nh.clinical.patient.tci',
+                                                                        'nh.clinical.adt.patient.discharge',
+                                                                        'nh.clinical.patient.clerking',
+                                                                        'nh.clinical.ptwr']],
+                                                  ['state', 'not in', ['completed', 'cancelled']]]
+                                   }
+                               ],
                                'create_data': {
-                                   'location_id': 'data_ref.suggested_location_id.id'
+                                   'location_id': 'activity.data_ref.suggested_location_id.id'
                                }
-                              }]}
+                               }]}
     
 
 class nh_clinical_adt_patient_cancel_discharge(orm.Model):
@@ -80,9 +100,13 @@ class nh_clinical_adt_patient_cancel_discharge(orm.Model):
                                'context': 'etakelist',
                                'cancel_others': True,
                                'create_data': {
-                                   'location_id': 'data_ref.last_location_id.parent_id.id'
+                                   'suggested_location_id':
+                                       "location_pool.get_closest_parent_id(cr, uid, 'ward', "
+                                       "activity.data_ref.last_location_id.id, context=context) if "
+                                       "activity.data_ref.last_location_id.usage != 'ward' else "
+                                       "activity.data_ref.last_location_id.id"
                                }
-                              }]}
+                               }]}
 
 
 class nh_clinical_adt_patient_cancel_transfer(orm.Model):
@@ -92,8 +116,18 @@ class nh_clinical_adt_patient_cancel_transfer(orm.Model):
     _POLICY = {'activities': [{'model': 'nh.clinical.patient.tci',
                                'type': 'schedule', 
                                'context': 'etakelist',
-                               'cancel_others': True,
+                               'cancel_others': False,
+                               'domains': [
+                                   {
+                                       'object': 'nh.activity',
+                                       'domain': [['data_model', 'in', ['nh.clinical.patient.tci',
+                                                                        'nh.clinical.adt.patient.discharge',
+                                                                        'nh.clinical.patient.clerking',
+                                                                        'nh.clinical.ptwr']],
+                                                  ['state', 'not in', ['completed', 'cancelled']]]
+                                   }
+                               ],
                                'create_data': {
-                                   'location_id': 'data_ref.last_location_id.id'
+                                   'location_id': 'activity.data_ref.last_location_id.id'
                                }
-                              }]}
+                               }]}
