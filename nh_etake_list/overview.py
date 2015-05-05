@@ -46,7 +46,7 @@ class nh_etake_list_overview(orm.Model):
                         ['admitted', 'Admitted']]
     _stage_selection = [['referral', 'Referral'], ['tci', 'To Come In'], ['tbc', 'To be Clerked'],
                         ['cip', 'Clerking in Progress'], ['sr', 'Senior Review'], ['cr', 'Consultant Review'],
-                        ['tbd', 'To Be Discharged'], ['d', 'Discharged'], ['dna', 'DNA']]
+                        ['tbd', 'To Be Discharged'], ['d', 'Discharged']]
     _gender = [['M', 'Male'], ['F', 'Female']]
 
     def _get_dt_ids(self, cr, uid, ids, field_names, arg, context=None):
@@ -144,11 +144,9 @@ class nh_etake_list_overview(orm.Model):
                         case
                             when referral_activity.state is null and tci_activity.state is null then null
                             when spell_activity.state = 'cancelled' then null
-                            when ptwr_activity.state is not null and ptwr_activity.state = 'completed' then 'admitted'
                             when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'discharged'
                             when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'tbd'
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then 'referral'
-                            when tci_activity.state is not null and tci_activity.state = 'cancelled' then 'dna'
                             when tci_activity.state is not null and tci_activity.state = 'scheduled' then 'tci'
                             when clerking_activity.state = 'scheduled' then 'tbc'
                             when clerking_activity.state = 'started' then 'cip'
