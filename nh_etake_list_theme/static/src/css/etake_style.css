@@ -767,7 +767,7 @@
 }
 
 .openerp .oe_webclient .oe_application .oe_kanban_view .oe_kanban_groups_records .oe_kanban_column .oe_kanban_column_cards .oe_kanban_record .tasks .time-till .due {
-    width: 34%;
+    width: 28%;
     color: #403838;
     display: table-cell;
     vertical-align: middle;
@@ -1597,7 +1597,8 @@ html {
     box-shadow: 0 2px 2px #4d4d4d;
     border-bottom: 1px solid #314c59;
     border-top: 1px solid #729db1;
-    min-height: 2.42em
+    min-height: 2.42em;
+    height: 100%;
 }
 
 .openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_unfold_drawer:before {
@@ -1638,7 +1639,8 @@ html {
     box-shadow: 0 2px 2px #4d4d4d;
     border-bottom: 1px solid #314c59;
     border-top: 1px solid #93b3c3;
-    display: table-cell
+    display: table-cell;
+    height: 100%;
 }
 
 .openerp .oe_view_manager_view_search .oe_searchview .oe_searchview_clear:before {
