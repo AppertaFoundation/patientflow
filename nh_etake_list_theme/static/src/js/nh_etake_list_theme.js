@@ -8,6 +8,7 @@ openerp.nh_etake_list_theme = function(instance){
     var QWeb = instance.web.qweb;
     var kiosk_mode = false;
     var initKanban = false;
+    var overview_timer;
 
 //    instance.web.Menu.include({
 //        open_menu: function(id){
@@ -196,11 +197,15 @@ openerp.nh_etake_list_theme = function(instance){
 
     instance.web_kanban.KanbanView.include({
         do_show: function() {
+            var self = this;
         //    var application_height = $(window).height();
         //    //var table_offset = $('.nh_kanban_scroll_fix').offset();
         //    var vertical_padding = 30;
         //    $('.nh_kanban_scroll_fix').css('height', ((application_height-table_offset.top) - (vertical_padding*2)));
             $('.oe_view_manager_switch').hide();
+            overview_timer = setTimeout(function(){
+                self.do_reload();
+            }, 300000); //300000);
         //    if (this.$buttons) {
         //        this.$buttons.show();
         //    }
@@ -212,6 +217,7 @@ openerp.nh_etake_list_theme = function(instance){
             if (this.$buttons) {
                 this.$buttons.hide();
             }
+            clearTimeout(overview_timer);
             return this._super();
         },
         do_add_group: function() {
@@ -255,11 +261,30 @@ openerp.nh_etake_list_theme = function(instance){
             });
         },
 
+        open_record: function(id, editable){
+            clearTimeout(overview_timer);
+            if (this.dataset.select_id(id)) {
+                this.do_switch_view('form', null, { mode: editable ? "edit" : undefined });
+            } else {
+                this.do_warn("Kanban: could not find id#" + id);
+            }
+        },
+
+        do_reload: function(){
+            var self = this;
+            clearTimeout(overview_timer);
+            overview_timer = setTimeout(function(){
+                self.do_reload();
+            }, 300000);
+            this.do_search(this.search_domain, this.search_context, this.search_group_by);
+        },
+
     });
 
     instance.web_kanban.KanbanRecord.include({
           do_action_open: function($action){
               var self = this;
+              clearTimeout(overview_timer);
               var state = get_action_from_state(self.group.value);
               this.rpc('/web/action/load', {'action_id': 'nh_etake_list.action_show_'+state}).done(function(result){
                   result.res_id = self.id;
