@@ -456,6 +456,13 @@ openerp.nh_etake_list_theme = function(instance){
             });
         });
     },
+
+        ir_actions_act_window: function(action, options){
+            if('clear_breadcrumb' in action){
+                this.clear_breadcrumbs();
+            }
+            this._super();
+        }
     });
 
     instance.web.ActionManager.include({
@@ -546,6 +553,57 @@ openerp.nh_etake_list_theme = function(instance){
                 }
             }
         },
+    })
+
+    instance.web.SearchView.include({
+       events: {
+        // focus last input if view itself is clicked
+        'click': function (e) {
+            if (e.target === this.$('.oe_searchview_facets')[0]) {
+                this.$('.oe_searchview_input:last').focus();
+            }
+        },
+        // search button
+        'click button.oe_searchview_search': function (e) {
+            e.stopImmediatePropagation();
+            this.do_search();
+        },
+        'click .oe_searchview_clear': function (e) {
+            e.stopImmediatePropagation();
+            var self = this;
+            if(instance.webclient.action_manager.inner_widget.action.res_model === "nh.etake_list.overview" && instance.webclient.action_manager.inner_widget.active_view === "kanban") {
+                self.query.each(function(q){
+                   if(q.attributes.category !== 'GroupBy'){
+                       self.query.remove(q);
+                   }
+                });
+            }else{
+                this.query.reset();
+            }
+        },
+        'click .oe_searchview_unfold_drawer': function (e) {
+            e.stopImmediatePropagation();
+            if (this.drawer)
+                this.drawer.toggle();
+        },
+        'keydown .oe_searchview_input, .oe_searchview_facet': function (e) {
+            switch(e.which) {
+            case $.ui.keyCode.LEFT:
+                this.focusPreceding(e.target);
+                e.preventDefault();
+                break;
+            case $.ui.keyCode.RIGHT:
+                if (!this.autocomplete.is_expandable()) {
+                    this.focusFollowing(e.target);
+                }
+                e.preventDefault();
+                break;
+            }
+        },
+        'autocompleteopen': function () {
+            this.$el.autocomplete('widget').css('z-index', 9999);
+        },
+    },
     })
 
 
