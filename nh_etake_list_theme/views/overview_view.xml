@@ -150,5 +150,16 @@
             </xpath>
         </template>
 
+
+        <record id="view_nh_etake_list_users_form_simple_modif" model="ir.ui.view">
+            <field name="name">res.users.preferences.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field eval="18" name="priority"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form//group[@string='Email Preferences']" position="replace"></xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>

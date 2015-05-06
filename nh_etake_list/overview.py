@@ -3,6 +3,7 @@ import logging
 from openerp import SUPERUSER_ID
 from datetime import datetime as dt
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as dtf
+from lxml import etree
 
 _logger = logging.getLogger(__name__)
 
@@ -46,7 +47,7 @@ class nh_etake_list_overview(orm.Model):
                         ['admitted', 'Admitted']]
     _stage_selection = [['referral', 'Referral'], ['tci', 'To Come In'], ['tbc', 'To be Clerked'],
                         ['cip', 'Clerking in Progress'], ['sr', 'Senior Review'], ['cr', 'Consultant Review'],
-                        ['admitted', 'Admitted'], ['tbd', 'To Be Discharged'], ['d', 'Discharged'], ['dna', 'DNA']]
+                        ['tbd', 'To Be Discharged'], ['d', 'Discharged']]
     _gender = [['M', 'Male'], ['F', 'Female']]
 
     def _get_dt_ids(self, cr, uid, ids, field_names, arg, context=None):
@@ -144,11 +145,9 @@ class nh_etake_list_overview(orm.Model):
                         case
                             when referral_activity.state is null and tci_activity.state is null then null
                             when spell_activity.state = 'cancelled' then null
-                            when ptwr_activity.state is not null and ptwr_activity.state = 'completed' then 'admitted'
                             when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'discharged'
                             when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'tbd'
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then 'referral'
-                            when tci_activity.state is not null and tci_activity.state = 'cancelled' then 'dna'
                             when tci_activity.state is not null and tci_activity.state = 'scheduled' then 'tci'
                             when clerking_activity.state = 'scheduled' then 'tbc'
                             when clerking_activity.state = 'started' then 'cip'
@@ -452,8 +451,96 @@ class nh_etake_list_overview(orm.Model):
         activity_pool.write(cr, uid, ov['spell_activity_id'][0], {'state': 'started', 'terminate_uid': False, 'date_terminated': False}, context=context)
         return True
 
-
     def print_paper_takelist(self, cr, uid, ids, context=None):
         '''This function prints the picking list'''
         context = dict(context or {}, active_ids=ids)
         return self.pool.get("report").get_action(cr, uid, [], 'nh_etake_list.takelist_report_view', context=context)
+
+    def check_etake_list_presence(self, cr, uid, patient_id, context=None):
+        states = ['Discharged', 'Other', 'Done', 'dna', 'admitted']
+        if not self.search(cr, uid, [['patient_id', '=', patient_id], ['state', 'in', states]], context=context):
+            raise osv.except_osv('eTake List Error!', 'The selected patient is already in the eTake List.')
+        return True
+
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
+        # 349 appears to be form view screen, also test for view_type == 'form'
+        # arch is an XML thing so maybe go in and change edit if possible
+        # need to find way of getting record ID
+        if context is None:
+            context = {}
+        res = super(nh_etake_list_overview, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
+        params = context and context.get('params', False) or False
+        record_id = False
+        if params:
+           record_id = params.get('id', False)
+        else:
+            record_id = context and context.get('active_id', False) or False
+        active_model = context.get('active_model')
+
+        if not record_id or (active_model and active_model != 'nh.etake_list.overview') or view_type != 'form':
+            return res
+
+        record = self.read(cr, uid, record_id, ['state'], context=context)
+        record_state = record.get('state', False)
+        # TODO: Shout at Joel for not changing the Clerking in Process issue on both sides of state attr
+        if record_state and record_state in ['Senior Review', 'Clerking in Process']:
+            doc = etree.XML(res['arch'])
+            form_nodes = doc.xpath("//form")
+            for form_node in form_nodes:
+                form_node.set('edit', '1')
+            res['arch'] = etree.tostring(doc)
+        return res
+
+
+
+
+
+
+
+
+class nh_clinical_patient_referral_form(orm.Model):
+    _name = 'nh.clinical.patient.referral.form'
+    _inherit = 'nh.clinical.patient.referral.form'
+
+    def onchange_patient_id(self, cr, uid, ids, patient_id, context=None):
+        patient_pool = self.pool['nh.clinical.patient']
+        etl_pool = self.pool['nh.etake_list.overview']
+        if not patient_id:
+            return {}
+        etl_pool.check_etake_list_presence(cr, uid, patient_id, context=context)
+        patient = patient_pool.browse(cr, uid, patient_id, context=context)
+        return {
+            'value': {
+                'hospital_number': patient.other_identifier,
+                'nhs_number': patient.patient_identifier if patient.patient_identifier else patient.unverified_nhs,
+                'first_name': patient.given_name,
+                'middle_names': patient.middle_names,
+                'last_name': patient.family_name,
+                'dob': patient.dob,
+                'gender': patient.gender if patient.gender in [g[0] for g in self._gender] else False,
+                'ethnicity': patient.ethnicity if patient.ethnicity in [e[0] for e in self._ethnicity] else False,
+            }
+        }
+
+    def create(self, cr, uid, vals, context=None):
+        if vals.get('patient_id'):
+            etl_pool = self.pool['nh.etake_list.overview']
+            etl_pool.check_etake_list_presence(cr, uid, vals.get('patient_id'), context=context)
+        return super(nh_clinical_patient_referral_form, self).create(cr, uid, vals, context=context)
+
+
+class nh_clinical_patient_tci(orm.Model):
+    _name = 'nh.clinical.patient.tci'
+    _inherit = 'nh.clinical.patient.tci'
+
+    def create(self, cr, uid, vals, context=None):
+        res = super(nh_clinical_patient_tci, self).create(cr, uid, vals, context=context)
+        tci_data = self.browse(cr, uid, res, context=context)
+        activity_pool = self.pool['nh.activity']
+        referral_ids = activity_pool.search(cr, uid, [
+            ['patient_id', '=', tci_data.patient_id.id],
+            ['state', 'not in', ['completed', 'cancelled']],
+            ['data_model', '=', 'nh.clinical.patient.referral']], context=context)
+        for rid in referral_ids:
+            activity_pool.cancel(cr, uid, rid, context=context)
+        return res
