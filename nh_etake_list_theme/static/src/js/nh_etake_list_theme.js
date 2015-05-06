@@ -431,7 +431,54 @@ openerp.nh_etake_list_theme = function(instance){
             });
         });
     },
-    })
+    });
+
+    instance.web.search.InputView.include({
+        onKeydown: function (e) {
+            this.el.normalize();
+            var sel;
+            switch (e.which) {
+            // Do not insert newline, but let it bubble so searchview can use it
+            case $.ui.keyCode.ENTER:
+                e.preventDefault();
+                break;
+
+            // FIXME: may forget content if non-empty but caret at index 0, ok?
+            case $.ui.keyCode.BACKSPACE:
+                sel = this.getSelection();
+                if (sel.start === 0 && sel.start === sel.end) {
+                    e.preventDefault();
+                    var preceding = this.getParent().siblingSubview(this, -1);
+                    if (preceding && (preceding instanceof instance.web.search.FacetView)) {
+                        if(instance.webclient.action_manager.inner_widget.action.res_model === "nh.etake_list.overview" && instance.webclient.action_manager.inner_widget.active_view === "kanban"){
+                            if(preceding.model.attributes.category !== "GroupBy" && preceding.model.attributes.values[0].label !== 'State'){
+                                preceding.model.destroy();
+                            }
+                        }else {
+                            preceding.model.destroy();
+                        }
+                    }
+                }
+                break;
+
+            // let left/right events propagate to view if caret is at input border
+            // and not a selection
+            case $.ui.keyCode.LEFT:
+                sel = this.getSelection();
+                if (sel.start !== 0 || sel.start !== sel.end) {
+                    e.stopPropagation();
+                }
+                break;
+            case $.ui.keyCode.RIGHT:
+                sel = this.getSelection();
+                var len = this.$el.text().length;
+                if (sel.start !== len || sel.start !== sel.end) {
+                    e.stopPropagation();
+                }
+                break;
+            }
+        },
+    });
 
     // override for search view so can't remove group_by on kanban
     instance.web.search.FacetView.include({
@@ -441,9 +488,13 @@ openerp.nh_etake_list_theme = function(instance){
             'click': function (e) {
                 if ($(e.target).is('.oe_facet_remove')) {
                     if(instance.webclient.action_manager.inner_widget.action.res_model === "nh.etake_list.overview" && instance.webclient.action_manager.inner_widget.active_view === "kanban"){
-                        if(instance.webclient.action_manager.inner_widget.searchview.$el.find('.oe_searchview_facet').length < 2){
+                        if(e.currentTarget.innerHTML.indexOf('State') > 0){
                             return false;
                         }
+                        //
+                        //if(instance.webclient.action_manager.inner_widget.searchview.$el.find('.oe_searchview_facet').length < 2){
+                        //    return false;
+                        //}
                     }
                     this.model.destroy();
                     return false;

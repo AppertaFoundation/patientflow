@@ -20,7 +20,7 @@
                     <!--</group>-->
                     <group expand="1" string="Group By...">
                         <filter name="group_by_state" string="State" domain="[]" context="{'group_by':'state'}" help="Group by State"/>
-                        <filter name="group_by_ward" string="Ward" domain="[]" context="{'group_by':'location_id'}" help="Group by Ward"/>
+                        <!--<filter name="group_by_ward" string="Ward" domain="[]" context="{'group_by':'location_id'}" help="Group by Ward"/>-->
                     </group>
                 </search>
             </field>

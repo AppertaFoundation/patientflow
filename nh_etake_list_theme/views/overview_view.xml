@@ -11,10 +11,10 @@
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_card oe_kanban_global_click tasks">
                             <div class="oe_kanban_content">
-                                <t t-if="record.state.raw_value != 'Referral' and record.state.raw_value != 'TCI'">
+                                <t t-if="record.state.raw_value != 'Referral' and record.state.raw_value != 'TCI' and record.state.raw_value != 'Discharged'">
                                 <div class="time-till">
                                     <ul>
-                                        <t t-if="record.state.raw_value != 'Referral' and record.state.raw_value != 'TCI'">
+                                        <t t-if="record.state.raw_value != 'Referral' and record.state.raw_value != 'TCI' and record.state.raw_value != 'Discharged'">
                                             <t t-if="record.review_deadline_polarity.raw_value == '-'"><li class="clock"><i class="time-overdue"></i></li></t>
                                             <t t-if="record.review_deadline_polarity.raw_value != '-'"><li class="clock"><i class="time"></i></li></t>
                                             <li class="due"><field name="review_deadline_polarity"/><field name="review_deadline"/></li>

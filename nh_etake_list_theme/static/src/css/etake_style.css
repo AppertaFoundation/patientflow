@@ -1320,6 +1320,10 @@ table {
     border-bottom: 0 solid #000
 }
 
+.openerp .oe_searchview_drawer .oe_searchview_filters{
+    display: none;
+}
+
 .openerp .oe_application .oe_view_manager_body .oe_searchview_drawer_container .oe_searchview_drawer .oe_searchview_dashboard {
     display: none
 }
