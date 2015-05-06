@@ -13,7 +13,7 @@
             <t t-jquery=".oe_kanban_group_length.oe_tag" t-operation="before">
                 <!--<t t-debug="true"/>-->
                 <t t-if="widget.dataset.model=='nh.etake_list.overview'">
-                    <t t-if="widget.title=='Referral' &amp;&amp; widget.can_create_referral">
+                    <t t-if="widget.title=='Referral'">
                         <a class="btn-head nh_referral_add" href="#"><i class="plus"></i></a>
                     </t>
                     <a class="btn-head nh_kanban_show_list" href="#" t-att-data-state="widget.value"><i class="list-view"></i></a>

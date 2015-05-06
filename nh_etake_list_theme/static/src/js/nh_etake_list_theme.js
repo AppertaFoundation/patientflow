@@ -272,82 +272,6 @@ openerp.nh_etake_list_theme = function(instance){
     });
 
     instance.web_kanban.KanbanGroup.include({
-        init: function (parent, records, group, dataset) {
-        var self = this;
-        this._super(parent);
-        this.$has_been_started = $.Deferred();
-        this.view = parent;
-        this.group = group;
-        this.dataset = dataset;
-        this.dataset_offset = 0;
-        this.aggregates = {};
-        this.value = this.title = null;
-        this.can_create_referral = false;
-
-        var Groups = new openerp.Model('res.groups');
-        var Users = new openerp.Model('res.users');
-        var self = this;
-        Groups.query(['id']).filter([['name', 'in', ['NH Clinical Junior Doctor Group', 'NH Clinical Consultant Group', 'NH Clinical Registrar Group', 'NH Patient Flow GP Referral Team Group']]]).all().then(function(groups){
-            var user_groups = [];
-            for(var i = 0; i < groups.length; i++){
-                var group = groups[i];
-                user_groups.push(group['id']);
-            }
-
-            Users.query(['groups_id']).filter([['id', '=', self.session.uid]]).all().then(function(users){
-                if(users.length > 0){
-                    for(var i = 0; i < users[0]['groups_id'].length; i++){
-                        var user_group = users[0]['groups_id'][i];
-                        for(j = 0; j < user_groups.length; j++){
-                            var group = user_groups[j];
-                            if(user_group == group){
-                                self.can_create_referral = true;
-                            }
-                        }
-                    }
-                }
-            });
-        });
-
-
-        if (this.group) {
-            this.value = group.get('value');
-            this.title = group.get('value');
-            if (this.value instanceof Array) {
-                this.title = this.value[1];
-                this.value = this.value[0];
-            }
-            var field = this.view.group_by_field;
-            if (!_.isEmpty(field)) {
-                try {
-                    this.title = instance.web.format_value(group.get('value'), field, false);
-                } catch(e) {}
-            }
-            _.each(this.view.aggregates, function(value, key) {
-                self.aggregates[value] = instance.web.format_value(group.get('aggregates')[key], {type: 'float'});
-            });
-        }
-
-        if (this.title === false) {
-            this.title = _t('Undefined');
-            this.undefined_title = true;
-        }
-        var key = this.view.group_by + '-' + this.value;
-        if (!this.view.state.groups[key]) {
-            this.view.state.groups[key] = {
-                folded: group ? group.get('folded') : false
-            };
-        }
-        this.state = this.view.state.groups[key];
-        this.$records = null;
-
-        this.records = [];
-        this.$has_been_started.done(function() {
-            self.do_add_records(records);
-        });
-    },
-
-
 
 
        start: function(){
@@ -355,6 +279,34 @@ openerp.nh_etake_list_theme = function(instance){
            if(self.dataset.model !== 'nh.etake_list.overview'){
                return self._super();
            }
+
+           var Groups = new openerp.Model('res.groups');
+                var Users = new openerp.Model('res.users');
+                Groups.query(['id']).filter([['name', 'in', ['NH Clinical Junior Doctor Group', 'NH Clinical Consultant Group', 'NH Clinical Registrar Group', 'NH Patient Flow GP Referral Team Group']]]).all().then(function(groups){
+                    var user_groups = [];
+                    for(var i = 0; i < groups.length; i++){
+                        var groupa = groups[i];
+                        user_groups.push(groupa['id']);
+                    }
+
+                    Users.query(['groups_id']).filter([['id', '=', self.session.uid]]).all().then(function(users){
+                        if(users.length > 0){
+                            for(var i = 0; i < users[0]['groups_id'].length; i++){
+                                var user_group = users[0]['groups_id'][i];
+                                for(j = 0; j < user_groups.length; j++){
+                                    var groupa = user_groups[j];
+                                    if(user_group == groupa){
+                                        self.can_create_referral = true;
+                                    }
+                                }
+                            }
+                        }
+                        if(!self.can_create_referral){
+                            self.$el.find('.nh_referral_add').remove();
+                        }
+                    });
+                });
+
            if (! self.view.group_by) {
                self.$el.addClass("oe_kanban_no_group");
                self.quick = new (get_class(self.view.quick_create_class))(this, self.dataset, {}, false)
