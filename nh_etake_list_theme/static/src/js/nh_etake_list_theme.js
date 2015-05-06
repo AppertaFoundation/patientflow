@@ -276,6 +276,7 @@ openerp.nh_etake_list_theme = function(instance){
 
        start: function(){
            var self = this;
+           self.can_create_referral = false;
            if(self.dataset.model !== 'nh.etake_list.overview'){
                return self._super();
            }
