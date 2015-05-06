@@ -119,7 +119,10 @@ class nh_etake_list_overview(orm.Model):
                         where state != 'completed' and state != 'cancelled'
                     )
                     select
-                        patient.id as id,
+                        case
+                            when spell.id is not null then spell.id
+                            else -patient.id
+                        end as id,
                         patient.gender as gender,
                         patient.dob as dob,
                         extract(year from age(now(), patient.dob)) as age,
@@ -543,4 +546,49 @@ class nh_clinical_patient_tci(orm.Model):
             ['data_model', '=', 'nh.clinical.patient.referral']], context=context)
         for rid in referral_ids:
             activity_pool.cancel(cr, uid, rid, context=context)
+        return res
+
+
+class nh_clinical_adt_patient_discharge(orm.Model):
+    _name = 'nh.clinical.adt.patient.discharge'
+    _inherit = 'nh.clinical.adt.patient.discharge'
+    _columns = {
+        'etl_activity_ids': fields.many2many('nh.activity', 'discharge_activity_rel', 'discharge_id',
+                                             'activity_id', 'eTL Cancelled Activities')
+    }
+
+    def complete(self, cr, uid, activity_id, context=None):
+        res = super(nh_clinical_adt_patient_discharge, self).complete(cr, uid, activity_id, context=context)
+        activity_pool = self.pool['nh.activity']
+        discharge_activity = activity_pool.browse(cr, SUPERUSER_ID, activity_id, context=context)
+        etl_models = ['nh.clinical.patient.referral', 'nh.clinical.patient.tci', 'nh.clinical.patient.clerking',
+                      'nh.clinical.patient.review', 'nh.clinical.ptwr', 'nh.clinical.adt.patient.discharge']
+        etl_ids = activity_pool.search(cr, uid, [
+            ['patient_id', '=', discharge_activity.data_ref.patient_id.id],
+            ['state', 'not in', ['completed', 'cancelled']],
+            ['data_model', 'in', etl_models]], context=context)
+        for eid in etl_ids:
+            activity_pool.cancel(cr, uid, eid, context=context)
+        self.write(cr, uid, discharge_activity.data_ref.id, {'etl_activity_ids': [[6, 0, etl_ids]]}, context=context)
+        return res
+
+class nh_clinical_adt_patient_cancel_discharge(orm.Model):
+    _name = 'nh.clinical.adt.patient.cancel_discharge'
+    _inherit = 'nh.clinical.adt.patient.cancel_discharge'
+
+    def complete(self, cr, uid, activity_id, context=None):
+        activity_pool = self.pool['nh.activity']
+        cancel_activity = activity_pool.browse(cr, SUPERUSER_ID, activity_id, context=context)
+        domain = [('data_model', '=', 'nh.clinical.adt.patient.discharge'),
+                  ('state', '=', 'completed'),
+                  ('patient_id', '=', cancel_activity.data_ref.patient_id.id)]
+        last_discharge_activity_id = activity_pool.search(cr, uid, domain,
+                                                          order='date_terminated desc, sequence desc', context=context)
+        if not last_discharge_activity_id:
+            raise osv.except_osv('Cancel Discharge Error!', 'The patient was not discharged!')
+        last_discharge = activity_pool.browse(cr, uid, last_discharge_activity_id[0], context=context)
+        for etl_id in last_discharge.data_ref.etl_activity_ids:
+            activity_pool.write(cr, uid, etl_id.id, {'state': 'scheduled'}, context=context)
+        res = super(nh_clinical_adt_patient_cancel_discharge, self).complete(cr, uid, activity_id, context=context)
+        activity_pool.write(cr, uid, last_discharge.id, {'parent_id': False}, context=context)
         return res

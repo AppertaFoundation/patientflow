@@ -458,6 +458,15 @@ openerp.nh_etake_list_theme = function(instance){
     },
     });
 
+    instance.web.ActionManager.include({
+        ir_actions_act_window: function(action, options){
+            if('clear_breadcrumb' in action){
+                this.clear_breadcrumbs();
+            }
+            return this._super(action, options);
+        },
+    })
+
     instance.web.search.InputView.include({
         onKeydown: function (e) {
             this.el.normalize();

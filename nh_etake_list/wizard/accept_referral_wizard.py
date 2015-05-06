@@ -13,9 +13,26 @@ class accept_referral_wizard(osv.TransientModel):
     def submit(self, cr, uid, ids, context=None):
         data = self.browse(cr, uid, ids[0], context)
         activity_pool = self.pool['nh.activity']
+        view_pool = self.pool['ir.ui.view']
 
         activity_pool.submit(cr, SUPERUSER_ID, data.referral_activity_id.id, {
             'location_id': data.tci_location_id.id, 'tci_location_id': data.tci_location_id.id}, context=context)
         activity_pool.complete(cr, uid, data.referral_activity_id.id, context=context)
 
-        return {'type': 'ir.actions.act_window_close'}
+        view_id = view_pool.search(cr, SUPERUSER_ID, [['name', '=', 'NH eTake List Overview Kanban View']], context=context)
+
+        view = {
+            'type': 'ir.actions.act_window',
+            'res_model': 'nh.etake_list.overview',
+            'name': 'Referral Board',
+            'view_type': 'form',
+            'view_mode': 'kanban',
+            'context': {'search_default_group_by_state': 1},
+            'domain': [('state', 'not in', ['Done', 'Other', 'dna', 'to_dna', 'admitted']),
+                       ('hours_from_discharge', '<', 12)],
+            'view_id': view_id[0],
+            'target': 'current',
+            'clear_breadcrumb': True
+        }
+
+        return view

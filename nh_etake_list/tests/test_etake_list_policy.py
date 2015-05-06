@@ -88,6 +88,7 @@ class TestETakeListPolicy(common.SingleTransactionCase):
         self.assertTrue(referral_activity_data['date_terminated'], msg="Referral Accepted: Date terminated not registered.")
         self.assertTrue(referral_activity_data['terminate_uid'][0] == self.cu_id, msg="Referral Accepted: Completed by (user) not registered correctly.")
         # Patient TCI
+        overview_id = self.overview_pool.search(cr, uid, [['form_id', '=', form_id]])
         overview_data = self.overview_pool.read(cr, uid, overview_id[0], ['state', 'activity_id'])
         self.assertTrue(overview_data['state'] == 'TCI', msg="State is %s, it should be To Come In" % overview_data['state'])
         tci_activity_ids = self.activity_pool.search(cr, uid, [['state', 'not in', ['completed', 'cancelled']], ['patient_id', '=', patient_id[0]], ['data_model', '=', 'nh.clinical.patient.tci']])

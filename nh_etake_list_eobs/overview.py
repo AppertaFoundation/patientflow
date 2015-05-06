@@ -58,7 +58,10 @@ class nh_etake_list_overview(orm.Model):
                         where state != 'completed' and state != 'cancelled'
                     )
                     select
-                        patient.id as id,
+                        case
+                            when spell.id is not null then spell.id
+                            else -patient.id
+                        end as id,
                         patient.gender as gender,
                         patient.dob as dob,
                         extract(year from age(now(), patient.dob)) as age,
