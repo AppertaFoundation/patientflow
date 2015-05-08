@@ -5,7 +5,7 @@
 
 
     openerp.Tour.register({
-        id: 'refferal_nurse_able_to_create_referral',
+        id: 'referral_nurse_able_to_create_referral',
         name: _t("Reconcile the demo bank statement"),
         path: '/web?debug=',
         //mode: 'test',
@@ -42,6 +42,11 @@
                 title:     _t("Enter Medical History"),
                 element:   'textarea[name=medical_history_notes]',
                 sampleText: 'Test Medical History Notes'
+            },
+            {
+                title:     _t("Enter Allergies"),
+                element:   'textarea[name=allergies]',
+                sampleText: 'Test Allergies'
             },
             {
                 title:     _t("Save"),
