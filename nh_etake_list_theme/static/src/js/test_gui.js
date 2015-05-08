@@ -33,7 +33,7 @@
                 element:   '#oe-field-input-16',
                 sampleText: 'Klocko, Lindell'
             },
-             {
+            {
                 title:     _t("Enter Symptoms"),
                 element:   'textarea[name=symptoms_notes]',
                 sampleText: 'Test Symptom Notes'
