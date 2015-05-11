@@ -51,6 +51,11 @@
             {
                 title:     _t("Save"),
                 element:   '.oe_form_button_save'
+            },
+
+            {
+                title:     _t("Referral Created"),
+                waitFor:   ('td.oe_kanban_column:nth-child(1) div.oe_fold_column.oe_kanban_record').length + 1
             }
  
         ]
