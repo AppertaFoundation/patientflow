@@ -141,6 +141,7 @@
                 <script type="text/javascript" src="/nh_etake_list_theme/static/src/js/referral_nurse_able_to_create_referral.js"/>
                 <script type="text/javascript" src="/nh_etake_list_theme/static/src/js/referral_nurse_able_to_update_patient_arrival.js"/>
                 <script type="text/javascript" src="/nh_etake_list_theme/static/src/js/receptionist_able_to_update_patient_arrival.js"/>
+                <script type="text/javascript" src="/nh_etake_list_theme/static/src/js/junior_doctor_able_to_update_patient_clerking_in_progress_stage.js"/>
 
             </xpath>
         </template>

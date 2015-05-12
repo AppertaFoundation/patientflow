@@ -1,6 +1,4 @@
-/**
- * Created by neova on 11/05/15.
- */
+
 (function () {
     'use strict';
 
@@ -34,6 +32,7 @@
                 title:     _t("patient arrival updated and patient is in To be clerked stage"),
                 waitFor:   ('td.oe_kanban_column:nth-child(3) div.oe_fold_column.oe_kanban_record').length + 1
             }
+
         ]
     });
 
