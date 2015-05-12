@@ -52,7 +52,8 @@
             {
                 title:     _t("Blocking Tasks"),
                 element:   '#oe-field-input-32:checked'
-            },*/
+            },
+*/
             {
                 title:     _t("Submit Tasks"),
                 element:   '.oe_button.oe_form_button.oe_highlight'

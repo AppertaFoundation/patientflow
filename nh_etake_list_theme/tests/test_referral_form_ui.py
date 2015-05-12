@@ -31,6 +31,11 @@ class TestReferralFormUI(openerp.tests.HttpCase):
             "openerp.Tour.run('junior_doctor_able_to_create_diagnosis_plans_tasks', 'test')",
             "openerp.Tour.tours.junior_doctor_able_to_create_diagnosis_plans_tasks", login="james"
         )
+    def test_junior_doctor_able_to_update_patient_arrival(self):
+        self.phantom_js("/web",
+            "openerp.Tour.run('junior_doctor_able_to_update_patient_arrival', 'test')",
+            "openerp.Tour.tours.junior_doctor_able_to_update_patient_arrival", login="james"
+        )
 
 
 
