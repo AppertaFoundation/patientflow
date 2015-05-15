@@ -1,0 +1,13 @@
+{
+  "name": "NHeTakeListGuiTest",
+  "description": "CoffeeScript / JavaScript for testing NH eTakeList GUI",
+  "author": "Ami Patel <ami@neovahealth.co.uk>",
+  "dependencies": {
+  	"gulp": "3.8.11",
+  	"del": "1.1.1",
+    "gulp-coffeelint": "0.4.0",
+    "gulp-coffee": "2.3.1",
+    "gulp-concat": "2.5.2 ",
+    "gulp-docco": "0.0.4"
+  }
+}
