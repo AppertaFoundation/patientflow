@@ -29,7 +29,7 @@ class nh_clinical_patient_tci(orm.Model):
 
     def complete(self, cr, uid, activity_id, context=None):
         activity_pool = self.pool['nh.activity']
-        api_pool = self.pool['nh.clinical.api']
+        spell_pool = self.pool['nh.clinical.spell']
         move_pool = self.pool['nh.clinical.patient.move']
         tci_activity = activity_pool.browse(cr, uid, activity_id, context)
         except_if(not tci_activity.data_ref.location_id,
@@ -38,18 +38,19 @@ class nh_clinical_patient_tci(orm.Model):
 
         tci_activity = activity_pool.browse(cr, uid, activity_id, context)
         # set spell location
-        spell_activity_id = api_pool.get_patient_spell_activity_id(cr, SUPERUSER_ID, tci_activity.data_ref.patient_id.id, context=context)
-        except_if(not spell_activity_id,
+        spell_id = spell_pool.get_by_patient_id(cr, SUPERUSER_ID, tci_activity.data_ref.patient_id.id, context=context)
+        spell = spell_pool.browse(cr, uid, spell_id, context=context)
+        except_if(not spell_id,
                   cap="Spell in state 'started' is not found for patient_id=%s" % tci_activity.data_ref.patient_id.id,
                   msg="Referral can not be completed")
         # move to location
         move_activity_id = move_pool.create_activity(cr, SUPERUSER_ID,
-                                                    {'parent_id': spell_activity_id,
+                                                    {'parent_id': spell.activity_id.id,
                                                      'creator_id': activity_id},
                                                     {'patient_id': tci_activity.data_ref.patient_id.id,
                                                      'location_id': tci_activity.data_ref.location_id.id})
         activity_pool.complete(cr, SUPERUSER_ID, move_activity_id)
-        activity_pool.submit(cr, SUPERUSER_ID, spell_activity_id, {'location_id': tci_activity.data_ref.location_id.id})
+        activity_pool.submit(cr, SUPERUSER_ID, spell.activity_id.id, {'location_id': tci_activity.data_ref.location_id.id})
         # trigger tci policy activities
         self.trigger_policy(cr, uid, activity_id, location_id=tci_activity.data_ref.location_id.id, context=context)
         return res
@@ -301,12 +302,11 @@ class nh_clinical_patient_referral(orm.Model):
 
     def complete(self, cr, uid, activity_id, context=None):
         activity_pool = self.pool['nh.activity']
-        api_pool = self.pool['nh.clinical.api']
+        spell_pool = self.pool['nh.clinical.spell']
         res = super(nh_clinical_patient_referral, self).complete(cr, uid, activity_id, context)
         referral = activity_pool.browse(cr, SUPERUSER_ID, activity_id, context=context)
-        spell_activity_id = api_pool.get_patient_spell_activity_id(cr, SUPERUSER_ID, referral.patient_id.id, context=context)
-        if not spell_activity_id:
-            spell_pool = self.pool['nh.clinical.spell']
+        spell_id = spell_pool.get_by_patient_id(cr, SUPERUSER_ID, referral.patient_id.id, context=context)
+        if not spell_id:
             spell_activity_id = spell_pool.create_activity(cr, SUPERUSER_ID, {'creator_id': activity_id},
                                                            {'patient_id': referral.patient_id.id,
                                                             'location_id': referral.data_ref.tci_location_id.id,

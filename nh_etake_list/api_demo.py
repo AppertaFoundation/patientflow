@@ -39,7 +39,6 @@ class nh_clinical_api_demo(orm.AbstractModel):
             if there is no data the default behaviour will be to add a receptionist per ward i.e. 'RU' and 'RT' and
             a junior doctor and consultant responsible for all beds in the ward i.e. 'JDU' and 'JDT' / 'CU' and 'CT'
         """
-        api = self.pool['nh.clinical.api']
         activity_pool = self.pool['nh.activity']
         context_pool = self.pool['nh.clinical.context']
 
