@@ -319,18 +319,22 @@ openerp.nh_etake_list_theme = function(instance){
     });
 
     instance.web_kanban.KanbanRecord.include({
-          do_action_open: function($action){
-              var self = this;
-              clearTimeout(overview_timer);
-              var state = get_action_from_state(self.group.value);
-              this.rpc('/web/action/load', {'action_id': 'nh_etake_list.action_show_'+state}).done(function(result){
-                  result.res_id = self.id;
-                  result.view_type = 'form';
-                  instance.client.action_manager.do_action(result).done(function(){
-                     $('tr[data-id='+self.id+']').trigger('click');
-                  });
-              });
-          },
+        do_action_open: function($action){
+            var self = this;
+            clearTimeout(overview_timer);
+            if (this.session.username == 'kiosk') {
+                // Redirect to the login page (if we are logged in as user 'kiosk')
+                window.location.href = '/web/login';
+            }
+            var state = get_action_from_state(self.group.value);
+            this.rpc('/web/action/load', {'action_id': 'nh_etake_list.action_show_'+state}).done(function(result){
+                result.res_id = self.id;
+                result.view_type = 'form';
+                instance.client.action_manager.do_action(result).done(function(){
+                    $('tr[data-id='+self.id+']').trigger('click');
+                });
+            });
+        },
     });
 
     instance.web_kanban.KanbanGroup.include({
@@ -420,20 +424,26 @@ openerp.nh_etake_list_theme = function(instance){
                });
 
            });
+           var self = this;
            this.$el.find('.nh_kanban_show_list').click(function(){
-               var ds = $(this).attr('data-state');
-               var state = get_action_from_state(ds);
-              self.rpc('/web/action/load', {action_id: 'nh_etake_list.action_show_'+state}).done(function(result) {
+               if (self.session.username != 'kiosk') {
+                   var ds = $(this).attr('data-state');
+                   var state = get_action_from_state(ds);
+                   self.rpc('/web/action/load', {action_id: 'nh_etake_list.action_show_' + state}).done(function (result) {
 
+                       instance.client.on_menu_action({'action_id': result.id}).done(function () {
+                           $('.oe_secondary_menu .active').removeClass('active');
+                           $('.oe_secondary_menu a[data-action-id=' + result.id + ']').parent().addClass('active');
+                           //$('.oe_list_buttons .oe_list_add').trigger('click');
+                       });
 
-                  instance.client.on_menu_action({'action_id': result.id}).done(function(){
-                      $('.oe_secondary_menu .active').removeClass('active');
-                      $('.oe_secondary_menu a[data-action-id='+result.id+']').parent().addClass('active');
-                      //$('.oe_list_buttons .oe_list_add').trigger('click');
-                  });
-
-              });
+                   });
+               } else {
+                   // Redirect to the login page (if we are logged in as user 'kiosk')
+                   window.location.href = '/web/login';
+               }
            });
+
            // Add bounce effect on image '+' of kanban header when click on empty space of kanban grouped column.
            this.$records.on('click', '.oe_kanban_show_more', this.do_show_more);
            if (this.state.folded) {
