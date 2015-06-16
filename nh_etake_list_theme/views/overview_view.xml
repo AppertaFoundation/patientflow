@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="task-numbers">
                                     <t t-if="record.state.raw_value == 'TCI'">
-                                        <ul class="task">
+                                        <ul class="task" groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_receptionist,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
                                             <li>
                                                 <button name="complete_tci" type="object" class="oe_highlight btn-task">Arrived</button>
                                             </li>
@@ -86,7 +86,7 @@
                                     <t t-if="record.state.raw_value == 'Senior Review'">
                                         <ul class="task" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">
                                             <li>
-                                                <button name="complete_review" type="object" class="oe_highlight btn-task">Complete</button>
+                                                <button name="kanban_complete_review" type="object" class="oe_highlight btn-task">Complete</button>
                                             </li>
                                         </ul>
                                     </t>

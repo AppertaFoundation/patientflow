@@ -24,6 +24,26 @@ class nh_clinical_doctor_task(orm.Model):
         return True
 
 
+class nh_etake_list_complete_review(orm.TransientModel):
+    _name = 'nh.etl.complete_review'
+    _columns = {
+        'message': fields.char('Dialog Message'),
+        'overview_id': fields.many2one('nh.etake_list.overview', 'Patient')
+    }
+    _defaults = {
+        'message': 'Do you want to admit or discharge the patient?'
+    }
+
+    def complete_admit(self, cr, uid, ids, context=None):
+        wiz = self.browse(cr, uid, ids[0], context=context)
+        self.pool['nh.etake_list.overview'].complete_review(cr, uid, wiz.overview_id.id, context=context)
+        return {'type': 'ir.actions.act_window_close'}
+
+    def complete_discharge(self, cr, uid, ids, context=None):
+        wiz = self.browse(cr, uid, ids[0], context=context)
+        self.pool['nh.etake_list.overview'].to_be_discharged(cr, uid, wiz.overview_id.id, context=context)
+        return {'type': 'ir.actions.act_window_close'}
+
 class nh_etake_list_overview(orm.Model):
     _name = "nh.etake_list.overview"
     _inherits = {'nh.activity': 'activity_id'}
@@ -359,6 +379,8 @@ class nh_etake_list_overview(orm.Model):
         }
 
     def complete_review(self, cr, uid, ids, context=None):
+        if isinstance(ids, (int, long)):
+            ids = [ids]
         ov = self.read(cr, uid, ids[0], ['state', 'patient_id', 'spell_activity_id', 'activity_id'], context=context)
         if ov['state'] != 'Senior Review':
             raise osv.except_osv('Error!', 'Trying to complete patient review out of Senior Review state')
@@ -372,7 +394,21 @@ class nh_etake_list_overview(orm.Model):
         }, {}, context=context)
         return True
 
+    def kanban_complete_review(self, cr, uid, ids, context=None):
+        context.update({'default_overview_id': ids[0]})
+        return {
+            'name': 'Complete Senior Review',
+            'type': 'ir.actions.act_window',
+            'res_model': 'nh.etl.complete_review',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'target': 'new',
+            'context': context
+        }
+
     def to_be_discharged(self, cr, uid, ids, context=None):
+        if isinstance(ids, (int, long)):
+            ids = [ids]
         ov = self.read(cr, uid, ids[0], ['state', 'patient_id', 'spell_activity_id', 'activity_id', 'hospital_number'], context=context)
         if ov['state'] != 'Senior Review':
             raise osv.except_osv('Error!', 'Trying to complete patient review out of Senior Review state')
