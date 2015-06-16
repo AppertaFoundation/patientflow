@@ -258,13 +258,13 @@ class nh_etake_list_overview(orm.Model):
         activity_pool = self.pool['nh.activity']
         for ov in self.browse(cr, uid, ids, context=context):
             if 'diagnosis' in vals:
-                if ov.state not in ['To be Clerked', 'Clerking in Process']:
-                    raise osv.except_osv('Error!', 'The patient has already been clerked!')
+                if ov.state not in ['To be Clerked', 'Clerking in Process', 'Senior Review']:
+                    raise osv.except_osv('Error!', 'The patient has already been reviewed!')
                 activity_pool.submit(cr, uid, ov.activity_id.id, {'diagnosis': vals['diagnosis']}, context=context)
                 activity_pool.submit(cr, uid, ov.spell_activity_id.id, {'diagnosis': vals['diagnosis']}, context=context)
             if 'plan' in vals:
-                if ov.state not in ['To be Clerked', 'Clerking in Process']:
-                    raise osv.except_osv('Error!', 'The patient has already been clerked!')
+                if ov.state not in ['To be Clerked', 'Clerking in Process', 'Senior Review']:
+                    raise osv.except_osv('Error!', 'The patient has already been reviewed!')
                 activity_pool.submit(cr, uid, ov.activity_id.id, {'plan': vals['plan']}, context=context)
                 activity_pool.submit(cr, uid, ov.spell_activity_id.id, {'doctor_plan': vals['plan']}, context=context)
         return True
