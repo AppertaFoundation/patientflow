@@ -26,6 +26,10 @@
                         font-size: 0.9em;
                         page-break-inside: avoid;
                     }
+                    .main-table td, .main-table th{
+                        text-align: left;
+                        padding: 0 40px 10px 0;
+                    }
                     .inner-table{
                         border-collapse: collapse;
                     }
@@ -100,119 +104,65 @@
                         <t t-if="sort_by=='W'">
                             <t t-foreach="take_list" t-as="take">
                                 <h3><t t-esc="take['location']"/></h3>
-                                <table t-foreach="take['patients']" t-as="patient" class="main-table">
-                                    <tr>
-                                        <t t-if="'clerking_deadline' in patient and patient['clerking_deadline']"><td class="clerking-deadline"><t t-esc="patient['clerking_deadline']"/></td></t>
-                                        <t t-if="'clerking_deadline' not in patient"><td></td></t>
-                                        <t t-if="'clerking_deadline' in patient and not patient['clerking_deadline']"><td></td></t>
-                                        <td colspan="3"></td>
-                                    </tr>
-                                    <tr>
-                                        <td valign="top" class="outer-table who">
-                                            <table class="inner-table">
-                                                <tr>
-                                                    <td valign="top" class="left-cell"><strong>Name</strong></td>
-                                                    <td valign="top" class="right-cell"><t t-esc="patient['display_name']"/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="top" class="left-cell"><strong>DOB</strong></td>
-                                                    <td valign="top" class="right-cell"><t t-esc="patient['dob']"/> <strong>(<t t-esc="patient['age']"/>)</strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="top" class="left-cell"><strong>Gender</strong></td>
-                                                    <td valign="top" class="right-cell"><t t-esc="patient['gender']"/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="top" class="left-cell"><strong>Hosp No.</strong></td>
-                                                    <td valign="top" class="right-cell"><t t-esc="patient['hospital_number']"/></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td valign="top" class="outer-table where">
-                                            <table class="inner-table">
-                                                <tr>
-                                                    <td valign="top" class="left-cell"><strong>Location</strong></td>
-                                                    <td valign="top" class="right-cell"><t t-esc="patient['location_name']"/></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td valign="top" class="outer-table what">
-                                            <table class="inner-table">
-                                                <tr>
-                                                    <td valign="top" class="left-cell"><strong>Diagnosis</strong></td>
-                                                    <td valign="top" class="right-cell"><t t-esc="patient['diagnosis']"/>
-                                                        <t t-if="patient['diagnosis']">
-                                                            <br/>
-                                                            <br/>
-                                                        </t>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="top" class="left-cell"><strong>Plan</strong></td>
-                                                    <td valign="top" class="right-cell"><t t-esc="patient['plan']"/></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
+                                <table class="main-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>DOB</th>
+                                            <th>Gender</th>
+                                            <th>Hosp No.</th>
+                                            <th>Location</th>
+                                            <th>Diagnosis</th>
+                                            <th>Plan</th>
+                                            <th>Target</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="take['patients']" t-as="patient" class="main-table">
+                                            <td valign="top"><t t-if="patient['display_name']"><t t-esc="patient['display_name']"/></t></td>
+                                            <td valign="top"><t t-if="patient['dob']"><t t-esc="patient['dob']"/></t><t t-if="patient['age']">(<t t-esc="patient['age']"/>)</t></td>
+                                            <td valign="top"><t t-if="patient['gender']"><t t-esc="patient['gender']"/></t></td>
+                                            <td valign="top"><t t-if="patient['hospital_number']"><t t-esc="patient['hospital_number']"/></t></td>
+                                            <td valign="top"><t t-if="patient['location_name']"><t t-esc="patient['location_name']"/></t></td>
+                                            <td valign="top"><t t-if="patient['diagnosis']"><t t-esc="patient['diagnosis']"/></t></td>
+                                            <td valign="top"><t t-if="patient['plan']"><t t-esc="patient['plan']"/></t></td>
+                                            <td valign="top"><t t-if="'clerking_deadline' in patient and patient['clerking_deadline']"><t t-esc="patient['clerking_deadline']"/></t></td>
+                                        </tr>
+                                    </tbody>
                                 </table>
+
+
+
                             </t>
                         </t>
                         <t t-if="sort_by!='W'">
-                            <table t-foreach="take_list" t-as="patient" class="main-table">
-                                <tr>
-                                    <t t-if="'clerking_deadline' in patient and patient['clerking_deadline']"><td class="clerking-deadline"><t t-esc="patient['clerking_deadline']"/></td></t>
-                                    <t t-if="'clerking_deadline' not in patient"><td></td></t>
-                                    <t t-if="'clerking_deadline' in patient and not patient['clerking_deadline']"><td></td></t>
-                                    <td colspan="3"></td>
-                                </tr>
-                                <tr>
-                                    <td valign="top" class="outer-table who">
-                                        <table class="inner-table">
-                                            <tr>
-                                                <td valign="top" class="left-cell"><strong>Name</strong></td>
-                                                <td valign="top" class="right-cell"><t t-esc="patient['display_name']"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td valign="top" class="left-cell"><strong>DOB</strong></td>
-                                                <td valign="top" class="right-cell"><t t-esc="patient['dob']"/> <strong>(<t t-esc="patient['age']"/>)</strong></td>
-                                            </tr>
-                                            <tr>
-                                                <td valign="top" class="left-cell"><strong>Gender</strong></td>
-                                                <td valign="top" class="right-cell"><t t-esc="patient['gender']"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td valign="top" class="left-cell"><strong>Hosp No.</strong></td>
-                                                <td valign="top" class="right-cell"><t t-esc="patient['hospital_number']"/></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td valign="top" class="outer-table where">
-                                        <table class="inner-table">
-                                            <tr>
-                                                <td valign="top" class="left-cell"><strong>Location</strong></td>
-                                                <td valign="top" class="right-cell"><t t-esc="patient['location_name']"/></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td valign="top" class="outer-table what">
-                                        <table class="inner-table">
-                                            <tr>
-                                                <td valign="top" class="left-cell"><strong>Diagnosis</strong></td>
-                                                <td valign="top" class="right-cell"><t t-esc="patient['diagnosis']"/>
-                                                    <t t-if="patient['diagnosis']">
-                                                        <br/>
-                                                        <br/>
-                                                    </t>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td valign="top" class="left-cell"><strong>Plan</strong></td>
-                                                <td valign="top" class="right-cell"><t t-esc="patient['plan']"/></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
+                             <table class="main-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>DOB</th>
+                                            <th>Gender</th>
+                                            <th>Hosp No.</th>
+                                            <th>Location</th>
+                                            <th>Diagnosis</th>
+                                            <th>Plan</th>
+                                            <th>Target</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="take_list" t-as="patient" class="main-table">
+                                            <td valign="top"><t t-if="patient['display_name']"><t t-esc="patient['display_name']"/></t></td>
+                                            <td valign="top"><t t-if="patient['dob']"><t t-esc="patient['dob']"/></t><t t-if="patient['age']">(<t t-esc="patient['age']"/>)</t></td>
+                                            <td valign="top"><t t-if="patient['gender']"><t t-esc="patient['gender']"/></t></td>
+                                            <td valign="top"><t t-if="patient['hospital_number']"><t t-esc="patient['hospital_number']"/></t></td>
+                                            <td valign="top"><t t-if="patient['location_name']"><t t-esc="patient['location_name']"/></t></td>
+                                            <td valign="top"><t t-if="patient['diagnosis']"><t t-esc="patient['diagnosis']"/></t></td>
+                                            <td valign="top"><t t-if="patient['plan']"><t t-esc="patient['plan']"/></t></td>
+                                            <td valign="top"><t t-if="'clerking_deadline' in patient and patient['clerking_deadline']"><t t-esc="patient['clerking_deadline']"/></t></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
                         </t>
                     </div>
                 </t>
