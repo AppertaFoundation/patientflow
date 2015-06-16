@@ -58,7 +58,7 @@
                                 <field name="stage" widget="statusbar" clickable="False" options="{'fold_field': 'fold'}"/>
                             </div>
                             <div class="nh-view-header-buttons">
-                                 <button name="complete_referral" string="Accept"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible': [('state','!=','Referral')]}"/>
+                                <button name="complete_referral" string="Accept"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible': [('state','!=','Referral')]}"/>
                                 <button name="cancel_referral" string="Reject"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible': [('state','!=','Referral')]}"/>
                                 <button name="start_clerking" string="Clerk"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','To be Clerked']]}"/>
                                 <button name="complete_tci" string="Patient Arrived"  type="object" groups="nh_clinical.group_nhc_receptionist,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev" attrs="{'invisible':[['state','!=','TCI']]}"/>
@@ -173,6 +173,9 @@
                                         <field name="location_id"/> <t t-if="record.location_type.raw_value != 'ward'">(<field name="ward_id"/>)</t>
                                     </div>
                                     <div>
+                                        <t t-if="record.state.raw_value == 'Referral'">
+                                            <button name="complete_referral" string="Accept"  type="object" groups="nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev"/>
+                                        </t>
                                         <t t-if="record.state.raw_value == 'TCI'">
                                             <button name="complete_current_stage" type="object" class="oe_highlight" groups="nh_clinical.group_nhc_receptionist,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev">Arrived</button>
                                         </t>
