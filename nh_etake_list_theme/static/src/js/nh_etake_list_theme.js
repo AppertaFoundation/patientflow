@@ -10,6 +10,43 @@ openerp.nh_etake_list_theme = function(instance){
     var initKanban = false;
     var overview_timer;
 
+    instance.web.Menu.include({
+        menu_click: function(id, needaction){
+            if (!id) { return; }
+
+            // find back the menuitem in dom to get the action
+            var $item = this.$el.find('a[data-menu=' + id + ']');
+            if (!$item.length) {
+                $item = this.$secondary_menus.find('a[data-menu=' + id + ']');
+            }
+            var action_id = $item.data('action-id');
+            // If first level menu doesnt have action trigger first leaf
+            if (!action_id) {
+                if(this.$el.has($item).length) {
+                    var $sub_menu = this.$secondary_menus.find('.oe_secondary_menu[data-menu-parent=' + id + ']');
+                    var $items = $sub_menu.find('a[data-action-id]').filter('[data-action-id!=""]');
+                    if($items.length) {
+                        action_id = $items.data('action-id');
+                        id = $items.data('menu');
+                    }
+                }
+            }
+            if (action_id) {
+                this.trigger('menu_click', {
+                    action_id: action_id,
+                    needaction: needaction,
+                    id: id,
+                    previous_menu_id: this.current_menu // Here we don't know if action will fail (in which case we have to revert menu)
+                }, $item);
+            } else {
+                console.log('Menu no action found web test 04 will fail');
+            }
+            if($item.text().indexOf('Print Take List') < 0){
+                this.open_menu(id);
+            }
+        }
+    });
+
 //    instance.web.Menu.include({
 //        open_menu: function(id){
 //            var self = this;
