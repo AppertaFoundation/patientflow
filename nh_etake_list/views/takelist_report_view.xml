@@ -100,7 +100,7 @@
             <t t-call="report.html_container">
                 <t t-call="report.internal_layout">
                     <div class="page">
-                        <h2>TakeList</h2>
+                        <h2><t t-esc="title"/></h2>
                         <t t-if="sort_by=='W'">
                             <t t-foreach="take_list" t-as="take">
                                 <h3><t t-esc="take['location']"/></h3>
