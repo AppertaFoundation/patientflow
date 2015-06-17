@@ -8,8 +8,9 @@ class nh_clinical_admin_userboard_pflow(orm.Model):
     _groups = {'hca': ['NH Clinical HCA Group'],
                'nurse': ['NH Clinical Nurse Group'],
                'ward_manager': ['NH Clinical Ward Manager Group', 'Contact Creation'],
+               'senior_manager': ['NH Clinical Senior Manager Group', 'Contact Creation'],
                'admin': ['NH Clinical Admin Group', 'Contact Creation'],
-               'kiosk': ['NH Clinical Nurse Group'],
+               'kiosk': ['NH Clinical Kiosk Group'],
                'receptionist': ['NH Clinical Receptionist Group'],
                'referral_team': ['NH Patient Flow GP Referral Team Group'],
                'junior_doctor': ['NH Clinical Junior Doctor Group'],
@@ -87,10 +88,20 @@ class nh_clinical_admin_userboard_pflow(orm.Model):
                     case
                         when ug.groups @> '{"NH Patient Flow GP Referral Team Group"}' then true
                         else false
-                    end as referral_team
+                    end as referral_team,
+                    case
+                        when ug.groups @> '{"NH Clinical Senior Manager Group"}' then true
+                        else false
+                    end as senior_manager
                 from res_users users
                 inner join res_partner partner on partner.id = users.partner_id
                 inner join user_groups ug on ug.id = users.id
-                where users.id != 1 and (ug.groups @> '{"NH Clinical HCA Group"}' or ug.groups @> '{"NH Clinical Nurse Group"}' or ug.groups @> '{"NH Clinical Ward Manager Group"}' or ug.groups @> '{"NH Clinical Doctor Group"}' or ug.groups @> '{"NH Clinical Kiosk Group"}' or ug.groups @> '{"NH Clinical Admin Group"}' or ug.groups @> '{"NH Patient Flow GP Referral Team Group"}' or ug.groups @> '{"NH Clinical Receptionist Group"}' or ug.groups @> '{"NH Clinical Junior Doctor Group"}' or ug.groups @> '{"NH Clinical Registrar Group"}' or ug.groups @> '{"NH Clinical Consultant Group"}')
+                where users.id != 1 and (ug.groups @> '{"NH Clinical HCA Group"}' or
+                ug.groups @> '{"NH Clinical Senior Manager Group"}' or ug.groups @> '{"NH Clinical Nurse Group"}' or
+                ug.groups @> '{"NH Clinical Ward Manager Group"}' or ug.groups @> '{"NH Clinical Doctor Group"}' or
+                ug.groups @> '{"NH Clinical Kiosk Group"}' or ug.groups @> '{"NH Clinical Admin Group"}' or
+                ug.groups @> '{"NH Patient Flow GP Referral Team Group"}' or
+                ug.groups @> '{"NH Clinical Receptionist Group"}' or ug.groups @> '{"NH Clinical Junior Doctor Group"}'
+                or ug.groups @> '{"NH Clinical Registrar Group"}' or ug.groups @> '{"NH Clinical Consultant Group"}')
             )
         """ % (self._table, self._table))
