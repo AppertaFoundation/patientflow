@@ -1,6 +1,5 @@
 from openerp.osv import orm, fields, osv
 from openerp import SUPERUSER_ID
-from openerp.addons.nh_activity.activity import except_if
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -119,17 +118,13 @@ class nh_etake_list_review(orm.Model):
         return True
 
     def transfer(self, cr, uid, ids, context=None):
-        move_pool = self.pool['nh.clinical.patient.move']
         ptwr_pool = self.pool['nh.clinical.ptwr']
         api_pool = self.pool['nh.clinical.api']
         activity_pool = self.pool['nh.activity']
         for review in self.browse(cr, uid, ids, context=context):
             spell_activity_id = api_pool.get_patient_spell_activity_id(cr, SUPERUSER_ID, review.patient_id.id, context=context)
-            except_if(not spell_activity_id, msg="Spell not found!")
-            # move_id = move_pool.create_activity(cr, uid, {
-            #     'parent_id': spell_activity_id,
-            #     'creator_id': review.id
-            # }, {'patient_id': review.patient_id.id}, context=context)
+            if not spell_activity_id:
+                raise osv.except_osv("Error!", "Spell not found!")
             ptwr_id = ptwr_pool.create_activity(cr, uid, {
                 'parent_id': spell_activity_id,
                 'creator_id': review.id
@@ -144,7 +139,8 @@ class nh_etake_list_review(orm.Model):
         activity_pool = self.pool['nh.activity']
         for review in self.browse(cr, uid, ids, context=context):
             spell_activity_id = api_pool.get_patient_spell_activity_id(cr, SUPERUSER_ID, review.patient_id.id, context=context)
-            except_if(not spell_activity_id, msg="Spell not found!")
+            if not spell_activity_id:
+                raise osv.except_osv("Error!", "Spell not found!")
             discharge_id = discharge_pool.create_activity(cr, uid, {
                 'parent_id': spell_activity_id,
                 'creator_id': review.id

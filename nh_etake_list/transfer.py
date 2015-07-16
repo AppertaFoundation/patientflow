@@ -1,6 +1,4 @@
-from openerp.osv import orm, fields, osv
-from openerp import SUPERUSER_ID
-from openerp.addons.nh_activity.activity import except_if
+from openerp.osv import orm, fields
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -49,12 +47,10 @@ class nh_etake_list_transfer(orm.Model):
         activity_pool = self.pool['nh.activity']
         for move in self.browse(cr, uid, ids, context=context):
             activity_pool.start(cr, uid, move.id, context=context)
-            # activity_pool.write(cr, uid, move.id, {'user_id': uid}, context=context)
         return True
 
     def complete(self, cr, uid, ids, context=None):
         activity_pool = self.pool['nh.activity']
         for move in self.browse(cr, uid, ids, context=context):
             activity_pool.complete(cr, uid, move.id, context=context)
-            # activity_pool.write(cr, uid, move.id, {'user_id': uid}, context=context)
         return True

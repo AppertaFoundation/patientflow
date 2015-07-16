@@ -1,6 +1,4 @@
 from openerp.osv import orm, fields
-from openerp.addons.nh_activity.activity import except_if
-from openerp import SUPERUSER_ID
 
 
 class nh_clinical_spell(orm.Model):
@@ -11,6 +9,7 @@ class nh_clinical_spell(orm.Model):
         'diagnosis': fields.text('Diagnosis'),
         'doctor_plan': fields.text('Plan'),
     }
+
 
 class nh_clinical_patient_clerking(orm.Model):
     """

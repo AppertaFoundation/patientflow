@@ -1,5 +1,4 @@
 from openerp.osv import orm, fields, osv
-from openerp.addons.nh_activity.activity import except_if
 from openerp import SUPERUSER_ID
 from datetime import datetime as dt
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as dtf
@@ -32,17 +31,18 @@ class nh_clinical_patient_tci(orm.Model):
         spell_pool = self.pool['nh.clinical.spell']
         move_pool = self.pool['nh.clinical.patient.move']
         tci_activity = activity_pool.browse(cr, uid, activity_id, context)
-        except_if(not tci_activity.data_ref.location_id,
-                  msg="Location is not set, referral can't be completed! activity.id = %s" % tci_activity.id)
+        if not tci_activity.data_ref.location_id:
+            raise osv.except_osv("To come in Error!", "Location is not set, referral can't be completed! "
+                                                      "activity.id = %s" % tci_activity.id)
         res = super(nh_clinical_patient_tci, self).complete(cr, uid, activity_id, context)
 
         tci_activity = activity_pool.browse(cr, uid, activity_id, context)
         # set spell location
         spell_id = spell_pool.get_by_patient_id(cr, SUPERUSER_ID, tci_activity.data_ref.patient_id.id, context=context)
         spell = spell_pool.browse(cr, uid, spell_id, context=context)
-        except_if(not spell_id,
-                  cap="Spell in state 'started' is not found for patient_id=%s" % tci_activity.data_ref.patient_id.id,
-                  msg="Referral can not be completed")
+        if not spell_id:
+            raise osv.except_osv("To come in Error!", "Spell in state 'started' is not found for "
+                                                      "patient_id=%s" % tci_activity.data_ref.patient_id.id)
         # move to location
         move_activity_id = move_pool.create_activity(cr, SUPERUSER_ID,
                                                     {'parent_id': spell.activity_id.id,
