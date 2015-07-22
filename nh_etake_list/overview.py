@@ -496,7 +496,13 @@ class nh_etake_list_overview(orm.Model):
         return self.pool.get("report").get_action(cr, uid, [], 'nh_etake_list.takelist_report_view', context=context)
 
     def check_etake_list_presence(self, cr, uid, patient_id, context=None):
+        """
+        Checks the presence of the provided patient in the eTake List
+        :return: True if the patient is not in the list. Raises an exception otherwise
+        """
         states = ['Discharged', 'Other', 'Done', 'dna', 'admitted']
+        if not self.search(cr, uid, [['patient_id', '=', patient_id]], context=context):
+            return True
         if not self.search(cr, uid, [['patient_id', '=', patient_id], ['state', 'in', states]], context=context):
             raise osv.except_osv('eTake List Error!', 'The selected patient is already in the eTake List.')
         return True
