@@ -124,6 +124,9 @@ class nh_etake_list_overview(orm.Model):
     }
 
     def init(self, cr):
+        cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'nh_activity_data_model_ix\'')
+        if not cr.fetchone():
+            cr.execute('CREATE INDEX nh_activity_data_model_ix ON nh_activity (data_model)')
 
         cr.execute("""
                 drop view if exists %s;
