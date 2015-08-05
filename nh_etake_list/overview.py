@@ -156,12 +156,16 @@ class nh_etake_list_overview(orm.Model):
                             when referral_activity.state is null and tci_activity.state is null then 'Done'
                             when spell_activity.state = 'cancelled' then 'Done'
                             when ptwr_activity.state is not null and ptwr_activity.state = 'completed' then 'admitted'
-                            when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'Discharged'
-                            when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'To be Discharged'
+                            when discharge_activity.state is not null then case
+                                when discharge_activity.state = 'completed' then 'Discharged'
+                                else 'To be Discharged'
+                            end
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then 'Referral'
-                            when tci_activity.state is not null and tci_activity.state = 'cancelled' then 'dna'
-                            when tci_activity.state is not null and tci_activity.state = 'scheduled' and (extract(epoch from now() at time zone 'UTC' - tci_activity.date_scheduled) / 3600) >= 96 then 'to_dna'
-                            when tci_activity.state is not null and tci_activity.state = 'scheduled' then 'TCI'
+                            when tci_activity.state is not null case
+                                when tci_activity.state = 'cancelled' then 'dna'
+                                when tci_activity.state = 'scheduled' and (extract(epoch from now() at time zone 'UTC' - tci_activity.date_scheduled) / 3600) >= 96 then 'to_dna'
+                                when tci_activity.state = 'scheduled' then 'TCI'
+                            end
                             when clerking_activity.state = 'scheduled' then 'To be Clerked'
                             when clerking_activity.state = 'started' then 'Clerking in Process'
                             when ptwr_activity.state is not null and ptwr_activity.state != 'completed' and ptwr_activity.state != 'cancelled' then 'Consultant Review'
@@ -171,8 +175,10 @@ class nh_etake_list_overview(orm.Model):
                         case
                             when referral_activity.state is null and tci_activity.state is null then null
                             when spell_activity.state = 'cancelled' then null
-                            when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'discharged'
-                            when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'tbd'
+                            when discharge_activity.state is not null case
+                                when discharge_activity.state = 'completed' then 'discharged'
+                                when discharge_activity.state != 'completed' then 'tbd'
+                            end
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then 'referral'
                             when tci_activity.state is not null and tci_activity.state = 'scheduled' then 'tci'
                             when clerking_activity.state = 'scheduled' then 'tbc'
