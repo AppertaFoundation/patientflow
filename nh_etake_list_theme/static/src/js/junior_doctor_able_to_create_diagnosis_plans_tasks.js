@@ -21,6 +21,41 @@
                 element:   '.oe_topbar_name'
             },
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             {
                 title:     _t("Referral Board Loaded"),
                 element:   '.oe_menu_text:contains("Referral Board")'

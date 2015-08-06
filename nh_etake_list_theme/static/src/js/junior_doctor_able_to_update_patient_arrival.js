@@ -11,7 +11,7 @@
         id: 'junior_doctor_able_to_update_patient_arrival',
         name: _t("Reconcile the demo bank statement"),
         path: '/web?debug=',
-        //mode: 'test',
+        mode: 'test',
 
 
         steps: [

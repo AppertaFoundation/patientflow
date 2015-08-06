@@ -28,7 +28,7 @@
 
             {
                 title:     _t("Notify patient arrival (click on'Arrived'  button)"),
-                element:   'td.oe_kanban_column:nth-child(2) .oe_fold_column.oe_kanban_record:first() button'
+                waitFor:   'td.oe_kanban_column:nth-child(2) .oe_fold_column.oe_kanban_record:first() button'
             },
             //{
             //    title:     _t("patient arrival updated and patient is in To be clerked stage"),
