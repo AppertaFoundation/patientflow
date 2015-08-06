@@ -32,21 +32,6 @@ class nh_etake_list_overview(orm.Model):
                 drop view if exists %s;
                 create or replace view %s as (
                 with
-                    ews as(
-                            select
-                                activity.patient_id,
-                                activity.spell_id,
-                                activity.state,
-                                activity.date_scheduled,
-                                ews.id,
-                                ews.score,
-                                ews.frequency,
-                                ews.clinical_risk,
-                                activity.rank
-                            from wb_activity_ranked activity
-                            inner join nh_clinical_patient_observation_ews ews on activity.data_id = ews.id
-                                and activity.data_model = 'nh.clinical.patient.observation.ews'
-                    ),
                     dt as (
                         select
                             activity.id as id,
@@ -183,8 +168,8 @@ class nh_etake_list_overview(orm.Model):
                     left join nh_activity review_activity on review_activity.parent_id = spell_activity.id and review_activity.data_model = 'nh.clinical.patient.review'
                     left join nh_activity ptwr_activity on ptwr_activity.parent_id = spell_activity.id and ptwr_activity.data_model = 'nh.clinical.ptwr'
                     left join nh_clinical_location location on location.id = spell_activity.location_id
-                    left join ews ews1 on spell.id = ews1.spell_id and ews1.rank = 1 and ews1.state = 'completed'
-                    left join ews ews2 on spell.id = ews2.spell_id and ews2.rank = 2 and ews2.state = 'completed'
+                    left join ews1 on spell.id = ews1.spell_id
+                    left join ews2 on spell.id = ews2.spell_id
                     where referral_activity.id is not null or tci_activity.id is not null
                 )
         """ % (self._table, self._table))
