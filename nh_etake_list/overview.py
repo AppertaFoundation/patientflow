@@ -124,6 +124,9 @@ class nh_etake_list_overview(orm.Model):
     }
 
     def init(self, cr):
+        cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'nh_activity_data_model_ix\'')
+        if not cr.fetchone():
+            cr.execute('CREATE INDEX nh_activity_data_model_ix ON nh_activity (data_model)')
 
         cr.execute("""
                 drop view if exists %s;
@@ -137,6 +140,14 @@ class nh_etake_list_overview(orm.Model):
                         from nh_activity activity
                         inner join nh_clinical_doctor_task data on data.activity_id = activity.id and activity.data_model = 'nh.clinical.doctor.task'
                         where state != 'completed' and state != 'cancelled'
+                    ),
+                    spell_rank as (
+                        select
+                            activity.id,
+                            activity.patient_id,
+                            rank() over (partition by activity.id order by activity.sequence desc)
+                        from nh_activity activity
+                        inner join nh_clinical_spell spell on spell.activity_id = activity.id
                     )
                     select
                         case
@@ -152,13 +163,18 @@ class nh_etake_list_overview(orm.Model):
                         case
                             when referral_activity.state is null and tci_activity.state is null then 'Done'
                             when spell_activity.state = 'cancelled' then 'Done'
+                            when spell_activity.state = 'completed' and discharge_activity.state is null then 'Done'
                             when ptwr_activity.state is not null and ptwr_activity.state = 'completed' then 'admitted'
-                            when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'Discharged'
-                            when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'To be Discharged'
+                            when discharge_activity.state is not null then case
+                                when discharge_activity.state = 'completed' then 'Discharged'
+                                else 'To be Discharged'
+                            end
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then 'Referral'
-                            when tci_activity.state is not null and tci_activity.state = 'cancelled' then 'dna'
-                            when tci_activity.state is not null and tci_activity.state = 'scheduled' and (extract(epoch from now() at time zone 'UTC' - tci_activity.date_scheduled) / 3600) >= 96 then 'to_dna'
-                            when tci_activity.state is not null and tci_activity.state = 'scheduled' then 'TCI'
+                            when tci_activity.state is not null and tci_activity.state in ('cancelled','scheduled') then case
+                                when tci_activity.state = 'cancelled' then 'dna'
+                                when tci_activity.state = 'scheduled' and (extract(epoch from now() at time zone 'UTC' - tci_activity.date_scheduled) / 3600) >= 96 then 'to_dna'
+                                when tci_activity.state = 'scheduled' then 'TCI'
+                            end
                             when clerking_activity.state = 'scheduled' then 'To be Clerked'
                             when clerking_activity.state = 'started' then 'Clerking in Process'
                             when ptwr_activity.state is not null and ptwr_activity.state != 'completed' and ptwr_activity.state != 'cancelled' then 'Consultant Review'
@@ -168,8 +184,10 @@ class nh_etake_list_overview(orm.Model):
                         case
                             when referral_activity.state is null and tci_activity.state is null then null
                             when spell_activity.state = 'cancelled' then null
-                            when discharge_activity.state is not null and discharge_activity.state = 'completed' then 'discharged'
-                            when discharge_activity.state is not null and discharge_activity.state != 'completed' then 'tbd'
+                            when discharge_activity.state is not null then case
+                                when discharge_activity.state = 'completed' then 'discharged'
+                                else 'tbd'
+                            end
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then 'referral'
                             when tci_activity.state is not null and tci_activity.state = 'scheduled' then 'tci'
                             when clerking_activity.state = 'scheduled' then 'tbc'
@@ -241,8 +259,9 @@ class nh_etake_list_overview(orm.Model):
                         end as review_deadline
 
                     from nh_clinical_patient patient
-                    left join nh_clinical_spell spell on spell.patient_id = patient.id
-                    left join nh_activity spell_activity on spell_activity.id = spell.activity_id
+                    left join spell_rank s_rank on s_rank.patient_id = patient.id and s_rank.rank = 1
+                    left join nh_activity spell_activity on spell_activity.id = s_rank.id
+                    left join nh_clinical_spell spell on spell.activity_id = spell_activity.id
                     left join nh_activity referral_activity on referral_activity.patient_id = patient.id and referral_activity.data_model = 'nh.clinical.patient.referral'
                     left join nh_clinical_patient_referral referral on referral.activity_id = referral_activity.id
                     left join nh_clinical_patient_referral_form form on referral.form_id = form.id
@@ -535,12 +554,6 @@ class nh_etake_list_overview(orm.Model):
                 form_node.set('edit', '1')
             res['arch'] = etree.tostring(doc)
         return res
-
-
-
-
-
-
 
 
 class nh_clinical_patient_referral_form(orm.Model):
