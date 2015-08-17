@@ -186,7 +186,7 @@ class nh_etake_list_overview(orm.Model):
                             when spell_activity.state = 'cancelled' then null
                             when discharge_activity.state is not null then case
                                 when discharge_activity.state = 'completed' then 'discharged'
-                                else then 'tbd'
+                                else 'tbd'
                             end
                             when referral_activity.state is not null and referral_activity.state != 'completed' and referral_activity.state != 'cancelled' then 'referral'
                             when tci_activity.state is not null and tci_activity.state = 'scheduled' then 'tci'
