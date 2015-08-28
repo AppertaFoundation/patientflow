@@ -8,96 +8,98 @@
             </xpath>
         </template>
 
-        <menuitem name="eTake List" id="menu_nh_etake_list_top_root" groups="nh_clinical.group_nhc_base,base.user_root"/>
+        <menuitem name="Patient Flow" sequence="12" id="menu_pflow_top_root"
+                  groups="nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_receptionist,nh_clinical.group_nhc_dev,base.user_root"/>
+
         <menuitem name="Patient Management"
                   sequence="0"
                   id="menu_nh_take_list_left_patient"
-                  parent="menu_nh_etake_list_top_root"
-                  groups="nh_clinical.group_nhc_kiosk,nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_bed_manager,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_receptionist,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  parent="menu_pflow_top_root"
+                  groups="nh_clinical.group_nhc_kiosk,nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_receptionist,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Referral Board"
                   id="menu_nh_etake_list_left_referral_board"
                   sequence="0"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_overview_kanban"
-                  groups="nh_clinical.group_nhc_receptionist,nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_bed_manager,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_receptionist,nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Referral Forms"
                   id="menu_nh_etake_list_left_referral_forms"
                   sequence="1"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_referral_forms"
-                  groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Rejected Referrals"
                   id="menu_nh_etake_list_left_rejected_referrals"
                   sequence="2"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_rejected_referrals"
-                  groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_patient_flow.group_nhpf_referral_team,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Patient Referrals"
                   id="menu_nh_etake_list_left_referrals"
                   sequence="3"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_referrals"
-                  groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Patients to Come In"
                   id="menu_nh_etake_list_left_tci"
                   sequence="4"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_tci"
-                  groups="nh_clinical.group_nhc_receptionist,nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_receptionist,nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Patients to be Clerked"
                   id="menu_nh_etake_list_left_tbc"
                   sequence="5"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_tbc"
-                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Clerkings in Progress"
                   id="menu_nh_etake_list_left_clerking"
                   sequence="6"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_clerkings"
-                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Senior Reviews"
                   id="menu_nh_etake_list_left_senior_review"
                   sequence="7"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_senior_reviews"
-                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Consultant Reviews"
                   id="menu_nh_etake_list_left_consultant_review"
                   sequence="8"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_consultant_reviews"
-                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Patients to be Discharged"
                   id="menu_nh_etake_list_left_tbd"
                   sequence="9"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_tbd"
-                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Recently Admitted Patients"
                   id="menu_nh_etake_list_left_admitted"
                   sequence="10"
                   parent="menu_nh_take_list_left_patient"
                   action="action_show_admitted"
-                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_dev,base.user_root"/>
 
         <menuitem name="Print Take List"
                   id="menu_nh_etake_list_left_report"
                   sequence="11"
                   parent="menu_nh_take_list_left_patient"
                   action="action_nh_etake_list_print_paper_take_list_wizard"
-                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_admin,nh_clinical.group_nhc_dev,base.user_root"/>
+                  groups="nh_clinical.group_nhc_kiosk,nh_clinical.group_nhc_consultant,nh_clinical.group_nhc_registrar,nh_clinical.group_nhc_junior_doctor,nh_clinical.group_nhc_dev,base.user_root"/>
 
     </data>
 </openerp>
