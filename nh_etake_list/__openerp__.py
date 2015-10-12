@@ -16,7 +16,6 @@
              'views/overview_view.xml',
              'views/transfer_view.xml',
              'views/referral_form_view.xml',
-             'views/userboard_view.xml',
              'wizard/doctor_task_wizard_view.xml',
              'wizard/accept_referral_wizard_view.xml',
              'wizard/print_report_wizard_view.xml',
